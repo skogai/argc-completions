@@ -275,6 +275,7 @@
 - [git-open](https://github.com/paulirish/git-open): Open the repo website (GitHub, GitLab, Bitbucket) in your browser. [completion](completions/git/open.sh)
 - [git-quick-stats](https://github.com/arzzen/git-quick-stats): a simple and efficient way to access various statistics in a git repository. [completion](completions/git/quick-stats.sh)
 - [git-sizer](https://github.com/github/git-sizer): Compute various size metrics for a Git repository, flagging those that might cause problems. [completion](completions/git/sizer.sh)
+- [gita](https://github.com/nosarthur/gita): Manage multiple git repos side by side for sanity [src](src/gita.sh) [completion](completions/gita.sh)
 - [gitleaks](https://github.com/gitleaks/gitleaks): Audit git repos for secrets [src](src/gitleaks.sh) [completion](completions/gitleaks.sh)
 - [glab](https://gitlab.com/gitlab-org/cli): bringing GitLab to your command line [src](src/glab.sh) [completion](completions/glab.sh)
 - [glances](https://github.com/nicolargo/glances): Alternative to top/htop. [completion](completions/glances.sh)
