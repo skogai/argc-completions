@@ -3,6 +3,7 @@
 
 # @option -d --delay <secs>                   delay updates
 # @flag -o --once                             only display once, then exit
+# @flag --human                               show human-readable output
 # @option -s --sort[`_choice_sort`] <char>    specify sort criteria by character (see below)
 # @flag -h --help                             display this help and exit
 # @flag -V --version                          output version information and exit

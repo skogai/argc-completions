@@ -9,6 +9,7 @@
 # @flag -U --disable-deterministic-archives    Disable -D behavior
 # @option -R --remove-section <name>           Also remove section <name> from the output
 # @option --remove-relocations <name>          Remove relocations from section <name>
+# @flag --strip-section-headers                Strip section headers from the output
 # @flag -s --strip-all                         Remove all symbol and relocation information
 # @flag -g                                     Remove all debugging symbols & sections
 # @flag -S                                     Remove all debugging symbols & sections
@@ -32,6 +33,7 @@
 # @flag -h --help                              Display this output
 # @flag --info                                 List object formats & architectures supported
 # @option -o <file>                            Place stripped output into <file>
+# @option --plugin <NAME>                      Load the specified plugin
 # @arg in-file*
 
 _choice_target() {

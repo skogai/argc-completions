@@ -13,8 +13,8 @@
 # @flag -o                                     An alias for --radix=o
 # @option -T --target <BFDNAME>                Specify the binary file format
 # @option -e --encoding[`_choice_encoding`]    Select character size and endianness: s = 7-bit, S = 8-bit, {b,l} = 16-bit, {B,L} = 32-bit
-# @option --unicode[default|show|invalid|hex|escape|highlight]
-# @option -U[d|s|i|x|e|h]                      Specify how to treat UTF-8 encoded unicode characters
+# @option --unicode[default|locale|invalid|hex|escape|highlight]
+# @option -U[d|l|i|x|e|h]                      Specify how to treat UTF-8 encoded unicode characters
 # @option -s --output-separator <string>       String used to separate strings in output.
 # @flag -h --help                              Display this information
 # @flag -v                                     Print the program's version number

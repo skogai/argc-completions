@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --help       display this help and exit
-# @flag --version    output version information and exit
 # @arg command[`_module_os_command`]
 # @arg args~[`_module_os_command_args`]
 

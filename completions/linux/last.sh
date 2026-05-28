@@ -7,13 +7,14 @@
 # @flag -F --fulltimes           print full login and logout times and dates
 # @flag -i --ip                  display IP numbers in numbers-and-dots notation
 # @option -n --limit <number>    how many lines to show
+# @option -p --present <time>    display who were present at the specified time
 # @flag -R --nohostname          don't display the hostname field
 # @option -s --since <time>      display the lines since the specified time
 # @option -t --until <time>      display the lines until the specified time
-# @option -p --present <time>    display who were present at the specified time
+# @flag -T --tab-separated       use tabs as delimiters
+# @option --time-format[notime|short|full|iso] <format>  show timestamps in the specified <format>: notime|short|full|iso
 # @flag -w --fullnames           display full user and domain names
 # @flag -x --system              display system shutdown entries and run level changes
-# @option --time-format[notime|short|full|iso] <format>  show timestamps in the specified <format>: notime|short|full|iso
 # @flag -h --help                display this help
 # @flag -V --version             display version
 # @arg user-or-tty*[`_choice_value`]

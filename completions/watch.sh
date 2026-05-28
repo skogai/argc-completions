@@ -3,11 +3,16 @@
 
 # @flag -b --beep                         beep if command has a non-zero exit
 # @flag -c --color                        interpret ANSI color and style sequences
+# @flag -C --no-color                     do not interpret ANSI color and style sequences
 # @option -d --differences <permanent>    highlight changes between updates
 # @flag -e --errexit                      exit if command has a non-zero exit
+# @flag -f --follow                       Follow the output and don't clear screen
 # @flag -g --chgexit                      exit when output from command changes
+# @option -q --equexit <cycles>           exit when output from command does not change
 # @option -n --interval <secs>            seconds to wait between updates
-# @flag -p --precise                      attempt run command in precise intervals
+# @flag -p --precise                      -n includes command running time
+# @flag -r --no-rerun                     do not rerun program on window resize
+# @flag -s --shotsdir                     directory to store screenshots
 # @flag -t --no-title                     turn off header
 # @flag -w --no-wrap                      turn off line wrapping
 # @flag -x --exec                         pass command to exec instead of "sh -c"

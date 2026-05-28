@@ -9,5 +9,6 @@
 # @flag -k               Don't halt/power-off/reboot, just send warnings
 # @flag --no-wall        Don't send wall message before halt/power-off/reboot
 # @flag -c               Cancel a pending shutdown
+# @flag --show           Show pending shutdown
 
 command eval "$(argc --argc-eval "$0" "$@")"

@@ -25,6 +25,8 @@
 # @flag -V             retain VMS version numbers
 # @flag -K             keep setuid/setgid/tacky permissions
 # @flag -M             pipe through "more" pager
+# @flag -O             CHARSET  specify a character encoding for DOS, Windows and OS/2 archives
+# @flag -I             CHARSET  specify a character encoding for UNIX and other archives
 # @arg file
 # @arg contents*[`_choice_content`]
 

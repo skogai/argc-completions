@@ -8,7 +8,7 @@
 # @flag -E                                    ignore PYTHON* environment variables (such as PYTHONPATH)
 # @flag -h                                    print this help message and exit (also -? or --help)
 # @flag -i                                    inspect interactively after running script; forces a prompt even if stdin does not appear to be a terminal; also PYTHONINSPECT=x
-# @flag -I                                    isolate Python from the user's environment (implies -E and -s)
+# @flag -I                                    isolate Python from the user's environment (implies -E, -P and -s)
 # @option -m[`_choice_model_cached`] <mod>    run library module as a script (terminates option list)
 # @flag -O                                    remove assert and __debug__-dependent statements; add .opt-1 before .pyc extension; also PYTHONOPTIMIZE=x
 # @flag -OO                                   do -O changes and also discard docstrings; add .opt-2 before .pyc extension

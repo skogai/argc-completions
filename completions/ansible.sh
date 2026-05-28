@@ -5,6 +5,7 @@
 # @option --become-pass-file <BECOME_PASSWORD_FILE>  Become password file
 # @option --connection-password-file <CONNECTION_PASSWORD_FILE>  Connection password file
 # @option --conn-pass-file <CONNECTION_PASSWORD_FILE>  Connection password file
+# @flag --flush-cache                            clear the fact cache for every host in inventory
 # @flag --list-hosts                             outputs a list of matching hosts; does not execute anything else
 # @option --playbook-dir <BASEDIR>               Since this tool does not use playbooks, use this as a substitute playbook directory.
 # @option --task-timeout <TASK_TIMEOUT>          set task timeout limit in seconds, must be positive integer.

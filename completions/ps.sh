@@ -16,6 +16,7 @@
 # @option -t --tty*,[`_module_os_tty`] <tty>      terminal
 # @option -u --user*,[`_module_os_user`] <UID>    effective user id or name
 # @option -U --User <UID>                         real user id or name
+# @option -D <format>                             date format for lstart
 # @flag -F                                        extra full
 # @flag -f                                        full-format, including command lines
 # @flag -H                                        show process hierarchy
@@ -24,7 +25,9 @@
 # @flag -M                                        add security data (for SELinux)
 # @option -O <format>                             preloaded with default columns
 # @option -o --format*,[`_choice_column`] <format>  user-defined format
+# @flag -P                                        add psr column
 # @flag --context                                 display security context (for SELinux)
+# @option --delimiter <d>                         Use <d> as a column delimiter instead of variable space
 # @flag --headers                                 repeat header lines, one per page
 # @flag --no-headers                              do not print header at all
 # @option --cols <num>                            set screen width
@@ -32,6 +35,7 @@
 # @option --width <num>                           set screen width
 # @option --rows <num>                            set screen height
 # @option --lines <num>                           set screen height
+# @flag --signames                                display signal masks using signal names
 # @flag -L                                        possibly with LWP and NLWP columns
 # @option -m <m>                                  after processes
 # @flag -T                                        possibly with SPID column

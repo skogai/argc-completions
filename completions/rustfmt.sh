@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --check                         Run in 'check' mode.
-# @option --emit <files|stdout>         What data to emit and how
-# @flag --backup                        Backup any modified files.
+# @flag --check                                   Run in 'check' mode.
+# @option --emit <files|stdout>                   What data to emit and how
+# @flag --backup                                  Backup any modified files.
 # @option --config-path <Path for the configuration file>  Recursively searches the given path for the rustfmt.toml config file.
-# @option --edition[2015|2018|2021]     Rust edition to use
-# @option --color[always|never|auto]    Use colored output (if supported)
-# @option --print-config <default|minimal|current> <PATH>  Dumps a default or minimal config to PATH.
-# @flag -l --files-with-diff            Prints the names of mismatched files that were formatted.
+# @option --edition[2015|2018|2021|2024]          Rust edition to use
+# @option --style-edition[2015|2018|2021|2024]    The edition of the Style Guide (unstable).
+# @option --color[always|never|auto]              Use colored output (if supported)
+# @option --print-config[default|minimal|current]  PATH Dumps a default or minimal config to PATH.
+# @flag -l --files-with-diff                      Prints the names of mismatched files that were formatted.
 # @option --config*,[`_choice_config`] <key1=val1,key2=val2>  Set options from command line.
-# @flag -v --verbose                    Print verbose output
-# @flag -q --quiet                      Print less output
-# @flag -V --version                    Show version information
-# @option -h --help <TOPIC>             Show this message or help about a specific topic: `config`
+# @option --style-edition[2015|2018|2021|2024]    The edition of the Style Guide.
+# @flag -v --verbose                              Print verbose output
+# @flag -q --quiet                                Print less output
+# @flag -V --version                              Show version information
+# @option -h --help <TOPIC>                       Show this message or help about a specific topic: `config`
 # @arg file+
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

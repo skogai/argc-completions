@@ -4,18 +4,27 @@
 # @meta combine-shorts
 # @flag -a --all                                   mount all filesystems mentioned in fstab
 # @flag -c --no-canonicalize                       don't canonicalize paths
+# @flag --beneath                                  attach the filesystem beneath the top mount
+# @flag --exclusive                                allow only one filesystem instance
 # @flag -f --fake                                  dry run; skip the mount(2) syscall
 # @flag -F --fork                                  fork off for each device (use with -a)
 # @option -T --fstab <path>                        alternative file to /etc/fstab
 # @flag -i --internal-only                         don't call the mount.<type> helpers
 # @flag -l --show-labels                           show also filesystem labels
+# @option --map-groups <<inner>:<outer>:<count>>   add the specified GID map to an ID-mapped mount
+# @option --map-users <<inner>:<outer>:<count>>    add the specified UID map to an ID-mapped mount
+# @option --map-users </proc/<pid>/ns/user>        specify the user namespace for an ID-mapped mount
+# @option -m --mkdir <mode>                        alias to '-o X-mount.mkdir[=<mode>]'
 # @flag -n --no-mtab                               don't write to /etc/mtab
 # @option --options-mode[ignore|append|prepend|replace] <mode>  what to do with options loaded from fstab
 # @option --options-source[fstab|mtab|disable] <source>  mount options source
 # @flag --options-source-force                     force use of options from fstab/mtab
+# @flag --onlyonce                                 check if filesystem is already mounted on target
 # @option -o --options*,[`_choice_options`] <list>  comma-separated list of mount options
 # @option -O --test-opts <list>                    limit the set of filesystems (use with -a)
-# @flag -r --read-only                             mount the filesystem read-only (same as -o ro)
+# @flag -r                                         mount the filesystem read-only (same as -o ro)
+# @flag --ro                                       mount the filesystem read-only (same as -o ro)
+# @flag --read-only                                mount the filesystem read-only (same as -o ro)
 # @option -t --types*,[`_choice_fstype`] <list>    limit the set of filesystem types
 # @option --source[`_choice_source`] <src>         explicitly specifies source
 # @option --target <path>                          explicitly specifies mountpoint

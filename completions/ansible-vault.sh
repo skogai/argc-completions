@@ -25,7 +25,7 @@ create() {
 # }} ansible-vault create
 
 # {{ ansible-vault decrypt
-# @cmd Decrypt vault encrypted file
+# @cmd Decrypt vault encrypted file or string
 # @flag -h --help                   show this help message and exit
 # @option --output <OUTPUT_FILE>    output file name for encrypt or decrypt; use - for stdout
 # @option --vault-id <VAULT_IDS>    the vault identity to use.

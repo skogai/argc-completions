@@ -15,7 +15,9 @@
 # @flag -h --human            show human-readable output
 # @flag --si                  use powers of 1000 not 1024
 # @flag -l --lohi             show detailed low and high memory statistics
+# @flag -L --line             show output on a single line
 # @flag -t --total            show total for RAM + swap
+# @flag -v --committed        show committed memory and commit limit
 # @option -s --seconds <N>    repeat printing every N seconds
 # @option -c --count <N>      repeat printing N times, then exit
 # @flag -w --wide             wide output

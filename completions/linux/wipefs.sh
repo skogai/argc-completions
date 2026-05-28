@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -a --all                                  wipe all magic strings (BE CAREFUL!)
-# @flag -b --backup                               create a signature backup in $HOME
+# @option -b --backup <dir>                       create a signature backup in <dir> or $HOME
 # @flag -f --force                                force erasure
 # @flag -i --noheadings                           don't print headings
 # @flag -J --json                                 use JSON output format

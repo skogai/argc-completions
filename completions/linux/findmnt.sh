@@ -2,46 +2,54 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta combine-shorts
-# @flag -s --fstab                                 search in static table of filesystems
+# @option -F --tab-file <path>                     alternative file for -s, -m or -k options
 # @flag -m --mtab                                  search in table of mounted filesystems (includes user space mount options)
-# @flag -k --kernel                                search in kernel table of mounted filesystems (default)
+# @flag -k                                         an alias for '--kernel=mountinfo'
+# @option --kernel <method>                        search in kernel mount table (default behavior); <method> is mountinfo or listmount
+# @option -N --task[`_module_os_pid`] <tid>        use alternative namespace (/proc/<tid>/mountinfo file)
 # @option -p --poll <list>                         monitor changes in table of mounted filesystems
-# @option -w --timeout <num>                       upper limit in milliseconds that --poll will block
+# @flag -s --fstab                                 search in static table of filesystems
 # @flag -A --all                                   disable all built-in filters, print all filesystems
+# @option -d --direction <word>                    direction of search, 'forward' or 'backward'
+# @flag -f --first-only                            print the first found filesystem only
+# @flag -i --invert                                invert the sense of matching
+# @option --id <num>                               filter by mount node ID
+# @option --uniq-id <num>                          filter by mount node 64-bit ID (requires --kernel=listmount)
+# @flag --pseudo                                   print only pseudo-filesystems
+# @option -Q --filter <expr>                       apply display filter
+# @option -M --mountpoint[`_choice_mountpoint`] <dir>  the mountpoint directory
+# @flag --shadowed                                 print only filesystems over-mounted by another filesystem
+# @flag -R --submounts                             print all submounts for the matching filesystems
+# @flag --real                                     print only real filesystems
+# @option -S --source[`_choice_source`] <string>   the device to mount (by name, maj:min, LABEL=, UUID=, PARTUUID=, PARTLABEL=)
+# @option -T --target <path>                       the path to the filesystem to use
+# @option -t --types <list>                        limit the set of filesystems by FS types
+# @flag -U --uniq                                  ignore filesystems with duplicate target
 # @flag -a --ascii                                 use ASCII chars for tree formatting
 # @flag -b --bytes                                 print sizes in bytes rather than in human readable format
 # @flag -C --nocanonicalize                        don't canonicalize when comparing paths
 # @flag -c --canonicalize                          canonicalize printed paths
 # @flag -D --df                                    imitate the output of df(1)
-# @option -d --direction <word>                    direction of search, 'forward' or 'backward'
 # @option -e --evaluate[LABEL|UUID|PARTUUID|PARTLABEL]  convert tags to device names
-# @option -F --tab-file <path>                     alternative file for -s, -m or -k options
-# @flag -f --first-only                            print the first found filesystem only
-# @flag -i --invert                                invert the sense of matching
+# @option --hyperlink <when>                       print paths as hyperlinks (always|never|auto)
+# @flag -I --dfi                                   imitate the output of df(1) with -i option
 # @flag -J --json                                  use JSON output format
 # @flag -l --list                                  use list format output
-# @option -N --task[`_module_os_pid`] <tid>        use alternative namespace (/proc/<tid>/mountinfo file)
 # @flag -n --noheadings                            don't print column headings
 # @option -O --options <list>                      limit the set of filesystems by mount options
-# @option -o --output*[`_choice_column`] <list>    the output columns to be shown
+# @option -o --output*[`_choice_column`] <list>    output columns (see --list-columns)
 # @flag --output-all                               output all available columns
 # @flag -P --pairs                                 use key="value" output format
-# @flag --pseudo                                   print only pseudo-filesystems
-# @flag --shadowed                                 print only filesystems over-mounted by another filesystem
-# @flag -R --submounts                             print all submounts for the matching filesystems
 # @flag -r --raw                                   use raw output format
-# @flag --real                                     print only real filesystems
-# @option -S --source[`_choice_source`] <string>   the device to mount (by name, maj:min, LABEL=, UUID=, PARTUUID=, PARTLABEL=)
-# @option -T --target <path>                       the path to the filesystem to use
 # @flag --tree                                     enable tree format output if possible
-# @option -M --mountpoint[`_choice_mountpoint`] <dir> <the> <mountpoint> <directory>
-# @option -t --types <list>                        limit the set of filesystems by FS types
-# @flag -U --uniq                                  ignore filesystems with duplicate target
 # @flag -u --notruncate                            don't truncate text in columns
 # @flag -v --nofsroot                              don't print [/dir] for bind or btrfs mounts
+# @option -w --timeout <num>                       upper limit in milliseconds that --poll will block
+# @flag -y --shell                                 use column names to be usable as shell variable identifiers
 # @flag -x --verify                                verify mount table content (default is fstab)
 # @flag --verbose                                  print more details
 # @flag --vfs-all                                  print all VFS options
+# @flag -H --list-columns                          list the available columns
 # @flag -h --help                                  display this help
 # @flag -V --version                               display version
 # @arg device-mountpoint[`_choice_device_mountpoint`]

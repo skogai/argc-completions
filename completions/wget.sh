@@ -108,7 +108,6 @@
 # @option --ca-directory <DIR>               directory where hash list of CAs is stored
 # @option --crl-file <FILE>                  file with bundle of CRLs
 # @option --pinnedpubkey <FILE/HASHES>       Public key (PEM/DER) file, or any number of base64 encoded sha256 hashes preceded by 'sha256//' and separated by ';', to verify peer against
-# @option --random-file <FILE>               file with random data for seeding the SSL PRNG
 # @option --ciphers <STR>                    Set the priority string (GnuTLS) or cipher list string (OpenSSL) directly.
 # @flag --no-hsts                            disable HSTS
 # @flag --hsts-file                          path of HSTS database (will override default)

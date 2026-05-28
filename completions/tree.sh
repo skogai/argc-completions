@@ -12,7 +12,7 @@
 # @option -P <pattern>      List only those files that match the pattern given.
 # @option -I <pattern>      Do not list files that match the given pattern.
 # @flag --gitignore         Filter by using .gitignore files.
-# @option --gitfile <X>     Explicitly read gitignore file.
+# @option --gitfile <X>     Explicitly read a gitignore file.
 # @flag --ignore-case       Ignore case when pattern matching.
 # @flag --matchdirs         Include directory names in -P pattern matching.
 # @flag --metafirst         Print meta-data at the beginning of each line.
@@ -22,6 +22,7 @@
 # @flag --noreport          Turn off file/directory count at end of tree listing.
 # @option --charset <X>     Use charset X for terminal/HTML and indentation line output.
 # @option --filelimitDo not descend dirs with more than ♯ files in them.
+# @flag --condense          Condense directory singletons to a single line of output.
 # @option -o <filename>     Output to file instead of stdout.
 # @flag -q                  Print non-printable characters as '?'.
 # @flag -N                  Print non-printable characters as is.
@@ -34,10 +35,12 @@
 # @flag --si                Like -h, but use in SI units (powers of 1000).
 # @flag --du                Compute size of directories by their contents.
 # @flag -D                  Print the date of last modification or (-c) status change.
-# @option --timefmt <f>     Print and format time according to the format <f>.
+# @flag --timefmt           fmt Print and format time according to the format fmt.
 # @flag -F                  Appends '/', '=', '*', '@', '|' or '>' as per ls -F.
 # @flag --inodes            Print inode number of each file.
 # @flag --device            Print device ID number to which each file belongs.
+# @flag --acl               Print permissions with a + if an ACL is present.
+# @flag --selinux           Print the selinux security label if present.
 # @flag -v                  Sort files alphanumerically by version.
 # @flag -t                  Sort files by last modification time.
 # @flag -c                  Sort files by last status change time.
@@ -45,12 +48,13 @@
 # @flag -r                  Reverse the order of the sort.
 # @flag --dirsfirst         List directories before files (-U disables).
 # @flag --filesfirst        List files before directories (-U disables).
-# @option --sort[name|version|size|mtime|ctime] <X>  Select sort: name,version,size,mtime,ctime.
+# @option --sort[name|version|size|mtime|ctime] <X>  Select sort: name,version,size,mtime,ctime,none.
 # @flag -i                  Don't print indentation lines.
 # @flag -A                  Print ANSI lines graphic indentation lines.
 # @flag -S                  Print with CP437 (console) graphics indentation lines.
 # @flag -n                  Turn colorization off always (-C overrides).
 # @flag -C                  Turn colorization on always.
+# @option --compressCompress indentation lines.
 # @flag -X                  Prints out an XML representation of the tree.
 # @flag -J                  Prints out an JSON representation of the tree.
 # @option -H <baseHREF>     Prints out HTML format with baseHREF as top directory.
@@ -58,9 +62,13 @@
 # @flag --nolinks           Turn off hyperlinks in HTML output.
 # @option --hintro <X>      Use file X as the HTML intro.
 # @option --houtro <X>      Use file X as the HTML outro.
+# @flag --hyperlink         Turn on OSC 8 terminal hyperlinks.
+# @option --scheme <X>      Set OSC 8 hyperlink scheme, default file://
+# @flag --authority         X Set OSC 8 hyperlink authority/hostname.
 # @flag --fromfile          Reads paths from files (.=stdin)
 # @flag --fromtabfile       Reads trees from tab indented files (.=stdin)
 # @flag --fflinks           Process link information when using --fromfile.
+# @flag --opt-toggle        Enable option toggling.
 # @flag --version           Print version and exit.
 # @flag --help              Print usage and this help message and exit.
 # @arg dirs*

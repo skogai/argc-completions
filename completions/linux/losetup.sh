@@ -8,14 +8,15 @@
 # @option -c --set-capacity <loopdev>     resize the device
 # @option -j --associated <file>          list all devices associated with <file>
 # @flag -L --nooverlap                    avoid possible conflict between devices
+# @option --remove* <loopdev>             remove one or more devices
 # @option -o --offset <num>               start at offset <num> into file
 # @option --sizelimit <num>               device is limited to <num> bytes of the file
 # @option -b --sector-size <num>          set the logical sector size to <num>
 # @flag -P --partscan                     create a partitioned loop device
 # @flag -r --read-only                    set up a read-only loop device
 # @option --direct-io[on|off] <on|off>    open backing file with O_DIRECT
+# @option --loop-ref <string>             loop device reference
 # @flag --show                            print device name after setup (with -f)
-# @flag -v --verbose                      verbose mode
 # @flag -J --json                         use JSON --list output format
 # @flag -l --list                         list info about all or specified (default)
 # @flag -n --noheadings                   don't print headings for --list output

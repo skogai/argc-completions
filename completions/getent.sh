@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag -A --no-addrconfig         do not filter out unsupported IPv4/IPv6 addresses (with ahosts*)
 # @flag -i --no-idn                disable IDN encoding
 # @option -s --service <CONFIG>    Service configuration to be used
 # @flag -? --help                  Give this help list

@@ -9,7 +9,7 @@
 # @option -f --file <script-file>     add the contents of script-file to the commands to be executed
 # @flag --follow-symlinks             follow symlinks when processing in place
 # @option -i --in-place <SUFFIX>      edit files in place (makes backup if SUFFIX supplied)
-# @option -l --line-length <N>        specify the desired line-wrap length for the `l' command
+# @option -l --line-length <N>        specify the desired line-wrap length for the 'l' command
 # @flag --posix                       disable all GNU extensions.
 # @flag -E                            use extended regular expressions in the script (for portability use POSIX -E).
 # @flag -r                            use extended regular expressions in the script (for portability use POSIX -E).

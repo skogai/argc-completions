@@ -11,6 +11,7 @@
 # @flag -s --clearstrings                         clear kernel string table.
 # @flag -u --unicode                              force conversion to Unicode.
 # @flag -q --quiet                                suppress all normal output.
+# @option -t --tkeymap <SHAPE>                    output a text keymap to stdout.
 # @flag -v --verbose                              be more verbose.
 # @flag -V --version                              print version number.
 # @flag -h --help                                 print this usage message.

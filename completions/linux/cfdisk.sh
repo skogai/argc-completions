@@ -5,6 +5,7 @@
 # @flag -z --zero                                 start with zeroed partition table
 # @option --lock[yes|no|nonblock] <mode>          use exclusive device lock (yes, no or nonblock)
 # @flag -r --read-only                            forced open cfdisk in read-only mode
+# @option -b --sector-size <size>                 physical and logical sector size
 # @flag -h --help                                 display this help
 # @flag -V --version                              display version
 # @arg disk![`_choice_disk`]

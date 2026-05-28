@@ -4,18 +4,21 @@
 # @option -d --delimiter <string>                 specify output delimiter
 # @flag -l --list-name                            list PID and process name
 # @flag -a --list-full                            list PID and full command line
+# @flag --quiet                                   suppress all normal output
 # @flag -v --inverse                              negates the matching
 # @flag -w --lightweight                          list all TID
 # @flag -c --count                                count of matching processes
-# @flag -f --full                                 use full process name to match
+# @flag -f --full                                 use full command line to match
 # @option -g --pgroup* <PGID,>                    match listed process group IDs
 # @option -G --group*,[`_module_os_group`] <GID,>  match real group IDs
 # @flag -i --ignore-case                          match case insensitively
 # @flag -n --newest                               select most recently started
 # @flag -o --oldest                               select least recently started
 # @option -O --older <seconds>                    select where older than seconds
+# @option -p --pid* <PID,>                        match process PIDs
 # @option -P --parent*,[`_module_os_pid`] <PPID,>  match only child processes of the given parent
 # @option -s --session*,[`_module_os_sid`] <SID,>  match session IDs
+# @option --signal <sig>                          signal to send (either number or name)
 # @option -t --terminal*,[`_module_os_tty`] <tty,>  match by controlling terminal
 # @option -u --euid*,[`_module_os_user`] <ID,>    match by effective IDs
 # @option -U --uid*,[`_module_os_user`] <ID,>     match by real IDs
@@ -23,8 +26,12 @@
 # @option -F --pidfile <file>                     read PIDs from file
 # @flag -L --logpidfile                           fail if PID file is not locked
 # @option -r --runstates*,[`_choice_runstate`] <state>  match runstates [D,S,Z,...]
+# @flag -A --ignore-ancestors                     exclude our ancestors from results
+# @flag -Q --shell-quote                          output the command line in shell-quoted form
+# @option --cgroup* <grp,>                        match by cgroup v2 names
 # @option --ns*,[`_module_os_pid`] <PID>          match the processes that belong to the same namespace as <pid>
 # @option --nslist*,[`_choice_nslist`] <ns,>      list which namespaces will be considered for the --ns option.
+# @option --env* <name=val,>                      match on environment variable
 # @flag -h --help                                 display this help and exit
 # @flag -V --version                              output version information and exit
 # @arg pattern[`_module_os_process`]

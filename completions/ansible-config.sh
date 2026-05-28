@@ -4,7 +4,7 @@
 # @flag --version       show program's version number, config file location, configured module search path, module location, executable location and exit
 # @flag -h --help       show this help message and exit
 # @flag -v --verbose    Causes Ansible to print more debug messages.
-# @arg list-dump-view-init* <list,dump,view,init>
+# @arg list-dump-view-init-validate* <list,dump,view,init,validate>
 
 # {{ ansible-config list
 # @cmd Print all config options
@@ -59,6 +59,19 @@ init() {
     :;
 }
 # }} ansible-config init
+
+# {{ ansible-config validate
+# @cmd Validate the configuration file and environment variables.
+# @flag -h --help                      show this help message and exit
+# @flag -v --verbose                   Causes Ansible to print more debug messages.
+# @option -c --config <CONFIG_FILE>    path to configuration file, defaults to first file found in precedence.
+# @option -t --type[all|base|become|cache|callback|cliconf|connection|httpapi|inventory|lookup|netconf|shell|vars]  Filter down to a specific plugin type.
+# @option -f --format[ini|env]         Output format for init
+# @arg args*[`_choice_plugin`]         Specific plugin to target, requires type of plugin to be set
+validate() {
+    :;
+}
+# }} ansible-config validate
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

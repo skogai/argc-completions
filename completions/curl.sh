@@ -12,13 +12,13 @@
 # @option --capath <dir>                           CA directory to verify peer against
 # @option -E --cert <certificate[:password]>       Client certificate file and password
 # @flag --cert-status                              Verify server cert status OCSP-staple
-# @option --cert-type[DER|PEM|ENG] <type>          Certificate type (DER/PEM/ENG/P12)
-# @option --ciphers <list of ciphers>              SSL ciphers to use
+# @option --cert-type[DER|PEM|ENG] <type>          Certificate type (DER/PEM/ENG/PROV/P12)
+# @option --ciphers <list>                         TLS 1.2 (1.1, 1.0) ciphers to use
 # @flag --compressed                               Request compressed response
 # @flag --compressed-ssh                           Enable SSH compression
 # @option -K --config <file>                       Read config from a file
 # @option --connect-timeout <seconds>              Maximum time allowed to connect
-# @option --connect-to <HOST1:PORT1:HOST2:PORT2>   Connect to host
+# @option --connect-to <HOST1:PORT1:HOST2:PORT2>   Connect to host2 instead of host1
 # @option -C --continue-at <offset>                Resumed transfer offset
 # @option -b --cookie <data|filename>              Send cookies from string/load from file
 # @option -c --cookie-jar <filename>               Save cookies to <filename> after operation
@@ -45,8 +45,9 @@
 # @flag --doh-cert-status                          Verify DoH server cert status OCSP-staple
 # @flag --doh-insecure                             Allow insecure DoH server connections
 # @option --doh-url <URL>                          Resolve hostnames over DoH
+# @flag --dump-ca-embed                            Write the embedded CA bundle to standard output
 # @option -D --dump-header <filename>              Write the received headers to <filename>
-# @option --ech <config>                           Configure Encrypted Client Hello (ECH) for use with the TLS session
+# @option --ech <config>                           Configure ECH
 # @option --egd-file <file>                        EGD socket path for random data
 # @option --engine[`_choice_engine`] <name>        Crypto engine to use
 # @option --etag-compare <file>                    Load ETag from file
@@ -56,6 +57,7 @@
 # @flag --fail-early                               Fail on first transfer error
 # @flag --fail-with-body                           Fail on HTTP errors but save the body
 # @flag --false-start                              Enable TLS False Start
+# @flag --follow                                   Follow redirects per spec
 # @option -F --form <name=content>                 Specify multipart MIME data
 # @flag --form-escape                              Escape form fields using backslash
 # @option --form-string <name=string>              Specify multipart MIME data
@@ -77,36 +79,38 @@
 # @flag --haproxy-protocol                         Send HAProxy PROXY protocol v1 header
 # @flag -I --head                                  Show document info only
 # @option -H --header[`_module_http_header`] <header/@file>  Pass custom header(s) to server
-# @option -h --help <category>                     Get help for commands
+# @option -h --help <subject>                      Get help for commands
 # @option --hostpubmd5 <md5>                       Acceptable MD5 hash of host public key
 # @option --hostpubsha256 <sha256>                 Acceptable SHA256 hash of host public key
 # @option --hsts <filename>                        Enable HSTS with this cache file
-# @flag --http0.9                                  Allow HTTP 0.9 responses
-# @flag -0 --http1.0                               Use HTTP 1.0
-# @flag --http1.1                                  Use HTTP 1.1
+# @flag --http0.9                                  Allow HTTP/0.9 responses
+# @flag -0 --http1.0                               Use HTTP/1.0
+# @flag --http1.1                                  Use HTTP/1.1
 # @flag --http2                                    Use HTTP/2
-# @flag --http2-prior-knowledge                    Use HTTP 2 without HTTP/1.1 Upgrade
-# @flag --http3                                    Use HTTP v3
-# @flag --http3-only                               Use HTTP v3 only
+# @flag --http2-prior-knowledge                    Use HTTP/2 without HTTP/1.1 Upgrade
+# @flag --http3                                    Use HTTP/3
+# @flag --http3-only                               Use HTTP/3 only
 # @flag --ignore-content-length                    Ignore the size of the remote resource
-# @flag -i --include                               Include response headers in output
 # @flag -k --insecure                              Allow insecure server connections
-# @option --interface <name>                       Use network INTERFACE (or address)
+# @option --interface <name>                       Use network interface
+# @option --ip-tos <string>                        Set IP Type of Service or Traffic Class
 # @option --ipfs-gateway <URL>                     Gateway for IPFS
 # @flag -4 --ipv4                                  Resolve names to IPv4 addresses
 # @flag -6 --ipv6                                  Resolve names to IPv6 addresses
 # @option --json <data>                            HTTP POST JSON
 # @flag -j --junk-session-cookies                  Ignore session cookies read from file
+# @option --keepalive-cnt <integer>                Maximum number of keepalive probes
 # @option --keepalive-time <seconds>               Interval time for keepalive probes
 # @option --key <key>                              Private key filename
 # @option --key-type[DER|PEM|ENG] <type>           Private key file type (DER/PEM/ENG)
+# @option --knownhosts <file>                      Specify knownhosts path
 # @option --krb[clear|safe|confidential|private] <level>  Enable Kerberos with security <level>
 # @option --libcurl <file>                         Generate libcurl code for this command line
 # @option --limit-rate <speed>                     Limit transfer speed to RATE
 # @flag -l --list-only                             List only mode
 # @option --local-port <range>                     Use a local port number within RANGE
 # @flag -L --location                              Follow redirects
-# @flag --location-trusted                         Like --location, but send auth to other hosts
+# @flag --location-trusted                         As --location, but send secrets to other hosts
 # @option --login-options <options>                Server login options
 # @option --mail-auth <address>                    Originator address of the original email
 # @option --mail-from <address>                    Mail from this address
@@ -117,11 +121,12 @@
 # @option --max-redirs <num>                       Maximum number of redirects allowed
 # @option -m --max-time <seconds>                  Maximum time allowed for transfer
 # @flag --metalink                                 Process given URLs as metalink XML file
+# @flag --mptcp                                    Enable Multipath TCP
 # @flag --negotiate                                Use HTTP Negotiate (SPNEGO) authentication
 # @flag -n --netrc                                 Must read .netrc for username and password
 # @option --netrc-file <filename>                  Specify FILE for netrc
 # @flag --netrc-optional                           Use either .netrc or URL
-# @flag -: --next                                  Make next URL use its separate set of options
+# @flag -: --next                                  Make next URL use separate options
 # @flag --no-alpn                                  Disable the ALPN TLS extension
 # @flag -N --no-buffer                             Disable buffering of the output stream
 # @flag --no-clobber                               Do not overwrite files that already exist
@@ -133,14 +138,16 @@
 # @flag --ntlm                                     HTTP NTLM authentication
 # @flag --ntlm-wb                                  HTTP NTLM authentication with winbind
 # @option --oauth2-bearer <token>                  OAuth 2 Bearer Token
+# @flag --out-null                                 Discard response data into the void
 # @option -o --output <file>                       Write to file instead of stdout
 # @option --output-dir <dir>                       Directory to save files in
 # @flag -Z --parallel                              Perform transfers in parallel
-# @flag --parallel-immediate                       Do not wait for multiplexing (with --parallel)
+# @flag --parallel-immediate                       Do not wait for multiplexing
 # @option --parallel-max <num>                     Maximum concurrency for parallel transfers
-# @option --pass <phrase>                          Pass phrase for the private key
+# @option --parallel-max-host <num>                Maximum connections to a single host
+# @option --pass <phrase>                          Passphrase for the private key
 # @flag --path-as-is                               Do not squash .. sequences in URL path
-# @option --pinnedpubkey <hashes>                  FILE/HASHES Public key to verify peer against
+# @option --pinnedpubkey <hashes>                  Public key to verify peer against
 # @flag --post301                                  Do not switch to GET after a 301 redirect
 # @flag --post302                                  Do not switch to GET after a 302 redirect
 # @flag --post303                                  Do not switch to GET after a 303 redirect
@@ -157,7 +164,7 @@
 # @option --proxy-capath <dir>                     CA directory to verify proxy against
 # @option --proxy-cert <cert[:passwd]>             Set client certificate for proxy
 # @option --proxy-cert-type[DER|PEM|ENG] <type>    Client certificate type for HTTPS proxy
-# @option --proxy-ciphers <list>                   SSL ciphers to use for proxy
+# @option --proxy-ciphers <list>                   TLS 1.2 (1.1, 1.0) ciphers to use for proxy
 # @option --proxy-crlfile <file>                   Set a CRL list for proxy
 # @flag --proxy-digest                             Digest auth with the proxy
 # @option --proxy-header <header/@file>            Pass custom header(s) to proxy
@@ -167,12 +174,12 @@
 # @option --proxy-key-type <type>                  Private key file type for proxy
 # @flag --proxy-negotiate                          HTTP Negotiate (SPNEGO) auth with the proxy
 # @flag --proxy-ntlm                               NTLM authentication with the proxy
-# @option --proxy-pass <phrase>                    Pass phrase for the private key for HTTPS proxy
+# @option --proxy-pass <phrase>                    Passphrase for private key for HTTPS proxy
 # @option --proxy-pinnedpubkey <hashes>            FILE/HASHES public key to verify proxy with
 # @option --proxy-service-name <name>              SPNEGO proxy service name
-# @flag --proxy-ssl-allow-beast                    Allow security flaw for interop for HTTPS proxy
+# @flag --proxy-ssl-allow-beast                    Allow this security flaw for HTTPS proxy
 # @flag --proxy-ssl-auto-client-cert               Auto client certificate for proxy
-# @option --proxy-tls13-ciphers <ciphersuite list>  TLS 1.3 proxy cipher suites
+# @option --proxy-tls13-ciphers <list>             TLS 1.3 proxy cipher suites
 # @option --proxy-tlsauthtype <type>               TLS authentication type for HTTPS proxy
 # @option --proxy-tlspassword <string>             TLS password for HTTPS proxy
 # @option --proxy-tlsuser <name>                   TLS username for HTTPS proxy
@@ -204,7 +211,10 @@
 # @flag --sasl-ir                                  Initial response in SASL authentication
 # @option --service-name <name>                    SPNEGO service name
 # @flag -S --show-error                            Show error even when -s is used
+# @flag -i --show-headers                          Show response headers in output
+# @option --sigalgs <list>                         TLS signature algorithms to use
 # @flag -s --silent                                Silent mode
+# @flag --skip-existing                            Skip download if local file already exists
 # @option --socks4 <host[:port]>                   SOCKS4 proxy on given host + port
 # @option --socks4a <host[:port]>                  SOCKS4a proxy on given host + port
 # @option --socks5 <host[:port]>                   SOCKS5 proxy on given host + port
@@ -221,6 +231,7 @@
 # @flag --ssl-no-revoke                            Disable cert revocation checks (Schannel)
 # @flag --ssl-reqd                                 Require SSL/TLS
 # @flag --ssl-revoke-best-effort                   Ignore missing cert CRL dist points
+# @option --ssl-sessions <filename>                Load/save SSL session tickets from/to this file
 # @flag -2 --sslv2                                 SSLv2
 # @flag -3 --sslv3                                 SSLv3
 # @option --stderr <file>                          Where to redirect stderr
@@ -232,6 +243,7 @@
 # @option --tftp-blksize <value>                   Set TFTP BLKSIZE option
 # @flag --tftp-no-options                          Do not send any TFTP options
 # @option -z --time-cond <time>                    Transfer based on a time condition
+# @flag --tls-earlydata                            Allow use of TLSv1.3 early data (0RTT)
 # @option --tls-max <VERSION>                      Maximum allowed TLS version
 # @option --tls13-ciphers <list>                   TLS 1.3 cipher suites to use
 # @option --tlsauthtype <type>                     TLS authentication type
@@ -250,7 +262,8 @@
 # @flag --trace-time                               Add time stamps to trace/verbose output
 # @option --unix-socket <path>                     Connect through this Unix domain socket
 # @option -T --upload-file <file>                  Transfer local FILE to destination
-# @option --url <url>                              URL to work with
+# @option --upload-flags <flags>                   IMAP upload behavior
+# @option --url <url/file>                         URL(s) to work with
 # @option --url-query <data>                       Add a URL query part
 # @flag -B --use-ascii                             Use ASCII/text transfer
 # @option -u --user <user:password>                Server user and password
@@ -258,9 +271,9 @@
 # @option --variable <[%]name=text/@file>          Set variable
 # @flag -v --verbose                               Make the operation more talkative
 # @flag -V --version                               Show version number and quit
+# @option --vlan-priority <priority>               Set VLAN priority
 # @option -w --write-out <format>                  Output FORMAT after completion
 # @flag --xattr                                    Store metadata in extended file attributes
-# @arg url!
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

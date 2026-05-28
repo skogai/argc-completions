@@ -6,8 +6,10 @@
 # @flag -D --console-off                          disable printing messages to console
 # @flag -E --console-on                           enable printing messages to console
 # @option -F --file <file>                        use the file instead of the kernel log buffer
+# @option -K --kmsg-file <file>                   use the file in kmsg format
 # @option -f --facility[`_choice_facility`] <list>  restrict output to defined facilities
 # @flag -H --human                                human readable output
+# @flag -J --json                                 use JSON output format
 # @flag -k --kernel                               display kernel messages
 # @option -L --color[auto|never|always] <when>    colorize messages (auto, always or never) colors are enabled by default
 # @option -l --level[`_choice_level`] <list>      restrict output to defined levels

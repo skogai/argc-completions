@@ -95,6 +95,11 @@ download() {
 
 # {{ luarocks init
 # @cmd Initialize a directory for a Lua project using LuaRocks.
+# @flag -h --help                        Show this help message and exit.
+# @option --wrapper-dir <wrapper_dir>    Location where the 'lua' and 'luarocks' wrapper scripts should be generated; if not given, the current directory is used as a default.
+# @flag --reset                          Delete any .luarocks/config-5.x.lua and ./lua and generate new ones.
+# @flag --no-wrapper-scripts             Do not generate wrapper ./lua and ./luarocks launcher scripts.
+# @flag --no-gitignore                   Do not generate a .gitignore file.
 # @option --output <file>                Write the rockspec with the given filename.
 # @option --license <string>             A license string, such as "MIT/X11" or "GNU GPL v3".
 # @option --summary <txt>                A short one-line description summary.
@@ -104,11 +109,6 @@ download() {
 # @option --rockspec-format <ver>        Rockspec format version, such as "1.0" or "1.1".
 # @option --tag <tag>                    Tag to use.
 # @option --lib <libs>                   A comma-separated list of libraries that C files need to link to.
-# @flag -h --help                        Show this help message and exit.
-# @option --wrapper-dir <wrapper_dir>    Location where the 'lua' and 'luarocks' wrapper scripts should be generated; if not given, the current directory is used as a default.
-# @flag --reset                          Delete any .luarocks/config-5.x.lua and ./lua and generate new ones.
-# @flag --no-wrapper-scripts             Do not generate wrapper ./lua and ./luarocks launcher scripts.
-# @flag --no-gitignore                   Do not generate a .gitignore file.
 # @arg name                              The project name.
 # @arg version                           An optional project version.
 init() {
@@ -314,7 +314,7 @@ unpack() {
 # @flag --force               Replace existing rockspec if the same revision of a module already exists.
 # @flag --sign                Upload a signature file alongside each file as well.
 # @arg rockspec               Rockspec for the rock to upload.
-# @arg src-rock               A corresponding .src.rock file; if not given it will be generated.
+# @arg src_rock               A corresponding .src.rock file; if not given it will be generated.
 upload() {
     :;
 }

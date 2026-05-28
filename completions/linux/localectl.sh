@@ -4,6 +4,7 @@
 # @meta inherit-flag-options
 # @flag -h --help                     Show this help
 # @flag --version                     Show package version
+# @flag -l --full                     Do not ellipsize output
 # @flag --no-pager                    Do not pipe output into a pager
 # @flag --no-ask-password             Do not prompt for password
 # @option -H --host <[USER@]HOST>     Operate on remote host

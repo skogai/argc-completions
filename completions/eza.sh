@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --help                                  show list of command-line options
+# @flag -? --help                               show list of command-line options
 # @flag -v --version                            show version of eza
 # @flag -1 --oneline                            display one entry per line
 # @flag -l --long                               display extended file metadata as a table
@@ -18,16 +18,20 @@
 # @flag --no-quotes                             don't quote file names with spaces
 # @flag --hyperlink                             display entries as hyperlinks
 # @option --absolute[on|follow|off]             display entries with their absolute path
+# @flag --follow-symlinks                       drill down into symbolic links that point to directories
 # @option -w --width <COLS>                     set screen width in columns
 # @flag -a --all                                show hidden and 'dot' files.
 # @flag -A --almost-all                         equivalent to --all; included for compatibility with `ls -A`
-# @flag -d --list-dirs                          list directories as files; don't list their contents
+# @flag -d --treat-dirs-as-files                list directories as files; don't list their contents
+# @flag -D --only-dirs                          list only directories
+# @flag -f --only-files                         list only files
+# @flag --show-symlinks                         explicitly show symbolic links (for use with --only-dirs | --only-files)
+# @flag --no-symlinks                           do not show symbolic links
 # @option -L --level <DEPTH>                    limit the depth of recursion
 # @flag -r --reverse                            reverse the sort order
 # @option -s --sort[`_choice_sort`] <SORT_FIELD>  which field to sort by
 # @flag --group-directories-first               list directories before other files
-# @flag -D --only-dirs                          list only directories
-# @flag -f --only-files                         list only files
+# @flag --group-directories-last                list directories after other files
 # @option -I --ignore-glob <GLOBS>              glob patterns (pipe-separated) of files to ignore
 # @flag --git-ignore                            ignore files mentioned in '.gitignore'
 # @flag -b --binary                             list file sizes with binary prefixes
@@ -37,19 +41,19 @@
 # @flag -h --header                             add a header row to each column
 # @flag -H --links                              list each file's number of hard links
 # @flag -i --inode                              list each file's inode number
-# @flag -m --modified                           use the modified timestamp field
 # @flag -M --mounts                             show mount details (Linux and Mac only)
 # @flag -n --numeric                            list numeric user and group IDs
 # @flag -O --flags                              list file flags (Mac, BSD, and Windows only)
 # @flag -S --blocksize                          show size of allocated file system blocks
 # @option -t --time[modified|accessed|created] <FIELD>  which timestamp field to list
+# @flag -m --modified                           use the modified timestamp field
 # @flag -u --accessed                           use the accessed timestamp field
 # @flag -U --created                            use the created timestamp field
 # @flag --changed                               use the changed timestamp field
 # @flag --time-style                            how to format timestamps (default, iso, long-iso, full-iso, relative, or a custom style '+<FORMAT>' like '+%Y-%m-%d %H:%M')
 # @flag --total-size                            show the size of a directory as the size of all files and directories inside (unix only)
-# @flag --no-permissions                        suppress the permissions field
 # @flag -o --octal-permissions                  list each file's permission in octal format
+# @flag --no-permissions                        suppress the permissions field
 # @flag --no-filesize                           suppress the filesize field
 # @flag --no-user                               suppress the user field
 # @flag --no-time                               suppress the time field
@@ -57,6 +61,7 @@
 # @flag --git                                   list each file's Git status, if tracked or ignored
 # @flag --no-git                                suppress Git status (always overrides --git, --git-repos, --git-repos-no-status)
 # @flag --git-repos                             list root of git-tree status
+# @flag --git-repos-no-status                   list each git-repos branch name (much faster)
 # @flag -@ --extended                           list each file's extended attributes and sizes
 # @flag -Z --context                            list each file's security context
 # @arg files*

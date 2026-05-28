@@ -13,9 +13,7 @@
 # @flag -n --non-interactive                     non-interactive mode, no prompts are used
 # @option -p --prompt <prompt>                   use the specified password prompt
 # @option -R --chroot <directory>                change the root directory before running command
-# @option -r --role <role>                       create SELinux security context with specified role
 # @flag -S --stdin                               read password from standard input
-# @option -t --type <type>                       create SELinux security context with specified type
 # @option -T --command-timeout <timeout>         terminate command after the specified time limit
 # @option -u --user[`_module_os_user`] <user>    run command (or edit file) as specified user name or ID
 # @flag -V --version                             display version information and exit

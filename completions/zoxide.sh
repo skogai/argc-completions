@@ -6,6 +6,7 @@
 
 # {{ zoxide add
 # @cmd Add a new directory or increment its rank
+# @option -s --score    The rank to increment the entry if it exists or initialize it with if it doesn't
 # @flag -h --help       Print help
 # @flag -V --version    Print version
 # @arg paths+
@@ -42,7 +43,7 @@ import() {
 # @option --hook[none|prompt|pwd]    Changes how often zoxide increments a directory's score [default: pwd]
 # @flag -h --help                    Print help
 # @flag -V --version                 Print version
-# @arg shell![bash|elvish|fish|nushell|posix|powershell|xonsh|zsh]
+# @arg shell![bash|elvish|fish|nushell|posix|powershell|tcsh|xonsh|zsh]
 init() {
     :;
 }
@@ -50,13 +51,14 @@ init() {
 
 # {{ zoxide query
 # @cmd Search for a directory in the database
-# @flag -a --all              Show unavailable directories
-# @flag -i --interactive      Use interactive selection
-# @flag -l --list             List all matching directories
-# @flag -s --score            Print score with results
-# @option --exclude <path>    Exclude the current directory
-# @flag -h --help             Print help
-# @flag -V --version          Print version
+# @flag -a --all               Show unavailable directories
+# @flag -i --interactive       Use interactive selection
+# @flag -l --list              List all matching directories
+# @flag -s --score             Print score with results
+# @option --exclude <path>     Exclude the current directory
+# @option --base-dir <path>    Only search within this directory
+# @flag -h --help              Print help
+# @flag -V --version           Print version
 # @arg keywords*
 query() {
     :;

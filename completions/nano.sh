@@ -52,9 +52,14 @@
 # @flag -w --nowrap                    Don't hard-wrap long lines [default]
 # @flag -x --nohelp                    Don't show the two help lines
 # @flag -y --afterends                 Make Ctrl+Right stop at word ends
+# @flag -z --listsyntaxes              List the names of available syntaxes
+# @flag -! --magic                     Also try magic to determine syntax
+# @flag -@ --colonparsing              Accept 'filename:linenumber' notation
 # @flag -% --stateflags                Show some states on the title bar
 # @flag -_ --minibar                   Show a feedback bar at the bottom
 # @flag -0 --zero                      Hide all bars, use whole terminal
+# @flag -1 --solosidescroll            Scroll only the current line sideways
+# @flag -/ --modernbindings            Use better-known key bindings
 # @arg files*
 
 command eval "$(argc --argc-eval "$0" "$@")"

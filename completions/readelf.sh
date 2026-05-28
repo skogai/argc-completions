@@ -2,51 +2,56 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta symbol @file
-# @flag -a --all                               Equivalent to: -h -l -S -s -r -d -V -A -I
-# @flag -h --file-header                       Display the ELF file header
-# @flag -l --program-headers                   Display the program headers
-# @flag --segments                             An alias for --program-headers
-# @flag -S --section-headers                   Display the sections' header
-# @flag --sections                             An alias for --section-headers
-# @flag -g --section-groups                    Display the section groups
-# @flag -t --section-details                   Display the section details
-# @flag -e --headers                           Equivalent to: -h -l -S
-# @flag -s --syms                              Display the symbol table
-# @flag --symbols                              An alias for --syms
-# @flag --dyn-syms                             Display the dynamic symbol table
-# @flag --lto-syms                             Display LTO symbol tables
-# @option --sym-base <0|8|10|16>               Force base for symbol sizes.
+# @flag -a --all                                Equivalent to: -h -l -S -s -r -d -V -A -I --got-contents
+# @flag -h --file-header                        Display the ELF file header
+# @flag -l --program-headers                    Display the program headers
+# @flag --segments                              An alias for --program-headers
+# @flag -S --section-headers                    Display the sections' header
+# @flag --sections                              An alias for --section-headers
+# @flag -g --section-groups                     Display the section groups
+# @flag -t --section-details                    Display the section details
+# @flag -e --headers                            Equivalent to: -h -l -S
+# @flag -s --syms                               Display the symbol table
+# @flag --symbols                               An alias for --syms
+# @flag --dyn-syms                              Display the dynamic symbol table
+# @flag --lto-syms                              Display LTO symbol tables
+# @option --sym-base <0|8|10|16>                Force base for symbol sizes.
 # @option -C --demangle[none|auto|gnu-v3|java|gnat|dlang|rust] <STYLE>  Decode mangled/processed symbol names.
-# @flag --no-demangle                          Do not demangle low-level symbol names.
-# @flag --recurse-limit                        Enable a demangling recursion limit.
-# @flag --no-recurse-limit                     Disable a demangling recursion limit
+# @flag --no-demangle                           Do not demangle low-level symbol names.
+# @flag --recurse-limit                         Enable a demangling recursion limit.
+# @flag --no-recurse-limit                      Disable a demangling recursion limit
 # @option -U --unicode[default|locale|escape|hex|highlight|invalid]  Display unicode characters as determined by the current locale (default), escape sequences, "<hex sequences>", highlighted escape sequences, or treat them as invalid and display as "{hex sequences}"
-# @flag -n --notes                             Display the core notes (if present)
-# @flag -r --relocs                            Display the relocations (if present)
-# @flag -u --unwind                            Display the unwind info (if present)
-# @flag -d --dynamic                           Display the dynamic section (if present)
-# @flag -V --version-info                      Display the version sections (if present)
-# @flag -A --arch-specific                     Display architecture specific information (if any)
-# @flag -c --archive-index                     Display the symbol/file index in an archive
-# @flag -D --use-dynamic                       Use the dynamic section info when displaying symbols
-# @option -L --lint <|--enable-checks>         Display warning messages for possible problems
-# @option -x --hex-dump <number|name>          Dump the contents of section <number|name> as bytes
-# @option -p --string-dump <number|name>       Dump the contents of section <number|name> as strings
-# @option -R --relocated-dump <number|name>    Dump the relocated contents of section <number|name>
-# @flag -z --decompress                        Decompress section before dumping it
+# @flag -X --extra-sym-info                     Display extra information when showing symbols
+# @flag --no-extra-sym-info                     Do not display extra information when showing symbols (default)
+# @flag -n --notes                              Display the contents of note sections (if present)
+# @flag -r --relocs                             Display the relocations (if present)
+# @flag -u --unwind                             Display the unwind info (if present)
+# @flag -d --dynamic                            Display the dynamic section (if present)
+# @flag -V --version-info                       Display the version sections (if present)
+# @flag -A --arch-specific                      Display architecture specific information (if any)
+# @flag -c --archive-index                      Display the symbol/file index in an archive
+# @flag -D --use-dynamic                        Use the dynamic section info when displaying symbols
+# @option -L --lint <|--enable-checks>          Display warning messages for possible problems
+# @option -x --hex-dump <number|name>           Dump the contents of section <number|name> as bytes
+# @option -p --string-dump <number|name>        Dump the contents of section <number|name> as strings
+# @option -R --relocated-dump <number|name>     Dump the relocated contents of section <number|name>
+# @flag -z --decompress                         Decompress section before dumping it
+# @option -j --display-section <name|number>    Display the contents of the indicated section.
 # @option -w --debug-dump-[`_choice_debug_dump`]  Displays the contents of the DWARF debug sections in the file, if any are present.
-# @flag -P --process-links                     Display the contents of non-debug sections in separate debuginfo files.
-# @option --dwarf-depth <N>                    Do not display DIEs at depth N or greater
-# @option --dwarf-start <N>                    Display DIEs starting at offset N
-# @option --ctf <number|name>                  Display CTF info from section <number|name>
-# @option --ctf-parent <name>                  Use CTF archive member <name> as the CTF parent
-# @option --ctf-symbols <number|name>          Use section <number|name> as the CTF external symtab
-# @option --ctf-strings <number|name>          Use section <number|name> as the CTF external strtab
-# @flag -I --histogram                         Display histogram of bucket list lengths
-# @flag -W --wide                              Allow output width to exceed 80 characters
-# @flag -T --silent-truncation                 If a symbol name is truncated, do not add [...] suffix
-# @flag -H --help                              Display this information
-# @flag -v --version                           Display the version number of readelf
+# @flag -P --process-links                      Display the contents of non-debug sections in separate debuginfo files.
+# @option --dwarf-depth <N>                     Do not display DIEs at depth N or greater
+# @option --dwarf-start <N>                     Display DIEs starting at offset N
+# @option --ctf <number|name>                   Display CTF info from section <number|name>
+# @option --ctf-parent <name>                   Use CTF archive member <name> as the CTF parent
+# @option --ctf-symbols <number|name>           Use section <number|name> as the CTF external symtab
+# @option --ctf-strings <number|name>           Use section <number|name> as the CTF external strtab
+# @option --sframe <NAME>                       Display SFrame info from section NAME, (default '.sframe')
+# @flag -I --histogram                          Display histogram of bucket list lengths
+# @flag --got-contents                          Display GOT section contents
+# @flag -W --wide                               Allow output width to exceed 80 characters
+# @flag -T --silent-truncation                  If a symbol name is truncated, do not add [...] suffix
+# @flag -H --help                               Display this information
+# @flag -v --version                            Display the version number of readelf
 # @arg elf-file*
 
 _choice_debug_dump() {

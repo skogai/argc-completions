@@ -6,14 +6,18 @@
 # @flag -n --noheadings                        don't print headings
 # @option -o --output*,[`_choice_column`] <list>  define which output columns to use
 # @flag --output-all                           output all columns
+# @flag -P --persistent                        namespaces without processes
 # @option -p --task[`_module_os_pid`] <pid>    print process namespaces
+# @option -Q --filter <expr>                   apply display filter
 # @flag -r --raw                               use the raw output format
 # @flag -u --notruncate                        don't truncate text in columns
 # @flag -W --nowrap                            don't use multi-line representation
 # @option -t --type[mnt|net|ipc|user|pid|uts|cgroup|time] <name>  namespace type
+# @option -T --tree <rel>                      use tree format (parent, owner, or process)
+# @flag -H --list-columns                      list the available columns
 # @flag -h --help                              display this help
 # @flag -V --version                           display version
-# @arg namespace
+# @arg namespace-id <namespace ID>
 
 _choice_column() {
     cat <<-'EOF'

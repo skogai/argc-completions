@@ -11,6 +11,7 @@
 # @flag -d --device                      show the device format
 # @flag -q --quiet                       do not display header and footer
 # @flag -p --show-path                   show path in the mapping
+# @flag -k --use-kernel-name             use names provided by kernel
 # @option -A --range <<low>[,<high>]>    limit results to the given range
 # @flag -h --help                        display this help and exit
 # @flag -V --version                     output version information and exit

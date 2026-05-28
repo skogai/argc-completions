@@ -6,11 +6,16 @@
 # @flag --version                     Show package version
 # @flag --no-pager                    Do not pipe output into a pager
 # @flag --no-legend                   Do not show the headers and footers
+# @flag --no-ask-password             Do not prompt for password
 # @flag -a --all                      Show status for all links
-# @flag -s --stats                    Show detailed link statics
+# @flag -s --stats                    Show detailed link statistics
 # @flag -l --full                     Do not ellipsize output
 # @option -n --lines <INTEGER>        Number of journal entries to show
 # @option --json[pretty|short|off]    Generate JSON output
+# @flag --no-reload                   Do not reload systemd-networkd or systemd-udevd after editing network config
+# @option --drop-in <NAME>            Edit specified drop-in instead of main config file
+# @flag --runtime                     Edit runtime config files
+# @flag --stdin                       Read new contents of edited file from stdin
 
 # {{ networkctl list
 # @cmd List links
@@ -84,7 +89,7 @@ forcerenew() {
 # }} networkctl forcerenew
 
 # {{ networkctl reconfigure
-# @cmd Reconfigure interfaces
+# @cmd DEVICES... Reconfigure interfaces
 reconfigure() {
     :;
 }
@@ -96,6 +101,44 @@ reload() {
     :;
 }
 # }} networkctl reload
+
+# {{ networkctl edit
+# @cmd Edit network configuration files
+# @arg files-devices* <FILES|DEVICES>
+edit() {
+    :;
+}
+# }} networkctl edit
+
+# {{ networkctl cat
+# @cmd Show network configuration files
+cat_() {
+    :;
+}
+# }} networkctl cat
+
+# {{ networkctl mask
+# @cmd Mask network configuration files
+# @arg files*
+mask() {
+    :;
+}
+# }} networkctl mask
+
+# {{ networkctl unmask
+# @cmd Unmask network configuration files
+# @arg files*
+unmask() {
+    :;
+}
+# }} networkctl unmask
+
+# {{ networkctl persistent-storage
+# @cmd Notify systemd-networkd if persistent storage is ready
+persistent-storage() {
+    :;
+}
+# }} networkctl persistent-storage
 
 _choice_device() {
     networkctl --no-legend --no-pager list 2>/dev/null | \

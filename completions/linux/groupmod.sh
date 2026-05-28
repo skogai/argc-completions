@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag -a --append                    append the users mentioned by -U option to the group without removing existing user members
 # @option -g --gid                     change the group ID to GID
 # @flag -h --help                      display this help message and exit
 # @option -n --new-name <NEW_GROUP>    change the name to NEW_GROUP
@@ -8,6 +9,7 @@
 # @option -p --password                change the password to this (encrypted) PASSWORD
 # @option -R --root <CHROOT_DIR>       directory to chroot into
 # @option -P --prefix <PREFIX_DIR>     prefix directory where are located the /etc/* files
+# @option -U --users                   list of user members of this group
 # @arg group[`_module_os_group`]
 
 _module_os_group() {

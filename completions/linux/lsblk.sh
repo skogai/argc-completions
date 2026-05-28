@@ -1,33 +1,44 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag -A --noempty                              don't print empty devices
 # @flag -D --discard                              print discard capabilities
 # @option -E --dedup*,[`_choice_column`] <column>  de-duplicate output by <column>
 # @option -I --include <list>                     show only devices with specified major numbers
 # @flag -J --json                                 use JSON output format
+# @option -M --merge[RAIDs|Multi-path]            group parents of sub-trees
 # @flag -O --output-all                           output all columns
 # @flag -P --pairs                                use key="value" output format
+# @option -Q --filter <expr>                      print only lines matching the expression
+# @option --highlight <expr>                      colorize lines matching the expression
+# @option --ct-filter <expr>                      restrict the next counter
+# @option --ct <<name>[:<param>[:<func>]]>        define a custom counter
 # @flag -S --scsi                                 output info about SCSI devices
+# @flag -N --nvme                                 output info about NVMe devices
+# @flag -v --virtio                               output info about virtio devices
 # @option -T --tree[`_choice_column`] <column>    use tree format output
 # @flag -a --all                                  print all devices
-# @flag -b --bytes                                print SIZE in bytes rather than in human readable format
+# @flag -b --bytes                                print SIZE in bytes instead of a human-readable format
 # @flag -d --nodeps                               don't print slaves or holders
 # @option -e --exclude <list>                     exclude devices by major number (default: RAM disks)
 # @flag -f --fs                                   output info about filesystems
+# @option --hyperlink <when>                      print paths as hyperlinks (always|never|auto)
 # @flag -i --ascii                                use ascii characters only
 # @flag -l --list                                 use list format output
-# @flag -M --merge                                group parents of sub-trees (usable for RAIDs, Multi-path)
 # @flag -m --perms                                output info about permissions
 # @flag -n --noheadings                           don't print headings
-# @option -o --output*,[`_choice_column`] <list>  output columns
+# @option -o --output*,[`_choice_column`] <list>  output columns (see --list-columns)
 # @flag -p --paths                                print complete device path
 # @flag -r --raw                                  use raw output format
 # @flag -s --inverse                              inverse dependencies
 # @flag -t --topology                             output info about topology
 # @option -w --width <num>                        specifies output width as number of characters
 # @option -x --sort[`_choice_column`] <column>    sort output by <column>
-# @flag -z --zoned                                print zone model
+# @flag -y --shell                                use column names that can be used as shell variables
+# @flag -z --zoned                                print zone related information
 # @option --sysroot <dir>                         use specified directory as system root
+# @option --properties-by[file|udev|blkid] <list>  methods used to gather data
+# @flag -H --list-columns                         list the available columns
 # @flag -h --help                                 display this help
 # @flag -V --version                              display version
 # @arg device*[`_choice_block_device`]

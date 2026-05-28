@@ -132,7 +132,7 @@
 # @flag -j --bzip2                              filter the archive through bzip2
 # @flag -J --xz                                 filter the archive through xz
 # @flag --lzip                                  filter the archive through lzip
-# @flag --lzma                                  filter the archive through xz
+# @flag --lzma                                  filter the archive through lzma
 # @flag --lzop                                  filter the archive through lzop
 # @flag --no-auto-compress                      do not use archive suffix to determine the compression program
 # @flag --zstd                                  filter the archive through zstd

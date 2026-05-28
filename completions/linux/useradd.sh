@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --badnames                                do not check for bad names
+# @flag --badname                                 do not check for bad names
 # @option -b --base-dir <BASE_DIR>                base directory for the home directory of the new account
 # @flag --btrfs-subvolume-home                    use BTRFS subvolume for home directory
 # @option -c --comment                            GECOS field of the new account
@@ -9,12 +9,12 @@
 # @flag -D --defaults                             print or change default useradd configuration
 # @option -e --expiredate <EXPIRE_DATE>           expiration date of the new account
 # @option -f --inactive                           password inactivity period of the new account
+# @flag -F --add-subids-for-system                add entries to sub[ud]id even when adding a system user
 # @option -g --gid[`_module_os_group`] <GROUP>    name or ID of the primary group of the new account
 # @option -G --groups                             list of supplementary groups of the new account
 # @flag -h --help                                 display this help message and exit
 # @option -k --skel <SKEL_DIR>                    use this alternative skeleton directory
 # @option -K --key <KEY=VALUE>                    override /etc/login.defs defaults
-# @flag -l --no-log-init                          do not add the user to the lastlog and faillog databases
 # @flag -m --create-home                          create the user's home directory
 # @flag -M --no-create-home                       do not create the user's home directory
 # @flag -N --no-user-group                        do not create a group with the same name as the user
@@ -26,8 +26,6 @@
 # @option -s --shell*,[`_module_os_shell`]        login shell of the new account
 # @option -u --uid                                user ID of the new account
 # @flag -U --user-group                           create a group with the same name as the user
-# @option -Z --selinux-user <SEUSER>              use a specific SEUSER for the SELinux user mapping
-# @flag --extrausers                              Use the extra users database
 # @arg login[`_module_os_user`]
 
 _module_os_group() {

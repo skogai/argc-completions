@@ -11,6 +11,7 @@
 # @flag --static                      Only set static hostname
 # @flag --pretty                      Only set pretty hostname
 # @option --json[pretty|short|off]    Generate JSON output
+# @flag -j                            Same as --json=pretty on tty, --json=short otherwise
 
 # {{ hostnamectl status
 # @cmd Show current hostname settings

@@ -16,7 +16,9 @@
 # @flag -v --verbose                verbose mode
 # @option -w --lgwin <NUM>          set LZ77 window size (0, 10-24) window size = 2**NUM - 16 0 lets compressor choose the optimal value
 # @option --large_window <NUM>      use incompatible large-window brotli bitstream with window size (0, 10-30) WARNING: this format is not compatible with brotli RFC 7932 and may not be decodable with regular brotli decoders
+# @option -C --comment <B64>        set comment; argument is base64-decoded first; (maximal decoded length: 80) when decoding: check stream comment; when encoding: embed comment (fingerprint)
 # @option -D --dictionary <FILE>    use FILE as raw (LZ77) dictionary
+# @flag -K --concatenated           allows concatenated brotli streams as input
 # @option -S --suffix <SUF>         output file suffix (default:'.br')
 # @flag -V --version                display version and exit
 # @flag -Z --best                   use best compression level (11) (default)

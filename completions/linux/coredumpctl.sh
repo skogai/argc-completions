@@ -19,6 +19,10 @@
 # @option --file <PATH>                       Use journal file
 # @option -D --directory <DIR>                Use journal files from directory
 # @flag -q --quiet                            Do not show info messages and privilege warning
+# @flag --all                                 Look at all journal files instead of local ones
+# @option --root <PATH>                       Operate on an alternate filesystem root
+# @option --image <PATH>                      Operate on disk image as filesystem root
+# @option --image-policy <POLICY>             Specify disk image dissection policy
 
 # {{ coredumpctl list
 # @cmd List available coredumps (default)

@@ -62,9 +62,11 @@
 # @option -z --window <N>                    Set size of window.
 # @flag -~ --tilde                           Don't display tildes after end of file.
 # @option -# --shift <N>                     Set horizontal scroll amount (0 = one half screen width).
+# @option --autosave <m/!*>                  Actions which cause the history file to be saved.
 # @flag --exit-follow-on-close               Exit F command on a pipe when writer closes pipe.
 # @flag --file-size                          Automatically determine the size of the input file.
 # @flag --follow-name                        The F command changes files if the input file is renamed.
+# @flag --form-feed                          Stop scrolling when a form feed character is reached.
 # @option --header <L[,C[,N]]>               Use L lines (starting at line N) and C columns as headers.
 # @flag --incsearch                          Search file as each pattern character is typed in.
 # @option --intr <C>                         Use C instead of ^X to interrupt a read.
@@ -74,9 +76,11 @@
 # @option --match-shift <N>                  Show at least N characters to the left of a search match.
 # @option --modelines <N>                    Read N lines from the input file and look for vim modelines.
 # @flag --mouse                              Enable mouse input.
+# @flag --no-edit-warn                       Don't warn when using v command on a file opened via LESSOPEN.
 # @flag --no-keypad                          Don't send termcap keypad init/deinit strings.
 # @flag --no-histdups                        Remove duplicates from command history.
 # @flag --no-number-headers                  Don't give line numbers to header lines.
+# @flag --no-paste                           Ignore pasted input.
 # @flag --no-search-header-lines             Searches do not include header lines.
 # @flag --no-search-header-columns           Searches do not include header columns.
 # @flag --no-search-headers                  Searches do not include header lines or columns.

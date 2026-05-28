@@ -8,12 +8,14 @@
 # @flag -n --keep-size         maintain the apparent size of the file
 # @option -o --offset <num>    offset for range operations, in bytes
 # @flag -p --punch-hole        replace a range with a hole (implies -n)
-# @flag -z --zero-range        zero and ensure allocation of a range
-# @flag -x --posix             use posix_fallocate(3) instead of fallocate(2)
+# @flag -r --report-holes      report file holes and data holes info
 # @flag -v --verbose           verbose mode
+# @flag -w --write-zeroes      write zeroes and ensure allocation of a range
+# @flag -x --posix             use posix_fallocate(3) instead of fallocate(2)
+# @flag -z --zero-range        zero and ensure allocation of a range
 # @flag -h --help              display this help
 # @flag -V --version           display version
-# @arg num!                    arguments may be followed by the suffixes for
-# @arg gib                     TiB, PiB, EiB, ZiB, and YiB (the "iB" is optional)
+# @arg values                  for <num> may be followed by a suffix: KiB, MiB,
+# @arg gib                     TiB, PiB, EiB, ZiB, or YiB (where the "iB" is optional).
 
 command eval "$(argc --argc-eval "$0" "$@")"

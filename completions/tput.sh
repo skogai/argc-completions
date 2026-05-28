@@ -4,6 +4,7 @@
 # @flag -S             read commands from standard input
 # @option -T <TERM>    use this instead of $TERM
 # @flag -V             print curses-version
+# @flag -v             verbose, show warnings
 # @flag -x             do not try to clear scrollback
 
 # {{ tput clear

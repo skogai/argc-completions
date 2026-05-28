@@ -130,6 +130,13 @@ version() {
 }
 # }} direnv version
 
+# {{ direnv log
+# @cmd Logs a given message
+log() {
+    :;
+}
+# }} direnv log
+
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 
 _choice_path_to_rc() {

@@ -3,8 +3,9 @@
 
 # @flag -a --all                 Consider every non-argument to be a module name to be inserted or removed (-r)
 # @flag -r --remove              Remove modules instead of inserting
-# @flag --remove-dependencies    Also remove modules depending on it
-# @flag -R --resolve-alias       Only lookup and print alias and exit
+# @flag --remove-dependencies    Deprecated: use --remove-holders
+# @flag --remove-holders         Also remove module holders (use together with -r)
+# @option -w --wait <MSEC>       When removing a module, wait up to MSEC for module's refcount to become 0 so it can be removed (use together with -r)
 # @flag --first-time             Fail if module already inserted or removed
 # @flag -i --ignore-install      Ignore install commands
 # @flag --ignore-remove          Ignore remove commands
@@ -12,6 +13,7 @@
 # @flag -f --force               Force module insertion or removal.
 # @flag --force-modversion       Ignore module's version
 # @flag --force-vermagic         Ignore module's version magic
+# @flag -R --resolve-alias       Only lookup and print alias and exit
 # @flag -D --show-depends        Only print module dependencies and exit
 # @flag -c --showconfig          Print out known configuration and exit
 # @flag --show-config            Same as --showconfig

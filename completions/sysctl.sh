@@ -5,6 +5,7 @@
 # @flag -A                             alias of -a
 # @flag -X                             alias of -a
 # @flag --deprecated                   include deprecated parameters to listing
+# @flag --dry-run                      Print the key and values but do not write
 # @flag -b --binary                    print value without new line
 # @flag -e --ignore                    ignore unknown variables errors
 # @flag -N --names                     print variable names without values

@@ -4,9 +4,11 @@
 # @flag -C --no-color                              Use a monochrome color scheme
 # @option -d --delay                               Set the delay between updates, in tenths of seconds
 # @option -F --filter                              Show only the commands matching the given filter
+# @flag --no-function-bar                          Hide the function bar
 # @flag -h --help                                  Print this help screen
 # @option -H --highlight-changes <DELAY>           Highlight new and old processes
 # @flag -M --no-mouse                              Disable the mouse
+# @flag --no-meters                                Hide meters
 # @option -n --max-iterations <NUMBER>             Exit htop after NUMBER iterations/frame updates
 # @option -p --pid*,[`_module_os_pid`] <PID[,PID,PID...]>  Show only the given PIDs
 # @flag --readonly                                 Disable all system and process changing features

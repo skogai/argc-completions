@@ -331,7 +331,7 @@ role::info() {
 # @flag --force-with-deps                  Force overwriting an existing role and its dependencies.
 # @option -r --role-file <REQUIREMENTS>    A file containing a list of roles to be installed.
 # @flag -g --keep-scm-meta                 Use tar instead of the scm archive option when packaging the role.
-# @arg role_name                           Role name, URL or tar file
+# @arg role_name                           Role name, URL or tar file.
 role::install() {
     :;
 }

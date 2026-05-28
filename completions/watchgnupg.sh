@@ -5,6 +5,8 @@
 # @flag --force        delete an already existing socket file
 # @flag --verbose      enable extra informational output
 # @flag --time-only    print only the time; not a full timestamp
+# @flag --clock        print only a millisecond timestamp
+# @flag --homedir      DIR use DIR for gpgconf's --homedir option
 # @flag --version      print version of the program and exit
 # @flag --help         display this help and exit
 # @arg socketname

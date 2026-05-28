@@ -15,6 +15,7 @@
 # @flag -h --help
 # @option -i --include <includefile>
 # @flag -I --trace
+# @flag -k --csv
 # @option -l --load <library>
 # @option -L --lint[fatal|invalid|no-ext] <fatal|invalid|no-ext>
 # @flag -M --bignum

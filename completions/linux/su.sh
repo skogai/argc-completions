@@ -13,6 +13,7 @@
 # @flag -f --fast                              pass -f to the shell (for csh or tcsh)
 # @option -s --shell[`_module_os_shell`] <shell>  run <shell> if /etc/shells allows it
 # @flag -P --pty                               create a new pseudo-terminal
+# @flag -T --no-pty                            do not create a new pseudo-terminal (bad security!)
 # @flag -h --help                              display this help
 # @flag -V --version                           display version
 # @arg user[`_module_os_user`]

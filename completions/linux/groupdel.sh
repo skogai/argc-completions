@@ -5,7 +5,6 @@
 # @option -R --root <CHROOT_DIR>      directory to chroot into
 # @option -P --prefix <PREFIX_DIR>    prefix directory where are located the /etc/* files
 # @flag -f --force                    delete group even if it is the primary group of a user
-# @flag --extrausers                  Use the extra users database
 # @arg group[`_module_os_group`]
 
 _module_os_group() {

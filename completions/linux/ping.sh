@@ -2,31 +2,44 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta combine-shorts
-# @flag --address                   send ICMP_ADDRESS packets (root only)
-# @flag --echo                      send ICMP_ECHO packets (default)
-# @flag --mask                      same as --address
-# @flag --timestamp                 send ICMP_TIMESTAMP packets
-# @option -t --type                 send TYPE packets
-# @option -c --count <NUMBER>       stop after sending NUMBER packets
-# @flag -d --debug                  set the SO_DEBUG option
-# @option -i --interval <NUMBER>    wait NUMBER seconds between sending each packet
-# @flag -n --numeric                do not resolve host addresses
-# @flag -r --ignore-routing         send directly to a host on an attached network
-# @option --ttl <N>                 specify N as time-to-live
-# @option -T --tos <NUM>            set type of service (TOS) to NUM
-# @flag -v --verbose                verbose output
-# @option -w --timeout <N>          stop after N seconds
-# @option -W --linger <N>           number of seconds to wait for response
-# @flag -f --flood                  flood ping (root only)
-# @option --ip-timestamp <FLAG>     IP timestamp of type FLAG, which is one of "tsonly" and "tsaddr"
-# @option -l --preload <NUMBER>     send NUMBER packets as fast as possible before falling into normal mode of behavior (root only)
-# @option -p --pattern              fill ICMP packet with given pattern (hex)
-# @flag -q --quiet                  quiet output
-# @flag -R --route                  record route
-# @option -s --size <NUMBER>        send NUMBER data octets
-# @flag -? --help                   give this help list
-# @flag --usage                     give a short usage message
-# @flag -V --version                print program version
+# @flag -3                                RTT precision (do not round up the result time)
+# @flag -a                                use audible ping
+# @flag -A                                use adaptive ping
+# @flag -B                                sticky source address
+# @option -c <count>                      stop after <count> replies
+# @flag -C                                call connect() syscall on socket creation
+# @flag -D                                print timestamps
+# @flag -d                                use SO_DEBUG socket option
+# @option -e <identifier>                 define identifier for ping session, default is random for SOCK_RAW and kernel defined for SOCK_DGRAM Imply using SOCK_RAW (for IPv4 only for identifier 0)
+# @flag -f                                flood ping
+# @flag -h                                print help and exit
+# @flag -H                                force reverse DNS name resolution (useful for numeric destinations or for -f), override -n
+# @option -I <interface>                  either interface name or address
+# @option -i <interval>                   seconds between sending each packet
+# @flag -L                                suppress loopback of multicast packets
+# @option -l <preload>                    send <preload> number of packages while waiting replies
+# @option -m <mark>                       tag the packets going out
+# @option -M[do|dont|want] <pmtud opt>    define path MTU discovery, can be one of <do|dont|want|probe>
+# @flag -n                                no reverse DNS name resolution, override -H
+# @flag -O                                report outstanding replies
+# @option -p <pattern>                    contents of padding byte
+# @flag -q                                quiet output
+# @option -Q <tclass>                     use quality of service <tclass> bits
+# @option -s <size>                       use <size> as number of data bytes to be sent
+# @option -S <size>                       use <size> as SO_SNDBUF socket option value
+# @option -t <ttl>                        define time to live
+# @flag -U                                print user-to-user latency
+# @flag -v                                verbose output
+# @flag -V                                print version and exit
+# @option -w <deadline>                   reply wait <deadline> in seconds
+# @option -W <timeout>                    time to wait for response
+# @flag -4                                use IPv4
+# @flag -b                                allow pinging broadcast
+# @flag -R                                record route
+# @option -T <timestamp>                  define timestamp, can be one of <tsonly|tsandaddr|tsprespec>
+# @flag -6                                use IPv6
+# @option -F <flowlabel>                  define flow label, default is random
+# @option -N <nodeinfo opt>               use IPv6 node info query, try <help> as argument
 # @arg destination!
 
 command eval "$(argc --argc-eval "$0" "$@")"

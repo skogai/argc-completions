@@ -35,12 +35,14 @@
 # @option --batch-size <size>                      Maximum number of arguments to pass to the command given with -X.
 # @option --ignore-file <path>                     Add a custom ignore-file in '.gitignore' format.
 # @option -c --color <when>                        Declare when to use color for the pattern match output
+# @option --hyperlink <when>                       Add a terminal hyperlink to a file:// url for each path in the output.
+# @option --ignore-contain <name>                  Ignore directories containing the named entry
 # @option -j --threads <num>                       Set number of threads to use for searching & executing (default: number of available CPU cores)
 # @option --max-results <count>                    Limit the number of search results to 'count' and quit immediately.
 # @flag -1                                         Limit the search to a single result and quit immediately.
 # @flag -q --quiet                                 When the flag is present, the program does not print anything and will return with an exit code of 0 if there is at least one match.
 # @flag --show-errors                              Enable the display of filesystem errors for situations such as insufficient permissions or dead symlinks.
-# @option --base-directory <path>                  Change the current working directory of fd to the provided path.
+# @option -C --base-directory <path>               Change the current working directory of fd to the provided path.
 # @option --path-separator <separator>             Set the path separator to use when printing file paths.
 # @option --search-path <search-path>              Provide paths to search as an alternative to the positional <path> argument.
 # @option --strip-cwd-prefix <when>                By default, relative paths are prefixed with './' when -x/--exec, -X/--exec-batch, or -0/--print0 are given, to reduce the risk of a path starting with '-' being treated as a command line option.

@@ -9,10 +9,16 @@
 # @flag -J --json               use JSON for default or extended format
 # @option -e --extended*,[`_choice_format_column`] <list>  print out an extended readable format
 # @option -p --parse <list>     print out a parsable format
+# @flag -r --raw                use raw output format (for -e, -p and -C)
 # @option -s --sysroot <dir>    use specified directory as system root
 # @flag -x --hex                print hexadecimal masks rather than lists of CPUs
+# @option --annotate <when>     annotate columns with a tooltip (always|never|auto)
 # @flag -y --physical           print physical instead of logical IDs
+# @option --hierarchic[auto|never|always] <when>  use subsections in summary
 # @flag --output-all            print all available columns for -e, -p or -C
+# @option --arm-id <id>         print the known ARM implementers and their names.
+# @option --arm-model <id>      print the name of the given ARM implementer and model.
+# @flag -H --list-columns       list the available columns
 # @flag -h --help               display this help
 # @flag -V --version            display version
 

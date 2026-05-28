@@ -15,7 +15,7 @@ bug-report() {
 # {{ starship completions
 # @cmd Generate starship shell completions for your shell to stdout
 # @flag -h --help    Print help
-# @arg shell![bash|elvish|fish|powershell|zsh]
+# @arg shell![bash|elvish|fish|nushell|powershell|zsh]
 completions() {
     :;
 }
@@ -35,12 +35,13 @@ config() {
 # @cmd Explains the currently showing modules
 # @option -s --status <STATUS_CODE>               The status code of the previously run command as an unsigned or signed 32bit integer
 # @option --pipestatus                            Bash, Fish and Zsh support returning codes for each process in a pipeline
-# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 145]
+# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 42]
 # @option -p --path                               The path that the prompt should render for
 # @option -P --logical-path <LOGICAL_PATH>        The logical path that the prompt should render for.
 # @option -d --cmd-duration <CMD_DURATION>        The execution duration of the last command, in milliseconds
 # @option -k --keymap                             The keymap of fish/zsh/cmd [default: viins]
 # @option -j --jobs                               The number of currently running jobs [default: 0]
+# @option --shlvl                                 The current value of SHLVL, for shells that mis-handle it in $()
 # @flag -h --help                                 Print help
 explain() {
     :;
@@ -62,12 +63,13 @@ init() {
 # @flag -l --list                                 List out all supported modules
 # @option -s --status <STATUS_CODE>               The status code of the previously run command as an unsigned or signed 32bit integer
 # @option --pipestatus                            Bash, Fish and Zsh support returning codes for each process in a pipeline
-# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 145]
+# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 42]
 # @option -p --path                               The path that the prompt should render for
 # @option -P --logical-path <LOGICAL_PATH>        The logical path that the prompt should render for.
 # @option -d --cmd-duration <CMD_DURATION>        The execution duration of the last command, in milliseconds
 # @option -k --keymap                             The keymap of fish/zsh/cmd [default: viins]
 # @option -j --jobs                               The number of currently running jobs [default: 0]
+# @option --shlvl                                 The current value of SHLVL, for shells that mis-handle it in $()
 # @flag -h --help                                 Print help
 # @arg name[`_choice_module`]                     The name of the module to be printed
 module() {
@@ -80,7 +82,7 @@ module() {
 # @option -o --output    Output the preset to a file instead of stdout
 # @flag -l --list        List out all preset names
 # @flag -h --help        Print help
-# @arg name[bracketed-segments|gruvbox-rainbow|jetpack|nerd-font-symbols|no-empty-icons|no-nerd-font|no-runtime-versions|pastel-powerline|plain-text-symbols|pure-preset|tokyo-night]  The name of preset to be printed
+# @arg name[bracketed-segments|catppuccin-powerline|gruvbox-rainbow|jetpack|nerd-font-symbols|no-empty-icons|no-nerd-font|no-runtime-versions|pastel-powerline|plain-text-symbols|pure-preset|tokyo-night]  The name of preset to be printed
 preset() {
     :;
 }
@@ -103,12 +105,13 @@ print-config() {
 # @flag --continuation                            Print the continuation prompt (instead of the standard left prompt)
 # @option -s --status <STATUS_CODE>               The status code of the previously run command as an unsigned or signed 32bit integer
 # @option --pipestatus                            Bash, Fish and Zsh support returning codes for each process in a pipeline
-# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 145]
+# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 42]
 # @option -p --path                               The path that the prompt should render for
 # @option -P --logical-path <LOGICAL_PATH>        The logical path that the prompt should render for.
 # @option -d --cmd-duration <CMD_DURATION>        The execution duration of the last command, in milliseconds
 # @option -k --keymap                             The keymap of fish/zsh/cmd [default: viins]
 # @option -j --jobs                               The number of currently running jobs [default: 0]
+# @option --shlvl                                 The current value of SHLVL, for shells that mis-handle it in $()
 # @flag -h --help                                 Print help
 prompt() {
     :;
@@ -123,16 +126,36 @@ session() {
 }
 # }} starship session
 
-# {{ starship timings
-# @cmd Prints timings of all active modules
+# {{ starship statusline
+# @cmd Prints the statusline with a specific profile
+# @option --profile
 # @option -s --status <STATUS_CODE>               The status code of the previously run command as an unsigned or signed 32bit integer
 # @option --pipestatus                            Bash, Fish and Zsh support returning codes for each process in a pipeline
-# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 145]
+# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 42]
 # @option -p --path                               The path that the prompt should render for
 # @option -P --logical-path <LOGICAL_PATH>        The logical path that the prompt should render for.
 # @option -d --cmd-duration <CMD_DURATION>        The execution duration of the last command, in milliseconds
 # @option -k --keymap                             The keymap of fish/zsh/cmd [default: viins]
 # @option -j --jobs                               The number of currently running jobs [default: 0]
+# @option --shlvl                                 The current value of SHLVL, for shells that mis-handle it in $()
+# @flag -h --help                                 Print help
+# @arg provider![claude-code]                     The statusline provider to use
+statusline() {
+    :;
+}
+# }} starship statusline
+
+# {{ starship timings
+# @cmd Prints timings of all active modules
+# @option -s --status <STATUS_CODE>               The status code of the previously run command as an unsigned or signed 32bit integer
+# @option --pipestatus                            Bash, Fish and Zsh support returning codes for each process in a pipeline
+# @option -w --terminal-width <TERMINAL_WIDTH>    The width of the current interactive terminal [default: 42]
+# @option -p --path                               The path that the prompt should render for
+# @option -P --logical-path <LOGICAL_PATH>        The logical path that the prompt should render for.
+# @option -d --cmd-duration <CMD_DURATION>        The execution duration of the last command, in milliseconds
+# @option -k --keymap                             The keymap of fish/zsh/cmd [default: viins]
+# @option -j --jobs                               The number of currently running jobs [default: 0]
+# @option --shlvl                                 The current value of SHLVL, for shells that mis-handle it in $()
 # @flag -h --help                                 Print help
 timings() {
     :;

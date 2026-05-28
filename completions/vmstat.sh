@@ -12,6 +12,7 @@
 # @option -S --unit <char>        define display unit
 # @flag -w --wide                 wide output
 # @flag -t --timestamp            show timestamp
+# @flag -y --no-first             skips first line of output
 # @flag -h --help                 display this help and exit
 # @flag -V --version              output version information and exit
 # @arg delay

@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @option --output[default|json] <value>         Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @flag --proxy-dns                              (default: false)
+# @option --proxy-dns-port <value>               (default: 0)
+# @option --proxy-dns-address <value>
+# @option --proxy-dns-upstream <value>           (accepts multiple inputs)
+# @option --proxy-dns-max-upstream-conns <value>  (default: 0)
+# @option --proxy-dns-bootstrap <value>          (accepts multiple inputs)
 # @option --credentials-file <value>             Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
 # @option --cred-file <value>                    Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
 # @option --region <value>                       Cloudflare Edge region to connect to.
 # @option --edge-ip-version[4|6|auto] <value>    Cloudflare Edge IP address version to connect with.
 # @option --edge-bind-address <value>            Bind to IP address for outgoing connections to Cloudflare Edge.
 # @option --label <value>                        Use this option to give a meaningful label to a specific connector.
+# @flag --post-quantum                           When given creates an experimental post-quantum secure tunnel (default: false) [$TUNNEL_POST_QUANTUM]
+# @flag --pq                                     When given creates an experimental post-quantum secure tunnel (default: false) [$TUNNEL_POST_QUANTUM]
 # @flag --management-diagnostics                 Enables the in-depth diagnostic routes to be made available over the management service (/debug/pprof, /metrics, etc.) (default: true) [$TUNNEL_MANAGEMENT_DIAGNOSTICS]
 # @flag -f --overwrite-dns                       Overwrites existing DNS records with this hostname (default: false) [$TUNNEL_FORCE_PROVISIONING_DNS]
 # @flag -h --help                                show help (default: false)
@@ -34,14 +43,7 @@ version() {
 # }} cloudflared version
 
 # {{ cloudflared proxy-dns
-# @cmd Run a DNS over HTTPS proxy server.
-# @option --metrics <value>               Listen address for metrics reporting.
-# @option --address <value>               Listen address for the DNS over HTTPS proxy server.
-# @option --port <value>                  Listen on given port for the DNS over HTTPS proxy server.
-# @option --upstream <value>              Upstream endpoint URL, you can specify multiple endpoints for redundancy.
-# @option --bootstrap <value>             bootstrap endpoint URL, you can specify multiple endpoints for redundancy.
-# @option --max-upstream-conns <value>    Maximum concurrent connections to upstream.
-# @flag -h --help                         show help (default: false)
+# @cmd dns-proxy feature is no longer supported
 proxy-dns() {
     :;
 }
@@ -54,9 +56,9 @@ proxy-dns() {
 # @option --level[debug|info|warn|error] <value>  Filter by specific log levels.
 # @option --sample <value>                  Sample log events by percentage (0.0 .. 1.0).
 # @option --token <value>                   Access token for a specific tunnel [$TUNNEL_MANAGEMENT_TOKEN]
-# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT]
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level  (default: "info") [$TUNNEL_LOGLEVEL]
 # @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
 # @flag -h --help                           show help (default: false)
 tail_() {
     :;
@@ -91,6 +93,7 @@ service::uninstall() {
 # {{ cloudflared access
 # @cmd access <subcommand>
 # @alias forward
+# @flag --fedramp    use when performing operations in fedramp account (default: false)
 # @flag -h --help    show help (default: false)
 access() {
     :;
@@ -98,8 +101,15 @@ access() {
 
 # {{{ cloudflared access login
 # @cmd login <url of access application>
-# @flag -q --quiet    do not print the jwt to the command line (default: false)
-# @flag -h --help     show help (default: false)
+# @flag -q --quiet      do not print the jwt to the command line (default: false)
+# @flag --no-verbose    print only the jwt to stdout (default: false)
+# @flag --auto-close    automatically close the auth interstitial after action (default: false)
+# @option --app <value>
+# @flag -h --help       show help (default: false)
+# @arg url
+# @arg of
+# @arg access
+# @arg application
 access::login() {
     :;
 }
@@ -113,7 +123,7 @@ access::curl() {
 # }}} cloudflared access curl
 
 # {{{ cloudflared access token
-# @cmd token -app=<url of access application>
+# @cmd token <url of access application>
 # @option --app <value>
 # @flag -h --help    show help (default: false)
 # @arg url
@@ -173,6 +183,7 @@ access::ssh-gen() {
 # @option --origincert <path>                    Path to the certificate generated for your origin when you run cloudflared login.
 # @option --autoupdate-freq <value>              Autoupdate frequency.
 # @flag --no-autoupdate                          Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                           Skip connectivity pre-checks at startup.
 # @option --metrics <value>                      Listen address for metrics reporting.
 # @option --pidfile <file>                       Write the application's PID to this file after first successful connection.
 # @flag --hello-world                            Run Hello World Server (default: false) [$TUNNEL_HELLO_WORLD]
@@ -201,12 +212,13 @@ access::ssh-gen() {
 # @option --logfile <file>                       Save application log to this file for reporting issues.
 # @option --log-directory <dir>                  Save application log to this directory for reporting issues.
 # @option --trace-output <file>                  Name of trace output file, generated when cloudflared stops.
-# @flag --proxy-dns                              Run a DNS over HTTPS proxy server.
-# @option --proxy-dns-port <value>               Listen on given port for the DNS over HTTPS proxy server.
-# @option --proxy-dns-address <value>            Listen address for the DNS over HTTPS proxy server.
-# @option --proxy-dns-upstream <value>           Upstream endpoint URL, you can specify multiple endpoints for redundancy.
-# @option --proxy-dns-max-upstream-conns <value>  Maximum concurrent connections to upstream.
-# @option --proxy-dns-bootstrap <value>          bootstrap endpoint URL, you can specify multiple endpoints for redundancy.
+# @option --output[default|json] <value>         Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @flag --proxy-dns                              (default: false)
+# @option --proxy-dns-port <value>               (default: 0)
+# @option --proxy-dns-address <value>
+# @option --proxy-dns-upstream <value>           (accepts multiple inputs)
+# @option --proxy-dns-max-upstream-conns <value>  (default: 0)
+# @option --proxy-dns-bootstrap <value>          (accepts multiple inputs)
 # @option --credentials-file <value>             Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
 # @option --cred-file <value>                    Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
 # @option --region <value>                       Cloudflare Edge region to connect to.
@@ -220,6 +232,8 @@ access::ssh-gen() {
 # @option --grace-period <value>                 When cloudflared receives SIGINT/SIGTERM it will stop accepting new requests, wait for in-progress requests to terminate, then shutdown.
 # @option --compression-quality <value>          (beta) Use cross-stream compression instead HTTP compression.
 # @option -n --name <value>                      Stable name to identify the tunnel.
+# @flag --post-quantum                           When given creates an experimental post-quantum secure tunnel (default: false) [$TUNNEL_POST_QUANTUM]
+# @flag --pq                                     When given creates an experimental post-quantum secure tunnel (default: false) [$TUNNEL_POST_QUANTUM]
 # @flag --management-diagnostics                 Enables the in-depth diagnostic routes to be made available over the management service (/debug/pprof, /metrics, etc.) (default: true) [$TUNNEL_MANAGEMENT_DIAGNOSTICS]
 # @flag -f --overwrite-dns                       Overwrites existing DNS records with this hostname (default: false) [$TUNNEL_FORCE_PROVISIONING_DNS]
 # @flag -h --help                                show help (default: false)
@@ -229,7 +243,10 @@ tunnel() {
 
 # {{{ cloudflared tunnel login
 # @cmd Generate a configuration file with your login details
-# @flag -h --help    show help (default: false)
+# @option --loginURL <value>       The URL used to login (default is https://dash.cloudflare.com/argotunnel) (default: "https://dash.cloudflare.com/argotunnel")
+# @option --callbackURL <value>    The URL used for the callback (default is https://login.cloudflareaccess.org/) (default: "https://login.cloudflareaccess.org/")
+# @flag -f --fedramp               Login with FedRAMP High environment.
+# @flag -h --help                  show help (default: false)
 tunnel::login() {
     :;
 }
@@ -237,23 +254,24 @@ tunnel::login() {
 
 # {{{ cloudflared tunnel create
 # @cmd Create a new tunnel with given name
-# @option --config <file>                       Specifies a config file in YAML format.
-# @option --origincert <path>                   Path to the certificate generated for your origin when you run cloudflared login.
-# @option --autoupdate-freq <value>             Autoupdate frequency.
-# @flag --no-autoupdate                         Disable periodic check for updates, restarting the server with the new version.
-# @option --metrics <value>                     Listen address for metrics reporting.
-# @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --logfile <file>                      Save application log to this file for reporting issues.
-# @option --log-directory <dir>                 Save application log to this directory for reporting issues.
-# @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
-# @option -o --output[default|json] <FORMAT>    Render output using given FORMAT.
-# @option --credentials-file <value>            Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
-# @option --cred-file <value>                   Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
-# @option -s --secret <value>                   Base64 encoded secret to set for the tunnel.
-# @flag -h --help                               show help (default: false)
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @option --credentials-file <value>        Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
+# @option --cred-file <value>               Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
+# @option -s --secret <value>               Base64 encoded secret to set for the tunnel.
+# @flag -h --help                           show help (default: false)
 # @arg name
 tunnel::create() {
     :;
@@ -411,6 +429,7 @@ tunnel::vnet::update() {
 # @option --origincert <path>                   Path to the certificate generated for your origin when you run cloudflared login.
 # @option --autoupdate-freq <value>             Autoupdate frequency.
 # @flag --no-autoupdate                         Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                          Skip connectivity pre-checks at startup.
 # @option --metrics <value>                     Listen address for metrics reporting.
 # @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
@@ -419,6 +438,7 @@ tunnel::vnet::update() {
 # @option --logfile <file>                      Save application log to this file for reporting issues.
 # @option --log-directory <dir>                 Save application log to this directory for reporting issues.
 # @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>        Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
 # @option --credentials-file <value>            Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
 # @option --cred-file <value>                   Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
 # @option --credentials-contents <file>         Contents of the tunnel credentials JSON file to use.
@@ -426,8 +446,11 @@ tunnel::vnet::update() {
 # @flag --pq                                    When given creates an experimental post-quantum secure tunnel (default: false) [$TUNNEL_POST_QUANTUM]
 # @option -F --features <value>                 Opt into various features that are still being developed or tested.
 # @option --token <value>                       The Tunnel token.
+# @option --token-file <file>                   Filepath at which to read the tunnel token.
 # @option --icmpv4-src <value>                  Source address to send/receive ICMPv4 messages.
 # @option --icmpv6-src <value>                  Source address and the interface name to send/receive ICMPv6 messages.
+# @option --max-active-flows <value>            Overrides the remote configuration for max active private network flows (TCP/UDP) that this cloudflared instance supports (default: 0) [$TUNNEL_MAX_ACTIVE_FLOWS]
+# @option --dns-resolver-addrs <value>          Overrides the dynamic DNS resolver resolution to use these address:port's instead.
 # @flag --hello-world                           Run Hello World Server (default: false) [$TUNNEL_HELLO_WORLD]
 # @flag --socks5                                specify if this tunnel is running as a SOCK5 Server This flag only takes effect if you define your origin with --url and if you do not use ingress rules.
 # @flag --proxy-connect-timeout                 HTTP proxy timeout for establishing a new connection This flag only takes effect if you define your origin with --url and if you do not use ingress rules.
@@ -457,57 +480,81 @@ tunnel::run() {
 
 # {{{ cloudflared tunnel list
 # @cmd List existing tunnels
-# @option --config <file>                       Specifies a config file in YAML format.
-# @option --origincert <path>                   Path to the certificate generated for your origin when you run cloudflared login.
-# @option --autoupdate-freq <value>             Autoupdate frequency.
-# @flag --no-autoupdate                         Disable periodic check for updates, restarting the server with the new version.
-# @option --metrics <value>                     Listen address for metrics reporting.
-# @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --logfile <file>                      Save application log to this file for reporting issues.
-# @option --log-directory <dir>                 Save application log to this directory for reporting issues.
-# @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
-# @option -o --output[default|json] <FORMAT>    Render output using given FORMAT.
-# @flag -d --show-deleted                       Include deleted tunnels in the list (default: false)
-# @option -n --name                             List tunnels with the given NAME
-# @option --name-prefix <NAME>                  List tunnels that start with the give NAME prefix
-# @option --np <NAME>                           List tunnels that start with the give NAME prefix
-# @option --exclude-name-prefix <NAME>          List tunnels whose NAME does not start with the given prefix
-# @option --enp <NAME>                          List tunnels whose NAME does not start with the given prefix
-# @option -w --when <TIME>                      List tunnels that are active at the given TIME in RFC3339 format
-# @option -i --id                               List tunnel by ID
-# @flag --show-recently-disconnected            Include connections that have recently disconnected in the list (default: false)
-# @flag --rd                                    Include connections that have recently disconnected in the list (default: false)
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @flag -d --show-deleted                   Include deleted tunnels in the list (default: false)
+# @option -n --name                         List tunnels with the given NAME
+# @option --name-prefix <NAME>              List tunnels that start with the give NAME prefix
+# @option --np <NAME>                       List tunnels that start with the give NAME prefix
+# @option --exclude-name-prefix <NAME>      List tunnels whose NAME does not start with the given prefix
+# @option --enp <NAME>                      List tunnels whose NAME does not start with the given prefix
+# @option -w --when <TIME>                  List tunnels that are active at the given TIME in RFC3339 format
+# @option -i --id                           List tunnel by ID
+# @flag --show-recently-disconnected        Include connections that have recently disconnected in the list (default: false)
+# @flag --rd                                Include connections that have recently disconnected in the list (default: false)
 # @option --sort-by[name|id|createdAt|deletedAt|numConnections] <value>  Sorts the list of tunnels by the given field.
-# @flag --invert-sort                           Inverts the sort order of the tunnel list.
-# @flag -h --help                               show help (default: false)
+# @flag --invert-sort                       Inverts the sort order of the tunnel list.
+# @flag -h --help                           show help (default: false)
 tunnel::list() {
     :;
 }
 # }}} cloudflared tunnel list
 
-# {{{ cloudflared tunnel info
-# @cmd List details about the active connectors for a tunnel
-# @option --config <file>                       Specifies a config file in YAML format.
-# @option --origincert <path>                   Path to the certificate generated for your origin when you run cloudflared login.
-# @option --autoupdate-freq <value>             Autoupdate frequency.
-# @flag --no-autoupdate                         Disable periodic check for updates, restarting the server with the new version.
-# @option --metrics <value>                     Listen address for metrics reporting.
-# @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
+# {{{ cloudflared tunnel ready
+# @cmd Call /ready endpoint and return proper exit code
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --logfile <file>                      Save application log to this file for reporting issues.
-# @option --log-directory <dir>                 Save application log to this directory for reporting issues.
-# @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
-# @option -o --output[default|json] <FORMAT>    Render output using given FORMAT.
-# @flag --show-recently-disconnected            Include connections that have recently disconnected in the list (default: false)
-# @flag --rd                                    Include connections that have recently disconnected in the list (default: false)
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @flag -h --help                           show help (default: false)
+tunnel::ready() {
+    :;
+}
+# }}} cloudflared tunnel ready
+
+# {{{ cloudflared tunnel info
+# @cmd List details about the active connectors for a tunnel
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
+# @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
+# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @flag --show-recently-disconnected        Include connections that have recently disconnected in the list (default: false)
+# @flag --rd                                Include connections that have recently disconnected in the list (default: false)
 # @option --sort-by[id|startedAt|numConnections|version] <value>  Sorts the list of connections of a tunnel by the given field.
-# @flag --invert-sort                           Inverts the sort order of the tunnel info.
-# @flag -h --help                               show help (default: false)
+# @flag --invert-sort                       Inverts the sort order of the tunnel info.
+# @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::info() {
     :;
@@ -516,22 +563,24 @@ tunnel::info() {
 
 # {{{ cloudflared tunnel delete
 # @cmd Delete existing tunnel by UUID or name
-# @option --config <file>               Specifies a config file in YAML format.
-# @option --origincert <path>           Path to the certificate generated for your origin when you run cloudflared login.
-# @option --autoupdate-freq <value>     Autoupdate frequency.
-# @flag --no-autoupdate                 Disable periodic check for updates, restarting the server with the new version.
-# @option --metrics <value>             Listen address for metrics reporting.
-# @option --pidfile <file>              Write the application's PID to this file after first successful connection.
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --logfile <file>              Save application log to this file for reporting issues.
-# @option --log-directory <dir>         Save application log to this directory for reporting issues.
-# @option --trace-output <file>         Name of trace output file, generated when cloudflared stops.
-# @option --credentials-file <value>    Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
-# @option --cred-file <value>           Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
-# @flag -f --force                      Deletes a tunnel even if tunnel is connected and it has dependencies associated to it.
-# @flag -h --help                       show help (default: false)
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @option --credentials-file <value>        Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
+# @option --cred-file <value>               Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
+# @flag -f --force                          Deletes a tunnel even if tunnel is connected and it has dependencies associated to it.
+# @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::delete() {
     :;
@@ -540,20 +589,22 @@ tunnel::delete() {
 
 # {{{ cloudflared tunnel cleanup
 # @cmd Cleanup tunnel connections
-# @option --config <file>              Specifies a config file in YAML format.
-# @option --origincert <path>          Path to the certificate generated for your origin when you run cloudflared login.
-# @option --autoupdate-freq <value>    Autoupdate frequency.
-# @flag --no-autoupdate                Disable periodic check for updates, restarting the server with the new version.
-# @option --metrics <value>            Listen address for metrics reporting.
-# @option --pidfile <file>             Write the application's PID to this file after first successful connection.
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --logfile <file>             Save application log to this file for reporting issues.
-# @option --log-directory <dir>        Save application log to this directory for reporting issues.
-# @option --trace-output <file>        Name of trace output file, generated when cloudflared stops.
-# @option -c --connector-id <value>    Constraints the cleanup to stop the connections of a single Connector (by its ID).
-# @flag -h --help                      show help (default: false)
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @option -c --connector-id <value>         Constraints the cleanup to stop the connections of a single Connector (by its ID).
+# @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::cleanup() {
     :;
@@ -562,26 +613,65 @@ tunnel::cleanup() {
 
 # {{{ cloudflared tunnel token
 # @cmd Fetch the credentials token for an existing tunnel (by name or UUID) that allows to run it
-# @option --config <file>               Specifies a config file in YAML format.
-# @option --origincert <path>           Path to the certificate generated for your origin when you run cloudflared login.
-# @option --autoupdate-freq <value>     Autoupdate frequency.
-# @flag --no-autoupdate                 Disable periodic check for updates, restarting the server with the new version.
-# @option --metrics <value>             Listen address for metrics reporting.
-# @option --pidfile <file>              Write the application's PID to this file after first successful connection.
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --logfile <file>              Save application log to this file for reporting issues.
-# @option --log-directory <dir>         Save application log to this directory for reporting issues.
-# @option --trace-output <file>         Name of trace output file, generated when cloudflared stops.
-# @option --credentials-file <value>    Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
-# @option --cred-file <value>           Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
-# @flag -h --help                       show help (default: false)
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @option --credentials-file <value>        Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
+# @option --cred-file <value>               Filepath at which to read/write the tunnel credentials [$TUNNEL_CRED_FILE]
+# @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::token() {
     :;
 }
 # }}} cloudflared tunnel token
+
+# {{{ cloudflared tunnel diag
+# @cmd Creates a diagnostic report from a local cloudflared instance
+# @option --config <file>                   Specifies a config file in YAML format.
+# @option --origincert <path>               Path to the certificate generated for your origin when you run cloudflared login.
+# @option --autoupdate-freq <value>         Autoupdate frequency.
+# @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
+# @flag --no-prechecks                      Skip connectivity pre-checks at startup.
+# @option --metrics <value>                 Listen address for metrics reporting.
+# @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
+# @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
+# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
+# @option --logfile <file>                  Save application log to this file for reporting issues.
+# @option --log-directory <dir>             Save application log to this directory for reporting issues.
+# @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
+# @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @option --metrics <value>                 The metrics server address i.e.: 127.0.0.1:12345.
+# @option --diag-container-id <value>       Container ID or Name to collect logs from
+# @option --diag-pod-id <value>             Kubernetes POD to collect logs from
+# @flag --no-diag-logs                      Log collection will not be performed (default: false)
+# @flag --no-diag-metrics                   Metric collection will not be performed (default: false)
+# @flag --no-diag-system                    System information collection will not be performed (default: false)
+# @flag --no-diag-runtime                   Runtime information collection will not be performed (default: false)
+# @flag --no-diag-network                   Network diagnostics won't be performed (default: false)
+# @flag -h --help                           show help (default: false)
+tunnel::diag() {
+    :;
+}
+# }}} cloudflared tunnel diag
+
+# {{{ cloudflared tunnel proxy-dns
+# @cmd dns-proxy feature is no longer supported
+tunnel::proxy-dns() {
+    :;
+}
+# }}} cloudflared tunnel proxy-dns
 # }} cloudflared tunnel
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

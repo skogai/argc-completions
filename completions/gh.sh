@@ -13,6 +13,7 @@ auth() {
 
 # {{{ gh auth login
 # @cmd Log in to a GitHub account
+# @flag -c --clipboard                             Copy one-time OAuth device code to clipboard
 # @option -p --git-protocol[ssh|https] <string>    The protocol to use for git operations on this host:
 # @option -h --hostname[`_choice_hostname`] <string>  The hostname of the GitHub instance to authenticate with
 # @flag --insecure-storage                         Save authentication credentials in plain text instead of credential store
@@ -38,6 +39,7 @@ auth::logout() {
 
 # {{{ gh auth refresh
 # @cmd Refresh stored authentication credentials
+# @flag -c --clipboard                    Copy one-time OAuth device code to clipboard
 # @option -h --hostname[`_choice_hostname`] <string>  The GitHub host to use for authentication
 # @flag --insecure-storage                Save authentication credentials in plain text instead of credential store
 # @option -r --remove-scopes* <string>    Authentication scopes to remove from gh
@@ -62,12 +64,23 @@ auth::setup-git() {
 
 # {{{ gh auth status
 # @cmd Display active account and authentication state on each known GitHub host
+# @flag -a --active              Display the active account only
 # @option -h --hostname[`_choice_hostname`] <string>  Check only a specific hostname's auth status
-# @flag -t --show-token    Display the auth token
-# @flag --help             Show help for command
+# @option --jq <expression>      Filter JSON output using a jq expression
+# @option --json <fields>        Output JSON with the specified fields
+# @flag -t --show-token          Display the auth token
+# @option --template <string>    Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                   Show help for command
 auth::status() {
     :;
 }
+
+# {{{{ gh auth status hosts
+# @cmd
+auth::status::hosts() {
+    :;
+}
+# }}}} gh auth status hosts
 # }}} gh auth status
 
 # {{{ gh auth switch
@@ -92,7 +105,9 @@ auth::token() {
 # }} gh auth
 
 # {{ gh browse
-# @cmd Open the repository in the browser
+# @cmd Open repositories, issues, pull requests, and more in the browser
+# @flag -a --actions                       Open repository actions
+# @flag --blame                            Open blame view for a file
 # @option -b --branch[`_choice_branch`] <string>  Select another branch by passing in the branch name
 # @option -c --commit <string[="last"]>    Select another commit by passing in the commit SHA, default is the last commit
 # @flag -n --no-browser                    Print destination URL instead of opening the browser
@@ -102,7 +117,7 @@ auth::token() {
 # @flag -s --settings                      Open repository settings
 # @flag -w --wiki                          Open repository wiki
 # @flag --help                             Show help for command
-# @arg number-path-commit-sha <<number>|<path>|<commit-SHA>>
+# @arg number-path-commit-sha <<number>|<path>|<commit-sha>>
 browse() {
     :;
 }
@@ -146,17 +161,17 @@ codespace::cp() {
 
 # {{{ gh codespace create
 # @cmd Create a codespace
-# @option -b --branch[`_choice_branch`] <string>  repository branch
-# @flag --default-permissions              do not prompt to accept additional permissions requested by the codespace
-# @option --devcontainer-path <file>       path to the devcontainer.json file to use when creating codespace
-# @option -d --display-name <string>       display name for the codespace (48 characters or less)
-# @option --idle-timeout <duration>        allowed inactivity before codespace is stopped, e.g. "10m", "1h"
-# @option -l --location[EastUs|SouthEastAsia|WestEurope|WestUs2] <path>  location:  (determined automatically if not provided)
-# @option -m --machine <string>            hardware specifications for the VM
-# @option -R --repo[`_choice_search_repo`] <string>  repository name with owner: user/repo
-# @option --retention-period <duration>    allowed time after shutting down before the codespace is automatically deleted (maximum 30 days), e.g. "1h", "72h"
-# @flag -s --status                        show status of post-create command and dotfiles
-# @flag -w --web                           create codespace from browser, cannot be used with --display-name, --idle-timeout, or --retention-period
+# @option -b --branch[`_choice_branch`] <string>  Repository branch
+# @flag --default-permissions              Do not prompt to accept additional permissions requested by the codespace
+# @option --devcontainer-path <file>       Path to the devcontainer.json file to use when creating codespace
+# @option -d --display-name <string>       Display name for the codespace (48 characters or less)
+# @option --idle-timeout <duration>        Allowed inactivity before codespace is stopped, e.g. "10m", "1h"
+# @option -l --location[EastUs|SouthEastAsia|WestEurope|WestUs2] <path>  Location:  (determined automatically if not provided)
+# @option -m --machine <string>            Hardware specifications for the VM
+# @option -R --repo[`_choice_search_repo`] <string>  Repository name with owner: user/repo
+# @option --retention-period <duration>    Allowed time after shutting down before the codespace is automatically deleted (maximum 30 days), e.g. "1h", "72h"
+# @flag -s --status                        Show status of post-create command and dotfiles
+# @flag -w --web                           Create codespace from browser, cannot be used with --display-name, --idle-timeout, or --retention-period
 # @flag --help                             Show help for command
 codespace::create() {
     :;
@@ -272,7 +287,7 @@ codespace::ports::visibility() {
 # {{{ gh codespace rebuild
 # @cmd Rebuild a codespace
 # @option -c --codespace[`_choice_codespace`] <string>  Name of the codespace
-# @flag --full    perform a full rebuild
+# @flag --full    Perform a full rebuild
 # @option -R --repo[`_choice_search_repo`] <string>  Filter codespace selection by repository name (user/repo)
 # @option --repo-owner[`_choice_owner`] <string>  Filter codespace selection by repository owner (username or org)
 # @flag --help    Show help for command
@@ -350,7 +365,7 @@ gist::clone() {
 # @flag -p --public               List the gist publicly (default "secret")
 # @flag -w --web                  Open the web browser with created gist
 # @flag --help                    Show help for command
-# @arg filename <<filename>...|->
+# @arg filename-pattern <<filename>...|<pattern>...|->
 gist::create() {
     :;
 }
@@ -358,6 +373,7 @@ gist::create() {
 
 # {{{ gh gist delete
 # @cmd Delete a gist
+# @flag --yes     Confirm deletion without prompting
 # @flag --help    Show help for command
 # @arg gist[`_choice_gist`]
 gist::delete() {
@@ -381,10 +397,12 @@ gist::edit() {
 
 # {{{ gh gist list
 # @cmd List your gists
-# @option -L --limit <int>    Maximum number of gists to fetch (default 10)
-# @flag --public              Show only public gists
-# @flag --secret              Show only secret gists
-# @flag --help                Show help for command
+# @option --filter <expression>    Filter gists using a regular expression
+# @flag --include-content          Include gists' file content when filtering
+# @option -L --limit <int>         Maximum number of gists to fetch (default 10)
+# @flag --public                   Show only public gists
+# @flag --secret                   Show only secret gists
+# @flag --help                     Show help for command
 gist::list() {
     :;
 }
@@ -394,8 +412,8 @@ gist::list() {
 # @cmd Rename a file in a gist
 # @flag --help    Show help for command
 # @arg gist[`_choice_gist`]
-# @arg oldfilename![`_choice_gist_file`]
-# @arg newfilename!
+# @arg old-filename!
+# @arg new-filename!
 gist::rename() {
     :;
 }
@@ -431,9 +449,9 @@ issue() {
 # @flag -e --editor                               Skip prompts and open the text editor to write the title and body in.
 # @option -l --label*,[`_choice_label`] <name>    Add labels by name
 # @option -m --milestone[`_choice_milestone`] <name>  Add the issue to a milestone by name
-# @option -p --project[`_choice_repo_project`] <name>  Add the issue to projects by name
+# @option -p --project[`_choice_repo_project`] <title>  Add the issue to projects by title
 # @option --recover <string>                      Recover input from a failed run of create
-# @option -T --template[`_choice_issue_template`] <file>  Template file to use as starting body text
+# @option -T --template[`_choice_issue_template`] <name>  Template name to use as starting body text
 # @option -t --title <string>                     Supply a title.
 # @flag -w --web                                  Open the browser to create an issue
 # @flag --help                                    Show help for command
@@ -479,9 +497,10 @@ issue::status() {
 
 # {{{ gh issue close
 # @cmd Close issue
-# @option -c --comment <string>    Leave a closing comment
-# @option -r --reason <string>     Reason for closing: {completed|not planned}
-# @flag --help                     Show help for command
+# @option -c --comment <string>      Leave a closing comment
+# @option --duplicate-of <string>    Mark as duplicate of another issue by number or URL
+# @option -r --reason <string>       Reason for closing: {completed|not planned|duplicate}
+# @flag --help                       Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg issue[`_choice_open_issue`]
 issue::close() {
@@ -493,9 +512,12 @@ issue::close() {
 # @cmd Add a comment to an issue
 # @option -b --body <text>         The comment body text
 # @option -F --body-file <file>    Read body text from file (use "-" to read from standard input)
-# @flag --edit-last                Edit the last comment of the same author
+# @flag --create-if-none           Create a new comment if no comments are found.
+# @flag --delete-last              Delete the last comment of the current user
+# @flag --edit-last                Edit the last comment of the current user
 # @flag -e --editor                Skip prompts and open the text editor to write the body in
 # @flag -w --web                   Open the web browser to write the comment
+# @flag --yes                      Skip the delete confirmation prompt when --delete-last is provided
 # @flag --help                     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg issue[`_choice_open_issue`]
@@ -506,7 +528,7 @@ issue::comment() {
 
 # {{{ gh issue delete
 # @cmd Delete issue
-# @flag --yes     confirm deletion without prompting
+# @flag --yes     Confirm deletion without prompting
 # @flag --help    Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg issue[`_choice_all_issue`]
@@ -517,7 +539,7 @@ issue::delete() {
 
 # {{{ gh issue develop
 # @cmd Manage linked branches for an issue
-# @option -b --base[`_choice_branch`] <string>    Name of the base branch you want to make your new branch from
+# @option -b --base[`_choice_branch`] <string>    Name of the remote branch you want to make your new branch from
 # @option --branch-repo <string>                  Name or URL of the repository where you want to create your new branch
 # @flag -c --checkout                             Checkout the branch after creating it
 # @flag -l --list                                 List linked branches for the issue
@@ -534,14 +556,14 @@ issue::develop() {
 # @cmd Edit issues
 # @option --add-assignee*,[`_choice_assignee`] <login>  Add assigned users by their login.
 # @option --add-label*,[`_choice_label`] <name>    Add labels by name
-# @option --add-project*,[`_choice_repo_project`] <name>  Add the issue to projects by name
+# @option --add-project*,[`_choice_repo_project`] <title>  Add the issue to projects by title
 # @option -b --body <string>                       Set the new body.
 # @option -F --body-file <file>                    Read body text from file (use "-" to read from standard input)
 # @option -m --milestone[`_choice_milestone`] <name>  Edit the milestone the issue belongs to by name
 # @option --remove-assignee*,[`_choice_issue_assignee`] <login>  Remove assigned users by their login.
 # @option --remove-label*,[`_choice_issue_label`] <name>  Remove labels by name
 # @flag --remove-milestone                         Remove the milestone association from the issue
-# @option --remove-project*,[`_choice_issue_project`] <name>  Remove the issue from projects by name
+# @option --remove-project*,[`_choice_issue_project`] <title>  Remove the issue from projects by title
 # @option -t --title <string>                      Set the new title.
 # @flag --help                                     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -663,6 +685,7 @@ pr() {
 # @option -F --body-file <file>                   Read body text from file (use "-" to read from standard input)
 # @flag -d --draft                                Mark pull request as a draft
 # @flag --dry-run                                 Print details instead of creating the PR.
+# @flag -e --editor                               Skip prompts and open the text editor to write the title and body in.
 # @flag -f --fill                                 Use commit info for title and body
 # @flag --fill-first                              Use first commit info for title and body
 # @flag --fill-verbose                            Use commits msg+body for description
@@ -670,7 +693,7 @@ pr() {
 # @option -l --label*,[`_choice_label`] <name>    Add labels by name
 # @option -m --milestone[`_choice_milestone`] <name>  Add the pull request to a milestone by name
 # @flag --no-maintainer-edit                      Disable maintainer's ability to modify pull request
-# @option -p --project*,[`_choice_repo_project`] <name>  Add the pull request to projects by name
+# @option -p --project*,[`_choice_repo_project`] <title>  Add the pull request to projects by title
 # @option --recover <string>                      Recover input from a failed run of create
 # @option -r --reviewer*,[`_choice_assignee`] <handle>  Request reviews from people or teams by their handle
 # @option -T --template <file>                    Template file to use as starting body text
@@ -690,7 +713,7 @@ pr::create() {
 # @option -A --author[`_choice_search_user`] <string>  Filter by author
 # @option -B --base[`_choice_branch`] <string>     Filter by base branch
 # @flag -d --draft                                 Filter by draft state
-# @option -H --head[`_choice_branch`] <string>     Filter by head branch
+# @option -H --head[`_choice_branch`] <string>     Filter by head branch ("<owner>:<branch>" syntax not supported)
 # @option -q --jq <expression>                     Filter JSON output using a jq expression
 # @option --json*,[`_choice_pr_field`] <fields>    Output JSON with the specified fields
 # @option -l --label*,[`_choice_label`] <string>   Filter by label
@@ -736,6 +759,7 @@ pr::checkout() {
 # {{{ gh pr checks
 # @cmd Show CI status for a single pull request
 # @flag --fail-fast                                Exit watch mode on first check failure
+# @option -i --interval <int>                      Refresh interval in seconds in watch mode (default 10)
 # @option -q --jq <expression>                     Filter JSON output using a jq expression
 # @option --json*,[`_choice_pr_field`] <fields>    Output JSON with the specified fields
 # @flag --required                                 Only show checks that are required
@@ -766,9 +790,12 @@ pr::close() {
 # @cmd Add a comment to a pull request
 # @option -b --body <text>         The comment body text
 # @option -F --body-file <file>    Read body text from file (use "-" to read from standard input)
-# @flag --edit-last                Edit the last comment of the same author
+# @flag --create-if-none           Create a new comment if no comments are found.
+# @flag --delete-last              Delete the last comment of the current user
+# @flag --edit-last                Edit the last comment of the current user
 # @flag -e --editor                Skip prompts and open the text editor to write the body in
 # @flag -w --web                   Open the web browser to write the comment
+# @flag --yes                      Skip the delete confirmation prompt when --delete-last is provided
 # @flag --help                     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg pr[`_choice_open_pr`]
@@ -780,6 +807,7 @@ pr::comment() {
 # {{{ gh pr diff
 # @cmd View changes in a pull request
 # @option --color[always|never|auto] <string>    Use color in diff output:  (default "auto")
+# @option -e --exclude <patterns>                Exclude files matching glob patterns from the diff
 # @flag --name-only                              Display only names of changed files
 # @flag --patch                                  Display diff in patch format
 # @flag -w --web                                 Open the pull request diff in the browser
@@ -795,8 +823,8 @@ pr::diff() {
 # @cmd Edit a pull request
 # @option --add-assignee*,[`_choice_assignee`] <login>  Add assigned users by their login.
 # @option --add-label*,[`_choice_label`] <name>    Add labels by name
-# @option --add-project*,[`_choice_repo_project`] <name>  Add the pull request to projects by name
-# @option --add-reviewer*,[`_choice_assignee`] <login>  Add reviewers by their login.
+# @option --add-project*,[`_choice_repo_project`] <title>  Add the pull request to projects by title
+# @option --add-reviewer*,[`_choice_assignee`] <login>  Add or re-request reviewers by their login.
 # @option -B --base[`_choice_branch`] <branch>     Change the base branch for this pull request
 # @option -b --body <string>                       Set the new body.
 # @option -F --body-file <file>                    Read body text from file (use "-" to read from standard input)
@@ -804,7 +832,7 @@ pr::diff() {
 # @option --remove-assignee*,[`_choice_pr_assignee`] <login>  Remove assigned users by their login.
 # @option --remove-label*,[`_choice_pr_label`] <name>  Remove labels by name
 # @flag --remove-milestone                         Remove the milestone association from the pull request
-# @option --remove-project*,[`_choice_pr_project`] <name>  Remove the pull request from projects by name
+# @option --remove-project*,[`_choice_pr_project`] <title>  Remove the pull request from projects by title
 # @option --remove-reviewer*,[`_choice_pr_reviewer`] <login>  Remove reviewers by their login.
 # @option -t --title <string>                      Set the new title.
 # @flag --help                                     Show help for command
@@ -869,6 +897,20 @@ pr::reopen() {
     :;
 }
 # }}} gh pr reopen
+
+# {{{ gh pr revert
+# @cmd Revert a pull request
+# @option -b --body <string>       Body for the revert pull request
+# @option -F --body-file <file>    Read body text from file (use "-" to read from standard input)
+# @flag -d --draft                 Mark revert pull request as a draft
+# @option -t --title <string>      Title for the revert pull request
+# @flag --help                     Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg number-url-branch <<number>|<url>|<branch>>
+pr::revert() {
+    :;
+}
+# }}} gh pr revert
 
 # {{{ gh pr review
 # @cmd Add a review to a pull request
@@ -1112,7 +1154,7 @@ project::item-delete() {
 # @option --id <string>                         ID of the item to edit
 # @option --iteration-id <string>               ID of the iteration value to set on the field
 # @option -q --jq <expression>                  Filter JSON output using a jq expression
-# @option --number <float32>                    Number value for the field
+# @option --number <float>                      Number value for the field
 # @option --project-id <string>                 ID of the project to which the field belongs to
 # @option --single-select-option-id <string>    ID of the single select option value to set on the field
 # @option -t --template <string>                Format JSON output using a Go template; see "gh help formatting"
@@ -1130,6 +1172,7 @@ project::item-edit() {
 # @option -q --jq <expression>                 Filter JSON output using a jq expression
 # @option -L --limit <int>                     Maximum number of items to fetch (default 30)
 # @option --owner[`_choice_owner`] <string>    Login of the owner.
+# @option --query <string>                     Filter items using the Projects filter syntax, e.g. "assignee:octocat -status:Done"
 # @option -t --template <string>               Format JSON output using a Go template; see "gh help formatting"
 # @flag --help                                 Show help for command
 # @arg project[`_choice_project`]
@@ -1218,11 +1261,12 @@ release() {
 # @cmd Create a new release
 # @option --discussion-category[`_choice_discussion_category`] <string>  Start a discussion in the specified category
 # @flag -d --draft                                 Save the release as a draft instead of publishing it
-# @flag --generate-notes                           Automatically generate title and notes for the release
+# @flag --fail-on-no-commits                       Fail if there are no commits since the last release (no impact on the first release)
+# @flag --generate-notes                           Automatically generate title and notes for the release via GitHub Release Notes API
 # @flag --latest                                   Mark this release as "Latest" (default [automatic based on date and version]).
 # @option -n --notes <string>                      Release notes
 # @option -F --notes-file <file>                   Read release notes from file (use "-" to read from standard input)
-# @flag --notes-from-tag                           Automatically generate notes from annotated tag
+# @flag --notes-from-tag                           Fetch notes from the tag annotation or message of commit associated with tag
 # @option --notes-start-tag <string>               Tag to use as the starting point for generating release notes
 # @flag -p --prerelease                            Mark the release as a prerelease
 # @option --target*,[`_choice_branch`] <branch>    Target branch or full commit SHA (default [main branch])
@@ -1231,7 +1275,7 @@ release() {
 # @flag --help                                     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg tag[`_choice_tag`]
-# @arg files*
+# @arg filename-pattern <<filename>...|<pattern>...>
 release::create() {
     :;
 }
@@ -1315,7 +1359,7 @@ release::edit() {
 
 # {{{ gh release upload
 # @cmd Upload assets to a release
-# @flag --clobber    Overwrite existing assets of the same name
+# @flag --clobber    Delete and re-upload existing assets of the same name
 # @flag --help       Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg tag![`_choice_tag`]
@@ -1324,6 +1368,33 @@ release::upload() {
     :;
 }
 # }}} gh release upload
+
+# {{{ gh release verify
+# @cmd Verify the attestation for a release
+# @option --format <string>         Output format: {json}
+# @option -q --jq <expression>      Filter JSON output using a jq expression
+# @option -t --template <string>    Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                      Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg tag[`_choice_tag`]
+release::verify() {
+    :;
+}
+# }}} gh release verify
+
+# {{{ gh release verify-asset
+# @cmd Verify that a given asset originated from a release
+# @option --format <string>         Output format: {json}
+# @option -q --jq <expression>      Filter JSON output using a jq expression
+# @option -t --template <string>    Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                      Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg tag[`_choice_tag`]
+# @arg file-path!
+release::verify-asset() {
+    :;
+}
+# }}} gh release verify-asset
 
 # {{{ gh release view
 # @cmd View information about a release
@@ -1403,8 +1474,67 @@ repo::archive() {
 }
 # }}} gh repo archive
 
+# {{{ gh repo autolink
+# @cmd Manage autolink references
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @flag --help    Show help for command
+repo::autolink() {
+    :;
+}
+
+# {{{{ gh repo autolink create
+# @cmd Create a new autolink reference
+# @flag -n --numeric    Mark autolink as numeric
+# @flag --help          Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg keyprefix!
+# @arg urltemplate!
+repo::autolink::create() {
+    :;
+}
+# }}}} gh repo autolink create
+
+# {{{{ gh repo autolink delete
+# @cmd Delete an autolink reference
+# @flag --yes     Confirm deletion without prompting
+# @flag --help    Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg id!
+repo::autolink::delete() {
+    :;
+}
+# }}}} gh repo autolink delete
+
+# {{{{ gh repo autolink list
+# @cmd List autolink references for a GitHub repository
+# @option -q --jq <expression>                     Filter JSON output using a jq expression
+# @option --json[`_choice_repo_field`] <fields>    Output JSON with the specified fields
+# @option -t --template[`_choice_search_repo`] <string>  Format JSON output using a Go template; see "gh help formatting"
+# @flag -w --web                                   List autolink references in the web browser
+# @flag --help                                     Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+repo::autolink::list() {
+    :;
+}
+# }}}} gh repo autolink list
+
+# {{{{ gh repo autolink view
+# @cmd View an autolink reference
+# @option -q --jq <expression>                     Filter JSON output using a jq expression
+# @option --json[`_choice_repo_field`] <fields>    Output JSON with the specified fields
+# @option -t --template[`_choice_search_repo`] <string>  Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                                     Show help for command
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @arg id!
+repo::autolink::view() {
+    :;
+}
+# }}}} gh repo autolink view
+# }}} gh repo autolink
+
 # {{{ gh repo clone
 # @cmd Clone a repository locally
+# @flag --no-upstream                           Do not add an upstream remote when cloning a fork
 # @option -u --upstream-remote-name <string>    Upstream remote name when cloning a fork (default "upstream")
 # @flag --help                                  Show help for command
 # @arg repository![`_choice_search_repo`]
@@ -1416,7 +1546,7 @@ repo::clone() {
 
 # {{{ gh repo delete
 # @cmd Delete a repository
-# @flag --yes     confirm deletion without prompting
+# @flag --yes     Confirm deletion without prompting
 # @flag --help    Show help for command
 # @arg repository[`_choice_search_repo`]
 repo::delete() {
@@ -1469,25 +1599,30 @@ repo::deploy-key::list() {
 
 # {{{ gh repo edit
 # @cmd Edit repository settings
+# @flag --accept-visibility-change-consequences    Accept the consequences of changing the repository visibility
 # @option --add-topic*,[`_choice_search_topic`] <string>  Add repository topic
-# @flag --allow-forking                        Allow forking of an organization repository
-# @flag --allow-update-branch                  Allow a pull request head branch that is behind its base branch to be updated
-# @option --default-branch <name>              Set the default branch name for the repository
-# @flag --delete-branch-on-merge               Delete head branch when pull requests are merged
-# @option -d --description <string>            Description of the repository
-# @flag --enable-auto-merge                    Enable auto-merge functionality
-# @flag --enable-discussions                   Enable discussions in the repository
-# @flag --enable-issues                        Enable issues in the repository
-# @flag --enable-merge-commit                  Enable merging pull requests via merge commit
-# @flag --enable-projects                      Enable projects in the repository
-# @flag --enable-rebase-merge                  Enable merging pull requests via rebase
-# @flag --enable-squash-merge                  Enable merging pull requests via squashed commit
-# @flag --enable-wiki                          Enable wiki in the repository
-# @option -h --homepage <URL>                  Repository home page URL
+# @flag --allow-forking                            Allow forking of an organization repository
+# @flag --allow-update-branch                      Allow a pull request head branch that is behind its base branch to be updated
+# @option --default-branch <name>                  Set the default branch name for the repository
+# @flag --delete-branch-on-merge                   Delete head branch when pull requests are merged
+# @option -d --description <string>                Description of the repository
+# @flag --enable-advanced-security                 Enable advanced security in the repository
+# @flag --enable-auto-merge                        Enable auto-merge functionality
+# @flag --enable-discussions                       Enable discussions in the repository
+# @flag --enable-issues                            Enable issues in the repository
+# @flag --enable-merge-commit                      Enable merging pull requests via merge commit
+# @flag --enable-projects                          Enable projects in the repository
+# @flag --enable-rebase-merge                      Enable merging pull requests via rebase
+# @flag --enable-secret-scanning                   Enable secret scanning in the repository
+# @flag --enable-secret-scanning-push-protection   Enable secret scanning push protection in the repository.
+# @flag --enable-squash-merge                      Enable merging pull requests via squashed commit
+# @flag --enable-wiki                              Enable wiki in the repository
+# @option -h --homepage <URL>                      Repository home page URL
 # @option --remove-topic*,[`_choice_repo_topic`] <string>  Remove repository topic
-# @option --template[`_choice_search_repo`]    Make the repository available as a template repository
-# @option --visibility <string>                Change the visibility of the repository to {public,private,internal}
-# @flag --help                                 Show help for command
+# @option --squash-merge-commit-message[default|pr-title|pr-title-commits|pr-title-description] <string>  The default value for a squash merge commit message:
+# @option --template[`_choice_search_repo`]        Make the repository available as a template repository
+# @option --visibility <string>                    Change the visibility of the repository to {public,private,internal}
+# @flag --help                                     Show help for command
 # @arg repository[`_choice_search_repo`]
 repo::edit() {
     :;
@@ -1509,6 +1644,57 @@ repo::fork() {
 }
 # }}} gh repo fork
 
+# {{{ gh repo gitignore
+# @cmd List and view available repository gitignore templates
+# @flag --help    Show help for command
+repo::gitignore() {
+    :;
+}
+
+# {{{{ gh repo gitignore list
+# @cmd List available repository gitignore templates
+# @flag --help    Show help for command
+repo::gitignore::list() {
+    :;
+}
+# }}}} gh repo gitignore list
+
+# {{{{ gh repo gitignore view
+# @cmd View an available repository gitignore template
+# @flag --help    Show help for command
+# @arg template!
+repo::gitignore::view() {
+    :;
+}
+# }}}} gh repo gitignore view
+# }}} gh repo gitignore
+
+# {{{ gh repo license
+# @cmd Explore repository licenses
+# @flag --help    Show help for command
+repo::license() {
+    :;
+}
+
+# {{{{ gh repo license list
+# @cmd List common repository licenses
+# @flag --help    Show help for command
+repo::license::list() {
+    :;
+}
+# }}}} gh repo license list
+
+# {{{{ gh repo license view
+# @cmd View a specific repository license
+# @flag -w --web    Open https://choosealicense.com/ in the browser
+# @flag --help      Show help for command
+# @arg license-key-spdx-id <<license-key>|<spdx-id>>
+repo::license::view() {
+    :;
+}
+# }}}} gh repo license view
+# }}} gh repo license
+
 # {{{ gh repo rename
 # @cmd Rename a repository
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -1522,8 +1708,8 @@ repo::rename() {
 
 # {{{ gh repo set-default
 # @cmd Configure default repository for this directory
-# @flag -u --unset    unset the current default repository
-# @flag -v --view     view the current default repository
+# @flag -u --unset    Unset the current default repository
+# @flag -v --view     View the current default repository
 # @flag --help        Show help for command
 # @arg repository[`_choice_search_repo`]
 repo::set-default() {
@@ -1568,6 +1754,84 @@ repo::view() {
 # }}} gh repo view
 # }} gh repo
 
+# {{ gh skill
+# @cmd Install and manage agent skills (preview)
+# @flag --help    Show help for command
+skill() {
+    :;
+}
+
+# {{{ gh skill install
+# @cmd Install agent skills from a GitHub repository (preview)
+# @option --agent <string>                  Target agent (see supported values above)
+# @flag --allow-hidden-dirs                 Include skills in hidden directories (e.g. .claude/skills/, .agents/skills/)
+# @option --dir <dir>                       Install to a custom directory (overrides --agent and --scope)
+# @flag -f --force                          Overwrite existing skills without prompting
+# @flag --from-local                        Treat the argument as a local directory path instead of a repository
+# @option --pin <string>                    Pin to a specific git tag or commit SHA
+# @option --scope[project|user] <string>    Installation scope:  (default "project")
+# @flag --upstream                          Install from the upstream source when a re-published skill is detected
+# @flag --help                              Show help for command
+# @arg repository!
+# @arg skill-version <skill[@version]>
+skill::install() {
+    :;
+}
+# }}} gh skill install
+
+# {{{ gh skill preview
+# @cmd Preview a skill from a GitHub repository (preview)
+# @flag --allow-hidden-dirs    Include skills in hidden directories (e.g. .claude/skills/, .agents/skills/)
+# @flag --help                 Show help for command
+# @arg repository!
+# @arg skill
+skill::preview() {
+    :;
+}
+# }}} gh skill preview
+
+# {{{ gh skill publish
+# @cmd Validate and publish skills to a GitHub repository (preview)
+# @flag --dry-run           Validate without publishing
+# @flag --fix               Auto-fix issues where possible without publishing (e.g. strip install metadata)
+# @option --tag <string>    Version tag for the release (e.g. v1.0.0)
+# @flag --help              Show help for command
+# @arg directory
+skill::publish() {
+    :;
+}
+# }}} gh skill publish
+
+# {{{ gh skill search
+# @cmd Search for skills across GitHub (preview)
+# @option -q --jq <expression>      Filter JSON output using a jq expression
+# @option --json <fields>           Output JSON with the specified fields
+# @option -L --limit <int>          Maximum number of results per page (default 15)
+# @option --owner <string>          Filter results to a specific GitHub user or organization
+# @option --page <int>              Page number of results to fetch (default 1)
+# @option -t --template <string>    Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                      Show help for command
+# @arg query!
+skill::search() {
+    :;
+}
+# }}} gh skill search
+
+# {{{ gh skill update
+# @cmd Update installed skills to their latest versions (preview)
+# @flag --all            Update all skills without prompting
+# @option --dir <dir>    Scan a custom directory for installed skills
+# @flag --dry-run        Report available updates without modifying files
+# @flag --force          Re-download even if already up to date
+# @flag --unpin          Clear pinned version and include pinned skills in update
+# @flag --help           Show help for command
+# @arg skill*
+skill::update() {
+    :;
+}
+# }}} gh skill update
+# }} gh skill
+
 # {{ gh cache
 # @cmd Manage GitHub Actions caches
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -1578,10 +1842,13 @@ cache() {
 
 # {{{ gh cache delete
 # @cmd Delete GitHub Actions caches
-# @flag -a --all    Delete all caches
-# @flag --help      Show help for command
+# @flag -a --all                  Delete all caches, can be used with --ref to delete all caches for a specific ref
+# @option -r --ref <string>       Delete by cache key and ref, formatted as refs/heads/<branch name> or refs/pull/<number>/merge
+# @flag --succeed-on-no-caches    Return exit code 0 if no caches found.
+# @flag --all                     Return exit code 0 if no caches found.
+# @flag --help                    Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
-# @arg cache-id-cache-key <<cache-id>| <cache-key>>
+# @arg cache-id-cache-key <<cache-id>|<cache-key>>
 cache::delete() {
     :;
 }
@@ -1615,7 +1882,8 @@ run() {
 
 # {{{ gh run cancel
 # @cmd Cancel a workflow run
-# @flag --help    Show help for command
+# @flag --force    Force cancel a workflow run
+# @flag --help     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg run-id[`_choice_inprogress_run`]
 run::cancel() {
@@ -1656,7 +1924,7 @@ run::download() {
 # @option -q --jq <expression>      Filter JSON output using a jq expression
 # @option --json*,[`_choice_run_field`] <fields>  Output JSON with the specified fields
 # @option -L --limit <int>          Maximum number of runs to fetch (default 20)
-# @option -s --status[queued|completed|in_progress|requested|waiting|action_required|cancelled|failure|neutral|skipped|stale|startup_failure|success|timed_out] <string>  Filter runs by status:
+# @option -s --status[queued|completed|in_progress|requested|waiting|pending|action_required|cancelled|failure|neutral|skipped|stale|startup_failure|success|timed_out] <string>  Filter runs by status:
 # @option -t --template <string>    Format JSON output using a Go template; see "gh help formatting"
 # @option -u --user[`_choice_search_user`] <string>  Filter runs by user who triggered the run
 # @option -w --workflow[`_choice_workflow`] <string>  Filter runs by workflow
@@ -1702,6 +1970,7 @@ run::view() {
 
 # {{{ gh run watch
 # @cmd Watch a run until it completes, showing its progress
+# @flag --compact                Show only relevant/failed steps
 # @flag --exit-status            Exit with non-zero status if run fails
 # @option -i --interval <int>    Refresh interval in seconds (default 3)
 # @flag --help                   Show help for command
@@ -1760,7 +2029,7 @@ workflow::list() {
 # @option -F --field <key=value>        Add a string parameter in key=value format, respecting @ syntax (see "gh help api").
 # @flag --json                          Read workflow inputs as JSON via STDIN
 # @option -f --raw-field <key=value>    Add a string parameter in key=value format
-# @option -r --ref <file>               The branch or tag name which contains the version of the workflow file you'd like to run
+# @option -r --ref <file>               Branch or tag name which contains the version of the workflow file you'd like to run
 # @flag --help                          Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg workflow[`_choice_workflow`]
@@ -1783,46 +2052,63 @@ workflow::view() {
 # }}} gh workflow view
 # }} gh workflow
 
-# {{ gh copilot
-# @cmd Extension copilot
-# @flag -h --help       help for copilot
-# @flag -v --version    version for copilot
-copilot() {
-    :;
-}
-
-# {{{ gh copilot config
-# @cmd Configure options
-# @flag -h --help    help for config
-copilot::config() {
-    :;
-}
-# }}} gh copilot config
-
-# {{{ gh copilot explain
-# @cmd Explain a command
-# @flag -h --help    help for explain
-copilot::explain() {
-    :;
-}
-# }}} gh copilot explain
-
-# {{{ gh copilot suggest
-# @cmd Suggest a command
-# @flag -h --help                 help for suggest
-# @option -t --target <target>    Target for suggestion; must be shell, gh, git
-copilot::suggest() {
-    :;
-}
-# }}} gh copilot suggest
-# }} gh copilot
-
 # {{ gh co
 # @cmd Alias for "pr checkout"
 co() {
     :;
 }
 # }} gh co
+
+# {{ gh agent-task
+# @cmd Work with agent tasks (preview)
+# @flag --help    Show help for command
+agent-task() {
+    :;
+}
+
+# {{{ gh agent-task create
+# @cmd Create an agent task (preview)
+# @option -b --base <string>            Base branch for the pull request (use default branch if not provided)
+# @option -a --custom-agent <string>    Use a custom agent for the task.
+# @flag --follow                        Follow agent session logs
+# @option -F --from-file <file>         Read task description from file (use "-" to read from standard input)
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @flag --help                          Show help for command
+# @arg task-description <task description>
+agent-task::create() {
+    :;
+}
+# }}} gh agent-task create
+
+# {{{ gh agent-task list
+# @cmd List agent tasks (preview)
+# @option -q --jq <expression>      Filter JSON output using a jq expression
+# @option --json <fields>           Output JSON with the specified fields
+# @option -L --limit <int>          Maximum number of agent tasks to fetch (default 30)
+# @option -t --template <string>    Format JSON output using a Go template; see "gh help formatting"
+# @flag -w --web                    Open agent tasks in the browser
+# @flag --help                      Show help for command
+agent-task::list() {
+    :;
+}
+# }}} gh agent-task list
+
+# {{{ gh agent-task view
+# @cmd View an agent task session (preview)
+# @flag --follow                    Follow agent session logs
+# @option -q --jq <expression>      Filter JSON output using a jq expression
+# @option --json <fields>           Output JSON with the specified fields
+# @flag --log                       Show agent session logs
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -t --template <string>    Format JSON output using a Go template; see "gh help formatting"
+# @flag -w --web                    Open agent task in the browser
+# @flag --help                      Show help for command
+# @arg session-id-pr-number-pr-url-pr-branch <<session-id>|<pr-number>|<pr-url>|<pr-branch>>
+agent-task::view() {
+    :;
+}
+# }}} gh agent-task view
+# }} gh agent-task
 
 # {{ gh alias
 # @cmd Create command shortcuts
@@ -1876,7 +2162,7 @@ alias::set() {
 # {{ gh api
 # @cmd Make an authenticated GitHub API request
 # @option --cache <duration>            Cache the response, e.g. "3600s", "60m", "1h"
-# @option -F --field <key=value>        Add a typed parameter in key=value format
+# @option -F --field <file>             Add a typed parameter in key=value format (use "@<path>" or "@-" to read value from file or stdin)
 # @option -H --header <key:value>       Add a HTTP request header in key:value format
 # @option --hostname <string>           The GitHub hostname for the request (default "github.com")
 # @flag -i --include                    Include HTTP response status line and headers in the output
@@ -1884,7 +2170,7 @@ alias::set() {
 # @option -q --jq <string>              Query to select values from the response using jq syntax
 # @option -X --method <string>          The HTTP method for the request (default "GET")
 # @flag --paginate                      Make additional HTTP requests to fetch all pages of results
-# @option -p --preview <names>          GitHub API preview names to request (without the "-preview" suffix)
+# @option -p --preview* <string>        Opt into GitHub API previews (names should omit '-preview')
 # @option -f --raw-field <key=value>    Add a string parameter in key=value format
 # @flag --silent                        Do not print the response body
 # @flag --slurp                         Use with "--paginate" to return an array of all pages of either JSON arrays or objects
@@ -1907,8 +2193,9 @@ attestation() {
 # {{{ gh attestation download
 # @cmd Download an artifact's attestations for offline use
 # @option -d --digest-alg[sha256|sha512] <string>  The algorithm used to compute a digest of the artifact:  (default "sha256")
+# @option --hostname <string>          Configure host to use
 # @option -L --limit <int>             Maximum number of attestations to fetch (default 30)
-# @option -o --owner <string>          a GitHub organization to scope attestation lookup by
+# @option -o --owner <string>          GitHub organization to scope attestation lookup by
 # @option --predicate-type <string>    Filter attestations by provided predicate type
 # @option -R --repo[`_choice_search_repo`] <string>  Repository name in the format <owner>/<repo>
 # @flag --help                         Show help for command
@@ -1920,10 +2207,11 @@ attestation::download() {
 
 # {{{ gh attestation trusted-root
 # @cmd Output trusted_root.jsonl contents, likely for offline verification
-# @option --tuf-root <file>     Path to the TUF root.json file on disk
-# @option --tuf-url <string>    URL to the TUF repository mirror
-# @flag --verify-only           Don't output trusted_root.jsonl contents
-# @flag --help                  Show help for command
+# @option --hostname <string>    Configure host to use
+# @option --tuf-root <file>      Path to the TUF root.json file on disk
+# @option --tuf-url <string>     URL to the TUF repository mirror
+# @flag --verify-only            Don't output trusted_root.jsonl contents
+# @flag --help                   Show help for command
 attestation::trusted-root() {
     :;
 }
@@ -1932,21 +2220,26 @@ attestation::trusted-root() {
 # {{{ gh attestation verify
 # @cmd Verify an artifact's integrity using attestations
 # @option -b --bundle <file>                   Path to bundle on disk, either a single bundle in a JSON file or a JSON lines file with multiple bundles
-# @option --cert-identity <string>             Enforce that the certificate's subject alternative name matches the provided value exactly
-# @option -i --cert-identity-regex <string>    Enforce that the certificate's subject alternative name matches the provided regex
-# @option --cert-oidc-issuer <string>          Issuer of the OIDC token (default "https://token.actions.githubusercontent.com")
+# @flag --bundle-from-oci                      When verifying an OCI image, fetch the attestation bundle from the OCI registry instead of from GitHub
+# @option --cert-identity <string>             Enforce that the certificate's SubjectAlternativeName matches the provided value exactly
+# @option -i --cert-identity-regex <string>    Enforce that the certificate's SubjectAlternativeName matches the provided regex
+# @option --cert-oidc-issuer <string>          Enforce that the issuer of the OIDC token matches the provided value (default "https://token.actions.githubusercontent.com")
 # @option --custom-trusted-root <file>         Path to a trusted_root.jsonl file; likely for offline verification
 # @flag --deny-self-hosted-runners             Fail verification for attestations generated on self-hosted runners
 # @option -d --digest-alg[sha256|sha512] <string>  The algorithm used to compute a digest of the artifact:  (default "sha256")
 # @option --format <string>                    Output format: {json}
+# @option --hostname <string>                  Configure host to use
 # @option -q --jq <expression>                 Filter JSON output using a jq expression
 # @option -L --limit <int>                     Maximum number of attestations to fetch (default 30)
 # @flag --no-public-good                       Do not verify attestations signed with Sigstore public good instance
 # @option -o --owner <string>                  GitHub organization to scope attestation lookup by
-# @option --predicate-type <string>            Filter attestations by provided predicate type
+# @option --predicate-type <string>            Enforce that verified attestations' predicate type matches the provided value (default "https://slsa.dev/provenance/v1")
 # @option -R --repo[`_choice_search_repo`] <string>  Repository name in the format <owner>/<repo>
-# @option --signer-repo <string>               Repository of reusable workflow that signed attestation in the format <owner>/<repo>
-# @option --signer-workflow <path>             Workflow that signed attestation in the format [host/]<owner>/<repo>/<path>/<to>/<workflow>
+# @option --signer-digest <string>             Enforce that the digest associated with the signer workflow matches the provided value
+# @option --signer-repo <string>               Enforce that the workflow that signed the attestation's repository matches the provided value (<owner>/<repo>)
+# @option --signer-workflow <path>             Enforce that the workflow that signed the attestation matches the provided value ([host/]<owner>/<repo>/<path>/<to>/<workflow>)
+# @option --source-digest <string>             Enforce that the digest associated with the source repository matches the provided value
+# @option --source-ref <string>                Enforce that the git ref associated with the source repository matches the provided value
 # @option -t --template <string>               Format JSON output using a Go template; see "gh help formatting"
 # @flag --help                                 Show help for command
 # @arg file-path-oci-image-uri <<file-path>|oci://<image-uri>>
@@ -2012,6 +2305,16 @@ config::set() {
 # }}} gh config set
 # }} gh config
 
+# {{ gh copilot
+# @cmd Run the GitHub Copilot CLI (preview)
+# @flag --remove    Remove the downloaded Copilot CLI
+# @flag --help      Show help for command
+# @arg args*
+copilot() {
+    :;
+}
+# }} gh copilot
+
 # {{ gh extension
 # @cmd Manage gh extensions
 # @flag --help    Show help for command
@@ -2021,7 +2324,7 @@ extension() {
 
 # {{{ gh extension browse
 # @cmd Enter a UI for browsing, adding, and removing extensions
-# @flag --debug               log to /tmp/extBrowse-*
+# @flag --debug               Log to /tmp/extBrowse-*
 # @flag -s --single-column    Render TUI with only one column of text
 # @flag --help                Show help for command
 extension::browse() {
@@ -2048,8 +2351,8 @@ extension::exec() {
 
 # {{{ gh extension install
 # @cmd Install a gh extension from a repository
-# @flag --force             force upgrade extension, or ignore if latest already installed
-# @option --pin <string>    pin extension to a release tag or commit ref
+# @flag --force             Force upgrade extension, or ignore if latest already installed
+# @option --pin <string>    Pin extension to a release tag or commit ref
 # @flag --help              Show help for command
 # @arg repository!
 extension::install() {
@@ -2215,6 +2518,31 @@ label::list() {
 # }}} gh label list
 # }} gh label
 
+# {{ gh licenses
+# @cmd View third-party license information
+# @flag --help    Show help for command
+licenses() {
+    :;
+}
+# }} gh licenses
+
+# {{ gh preview
+# @cmd Execute previews for gh features
+# @flag --help    Show help for command
+preview() {
+    :;
+}
+
+# {{{ gh preview prompter
+# @cmd Execute a test program to preview the prompter
+# @flag --help    Show help for command
+# @arg prompt-type <prompt type>
+preview::prompter() {
+    :;
+}
+# }}} gh preview prompter
+# }} gh preview
+
 # {{ gh ruleset
 # @cmd View info about repo rulesets
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -2349,7 +2677,7 @@ search::commits() {
 # @flag --no-project                       Filter on missing project
 # @option --order[asc|desc] <string>       Order of results returned, ignored unless '--sort' flag is specified:  (default "desc")
 # @option --owner*[`_choice_search_user`] <string>  Filter on repository owner
-# @option --project <number>               Filter on project board number
+# @option --project <owner/number>         Filter on project board owner/number
 # @option --reactions <number>             Filter on number of reactions
 # @option -R --repo*[`_choice_search_repo`] <string>  Filter on repository
 # @option --sort <string>                  Sort fetched results: {comments|created|interactions|reactions|reactions-+1|reactions--1|reactions-heart|reactions-smile|reactions-tada|reactions-thinking_face|updated} (default "best-match")
@@ -2399,7 +2727,7 @@ search::issues() {
 # @flag --no-project                               Filter on missing project
 # @option --order[asc|desc] <string>               Order of results returned, ignored unless '--sort' flag is specified:  (default "desc")
 # @option --owner*[`_choice_search_user`] <string>  Filter on repository owner
-# @option --project <number>                       Filter on project board number
+# @option --project <owner/number>                 Filter on project board owner/number
 # @option --reactions <number>                     Filter on number of reactions
 # @option -R --repo*[`_choice_search_repo`] <string>  Filter on repository
 # @option --review[none|required|approved|changes_requested] <string>  Filter based on review status:
@@ -2497,6 +2825,7 @@ secret::list() {
 # @option -b --body <string>           The value for the secret (reads from standard input if not specified)
 # @option -e --env <environment>       Set deployment environment secret
 # @option -f --env-file <file>         Load secret names and values from a dotenv-formatted file
+# @flag --no-repos-selected            No repositories can access the organization secret
 # @flag --no-store                     Print the encrypted, base64-encoded value instead of storing it on GitHub
 # @option -o --org[`_choice_org`] <organization>  Set organization secret
 # @option -r --repos <repositories>    List of repositories that can access an organization or user secret
@@ -2624,6 +2953,15 @@ variable::set() {
 # }}} gh variable set
 # }} gh variable
 
+# {{ gh accessibility
+# @cmd Learn about GitHub CLI's accessibility experiences
+# @flag -w --web    Open the GitHub Accessibility site in your browser
+# @flag --help      Show help for command
+accessibility() {
+    :;
+}
+# }} gh accessibility
+
 # {{ gh actions
 # @cmd Learn about working with GitHub Actions
 # @flag --help    Show help for command
@@ -2666,6 +3004,13 @@ reference() {
     :;
 }
 # }} gh reference
+
+# {{ gh telemetry
+# @cmd Information about telemetry in gh
+telemetry() {
+    :;
+}
+# }} gh telemetry
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

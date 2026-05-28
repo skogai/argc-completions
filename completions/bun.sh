@@ -1,77 +1,158 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --watch                    Automatically restart the process on file change
-# @flag --hot                      Enable auto reload in the Bun runtime, test runner, or bundler
-# @flag --no-clear-screen          Disable clearing the terminal screen on reload when --hot or --watch is enabled
-# @flag --smol                     Use less memory, but run garbage collection more often
-# @option -r --preload <module>    Import a module before other modules are loaded
-# @flag --inspect                  Activate Bun's debugger
-# @flag --inspect-wait             Activate Bun's debugger, wait for a connection before executing
-# @flag --inspect-brk              Activate Bun's debugger, set breakpoint on first line of code and wait
-# @flag --if-present               Exit without an error if the entrypoint does not exist
-# @flag --no-install               Disable auto install in the Bun runtime
-# @flag --install                  Configure auto-install behavior.
-# @flag -i                         Auto-install dependencies during execution.
-# @flag -e --eval                  Evaluate argument as a script
-# @flag --print                    Evaluate argument as a script and print the result
-# @flag --prefer-offline           Skip staleness checks for packages in the Bun runtime and resolve from disk
-# @flag --prefer-latest            Use the latest matching versions of packages in the Bun runtime, always checking npm
-# @option -p --port <port>         Set the default port for Bun.serve
-# @flag --conditions               Pass custom conditions to resolve
-# @flag --fetch-preconnect         Preconnect to a URL while code is loading
-# @flag --silent                   Don't print the script command
-# @flag -v --version               Print version and exit
-# @flag --revision                 Print version with revision and exit
-# @flag --filter                   Run a script in all workspace packages matching the pattern
-# @flag -b --bun                   Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
-# @flag --shell                    Control the shell used for package.json scripts.
-# @option --env-file <file>        Load environment variables from the specified file(s)
-# @option --cwd <dir>              Absolute path to resolve files & entry points from.
-# @option -c --config <file>       Specify path to Bun config file.
-# @flag -h --help                  Display this menu and exit
+# @flag --watch                           Automatically restart the process on file change
+# @flag --hot                             Enable auto reload in the Bun runtime, test runner, or bundler
+# @flag --no-clear-screen                 Disable clearing the terminal screen on reload when --hot or --watch is enabled
+# @flag --smol                            Use less memory, but run garbage collection more often
+# @option -r --preload <module>           Import a module before other modules are loaded
+# @option --require <val>                 Alias of --preload, for Node.js compatibility
+# @option --import <val>                  Alias of --preload, for Node.js compatibility
+# @option --inspect <val>                 Activate Bun's debugger
+# @option --inspect-wait <val>            Activate Bun's debugger, wait for a connection before executing
+# @option --inspect-brk <val>             Activate Bun's debugger, set breakpoint on first line of code and wait
+# @flag --cpu-prof                        Start CPU profiler and write profile to disk on exit
+# @option --cpu-prof-name <val>           Specify the name of the CPU profile file
+# @option --cpu-prof-dir <val>            Specify the directory where the CPU profile will be saved
+# @flag --cpu-prof-md                     Output CPU profile in markdown format (grep-friendly, designed for LLM analysis)
+# @option --cpu-prof-interval <val>       Specify the sampling interval in microseconds for CPU profiling (default: 1000)
+# @flag --heap-prof                       Generate V8 heap snapshot on exit (.heapsnapshot)
+# @option --heap-prof-name <val>          Specify the name of the heap profile file
+# @option --heap-prof-dir <val>           Specify the directory where the heap profile will be saved
+# @flag --heap-prof-md                    Generate markdown heap profile on exit (for CLI analysis)
+# @flag --if-present                      Exit without an error if the entrypoint does not exist
+# @flag --no-install                      Disable auto install in the Bun runtime
+# @option --install <val>                 Configure auto-install behavior.
+# @flag -i                                Auto-install dependencies during execution.
+# @option -e --eval <val>                 Evaluate argument as a script
+# @option -p --print <val>                Evaluate argument as a script and print the result
+# @flag --prefer-offline                  Skip staleness checks for packages in the Bun runtime and resolve from disk
+# @flag --prefer-latest                   Use the latest matching versions of packages in the Bun runtime, always checking npm
+# @option --port <port>                   Set the default port for Bun.serve
+# @option --conditions <val>              Pass custom conditions to resolve
+# @option --fetch-preconnect <val>        Preconnect to a URL while code is loading
+# @flag --experimental-http2-fetch        Offer h2 in fetch() TLS ALPN.
+# @flag --experimental-http3-fetch        Honor Alt-Svc: h3 in fetch() and upgrade to HTTP/3.
+# @option --max-http-header-size <val>    Set the maximum size of HTTP headers in bytes.
+# @option --dns-result-order[verbatim|ipv4first|ipv6first] <val>  Set the default order of DNS lookup results.
+# @flag --expose-gc                       Expose gc() on the global object.
+# @flag --no-deprecation                  Suppress all reporting of the custom deprecation.
+# @flag --throw-deprecation               Determine whether or not deprecation warnings result in errors.
+# @option --title <val>                   Set the process title
+# @flag --zero-fill-buffers               Boolean to force Buffer.allocUnsafe(size) to be zero-filled.
+# @flag --use-system-ca                   Use the system's trusted certificate authorities
+# @flag --use-openssl-ca                  Use OpenSSL's default CA store
+# @flag --use-bundled-ca                  Use bundled CA store
+# @flag --redis-preconnect                Preconnect to $REDIS_URL at startup
+# @flag --sql-preconnect                  Preconnect to PostgreSQL at startup
+# @flag --no-addons                       Throw an error if process.dlopen is called, and disable export condition "node-addons"
+# @option --unhandled-rejections <val>    One of "strict", "throw", "warn", "none", or "warn-with-error-code"
+# @option --console-depth <val>           Set the default depth for console.log object inspection (default: 2)
+# @option --user-agent <val>              Set the default User-Agent header for HTTP requests
+# @option --cron-title <val>              Title for cron execution mode
+# @option --cron-period <val>             Cron period for cron execution mode
+# @flag --silent                          Don't print the script command
+# @option --elide-lines <val>             Number of lines of script output shown when using --filter (default: 10).
+# @flag -v --version                      Print version and exit
+# @flag --revision                        Print version with revision and exit
+# @option -F --filter <val>               Run a script in all workspace packages matching the pattern
+# @flag -b --bun                          Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
+# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
+# @option --shell <val>                   Control the shell used for package.json scripts.
+# @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
+# @flag --parallel                        Run multiple scripts concurrently with Foreman-style output
+# @flag --sequential                      Run multiple scripts sequentially with Foreman-style output
+# @flag --no-exit-on-error                Continue running other scripts when one fails (with --parallel/--sequential)
+# @option --env-file <file>               Load environment variables from the specified file(s)
+# @flag --no-env-file                     Disable automatic loading of .env files
+# @option --cwd <dir>                     Absolute path to resolve files & entry points from.
+# @option -c --config <file>              Specify path to Bun config file.
+# @flag -h --help                         Display this menu and exit
 # @arg args*[`_choice_script_or_bin`]
 
 # {{ bun run
 # @cmd Execute a file with Bun lint  Run a package.json script
-# @flag --silent                              Don't print the script command
-# @flag --filter                              Run a script in all workspace packages matching the pattern
-# @flag -b --bun                              Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
-# @flag --shell                               Control the shell used for package.json scripts.
-# @flag --watch                               Automatically restart the process on file change
-# @flag --hot                                 Enable auto reload in the Bun runtime, test runner, or bundler
-# @flag --no-clear-screen                     Disable clearing the terminal screen on reload when --hot or --watch is enabled
-# @flag --smol                                Use less memory, but run garbage collection more often
-# @option -r --preload <module>               Import a module before other modules are loaded
-# @flag --inspect                             Activate Bun's debugger
-# @flag --inspect-wait                        Activate Bun's debugger, wait for a connection before executing
-# @flag --inspect-brk                         Activate Bun's debugger, set breakpoint on first line of code and wait
-# @flag --if-present                          Exit without an error if the entrypoint does not exist
-# @flag --no-install                          Disable auto install in the Bun runtime
-# @flag --install                             Configure auto-install behavior.
-# @flag -i                                    Auto-install dependencies during execution.
-# @flag -e --eval                             Evaluate argument as a script
-# @flag --print                               Evaluate argument as a script and print the result
-# @flag --prefer-offline                      Skip staleness checks for packages in the Bun runtime and resolve from disk
-# @flag --prefer-latest                       Use the latest matching versions of packages in the Bun runtime, always checking npm
-# @option -p --port <port>                    Set the default port for Bun.serve
-# @flag --conditions                          Pass custom conditions to resolve
-# @flag --fetch-preconnect                    Preconnect to a URL while code is loading
-# @flag --main-fields                         Main fields to lookup in package.json.
-# @option --extension-order <exts>            Defaults to: .tsx,.ts,.jsx,.js,.json
-# @option --tsconfig-override <file>          Specify custom tsconfig.json.
-# @option -d --define* <k:v>                  Substitute K:V while parsing, e.g. --define process.env.NODE_ENV:"development".
+# @flag --silent                          Don't print the script command
+# @option --elide-lines <val>             Number of lines of script output shown when using --filter (default: 10).
+# @option -F --filter <val>               Run a script in all workspace packages matching the pattern
+# @flag -b --bun                          Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
+# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
+# @option --shell <val>                   Control the shell used for package.json scripts.
+# @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
+# @flag --parallel                        Run multiple scripts concurrently with Foreman-style output
+# @flag --sequential                      Run multiple scripts sequentially with Foreman-style output
+# @flag --no-exit-on-error                Continue running other scripts when one fails (with --parallel/--sequential)
+# @flag --watch                           Automatically restart the process on file change
+# @flag --hot                             Enable auto reload in the Bun runtime, test runner, or bundler
+# @flag --no-clear-screen                 Disable clearing the terminal screen on reload when --hot or --watch is enabled
+# @flag --smol                            Use less memory, but run garbage collection more often
+# @option -r --preload <module>           Import a module before other modules are loaded
+# @option --require <val>                 Alias of --preload, for Node.js compatibility
+# @option --import <val>                  Alias of --preload, for Node.js compatibility
+# @option --inspect <val>                 Activate Bun's debugger
+# @option --inspect-wait <val>            Activate Bun's debugger, wait for a connection before executing
+# @option --inspect-brk <val>             Activate Bun's debugger, set breakpoint on first line of code and wait
+# @flag --cpu-prof                        Start CPU profiler and write profile to disk on exit
+# @option --cpu-prof-name <val>           Specify the name of the CPU profile file
+# @option --cpu-prof-dir <val>            Specify the directory where the CPU profile will be saved
+# @flag --cpu-prof-md                     Output CPU profile in markdown format (grep-friendly, designed for LLM analysis)
+# @option --cpu-prof-interval <val>       Specify the sampling interval in microseconds for CPU profiling (default: 1000)
+# @flag --heap-prof                       Generate V8 heap snapshot on exit (.heapsnapshot)
+# @option --heap-prof-name <val>          Specify the name of the heap profile file
+# @option --heap-prof-dir <val>           Specify the directory where the heap profile will be saved
+# @flag --heap-prof-md                    Generate markdown heap profile on exit (for CLI analysis)
+# @flag --if-present                      Exit without an error if the entrypoint does not exist
+# @flag --no-install                      Disable auto install in the Bun runtime
+# @option --install <val>                 Configure auto-install behavior.
+# @flag -i                                Auto-install dependencies during execution.
+# @option -e --eval <val>                 Evaluate argument as a script
+# @option -p --print <val>                Evaluate argument as a script and print the result
+# @flag --prefer-offline                  Skip staleness checks for packages in the Bun runtime and resolve from disk
+# @flag --prefer-latest                   Use the latest matching versions of packages in the Bun runtime, always checking npm
+# @option --port <port>                   Set the default port for Bun.serve
+# @option --conditions <val>              Pass custom conditions to resolve
+# @option --fetch-preconnect <val>        Preconnect to a URL while code is loading
+# @flag --experimental-http2-fetch        Offer h2 in fetch() TLS ALPN.
+# @flag --experimental-http3-fetch        Honor Alt-Svc: h3 in fetch() and upgrade to HTTP/3.
+# @option --max-http-header-size <val>    Set the maximum size of HTTP headers in bytes.
+# @option --dns-result-order[verbatim|ipv4first|ipv6first] <val>  Set the default order of DNS lookup results.
+# @flag --expose-gc                       Expose gc() on the global object.
+# @flag --no-deprecation                  Suppress all reporting of the custom deprecation.
+# @flag --throw-deprecation               Determine whether or not deprecation warnings result in errors.
+# @option --title <val>                   Set the process title
+# @flag --zero-fill-buffers               Boolean to force Buffer.allocUnsafe(size) to be zero-filled.
+# @flag --use-system-ca                   Use the system's trusted certificate authorities
+# @flag --use-openssl-ca                  Use OpenSSL's default CA store
+# @flag --use-bundled-ca                  Use bundled CA store
+# @flag --redis-preconnect                Preconnect to $REDIS_URL at startup
+# @flag --sql-preconnect                  Preconnect to PostgreSQL at startup
+# @flag --no-addons                       Throw an error if process.dlopen is called, and disable export condition "node-addons"
+# @option --unhandled-rejections <val>    One of "strict", "throw", "warn", "none", or "warn-with-error-code"
+# @option --console-depth <val>           Set the default depth for console.log object inspection (default: 2)
+# @option --user-agent <val>              Set the default User-Agent header for HTTP requests
+# @option --cron-title <val>              Title for cron execution mode
+# @option --cron-period <val>             Cron period for cron execution mode
+# @option --main-fields <val>             Main fields to lookup in package.json.
+# @flag --preserve-symlinks               Preserve symlinks when resolving files
+# @flag --preserve-symlinks-main          Preserve symlinks when resolving the main entry point
+# @option --extension-order <exts>        Defaults to: .tsx,.ts,.jsx,.js,.json
+# @option --tsconfig-override <file>      Specify custom tsconfig.json.
+# @option -d --define* <k:v>              Substitute K:V while parsing, e.g. --define process.env.NODE_ENV:"development".
+# @option --drop <val>                    Remove function calls, e.g. --drop=console removes all console.* calls.
+# @option --feature <val>                 Enable a feature flag for dead-code elimination, e.g. --feature=SUPER_SECRET
 # @option -l --loader*[js|jsx|ts|tsx|json|toml|text|file|wasm|napi] <.ext:loader>  Parse files with .ext:loader, e.g. --loader .js:jsx.
-# @flag --no-macros                           Disable macros from being executed in the bundler, transpiler and runtime
-# @flag --jsx-factory                         Changes the function called when compiling JSX elements using the classic JSX runtime
-# @flag --jsx-fragment                        Changes the function called when compiling JSX fragments
-# @flag --jsx-import-source                   Declares the module specifier to be used for importing the jsx and jsxs factory functions.
-# @option --jsx-runtime[automatic|classic]    "automatic" (default) or "classic"
-# @flag --ignore-dce-annotations              Ignore tree-shaking annotations such as @__PURE__
-# @option --env-file <file>                   Load environment variables from the specified file(s)
-# @option --cwd <dir>                         Absolute path to resolve files & entry points from.
-# @option -c --config <file>                  Specify path to Bun config file.
-# @flag -h --help                             Display this menu and exit
+# @flag --no-macros                       Disable macros from being executed in the bundler, transpiler and runtime
+# @option --jsx-factory <val>             Changes the function called when compiling JSX elements using the classic JSX runtime
+# @option --jsx-fragment <val>            Changes the function called when compiling JSX fragments
+# @option --jsx-import-source <val>       Declares the module specifier to be used for importing the jsx and jsxs factory functions.
+# @option --jsx-runtime[automatic|classic] <val>  "automatic" (default) or "classic"
+# @flag --jsx-side-effects                Treat JSX elements as having side effects (disable pure annotations)
+# @flag --ignore-dce-annotations          Ignore tree-shaking annotations such as @__PURE__
+# @option --env-file <file>               Load environment variables from the specified file(s)
+# @flag --no-env-file                     Disable automatic loading of .env files
+# @option --cwd <dir>                     Absolute path to resolve files & entry points from.
+# @option -c --config <file>              Specify path to Bun config file.
+# @flag -h --help                         Display this menu and exit
 # @arg script_or_bin[`_choice_script_or_bin`]
 # @arg args*
 run() {
@@ -81,17 +162,35 @@ run() {
 
 # {{ bun test
 # @cmd Run unit tests with Bun
-# @option --timeout <value>       Set the per-test timeout in milliseconds, default is 5000.
-# @flag -u --update-snapshots     Update snapshot files
-# @flag --rerun-each              Re-run each test file <NUMBER> times, helps catch certain bugs
-# @flag --only                    Only run tests that are marked with "test.only()"
-# @flag --todo                    Include tests that are marked with "test.todo()"
-# @flag --coverage                Generate a coverage profile
-# @flag --coverage-reporter       Report coverage in 'text' and/or 'lcov'.
-# @flag --coverage-dir            Directory for coverage files.
-# @flag --bail                    Exit the test suite after <NUMBER> failures.
-# @flag -t --test-name-pattern    Run only tests with a name that matches the given regex.
-# @arg pattern*
+# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
+# @option --timeout <value>               Set the per-test timeout in milliseconds, default is 5000.
+# @flag -u --update-snapshots             Update snapshot files
+# @option --rerun-each <val>              Re-run each test file <NUMBER> times, helps catch certain bugs
+# @option --retry <val>                   Default retry count for all tests, overridden by per-test { retry: N }
+# @flag --todo                            Include tests that are marked with "test.todo()"
+# @flag --only                            Run only tests that are marked with "test.only()" or "describe.only()"
+# @flag --pass-with-no-tests              Exit with code 0 when no tests are found
+# @flag --concurrent                      Treat all tests as `test.concurrent()` tests
+# @flag --randomize                       Run tests in random order
+# @option --seed <val>                    Set the random seed for test randomization
+# @flag --coverage                        Generate a coverage profile
+# @option --coverage-reporter <val>       Report coverage in 'text' and/or 'lcov'.
+# @option --coverage-dir <val>            Directory for coverage files.
+# @option --bail <val>                    Exit the test suite after <NUMBER> failures.
+# @option -t --test-name-pattern <val>    Run only tests with a name that matches the given regex.
+# @option --reporter <val>                Test output reporter format.
+# @option --reporter-outfile <val>        Output file path for the reporter format (required with --reporter).
+# @flag --dots                            Enable dots reporter.
+# @flag --only-failures                   Only display test failures, hiding passing tests.
+# @option --max-concurrency <val>         Maximum number of concurrent tests to execute at once.
+# @option --path-ignore-patterns <val>    Glob patterns for test file paths to ignore.
+# @option --changed <val>                 Only run test files affected by changed files according to git.
+# @flag --isolate                         Run each test file in a fresh global object.
+# @option --parallel <val>                Run test files in parallel using N worker processes.
+# @option --parallel-delay <val>          Milliseconds the first --parallel worker must be busy before spawning the rest.
+# @flag --test-worker                     (internal) Run as a --parallel worker, receiving files over IPC.
+# @option --shard <val>                   Run a subset of test files, e.g. '--shard=1/3' runs the first of three shards.
+# @arg patterns
 test() {
     :;
 }
@@ -106,10 +205,88 @@ x() {
 
 # {{ bun repl
 # @cmd Start a REPL session with Bun
-# @flag -h --help               Display this message.
-# @option -p --print <value>    Evaluates given code, prints result and exits.
-# @option -e --eval <value>     Evaluates given code and silently exits.
-# @flag --sloppy                Runs the REPL in sloppy mode.
+# @flag --silent                          Don't print the script command
+# @option --elide-lines <val>             Number of lines of script output shown when using --filter (default: 10).
+# @option -F --filter <val>               Run a script in all workspace packages matching the pattern
+# @flag -b --bun                          Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
+# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
+# @option --shell <val>                   Control the shell used for package.json scripts.
+# @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
+# @flag --parallel                        Run multiple scripts concurrently with Foreman-style output
+# @flag --sequential                      Run multiple scripts sequentially with Foreman-style output
+# @flag --no-exit-on-error                Continue running other scripts when one fails (with --parallel/--sequential)
+# @flag --watch                           Automatically restart the process on file change
+# @flag --hot                             Enable auto reload in the Bun runtime, test runner, or bundler
+# @flag --no-clear-screen                 Disable clearing the terminal screen on reload when --hot or --watch is enabled
+# @flag --smol                            Use less memory, but run garbage collection more often
+# @option -r --preload <module>           Import a module before other modules are loaded
+# @option --require <val>                 Alias of --preload, for Node.js compatibility
+# @option --import <val>                  Alias of --preload, for Node.js compatibility
+# @option --inspect <val>                 Activate Bun's debugger
+# @option --inspect-wait <val>            Activate Bun's debugger, wait for a connection before executing
+# @option --inspect-brk <val>             Activate Bun's debugger, set breakpoint on first line of code and wait
+# @flag --cpu-prof                        Start CPU profiler and write profile to disk on exit
+# @option --cpu-prof-name <val>           Specify the name of the CPU profile file
+# @option --cpu-prof-dir <val>            Specify the directory where the CPU profile will be saved
+# @flag --cpu-prof-md                     Output CPU profile in markdown format (grep-friendly, designed for LLM analysis)
+# @option --cpu-prof-interval <val>       Specify the sampling interval in microseconds for CPU profiling (default: 1000)
+# @flag --heap-prof                       Generate V8 heap snapshot on exit (.heapsnapshot)
+# @option --heap-prof-name <val>          Specify the name of the heap profile file
+# @option --heap-prof-dir <val>           Specify the directory where the heap profile will be saved
+# @flag --heap-prof-md                    Generate markdown heap profile on exit (for CLI analysis)
+# @flag --if-present                      Exit without an error if the entrypoint does not exist
+# @flag --no-install                      Disable auto install in the Bun runtime
+# @option --install <val>                 Configure auto-install behavior.
+# @flag -i                                Auto-install dependencies during execution.
+# @option -e --eval <val>                 Evaluate argument as a script
+# @option -p --print <val>                Evaluate argument as a script and print the result
+# @flag --prefer-offline                  Skip staleness checks for packages in the Bun runtime and resolve from disk
+# @flag --prefer-latest                   Use the latest matching versions of packages in the Bun runtime, always checking npm
+# @option --port <port>                   Set the default port for Bun.serve
+# @option --conditions <val>              Pass custom conditions to resolve
+# @option --fetch-preconnect <val>        Preconnect to a URL while code is loading
+# @flag --experimental-http2-fetch        Offer h2 in fetch() TLS ALPN.
+# @flag --experimental-http3-fetch        Honor Alt-Svc: h3 in fetch() and upgrade to HTTP/3.
+# @option --max-http-header-size <val>    Set the maximum size of HTTP headers in bytes.
+# @option --dns-result-order[verbatim|ipv4first|ipv6first] <val>  Set the default order of DNS lookup results.
+# @flag --expose-gc                       Expose gc() on the global object.
+# @flag --no-deprecation                  Suppress all reporting of the custom deprecation.
+# @flag --throw-deprecation               Determine whether or not deprecation warnings result in errors.
+# @option --title <val>                   Set the process title
+# @flag --zero-fill-buffers               Boolean to force Buffer.allocUnsafe(size) to be zero-filled.
+# @flag --use-system-ca                   Use the system's trusted certificate authorities
+# @flag --use-openssl-ca                  Use OpenSSL's default CA store
+# @flag --use-bundled-ca                  Use bundled CA store
+# @flag --redis-preconnect                Preconnect to $REDIS_URL at startup
+# @flag --sql-preconnect                  Preconnect to PostgreSQL at startup
+# @flag --no-addons                       Throw an error if process.dlopen is called, and disable export condition "node-addons"
+# @option --unhandled-rejections <val>    One of "strict", "throw", "warn", "none", or "warn-with-error-code"
+# @option --console-depth <val>           Set the default depth for console.log object inspection (default: 2)
+# @option --user-agent <val>              Set the default User-Agent header for HTTP requests
+# @option --cron-title <val>              Title for cron execution mode
+# @option --cron-period <val>             Cron period for cron execution mode
+# @option --main-fields <val>             Main fields to lookup in package.json.
+# @flag --preserve-symlinks               Preserve symlinks when resolving files
+# @flag --preserve-symlinks-main          Preserve symlinks when resolving the main entry point
+# @option --extension-order <exts>        Defaults to: .tsx,.ts,.jsx,.js,.json
+# @option --tsconfig-override <file>      Specify custom tsconfig.json.
+# @option -d --define* <k:v>              Substitute K:V while parsing, e.g. --define process.env.NODE_ENV:"development".
+# @option --drop <val>                    Remove function calls, e.g. --drop=console removes all console.* calls.
+# @option --feature <val>                 Enable a feature flag for dead-code elimination, e.g. --feature=SUPER_SECRET
+# @option -l --loader*[js|jsx|ts|tsx|json|toml|text|file|wasm|napi] <.ext:loader>  Parse files with .ext:loader, e.g. --loader .js:jsx.
+# @flag --no-macros                       Disable macros from being executed in the bundler, transpiler and runtime
+# @option --jsx-factory <val>             Changes the function called when compiling JSX elements using the classic JSX runtime
+# @option --jsx-fragment <val>            Changes the function called when compiling JSX fragments
+# @option --jsx-import-source <val>       Declares the module specifier to be used for importing the jsx and jsxs factory functions.
+# @option --jsx-runtime[automatic|classic] <val>  "automatic" (default) or "classic"
+# @flag --jsx-side-effects                Treat JSX elements as having side effects (disable pure annotations)
+# @flag --ignore-dce-annotations          Ignore tree-shaking annotations such as @__PURE__
+# @option --env-file <file>               Load environment variables from the specified file(s)
+# @flag --no-env-file                     Disable automatic loading of .env files
+# @option --cwd <dir>                     Absolute path to resolve files & entry points from.
+# @option -c --config <file>              Specify path to Bun config file.
+# @flag -h --help                         Display this menu and exit
+# @arg file-or-script! <file or script>
 repl() {
     :;
 }
@@ -117,45 +294,7 @@ repl() {
 
 # {{ bun exec
 # @cmd Run a shell script directly with Bun
-# @flag --silent                              Don't print the script command
-# @flag --filter                              Run a script in all workspace packages matching the pattern
-# @flag -b --bun                              Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
-# @flag --shell                               Control the shell used for package.json scripts.
-# @flag --watch                               Automatically restart the process on file change
-# @flag --hot                                 Enable auto reload in the Bun runtime, test runner, or bundler
-# @flag --no-clear-screen                     Disable clearing the terminal screen on reload when --hot or --watch is enabled
-# @flag --smol                                Use less memory, but run garbage collection more often
-# @option -r --preload <module>               Import a module before other modules are loaded
-# @flag --inspect                             Activate Bun's debugger
-# @flag --inspect-wait                        Activate Bun's debugger, wait for a connection before executing
-# @flag --inspect-brk                         Activate Bun's debugger, set breakpoint on first line of code and wait
-# @flag --if-present                          Exit without an error if the entrypoint does not exist
-# @flag --no-install                          Disable auto install in the Bun runtime
-# @flag --install                             Configure auto-install behavior.
-# @flag -i                                    Auto-install dependencies during execution.
-# @flag -e --eval                             Evaluate argument as a script
-# @flag --print                               Evaluate argument as a script and print the result
-# @flag --prefer-offline                      Skip staleness checks for packages in the Bun runtime and resolve from disk
-# @flag --prefer-latest                       Use the latest matching versions of packages in the Bun runtime, always checking npm
-# @option -p --port <port>                    Set the default port for Bun.serve
-# @flag --conditions                          Pass custom conditions to resolve
-# @flag --fetch-preconnect                    Preconnect to a URL while code is loading
-# @flag --main-fields                         Main fields to lookup in package.json.
-# @option --extension-order <exts>            Defaults to: .tsx,.ts,.jsx,.js,.json
-# @option --tsconfig-override <file>          Specify custom tsconfig.json.
-# @option -d --define* <k:v>                  Substitute K:V while parsing, e.g. --define process.env.NODE_ENV:"development".
-# @option -l --loader*[js|jsx|ts|tsx|json|toml|text|file|wasm|napi] <.ext:loader>  Parse files with .ext:loader, e.g. --loader .js:jsx.
-# @flag --no-macros                           Disable macros from being executed in the bundler, transpiler and runtime
-# @flag --jsx-factory                         Changes the function called when compiling JSX elements using the classic JSX runtime
-# @flag --jsx-fragment                        Changes the function called when compiling JSX fragments
-# @flag --jsx-import-source                   Declares the module specifier to be used for importing the jsx and jsxs factory functions.
-# @option --jsx-runtime[automatic|classic]    "automatic" (default) or "classic"
-# @flag --ignore-dce-annotations              Ignore tree-shaking annotations such as @__PURE__
-# @option --env-file <file>                   Load environment variables from the specified file(s)
-# @option --cwd <dir>                         Absolute path to resolve files & entry points from.
-# @option -c --config <file>                  Specify path to Bun config file.
-# @flag -h --help                             Display this menu and exit
-# @arg file-or-script! <file or script>
+# @arg script!
 exec() {
     :;
 }
@@ -164,33 +303,48 @@ exec() {
 # {{ bun install
 # @cmd Install dependencies for a package.json
 # @alias i
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
-# @flag -d --dev                                  Add dependency to "devDependencies"
-# @flag --optional                                Add dependency to "optionalDependencies"
-# @flag -E --exact                                Add the exact version instead of the ^range
-# @arg pkg*
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @flag -d --dev                         Add dependency to "devDependencies"
+# @flag --optional                       Add dependency to "optionalDependencies"
+# @flag --peer                           Add dependency to "peerDependencies"
+# @flag -E --exact                       Add the exact version instead of the ^range
+# @option --filter <val>                 Install packages for the matching workspaces
+# @flag -a --analyze                     Analyze & install all dependencies of files passed as arguments recursively (using Bun's bundler)
+# @flag --only-missing                   Only add dependencies to package.json if they are not already present
+# @arg name-version <<name>@<version>>
 install() {
     :;
 }
@@ -199,33 +353,47 @@ install() {
 # {{ bun add
 # @cmd Add a dependency to package.json
 # @alias a
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
-# @flag -d --dev                                  Add dependency to "devDependencies"
-# @flag --optional                                Add dependency to "optionalDependencies"
-# @flag -E --exact                                Add the exact version instead of the ^range
-# @arg pkg*
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @flag -d --dev                         Add dependency to "devDependencies"
+# @flag --optional                       Add dependency to "optionalDependencies"
+# @flag --peer                           Add dependency to "peerDependencies"
+# @flag -E --exact                       Add the exact version instead of the ^range
+# @flag -a --analyze                     Recursively analyze & install dependencies of files passed as arguments (using Bun's bundler)
+# @flag --only-missing                   Only add dependencies to package.json if they are not already present
+# @arg package-version <<package><@version>>
 add() {
     :;
 }
@@ -234,29 +402,40 @@ add() {
 # {{ bun remove
 # @cmd Remove a dependency from package.json
 # @alias rm
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
 # @arg package[`_choice_dependency`]
 remove() {
     :;
@@ -265,60 +444,140 @@ remove() {
 
 # {{ bun update
 # @cmd Update outdated dependencies
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
-# @flag --latest                                  Update packages to their latest versions
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @flag --latest                         Update packages to their latest versions
+# @flag -i --interactive                 Show an interactive list of outdated packages to select for update
+# @option --filter <val>                 Update packages for the matching workspaces
+# @flag -r --recursive                   Update packages in all workspaces
+# @arg name-version <<name>@<version>>
 update() {
     :;
 }
 # }} bun update
 
+# {{ bun audit
+# @cmd Check installed packages for vulnerabilities
+# @flag --json              Output in JSON format
+# @option --audit-level[low|moderate|high|critical] <val>  Only print advisories with severity greater than or equal to <level>
+# @option --ignore <val>    Ignore specific CVE IDs from audit
+audit() {
+    :;
+}
+# }} bun audit
+
+# {{ bun outdated
+# @cmd Display latest versions of outdated dependencies
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @option -F --filter <val>              Display outdated dependencies for each matching workspace
+# @flag -r --recursive                   Check outdated packages in all workspaces
+# @arg filter
+outdated() {
+    :;
+}
+# }} bun outdated
+
 # {{ bun link
 # @cmd Register or link a local npm package
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
 # @arg package[`_choice_dependency`]
 link() {
     :;
@@ -327,61 +586,131 @@ link() {
 
 # {{ bun unlink
 # @cmd Unregister a local npm package
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
 unlink() {
     :;
 }
 # }} bun unlink
 
+# {{ bun publish
+# @cmd Publish a package to the npm registry
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @option --access <val>                 Set access level for scoped packages
+# @option --tag <val>                    Tag the release.
+# @option --otp <val>                    Provide a one-time password for authentication
+# @option --auth-type <val>              Specify the type of one-time password authentication (default is 'web')
+# @option --gzip-level <val>             Specify a custom compression level for gzip.
+# @flag --tolerate-republish             Don't exit with code 1 when republishing over an existing version number
+# @arg dist
+publish() {
+    :;
+}
+# }} bun publish
+
 # {{ bun patch
 # @cmd Prepare a package for patching
-# @option -c --config <file>                      Specify path to config file (bunfig.toml)
-# @flag -y --yarn                                 Write a yarn.lock file (yarn v1)
-# @flag -p --production                           Don't install devDependencies
-# @flag --no-save                                 Don't update package.json or save a lockfile
-# @flag --save                                    Save to package.json (true by default)
-# @flag --dry-run                                 Don't install anything
-# @flag --frozen-lockfile                         Disallow changes to lockfile
-# @flag -f --force                                Always request the latest versions from the registry & reinstall all dependencies
-# @option --cache-dir <dir>                       Store & load cached data from a specific directory path
-# @flag --no-cache                                Ignore manifest cache entirely
-# @flag --silent                                  Don't log anything
-# @flag --verbose                                 Excessively verbose logging
-# @flag --no-progress                             Disable the progress bar
-# @flag --no-summary                              Don't print a summary
-# @flag --no-verify                               Skip verifying integrity of newly downloaded packages
-# @flag --ignore-scripts                          Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
-# @flag --trust                                   Add to trustedDependencies in the project's package.json and install the package(s)
-# @flag -g --global                               Install globally
-# @option --cwd <dir>                             Set a specific cwd
-# @option --backend[hardlink|symlink|copyfile]    Platform-specific optimizations for installing dependencies.
-# @option --link-native-bins[esbuild|turbo] <value>  Link "bin" from a matching platform-specific "optionalDependencies" instead.
-# @flag --concurrent-scripts                      Maximum number of concurrent jobs for lifecycle scripts (default 5)
-# @flag -h --help                                 Print this help menu
-# @flag --commit                                  Install a package containing modifications in `dir`
-# @flag --patches-dir                             The directory to put the patch file in (only if --commit is used)
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @flag --commit                         Install a package containing modifications in `dir`
+# @option --patches-dir <val>            The directory to put the patch file in (only if --commit is used)
 # @arg name[`_choice_patch`]
 patch() {
     :;
@@ -394,6 +723,20 @@ pm() {
     :;
 }
 
+# {{{ bun pm scan
+# @cmd scan all packages in lockfile for security vulnerabilities
+pm::scan() {
+    :;
+}
+# }}} bun pm scan
+
+# {{{ bun pm pack
+# @cmd create a tarball of the current workspace
+pm::pack() {
+    :;
+}
+# }}} bun pm pack
+
 # {{{ bun pm bin
 # @cmd print the path to bin folder
 pm::bin() {
@@ -401,12 +744,40 @@ pm::bin() {
 }
 # }}} bun pm bin
 
-# {{{ bun pm ls
-# @cmd list the dependency tree according to the current lockfile
-pm::ls() {
+# {{{ bun pm why
+# @cmd show dependency tree explaining why a package is installed
+pm::why() {
     :;
 }
-# }}} bun pm ls
+# }}} bun pm why
+
+# {{{ bun pm whoami
+# @cmd print the current npm username
+pm::whoami() {
+    :;
+}
+# }}} bun pm whoami
+
+# {{{ bun pm view
+# @cmd view package metadata from the registry (use `bun info` instead)
+pm::view() {
+    :;
+}
+# }}} bun pm view
+
+# {{{ bun pm version
+# @cmd bump the version in package.json and create a git tag
+pm::version() {
+    :;
+}
+# }}} bun pm version
+
+# {{{ bun pm pkg
+# @cmd manage data in package.json
+pm::pkg() {
+    :;
+}
+# }}} bun pm pkg
 
 # {{{ bun pm hash
 # @cmd generate & print the hash of the current lockfile
@@ -472,32 +843,117 @@ pm::default-trusted() {
 # }}} bun pm default-trusted
 # }} bun pm
 
+# {{ bun info
+# @cmd Display package metadata from the registry
+# @option -c --config <file>             Specify path to config file (bunfig.toml)
+# @flag -y --yarn                        Write a yarn.lock file (yarn v1)
+# @flag -p --production                  Don't install devDependencies
+# @flag --no-save                        Don't update package.json or save a lockfile
+# @flag --save                           Save to package.json (true by default)
+# @option --ca <val>                     Provide a Certificate Authority signing certificate
+# @option --cafile <val>                 The same as `--ca`, but is a file path to the certificate
+# @flag --dry-run                        Perform a dry run without making changes
+# @flag --frozen-lockfile                Disallow changes to lockfile
+# @flag -f --force                       Always request the latest versions from the registry & reinstall all dependencies
+# @option --cache-dir <dir>              Store & load cached data from a specific directory path
+# @flag --no-cache                       Ignore manifest cache entirely
+# @flag --silent                         Don't log anything
+# @flag --quiet                          Only show tarball name when packing
+# @flag --verbose                        Excessively verbose logging
+# @flag --no-progress                    Disable the progress bar
+# @flag --no-summary                     Don't print a summary
+# @flag --no-verify                      Skip verifying integrity of newly downloaded packages
+# @flag --ignore-scripts                 Skip lifecycle scripts in the project's package.json (dependency scripts are never run)
+# @flag --trust                          Add to trustedDependencies in the project's package.json and install the package(s)
+# @flag -g --global                      Install globally
+# @option --cwd <dir>                    Set a specific cwd
+# @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
+# @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
+# @flag --save-text-lockfile             Save a text-based lockfile
+# @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
+# @flag --lockfile-only                  Generate a lockfile without installing dependencies
+# @option --linker <val>                 Linker strategy (one of "isolated" or "hoisted")
+# @option --minimum-release-age <val>    Only install packages published at least N seconds ago (security feature)
+# @option --cpu <val>                    Override CPU architecture for optional dependencies (e.g., x64, arm64, * for all)
+# @option --os <val>                     Override operating system for optional dependencies (e.g., linux, darwin, * for all)
+# @flag -h --help                        Print this help menu
+# @flag --json                           Output in JSON format
+# @arg package-version <<package>[@<version>]>
+info() {
+    :;
+}
+# }} bun info
+
+# {{ bun why
+# @cmd Explain why a package is installed
+# @flag --top              Show only the top dependency tree instead of nested ones
+# @option --depth <NUM>    Maximum depth of the dependency tree to display
+# @arg package!            The package name to explain (supports glob patterns like '@org/*')
+why() {
+    :;
+}
+# }} bun why
+
 # {{ bun build
 # @cmd Bundle TypeScript & JavaScript into a single file
-# @flag --compile                                 Generate a standalone Bun executable containing your bundled code
-# @flag --watch                                   Automatically restart the process on file change
-# @flag --no-clear-screen                         Disable clearing the terminal screen on reload when --watch is enabled
-# @option --target[browser|bun|node]              The intended execution environment for the bundle.
-# @option --outdir <dir>                          Default to "dist" if multiple files
-# @option --outfile <dir>                         Write to a file
-# @option --sourcemap[inline|external|none]       Build with sourcemaps - 'inline', 'external', or 'none'
-# @option --format <value>                        Specifies the module format to build to.
-# @option --root <dir>                            Root directory used for multiple entry points
-# @flag --splitting                               Enable code splitting
-# @option --public-path <value>                   A prefix to be appended to any import paths in bundled code
-# @option -e --external*[`_choice_dependency`]    Exclude module from transpilation (can use * wildcards).
-# @flag --packages                                Add dependencies to bundle or keep them external.
-# @option --entry-naming <value>                  Customize entry point filenames.
-# @option --chunk-naming <value>                  Customize chunk filenames.
-# @option --asset-naming <value>                  Customize asset filenames.
-# @flag --server-components                       Enable React Server Components (experimental)
-# @flag --no-bundle                               Transpile file only, do not bundle
-# @flag --emit-dce-annotations                    Re-emit DCE annotations in bundles.
-# @flag --minify                                  Enable all minification flags
-# @flag --minify-syntax                           Minify syntax and inline data
-# @flag --minify-whitespace                       Minify whitespace
-# @flag --minify-identifiers                      Minify identifiers
-# @flag --conditions                              Pass custom conditions to resolve
+# @flag --production                          Set NODE_ENV=production and enable minification
+# @flag --compile                             Generate a standalone Bun executable containing your bundled code.
+# @option --compile-exec-argv <val>           Prepend arguments to the standalone executable's execArgv
+# @flag --compile-autoload-dotenv             Enable autoloading of .env files in standalone executable (default: true)
+# @flag --no-compile-autoload-dotenv          Disable autoloading of .env files in standalone executable
+# @flag --compile-autoload-bunfig             Enable autoloading of bunfig.toml in standalone executable (default: true)
+# @flag --no-compile-autoload-bunfig          Disable autoloading of bunfig.toml in standalone executable
+# @flag --compile-autoload-tsconfig           Enable autoloading of tsconfig.json at runtime in standalone executable (default: false)
+# @flag --no-compile-autoload-tsconfig        Disable autoloading of tsconfig.json at runtime in standalone executable
+# @flag --compile-autoload-package-json       Enable autoloading of package.json at runtime in standalone executable (default: false)
+# @flag --no-compile-autoload-package-json    Disable autoloading of package.json at runtime in standalone executable
+# @option --compile-executable-path <val>     Path to a Bun executable to use for cross-compilation instead of downloading
+# @flag --bytecode                            Use a bytecode cache
+# @flag --watch                               Automatically restart the process on file change
+# @flag --no-clear-screen                     Disable clearing the terminal screen on reload when --watch is enabled
+# @option --target[browser|bun|node] <val>    The intended execution environment for the bundle.
+# @option --outdir <dir>                      Default to "dist" if multiple files
+# @option --outfile <dir>                     Write to a file
+# @option --metafile <val>                    Write a JSON file with metadata about the build
+# @option --metafile-md <val>                 Write a markdown file with a visualization of the module graph (LLM-friendly)
+# @option --sourcemap[inline|external|none] <val>  Build with sourcemaps - 'linked', 'inline', 'external', or 'none'
+# @option --banner <val>                      Add a banner to the bundled output such as "use client"; for a bundle being used with RSCs
+# @option --footer <val>                      Add a footer to the bundled output such as // built with bun!
+# @option --format <value>                    Specifies the module format to build to.
+# @option --root <dir>                        Root directory used for multiple entry points
+# @flag --splitting                           Enable code splitting
+# @option --public-path <value>               A prefix to be appended to any import paths in bundled code
+# @option -e --external*[`_choice_dependency`] <val>  Exclude module from transpilation (can use * wildcards).
+# @option --allow-unresolved <val>            Allow unresolved dynamic import()/require() specifiers matching these glob patterns.
+# @flag --reject-unresolved                   Fail the build on any dynamic import()/require() specifier that cannot be resolved at build time.
+# @option --packages <val>                    Add dependencies to bundle or keep them external.
+# @option --entry-naming <value>              Customize entry point filenames.
+# @option --chunk-naming <value>              Customize chunk filenames.
+# @option --asset-naming <value>              Customize asset filenames.
+# @flag --react-fast-refresh                  Enable React Fast Refresh transform (does not emit hot-module code, use this for testing)
+# @flag --no-bundle                           Transpile file only, do not bundle
+# @flag --emit-dce-annotations                Re-emit DCE annotations in bundles.
+# @flag --minify                              Enable all minification flags
+# @flag --minify-syntax                       Minify syntax and inline data
+# @flag --minify-whitespace                   Minify whitespace
+# @flag --minify-identifiers                  Minify identifiers
+# @flag --keep-names                          Preserve original function and class names when minifying
+# @flag --css-chunking                        Chunk CSS files together to reduce duplicated CSS loaded in a browser.
+# @option --conditions <val>                  Pass custom conditions to resolve
+# @flag --app                                 (EXPERIMENTAL) Build a web app for production using Bun Bake.
+# @flag --server-components                   (EXPERIMENTAL) Enable server components
+# @option --env <val>                         Inline environment variables into the bundle as process.env.${name}.
+# @flag --windows-hide-console                When using --compile targeting Windows, prevent a Command prompt from opening alongside the executable
+# @option --windows-icon <val>                When using --compile targeting Windows, assign an executable icon
+# @option --windows-title <val>               When using --compile targeting Windows, set the executable product name
+# @option --windows-publisher <val>           When using --compile targeting Windows, set the executable company name
+# @option --windows-version <val>             When using --compile targeting Windows, set the executable version (e.g. 1.2.3.4)
+# @option --windows-description <val>         When using --compile targeting Windows, set the executable description
+# @option --windows-copyright <val>           When using --compile targeting Windows, set the executable copyright
+# @flag --debug-dump-server-files             When --app is set, dump all server files to disk even when building statically
+# @flag --debug-no-minify                     When --app is set, do not minify anything
 # @arg files*
 build() {
     :;
@@ -505,10 +961,14 @@ build() {
 # }} bun build
 
 # {{ bun init
-# @cmd Start an empty Bun project from a blank template
-# @flag --help      Print this menu
-# @flag -y --yes    Accept all default options
-# @arg entrypoint*
+# @cmd Start an empty Bun project from a built-in template
+# @flag --help                  Print this menu
+# @flag -y --yes                Accept all default options
+# @flag -m --minimal            Only initialize type definitions
+# @flag -r --react              Initialize a React project
+# @option --react <tailwind>    Initialize a React project with TailwindCSS
+# @option --react <shadcn>      Initialize a React project with @shadcn/ui and TailwindCSS
+# @arg folder
 init() {
     :;
 }
@@ -517,8 +977,7 @@ init() {
 # {{ bun create
 # @cmd Create a new project from a template
 # @alias c
-# @arg template!
-# @arg dest
+# @arg myreactcomponent-jsx-tsx! <MyReactComponent.(jsx|tsx)>
 create() {
     :;
 }
@@ -530,6 +989,15 @@ upgrade() {
     :;
 }
 # }} bun upgrade
+
+# {{ bun feedback
+# @cmd Provide feedback to the Bun team.
+# @option -e --email <email>    Set the email address used for this submission
+# @flag -h --help               Show this help message and exit
+feedback() {
+    :;
+}
+# }} bun feedback
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

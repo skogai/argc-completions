@@ -16,7 +16,7 @@
 # @option -U --undefine <NAME>              undefine NAME
 # @flag -g --gnu                            override -G to re-enable GNU extensions
 # @flag -G --traditional                    suppress all GNU extensions
-# @option -H --hashsize <PRIME>             set symbol lookup hash table size [509]
+# @option -H --hashsize <PRIME>             set symbol lookup hash table size [65537]
 # @option -L --nesting-limit <NUMBER>       change nesting limit, 0 for unlimited [0]
 # @option -F --freeze-state <FILE>          produce a frozen state on FILE at end
 # @option -R --reload-state <FILE>          reload a frozen state from FILE at start

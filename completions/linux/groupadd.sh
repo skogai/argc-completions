@@ -10,7 +10,7 @@
 # @flag -r --system                   create a system account
 # @option -R --root <CHROOT_DIR>      directory to chroot into
 # @option -P --prefix <PREFIX_DIR>    directory prefix
-# @flag --extrausers                  Use the extra users database
+# @option -U --users                  list of user members of this group
 # @arg group
 
 command eval "$(argc --argc-eval "$0" "$@")"

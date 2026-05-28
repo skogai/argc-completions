@@ -1,30 +1,17 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -c                              Return PIDs with the same root directory
-# @option -d <sep>                      Use the provided character as output separator
-# @flag -h                              Display this help text
-# @flag -n                              Avoid using stat system function on network shares
-# @option -o[`_module_os_pid`] <pid>    Omit results with a given PID
-# @flag -q                              Quiet mode.
-# @flag -s                              Only return one PID
-# @flag -x                              Return PIDs of shells running scripts with a matching name
-# @flag -z                              List zombie and I/O waiting processes.
-# @arg program-name![`_module_os_command`]
-
-. "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
-
-_module_os_command() {
-    if _argc_util_has_path_prefix; then
-        _argc_util_comp_path
-        return
-    fi
-    if [[ "$ARGC_OS" == "windows" ]]; then
-        PATH="$(echo "$PATH" | sed 's|:[^:]*/windows/system32:|:|Ig')" compgen -c
-    else
-        compgen -c
-    fi
-}
+# @flag -s --single-shot          return one PID only
+# @flag -c --check-root           omit processes with different root
+# @flag -q                        quiet mode, only set the exit code
+# @flag -w --with-workers         show kernel workers too
+# @flag -x                        also find shells running the named scripts
+# @option -o --omit-pid*[`_module_os_pid`] <PID,>  omit processes with PID
+# @flag -t --lightweight          list threads too
+# @option -S --separator <SEP>    use SEP as separator put between PIDs
+# @flag -h --help                 display this help and exit
+# @flag -V --version              output version information and exit
+# @arg program
 
 _module_os_pid() {
     if [[ "$ARGC_OS" == "windows" ]]; then

@@ -3,6 +3,7 @@
 
 # @flag -b --batch                    set policy to SCHED_BATCH
 # @flag -d --deadline                 set policy to SCHED_DEADLINE
+# @flag -e --ext                      set policy to SCHED_EXT
 # @flag -f --fifo                     set policy to SCHED_FIFO
 # @flag -i --idle                     set policy to SCHED_IDLE
 # @flag -o --other                    set policy to SCHED_OTHER

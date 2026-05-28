@@ -27,6 +27,7 @@ cat_() {
 # @flag -b --backup                 Backup existing destination files
 # @flag -P --no-dereference         Never follow symbolic links
 # @flag --default-permissions       Use default permissions for the destination
+# @flag --default-modified-time     Use default file modification timestamps for the destination
 # @arg source-path!
 # @arg dest-path!
 copy() {
@@ -111,8 +112,8 @@ monitor() {
 # @option -s --unmount-scheme <SCHEME>    Unmount all mounts with the given scheme
 # @flag -f --force                        Ignore outstanding file operations when unmounting or ejecting
 # @flag -a --anonymous                    Use an anonymous user when authenticating
-# @flag -l --list                         List
-# @flag -o --monitor                      Monitor events
+# @flag -l --list                         List user-interesting volumes, drives and mounts
+# @flag -o --monitor                      Monitor user-interesting volume, drive and mount events
 # @flag -i --detail                       Show extra information
 # @option --tcrypt-pim <PIM>              The numeric PIM when unlocking a VeraCrypt volume
 # @flag --tcrypt-hidden                   Mount a TCRYPT hidden volume
@@ -182,6 +183,7 @@ save() {
 # @cmd Set a file attribute
 # @option -t --type               Type of the attribute
 # @flag -n --nofollow-symlinks    Don’t follow symbolic links
+# @flag -d --delete               Unset given attribute
 # @arg path
 # @arg attribute
 # @arg value <VALUE…>

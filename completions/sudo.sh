@@ -21,10 +21,8 @@
 # @flag -P --preserve-groups                      preserve group vector instead of setting to target's
 # @option -p --prompt <prompt>                    use the specified password prompt
 # @option -R --chroot <directory>                 change the root directory before running command
-# @option -r --role <role>                        create SELinux security context with specified role
 # @flag -S --stdin                                read password from standard input
 # @flag -s --shell                                run shell as the target user; a command may also be specified
-# @option -t --type <type>                        create SELinux security context with specified type
 # @option -T --command-timeout <timeout>          terminate command after the specified time limit
 # @option -U --other-user[`_module_os_user`] <user>  in list mode, display privileges for user
 # @option -u --user[`_module_os_user`] <user>     run command (or edit file) as specified user name or ID

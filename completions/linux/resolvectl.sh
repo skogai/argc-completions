@@ -5,6 +5,7 @@
 # @flag -h --help                                  Show this help
 # @flag --version                                  Show package version
 # @flag --no-pager                                 Do not pipe output into a pager
+# @flag --no-ask-password                          Do not prompt for password
 # @flag -4                                         Resolve IPv4 addresses
 # @flag -6                                         Resolve IPv6 addresses
 # @option -i --interface[`_choice_interface`]      Look on interface
@@ -17,12 +18,16 @@
 # @option --validate <BOOL>                        Allow DNSSEC validation (default: yes)
 # @option --synthesize <BOOL>                      Allow synthetic response (default: yes)
 # @option --cache <BOOL>                           Allow response from cache (default: yes)
+# @option --stale-data <BOOL>                      Allow response from cache with stale data (default: yes)
+# @option --relax-single-label <BOOL>              Allow single label lookups to go upstream (default: no)
 # @option --zone <BOOL>                            Allow response from locally registered mDNS/LLMNR records (default: yes)
 # @option --trust-anchor <BOOL>                    Allow response from local trust anchor (default: yes)
 # @option --network <BOOL>                         Allow response from network (default: yes)
 # @option --search <BOOL>                          Use search domains for single-label names (default: yes)
 # @option --raw <payload|packet>                   Dump the answer as binary data
 # @option --legend <BOOL>                          Print headers and additional info (default: yes)
+# @option --json <MODE>                            Output as JSON
+# @flag -j                                         Same as --json=pretty on tty, --json=short otherwise
 
 # {{ resolvectl query
 # @cmd Resolve domain names, IPv4 and IPv6 addresses
@@ -86,6 +91,27 @@ reset-server-features() {
     :;
 }
 # }} resolvectl reset-server-features
+
+# {{ resolvectl monitor
+# @cmd Monitor DNS queries
+monitor() {
+    :;
+}
+# }} resolvectl monitor
+
+# {{ resolvectl show-cache
+# @cmd Show cache contents
+show-cache() {
+    :;
+}
+# }} resolvectl show-cache
+
+# {{ resolvectl show-server-state
+# @cmd Show servers state
+show-server-state() {
+    :;
+}
+# }} resolvectl show-server-state
 
 # {{ resolvectl dns
 # @cmd Get/set per-interface DNS server address

@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -a                   toggle autoskip: A single '*' replaces nul-lines.
-# @flag -b                   binary digit dump (incompatible with -ps,-i).
+# @flag -b                   binary digit dump (incompatible with -ps).
 # @flag -C                   capitalize variable names in C include file style (-i).
 # @option -c <cols>          format <cols> octets per line.
 # @flag -E                   show characters in EBCDIC.
@@ -10,6 +10,7 @@
 # @option -g <bytes>         number of octets per group in normal output.
 # @flag -h                   print this summary.
 # @flag -i                   output in C include file style.
+# @flag -t                   append terminating zero to C include output (-i).
 # @option -l <len>           stop after <len> octets.
 # @option -n <name>          set the variable name used in C include output (-i).
 # @option -o <off>           add <off> to the displayed file position.
@@ -19,7 +20,7 @@
 # @option -s <[+][-]seek>    start at <seek> bytes abs.
 # @flag -u                   use upper case hex letters.
 # @option -R <when>          colorize the output; <when> can be 'always', 'auto' or 'never'.
-# @flag -v                   show version: "xxd 2024-05-10 by Juergen Weigert et al.".
+# @flag -v                   show version: "xxd 2026-04-26 by Juergen Weigert et al.".
 # @arg intpufile
 # @arg outputfile
 

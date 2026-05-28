@@ -5,11 +5,13 @@
 # @flag -J --json                             use JSON output format
 # @flag -i --noinaccessible                   ignore locks without read permissions
 # @flag -n --noheadings                       don't print headings
-# @option -o --output*,[`_choice_column`] <list>  define which output columns to use
+# @option -o --output*,[`_choice_column`] <list>  output columns (see --list-columns)
 # @flag --output-all                          output all columns
 # @option -p --pid[`_module_os_pid`] <pid>    display only locks held by this process
+# @option -Q --filter <expr>                  apply display filter
 # @flag -r --raw                              use the raw output format
 # @flag -u --notruncate                       don't truncate text in columns
+# @flag -H --list-columns                     list the available columns
 # @flag -h --help                             display this help
 # @flag -V --version                          display version
 

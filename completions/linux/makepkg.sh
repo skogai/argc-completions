@@ -5,6 +5,7 @@
 # @flag -c --clean           Clean up work files after build
 # @flag -C --cleanbuild      Remove $srcdir/ dir before building the package
 # @flag -d --nodeps          Skip all dependency checks
+# @option -D --dir <dir>     Change to directory <dir> before processing PKGBUILD
 # @flag -e --noextract       Do not extract source files (use existing $srcdir/ dir)
 # @flag -f --force           Overwrite existing package
 # @flag -g --geninteg        Generate integrity checks for source files

@@ -28,6 +28,7 @@
 # @flag --to-rsa                         Convert an RSA-PSS key to raw RSA format
 # @flag -p --generate-privkey            Generate a private key
 # @option --key-type <str>               Specify the key type to use on key generation
+# @option --key-format <str>             Specify the key format to use on key generation
 # @option --bits <num>                   Specify the number of bits for key generation
 # @option --curve <str>                  Specify the curve used for EC key generation
 # @option --sec-param[low|legacy|medium|high|ultra] <str>  Specify the security level

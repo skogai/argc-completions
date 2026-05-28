@@ -24,7 +24,7 @@
 # @flag --headless                    Don't start a user interface
 # @option --listen <address>          Serve RPC API from this address
 # @option --remote <-subcommand>      Execute commands remotely on a server
-# @option --server <address>          Specify RPC server to send commands to
+# @option --server <address>          Connect to this Nvim server
 # @option --startuptime <file>        Write startup timing messages to <file>
 # @arg paths*
 

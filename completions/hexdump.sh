@@ -2,6 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -b --one-byte-octal                       one-byte octal display
+# @flag -X --one-byte-hex                         one-byte hexadecimal display
 # @flag -c --one-byte-char                        one-byte character display
 # @flag -C --canonical                            canonical hex+ASCII display
 # @flag -d --two-bytes-decimal                    two-byte decimal display

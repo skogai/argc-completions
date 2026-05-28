@@ -7,6 +7,7 @@
 # @flag -p --parameters         Print only 'parm'
 # @flag -n --filename           Print only 'filename'
 # @flag -0 --null               Use \0 instead of \n
+# @flag -m --modname            Handle argument as module name instead of alias or filename
 # @option -F --field[author|description|license|parm|filename]  Print only provided FIELD
 # @option -k --set-version[`_choice_set_version`] <VERSION>  Use VERSION instead of `uname -r`
 # @option -b --basedir <DIR>    Use DIR as filesystem root for /lib/modules

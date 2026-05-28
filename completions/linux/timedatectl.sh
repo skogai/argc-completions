@@ -13,6 +13,7 @@
 # @option -p --property <NAME>        Show only properties by this name
 # @flag -a --all                      Show all properties, including empty ones
 # @flag --value                       When showing properties, only print the value
+# @option -P <NAME>                   Equivalent to --value --property=NAME
 
 # {{ timedatectl status
 # @cmd Show current time settings
@@ -80,6 +81,20 @@ show-timesync() {
     :;
 }
 # }} timedatectl show-timesync
+
+# {{ timedatectl ntp-servers
+# @cmd INTERFACE SERVER… Set the interface specific NTP servers
+ntp-servers() {
+    :;
+}
+# }} timedatectl ntp-servers
+
+# {{ timedatectl revert
+# @cmd Revert the interface specific NTP servers
+revert() {
+    :;
+}
+# }} timedatectl revert
 
 _choice_timezone() {
     timedatectl list-timezones   

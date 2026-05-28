@@ -11,6 +11,7 @@
 # @option -E <commandline>            like -e, but enables all optional features
 # @flag -f                            don't do $sitelib/sitecustomize.pl at startup
 # @option -F-* </pattern/>            split() pattern for -a switch (//'s are optional)
+# @flag -g                            read all input in one go (slurp), rather than line-by-line (alias for -0777)
 # @option -i-* <extension>            edit <> files in place (makes backup if extension supplied)
 # @option -I-* <directory>            specify @INC/#include directory (several -I's allowed)
 # @option -l-* <octnum>               enable line ending processing, specifies line terminator
