@@ -12,8 +12,10 @@ _patch_help() {
         echo
         return
     fi
-    if [[ "$*" == "gh extension exec" ]] \
-    || [[ "$*" == "gh reference" ]] \
+    if [[ "$*" == "gh cache delete" ]]; then
+        $@ --help | _common_edit | sed 's/--succeed-on-no-caches --all/--succeed-on-no-caches/'
+    elif [[ "$*" == "gh extension exec" ]] \
+      || [[ "$*" == "gh reference" ]] \
     ; then
         :;
     else
