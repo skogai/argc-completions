@@ -219,7 +219,8 @@ _patch_table() {
 
     elif [[ "$*" == "go list" ]]; then
         echo "$table" | \
-        _patch_table_copy_options go build
+        _patch_table_copy_options go build | \
+        _patch_table_dedup_options '-json'
 
     elif [[ "$*" == "go mod download" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'modules;*[`_choice_mod`]'
@@ -253,6 +254,7 @@ _patch_table() {
     elif [[ "$*" == "go test" ]]; then
         echo "$table" | \
         _patch_table_copy_options go build | \
+        _patch_table_dedup_options '-json' | \
         _patch_table_edit_options '-bench;*|[`_choice_bench_target`]' \ |
         _patch_table_edit_arguments ';;' 'target;*|[`_choice_test_target`]'
 
