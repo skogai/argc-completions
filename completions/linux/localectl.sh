@@ -5,18 +5,11 @@
 # @flag -h --help                     Show this help
 # @flag --version                     Show package version
 # @flag -l --full                     Do not ellipsize output
-# @flag --no-pager                    Do not pipe output into a pager
+# @flag --no-pager                    Do not start a pager
 # @flag --no-ask-password             Do not prompt for password
 # @option -H --host <[USER@]HOST>     Operate on remote host
 # @option -M --machine <CONTAINER>    Operate on local container
 # @flag --no-convert                  Don't convert keyboard mappings
-
-# {{ localectl status
-# @cmd Show current locale settings
-status() {
-    :;
-}
-# }} localectl status
 
 # {{ localectl set-locale
 # @cmd Set system locale
@@ -49,7 +42,7 @@ list-keymaps() {
 # }} localectl list-keymaps
 
 # {{ localectl set-x11-keymap
-# @cmd Set X11 and console keyboard mappings
+# @cmd
 # @arg layout[`_choice_x11_layout`]
 # @arg model[`_choice_x11_model`]
 # @arg options*,[`_choice_x11_options`]

@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag --text                                  Use plain text search mode (default)
+# @flag --regex                                 Use regex search mode (single PATTERN)
+# @flag --smart                                 Use smart mode (auto-detect regex syntax)
 # @flag -a --and                                AND  logic for multi-keyword
 # @flag -o --or                                 OR  logic for multi-keyword
 # @flag -d --nand                               NAND logic for multi-keyword
@@ -17,13 +20,16 @@
 # @option -c --color[auto|always|disable]       Color mode
 # @option --theme[auto|dark|light]              Theme mode
 # @option -p --pager[auto|always|disable]       Pager mode
+# @flag --json                                  JSON output
 # @option --interval <millisec>                 Interval to calculate throughput
 # @option --use-config[default|large] <name>    Use built-in configuration
 # @option --load-config <path>                  Load configuration from file
 # @flag --gen-config                            Generate configuration sample file
 # @option --gen-completion[bash|elvish|fish|powershell|zsh] <shell>  Generate shell completion file
 # @option --gen-completion-out[bash|elvish|fish|powershell|zsh] <shell>  Generate shell completion file and write to stdout
+# @flag --gen-man-page                          Generate man page and write to stdout
 # @flag --no-header                             Suppress header
+# @option --procfs                              Path to procfs
 # @flag -h --help                               Print help (see a summary with '-h')
 # @flag -V --version                            Print version
 # @arg keyword*                                 Keywords for search

@@ -438,6 +438,14 @@ _choice_unstaged_file() {
 }' | _argc_util_comp_parts /
 }
 
+_choice_restore_file() {
+    if [[ -n "$argc_staged" ]]; then
+        _choice_staged_file
+    else
+        _choice_changed_file
+    fi
+}
+
 _choice_diff() {
     _choice_reset
 }
@@ -534,14 +542,6 @@ _choice_changed_file() {
 
 _choice_local_branch() {
     _git branch --format '%(refname:short)	%(subject)'
-}
-
-_choice_restore_file() {
-    if [[ -n "$argc_staged" ]]; then
-        _choice_staged_file
-    else
-        _choice_changed_file
-    fi
 }
 
 _choice_staged_file() {

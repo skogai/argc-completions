@@ -9,22 +9,22 @@
 # @flag -B                                         Selects batch mode (prevents asking for passwords or passphrases).
 # @flag -C                                         Compression enable.
 # @option -c*,[`_module_ssh_cipher`] <cipher>      Selects the cipher to use for encrypting the data transfer.
-# @option -D <sftp_server_path>                    When using the SFTP protocol support via -s, connect directly to a local SFTP server program rather than a remote one via ssh(1).
+# @option -D <sftp_server_path>                    Connect directly to a local SFTP server program rather than a remote one via ssh(1).
 # @option -F <ssh_config>                          Specifies an alternative per-user configuration file for ssh.
 # @option -i <identity_file>                       Selects the file from which the identity (private key) for public key authentication is read.
 # @option -J <destination>                         Connect to the target host by first making an scp connection to the jump host described by destination and then establishing a TCP forwarding to the ultimate destination from there.
 # @option -l <limit>                               Limits the used bandwidth, specified in Kbit/s.
-# @flag -O                                         Use the original SCP protocol for file transfers instead of the SFTP protocol.
+# @flag -O                                         Use the legacy SCP protocol for file transfers instead of the SFTP protocol.
 # @option -o[`_module_ssh_option`] <ssh_option>    Can be used to pass options to ssh in the format used in ssh_config(5).
 # @option -P <port>                                Specifies the port to connect to on the remote host.
 # @flag -p                                         Preserves modification times, access times, and file mode bits from the source file.
 # @flag -q                                         Quiet mode: disables the progress meter as well as warning and diagnostic messages from ssh(1).
-# @flag -R                                         Copies between two remote hosts are performed by connecting to the origin host and executing scp there.
+# @flag -R                                         Copies between two remote hosts are transferred through the local host by default.
 # @flag -r                                         Recursively copy entire directories.
 # @option -S <program>                             Name of program to use for the encrypted connection.
-# @flag -s                                         Use the SFTP protocol for transfers rather than the original scp protocol.
 # @flag -T                                         Disable strict filename checking.
 # @flag -v                                         Verbose mode.
+# @option -X <sftp_option>                         Specify an option that controls aspects of SFTP protocol behaviour.
 # @arg paths+[`_choice_path`]
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

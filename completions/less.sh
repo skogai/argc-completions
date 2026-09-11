@@ -54,8 +54,8 @@
 # @flag --underline-special                  Change handling of backspaces, tabs and carriage returns.
 # @flag --UNDERLINE-SPECIAL                  Change handling of backspaces, tabs and carriage returns.
 # @flag -V --version                         Display the version number of "less".
-# @flag -w --hilite-unread                   Highlight first new line after forward-screen.
-# @flag -W --HILITE-UNREAD                   Highlight first new line after any forward movement.
+# @flag -w --hilite-unread                   Highlight first new line after full screen movement.
+# @flag -W --HILITE-UNREAD                   Highlight first new line after any movement.
 # @option -x --tabs <N[,...]>                Set tab stops.
 # @flag -X --no-init                         Don't use termcap init/deinit strings.
 # @option -y --max-forw-scroll <N>           Forward scroll limit.
@@ -63,11 +63,14 @@
 # @flag -~ --tilde                           Don't display tildes after end of file.
 # @option -# --shift <N>                     Set horizontal scroll amount (0 = one half screen width).
 # @option --autosave <m/!*>                  Actions which cause the history file to be saved.
+# @option --emouse <vscroll,vdrag,hscroll,hdrag,lclick,rclick>  Enable mouse features.
+# @option --end-prompt <string>              String to be printed after erasing the prompt.
 # @flag --exit-follow-on-close               Exit F command on a pipe when writer closes pipe.
 # @flag --file-size                          Automatically determine the size of the input file.
 # @flag --follow-name                        The F command changes files if the input file is renamed.
 # @flag --form-feed                          Stop scrolling when a form feed character is reached.
 # @option --header <L[,C[,N]]>               Use L lines (starting at line N) and C columns as headers.
+# @flag --hilite-target                      Highlight the target line.
 # @flag --incsearch                          Search file as each pattern character is typed in.
 # @option --intr <C>                         Use C instead of ^X to interrupt a read.
 # @option --lesskey-context <text>           Use lesskey source file contents.
@@ -75,7 +78,7 @@
 # @option --line-num-width <N>               Set the width of the -N line number field to N characters.
 # @option --match-shift <N>                  Show at least N characters to the left of a search match.
 # @option --modelines <N>                    Read N lines from the input file and look for vim modelines.
-# @flag --mouse                              Enable mouse input.
+# @flag --mouse                              Enable mouse clicking and vertical scrolling.
 # @flag --no-edit-warn                       Don't warn when using v command on a file opened via LESSOPEN.
 # @flag --no-keypad                          Don't send termcap keypad init/deinit strings.
 # @flag --no-histdups                        Remove duplicates from command history.
@@ -90,6 +93,7 @@
 # @flag --save-marks                         Retain marks across invocations of less.
 # @option --search-options <EFKNRW->         Set default options for every search.
 # @flag --show-preproc-errors                Display a message if preprocessor exits with an error status.
+# @flag --past-eof                           Scrolling commands continue past end of file.
 # @flag --proc-backspace                     Process backspaces for bold/underline.
 # @flag --PROC-BACKSPACE                     Treat backspaces as control characters.
 # @flag --proc-return                        Delete carriage returns before newline.

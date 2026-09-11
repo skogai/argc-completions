@@ -67,7 +67,10 @@ break-pane() {
 # @flag -a
 # @flag -C
 # @flag -e
+# @flag -F
+# @flag -H
 # @flag -J
+# @flag -L
 # @flag -M
 # @flag -N
 # @flag -p
@@ -382,6 +385,7 @@ kill-server() {
 # @cmd
 # @flag -a
 # @flag -C
+# @flag -g
 # @option -t <target-session>
 kill-session() {
     :;
@@ -438,6 +442,7 @@ link-window() {
 # @alias lsb
 # @option -F <format>
 # @option -f <filter>
+# @option -O <order>
 list-buffers() {
     :;
 }
@@ -448,6 +453,7 @@ list-buffers() {
 # @alias lsc
 # @option -F <format>
 # @option -f <filter>
+# @option -O <order>
 # @option -t <target-session>
 list-clients() {
     :;
@@ -470,6 +476,9 @@ list-commands() {
 # @flag -1
 # @flag -a
 # @flag -N
+# @flag -r
+# @option -F <format>
+# @option -O <order>
 # @option -P <prefix-string>
 # @option -T <key-table>
 # @arg key
@@ -483,8 +492,10 @@ list-keys() {
 # @alias lsp
 # @flag -a
 # @flag -s
+# @flag -r
 # @option -F <format>
 # @option -f <filter>
+# @option -O <order>
 # @option -t <target-window>
 list-panes() {
     :;
@@ -494,8 +505,10 @@ list-panes() {
 # {{ tmux list-sessions
 # @cmd
 # @alias ls
+# @flag -r
 # @option -F <format>
 # @option -f <filter>
+# @option -O <order>
 list-sessions() {
     :;
 }
@@ -505,8 +518,10 @@ list-sessions() {
 # @cmd
 # @alias lsw
 # @flag -a
+# @flag -r
 # @option -F <format>
 # @option -f <filter>
+# @option -O <order>
 # @option -t <target-session>
 list-windows() {
     :;
@@ -581,6 +596,40 @@ move-window() {
 }
 # }} tmux move-window
 
+# {{ tmux new-pane
+# @cmd
+# @alias newp
+# @flag -b
+# @flag -d
+# @flag -e
+# @flag -f
+# @flag -h
+# @flag -I
+# @flag -k
+# @flag -l
+# @flag -P
+# @flag -v
+# @flag -Z
+# @option -c <start-directory>
+# @option -e <environment>
+# @option -F <format>
+# @option -l <size>
+# @option -m <message>
+# @option -p <percentage>
+# @option -s <style>
+# @option -S <active-border-style>
+# @option -R <inactive-border-style>
+# @option -x <width>
+# @option -y <height>
+# @option -X <x-position>
+# @option -Y <y-position>
+# @option -t <target-pane>
+# @arg shell-command
+new-pane() {
+    :;
+}
+# }} tmux new-pane
+
 # {{ tmux new-session
 # @cmd
 # @alias new
@@ -650,6 +699,7 @@ next-window() {
 # @flag -d
 # @flag -p
 # @flag -r
+# @flag -S
 # @option -s <separator>
 # @option -b <buffer-name>
 # @option -t <target-pane>
@@ -1108,6 +1158,8 @@ source-file() {
 # @flag -f
 # @flag -h
 # @flag -I
+# @flag -k
+# @flag -l
 # @flag -P
 # @flag -v
 # @flag -Z
@@ -1115,6 +1167,11 @@ source-file() {
 # @option -e <environment>
 # @option -F <format>
 # @option -l <size>
+# @option -m <message>
+# @option -p <percentage>
+# @option -s <style>
+# @option -S <active-border-style>
+# @option -R <inactive-border-style>
 # @option -t <target-pane>
 # @arg shell-command
 split-window() {
@@ -1176,6 +1233,7 @@ swap-window() {
 # @option -c <target-client>
 # @option -t <target-session>
 # @option -T <key-table>
+# @option -O <order>
 switch-client() {
     :;
 }

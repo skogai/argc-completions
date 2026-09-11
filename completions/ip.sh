@@ -34,6 +34,7 @@
 # @flag -brief                    Print only basic information in a tabular format for better readability.
 # @flag -j -json                  Output results in JavaScript Object Notation (JSON).
 # @flag -p -pretty                The default JSON format is compact and more efficient to parse but hard for most users to read.
+# @flag -echo                     Request the kernel to send the applied configuration back.
 
 # {{ ip address
 # @cmd protocol (IP or IPv6) address on a device.

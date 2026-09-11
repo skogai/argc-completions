@@ -8,6 +8,7 @@
 # @flag --session                             Send to the session message bus.
 # @option --bus <ADDRESS>                     Register on a message bus at ADDRESS, typically a dbus-daemon.
 # @option --peer <ADDRESS>                    Send to a non-message-bus D-Bus server at ADDRESS.
+# @option --sender <NAME>                     Request ownership of name NAME before sending the message.
 # @option --type[method_call|signal]          Specify method_call or signal (defaults to "signal").
 # @arg object_path
 # @arg interface-member <INTERFACE.MEMBER>

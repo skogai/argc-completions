@@ -341,6 +341,101 @@ codespace::view() {
 # }}} gh codespace view
 # }} gh codespace
 
+# {{ gh discussion
+# @cmd Work with GitHub Discussions (preview)
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @flag --help    Show help for command
+discussion() {
+    :;
+}
+
+# {{{ gh discussion create
+# @cmd Create a new discussion (preview)
+# @option -b --body <string>        Body for the discussion
+# @option -F --body-file <file>     Read body text from file (use "-" to read from stdin)
+# @option -c --category <string>    Category name or slug for the discussion
+# @option -l --label* <string>      Labels to apply to the discussion
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -t --title <string>       Title for the discussion
+# @flag --help                      Show help for command
+discussion::create() {
+    :;
+}
+# }}} gh discussion create
+
+# {{{ gh discussion list
+# @cmd List discussions in a repository (preview)
+# @option --after <string>                        Cursor for the next page of results
+# @flag --answered                                Filter by answered state
+# @option -A --author <string>                    Filter by author
+# @option -c --category <string>                  Filter by category name or slug
+# @option -q --jq <expression>                    Filter JSON output using a jq expression
+# @option --json <fields>                         Output JSON with the specified fields
+# @option -l --label* <string>                    Filter by label
+# @option -L --limit <int>                        Maximum number of discussions to fetch (default 30)
+# @option --order[asc|desc] <string>              Order of results:  (default "desc")
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -S --search <query>                     Search discussions with query
+# @option --sort[created|updated] <string>        Sort by field:  (default "updated")
+# @option -s --state[open|closed|all] <string>    Filter by state:  (default "open")
+# @option -t --template <string>                  Format JSON output using a Go template; see "gh help formatting"
+# @flag -w --web                                  List discussions in the web browser
+# @flag --help                                    Show help for command
+discussion::list() {
+    :;
+}
+# }}} gh discussion list
+
+# {{{ gh discussion comment
+# @cmd Add, edit, or delete a comment or a reply on a discussion (preview)
+# @option -b --body <string>       Comment body text
+# @option -F --body-file <file>    Read body text from file (use "-" to read from standard input)
+# @flag --delete                   Delete the specified comment
+# @flag --edit                     Edit the specified comment
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @flag --yes                      Skip the delete confirmation prompt
+# @flag --help                     Show help for command
+# @arg number-discussion-url-comment-id-comment-url <<number>|<discussion-url>|<comment-id>|<comment-url>>
+discussion::comment() {
+    :;
+}
+# }}} gh discussion comment
+
+# {{{ gh discussion edit
+# @cmd Edit a discussion (preview)
+# @option --add-label <name>        Add labels by name
+# @option -b --body <string>        New body for the discussion
+# @option -F --body-file <file>     Read body text from file (use "-" to read from standard input)
+# @option -c --category <string>    New category name or slug for the discussion
+# @option --remove-label <name>     Remove labels by name
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -t --title <string>       New title for the discussion
+# @flag --help                      Show help for command
+# @arg number-discussion-url <<number>|<discussion-url>>
+discussion::edit() {
+    :;
+}
+# }}} gh discussion edit
+
+# {{{ gh discussion view
+# @cmd View a discussion (preview)
+# @option --after <string>                   Cursor for the next page
+# @flag -c --comments                        View discussion comments
+# @option -q --jq <expression>               Filter JSON output using a jq expression
+# @option --json <fields>                    Output JSON with the specified fields
+# @option -L --limit <int>                   Maximum number of comments or replies to fetch (default 30)
+# @option --order[oldest|newest] <string>    Order of comments or replies:  (default "newest")
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -t --template <string>             Format JSON output using a Go template; see "gh help formatting"
+# @flag -w --web                             Open a discussion in the browser
+# @flag --help                               Show help for command
+# @arg number-discussion-url-comment-id-comment-url <<number>|<discussion-url>|<comment-id>|<comment-url>>
+discussion::view() {
+    :;
+}
+# }}} gh discussion view
+# }} gh discussion
+
 # {{ gh gist
 # @cmd Manage gists
 # @flag --help    Show help for command
@@ -444,15 +539,19 @@ issue() {
 # {{{ gh issue create
 # @cmd Create a new issue
 # @option -a --assignee*,[`_choice_assignee`] <login>  Assign people by their login.
+# @option --blocked-by <numbers>                  Mark the new issue as blocked by these issue numbers or URLs
+# @option --blocking <numbers>                    Mark the new issue as blocking these issue numbers or URLs
 # @option -b --body <string>                      Supply a body.
 # @option -F --body-file <file>                   Read body text from file (use "-" to read from standard input)
 # @flag -e --editor                               Skip prompts and open the text editor to write the title and body in.
 # @option -l --label*,[`_choice_label`] <name>    Add labels by name
 # @option -m --milestone[`_choice_milestone`] <name>  Add the issue to a milestone by name
+# @option --parent <number>                       Add the new issue as a sub-issue of the specified parent number or URL
 # @option -p --project[`_choice_repo_project`] <title>  Add the issue to projects by title
 # @option --recover <string>                      Recover input from a failed run of create
 # @option -T --template[`_choice_issue_template`] <name>  Template name to use as starting body text
 # @option -t --title <string>                     Supply a title.
+# @option --type <name>                           Set the issue type by name
 # @flag -w --web                                  Open the browser to create an issue
 # @flag --help                                    Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -465,7 +564,7 @@ issue::create() {
 # @cmd List issues in a repository
 # @option --app <string>                           Filter by GitHub App author
 # @option -a --assignee*,[`_choice_assignee`] <string>  Filter by assignee
-# @option -A --author[`_choice_search_user`] <string>  Filter by author
+# @option -A --author[`_choice_search_user`] <string>  Filter by author (use --app to filter by a GitHub App)
 # @option -q --jq <expression>                     Filter JSON output using a jq expression
 # @option --json*,[`_choice_issue_field`] <fields>  Output JSON with the specified fields
 # @option -l --label*,[`_choice_label`] <string>   Filter by label
@@ -475,6 +574,7 @@ issue::create() {
 # @option -S --search <query>                      Search issues with query
 # @option -s --state[open|closed|all] <string>     Filter by state:  (default "open")
 # @option -t --template[`_choice_issue_template`] <string>  Format JSON output using a Go template; see "gh help formatting"
+# @option --type <name>                            Filter by issue type name
 # @flag -w --web                                   List issues in the web browser
 # @flag --help                                     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -555,16 +655,26 @@ issue::develop() {
 # {{{ gh issue edit
 # @cmd Edit issues
 # @option --add-assignee*,[`_choice_assignee`] <login>  Add assigned users by their login.
+# @option --add-blocked-by <number>                Add 'blocked by' relationships by issue number or URL
+# @option --add-blocking <number>                  Add 'blocking' relationships by issue number or URL
 # @option --add-label*,[`_choice_label`] <name>    Add labels by name
 # @option --add-project*,[`_choice_repo_project`] <title>  Add the issue to projects by title
+# @option --add-sub-issue <number>                 Add sub-issues by number or URL
 # @option -b --body <string>                       Set the new body.
 # @option -F --body-file <file>                    Read body text from file (use "-" to read from standard input)
 # @option -m --milestone[`_choice_milestone`] <name>  Edit the milestone the issue belongs to by name
+# @option --parent <number>                        Set the parent issue by number or URL
 # @option --remove-assignee*,[`_choice_issue_assignee`] <login>  Remove assigned users by their login.
+# @option --remove-blocked-by <number>             Remove 'blocked by' relationships by issue number or URL
+# @option --remove-blocking <number>               Remove 'blocking' relationships by issue number or URL
 # @option --remove-label*,[`_choice_issue_label`] <name>  Remove labels by name
 # @flag --remove-milestone                         Remove the milestone association from the issue
+# @flag --remove-parent                            Remove the parent issue
 # @option --remove-project*,[`_choice_issue_project`] <title>  Remove the issue from projects by title
+# @option --remove-sub-issue <number>              Remove sub-issues by number or URL
+# @flag --remove-type                              Remove the issue type from the issue
 # @option -t --title <string>                      Set the new title.
+# @option --type <name>                            Set the issue type by name
 # @flag --help                                     Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg issue[`_choice_open_issue`]
@@ -585,7 +695,7 @@ issue::lock() {
 # }}} gh issue lock
 
 # {{{ gh issue pin
-# @cmd Pin a issue
+# @cmd Pin an issue
 # @flag --help    Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg issue[`_choice_open_issue`]
@@ -627,7 +737,7 @@ issue::unlock() {
 # }}} gh issue unlock
 
 # {{{ gh issue unpin
-# @cmd Unpin a issue
+# @cmd Unpin an issue
 # @flag --help    Show help for command
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
 # @arg issue[`_choice_pin_issue`]
@@ -710,7 +820,7 @@ pr::create() {
 # @cmd List pull requests in a repository
 # @option --app <string>                           Filter by GitHub App author
 # @option -a --assignee*,[`_choice_assignee`] <string>  Filter by assignee
-# @option -A --author[`_choice_search_user`] <string>  Filter by author
+# @option -A --author[`_choice_search_user`] <string>  Filter by author (use --app to filter by a GitHub App)
 # @option -B --base[`_choice_branch`] <string>     Filter by base branch
 # @flag -d --draft                                 Filter by draft state
 # @option -H --head[`_choice_branch`] <string>     Filter by head branch ("<owner>:<branch>" syntax not supported)
@@ -1695,6 +1805,37 @@ repo::license::view() {
 # }}}} gh repo license view
 # }}} gh repo license
 
+# {{{ gh repo read-dir
+# @cmd List a directory in a repository (preview)
+# @option -q --jq <expression>                     Filter JSON output using a jq expression
+# @option --json[`_choice_repo_field`] <fields>    Output JSON with the specified fields
+# @option --ref <string>                           The branch, tag, or commit to list from
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -t --template[`_choice_search_repo`] <string>  Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                                     Show help for command
+# @arg path
+repo::read-dir() {
+    :;
+}
+# }}} gh repo read-dir
+
+# {{{ gh repo read-file
+# @cmd Read a file from a repository (preview)
+# @flag --allow-escape-sequences                   Allow printing terminal escape sequences
+# @flag --clobber                                  Overwrite the output path if it already exists
+# @option -q --jq <expression>                     Filter JSON output using a jq expression
+# @option --json[`_choice_repo_field`] <fields>    Output JSON with the specified fields
+# @option -o --output <path>                       Write the file to a path instead of stdout
+# @option --ref <string>                           The branch, tag, or commit to read from
+# @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
+# @option -t --template[`_choice_search_repo`] <string>  Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                                     Show help for command
+# @arg path!
+repo::read-file() {
+    :;
+}
+# }}} gh repo read-file
+
 # {{{ gh repo rename
 # @cmd Rename a repository
 # @option -R --repo[`_choice_search_repo`] <[HOST/]OWNER/REPO>  Select another repository using the [HOST/]OWNER/REPO format
@@ -1764,6 +1905,7 @@ skill() {
 # {{{ gh skill install
 # @cmd Install agent skills from a GitHub repository (preview)
 # @option --agent <string>                  Target agent (see supported values above)
+# @flag --all                               Install all skills without prompting for skill selection
 # @flag --allow-hidden-dirs                 Include skills in hidden directories (e.g. .claude/skills/, .agents/skills/)
 # @option --dir <dir>                       Install to a custom directory (overrides --agent and --scope)
 # @flag -f --force                          Overwrite existing skills without prompting
@@ -1778,6 +1920,20 @@ skill::install() {
     :;
 }
 # }}} gh skill install
+
+# {{{ gh skill list
+# @cmd List installed skills (preview)
+# @option --agent[github-copilot|claude-code|cursor|codex|gemini-cli|antigravity|adal|amp|augment|bob|cline|codebuddy|command-code|continue|cortex|crush|deepagents|droid|firebender|goose|iflow-cli|junie|kilo|kimi-cli|kiro-cli|kode|mcpjam|mistral-vibe|mux|neovate|openclaw|opencode|openhands|pi|pochi|qoder|qwen-code|replit|roo|trae|trae-cn|universal|warp|windsurf|zencoder] <string>  Filter by target agent:
+# @option --dir <dir>                       Scan a custom directory for installed skills
+# @option -q --jq <expression>              Filter JSON output using a jq expression
+# @option --json <fields>                   Output JSON with the specified fields
+# @option --scope[project|user] <string>    Filter by installation scope:
+# @option -t --template <string>            Format JSON output using a Go template; see "gh help formatting"
+# @flag --help                              Show help for command
+skill::list() {
+    :;
+}
+# }}} gh skill list
 
 # {{{ gh skill preview
 # @cmd Preview a skill from a GitHub repository (preview)
@@ -2653,7 +2809,7 @@ search::commits() {
 # @option --app <string>                   Filter by GitHub App author
 # @option --archived[true|false]           Filter based on the repository archived state
 # @option --assignee <string>              Filter by assignee
-# @option --author[`_choice_search_user`] <string>  Filter by author
+# @option --author[`_choice_search_user`] <string>  Filter by author (use --app to filter by a GitHub App)
 # @option --closed <date>                  Filter on closed at date
 # @option --commenter <user>               Filter based on comments by user
 # @option --comments <number>              Filter on number of comments
@@ -2698,7 +2854,7 @@ search::issues() {
 # @option --app <string>                           Filter by GitHub App author
 # @option --archived[true|false]                   Filter based on the repository archived state
 # @option --assignee <string>                      Filter by assignee
-# @option --author[`_choice_search_user`] <string>  Filter by author
+# @option --author[`_choice_search_user`] <string>  Filter by author (use --app to filter by a GitHub App)
 # @option -B --base <string>                       Filter on base branch name
 # @option --checks[pending|success|failure] <string>  Filter based on status of the checks:
 # @option --closed <date>                          Filter on closed at date
@@ -2790,7 +2946,7 @@ secret() {
 
 # {{{ gh secret delete
 # @cmd Delete secrets
-# @option -a --app[actions|codespaces|dependabot] <string>  Delete a secret for a specific application:
+# @option -a --app[actions|agents|codespaces|dependabot] <string>  Delete a secret for a specific application:
 # @option -e --env <string>                   Delete a secret for an environment
 # @option -o --org[`_choice_org`] <string>    Delete a secret for an organization
 # @flag -u --user                             Delete a secret for your user
@@ -2804,7 +2960,7 @@ secret::delete() {
 
 # {{{ gh secret list
 # @cmd List secrets
-# @option -a --app[actions|codespaces|dependabot] <string>  List secrets for a specific application:
+# @option -a --app[actions|agents|codespaces|dependabot] <string>  List secrets for a specific application:
 # @option -e --env <string>                   List secrets for an environment
 # @option -q --jq <expression>                Filter JSON output using a jq expression
 # @option --json <fields>                     Output JSON with the specified fields
@@ -2820,7 +2976,7 @@ secret::list() {
 
 # {{{ gh secret set
 # @cmd Create or update secrets
-# @option -a --app[actions|codespaces|dependabot] <string>  Set the application for a secret:
+# @option -a --app[actions|agents|codespaces|dependabot] <string>  Set the application for a secret:
 # @option -b --body <string>           The value for the secret (reads from standard input if not specified)
 # @option -e --env <environment>       Set deployment environment secret
 # @option -f --env-file <file>         Load secret names and values from a dotenv-formatted file

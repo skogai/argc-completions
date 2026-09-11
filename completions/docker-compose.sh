@@ -9,9 +9,56 @@
 # @option -f --file* <file>                     Compose configuration files
 # @option --parallel <int>                      Control max parallelism, -1 for unlimited (default -1)
 # @option --profile* <file>                     Specify a profile to enable
-# @option --progress[auto|tty|plain|json|quiet] <string>  Set type of progress output (default "auto")
+# @option --progress[auto|tty|plain|json|quiet] <string>  Set type of progress output
 # @option --project-directory <path>            Specify an alternate working directory (default: the path of the, first specified, Compose file)
 # @option -p --project-name <string>            Project name
+
+# {{ docker-compose bridge
+# @cmd Convert compose files into another model
+# @flag --dry-run    Execute command in dry run mode
+bridge() {
+    :;
+}
+
+# {{{ docker-compose bridge transformations
+# @cmd Manage transformation images
+# @flag --dry-run    Execute command in dry run mode
+bridge::transformations() {
+    :;
+}
+
+# {{{{ docker-compose bridge transformations create
+# @cmd Create a new transformation
+# @flag --dry-run               Execute command in dry run mode
+# @option -f --from <string>    Existing transformation to copy (default: docker/compose-bridge-kubernetes)
+# @arg path
+bridge::transformations::create() {
+    :;
+}
+# }}}} docker-compose bridge transformations create
+
+# {{{{ docker-compose bridge transformations list
+# @cmd List available transformations
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format the output.
+# @flag -q --quiet             Only display transformer names
+bridge::transformations::list() {
+    :;
+}
+# }}}} docker-compose bridge transformations list
+# }}} docker-compose bridge transformations
+
+# {{{ docker-compose bridge convert
+# @cmd Convert compose files to Kubernetes manifests, Helm charts, or another model
+# @flag --dry-run                          Execute command in dry run mode
+# @option -o --output <dir>                The output directory for the Kubernetes resources (default "out")
+# @option --templates <dir>                Directory containing transformation templates
+# @option -t --transformation* <string>    Transformation to apply to compose model (default: docker/compose-bridge-kubernetes)
+bridge::convert() {
+    :;
+}
+# }}} docker-compose bridge convert
+# }} docker-compose bridge
 
 # {{ docker-compose attach
 # @cmd Attach local standard input, output, and error streams to a service's running container
@@ -30,12 +77,16 @@ attach() {
 # @cmd Build or rebuild services
 # @option --build-arg* <string>    Set build-time variables for services
 # @option --builder <string>       Set builder to use
+# @flag --check                    Check build configuration
 # @flag --dry-run                  Execute command in dry run mode
 # @option -m --memory <bytes>      Set memory limit for the build container.
 # @flag --no-cache                 Do not use cache when building the image
+# @flag --print                    Print equivalent bake file
+# @option --provenance <string>    Add a provenance attestation
 # @flag --pull                     Always attempt to pull a newer version of the image
 # @flag --push                     Push service images
-# @flag -q --quiet                 Don't print anything to STDOUT
+# @flag -q --quiet                 Suppress the build output
+# @option --sbom <string>          Add a SBOM attestation
 # @option --ssh <string>           Set SSH authentications used when building service images.
 # @flag --with-dependencies        Also build dependencies (transitively)
 # @arg service*[`_choice_service`]
@@ -44,6 +95,21 @@ build() {
 }
 # }} docker-compose build
 
+# {{ docker-compose commit
+# @cmd Create a new image from a service container's changes
+# @option -a --author <string>     Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+# @option -c --change <list>       Apply Dockerfile instruction to the created image
+# @flag --dry-run                  Execute command in dry run mode
+# @option --index <int>            index of the container if service has multiple replicas.
+# @option -m --message <string>    Commit message
+# @flag -p --pause                 Pause container during commit (default true)
+# @arg service[`_choice_service`]
+# @arg repository-tag <REPOSITORY[:TAG]>
+commit() {
+    :;
+}
+# }} docker-compose commit
+
 # {{ docker-compose config
 # @cmd Parse, resolve and render compose file in canonical format
 # @flag --dry-run                  Execute command in dry run mode
@@ -51,7 +117,11 @@ build() {
 # @option --format <string>        Format the output.
 # @option --hash <string>          Print the service config hash, one per line.
 # @flag --images                   Print the image names, one per line.
+# @flag --lock-image-digests       Produces an override file with image digests
+# @flag --models                   Print the model names, one per line.
+# @flag --networks                 Print the network names, one per line.
 # @flag --no-consistency           Don't check model consistency - warning: may produce invalid Compose output
+# @flag --no-env-resolution        Don't resolve service env files
 # @flag --no-interpolate           Don't interpolate environment variables
 # @flag --no-normalize             Don't normalize compose model
 # @flag --no-path-resolution       Don't resolve file paths
@@ -70,6 +140,7 @@ config() {
 
 # {{ docker-compose cp
 # @cmd Copy files/folders between a service container and the local filesystem
+# @flag --all               Include containers created by the run command
 # @flag -a --archive        Archive mode (copy all uid/gid information)
 # @flag --dry-run           Execute command in dry run mode
 # @flag -L --follow-link    Always follow symbol link in SRC_PATH
@@ -92,6 +163,7 @@ cp() {
 # @flag --quiet-pull         Pull without printing progress information
 # @flag --remove-orphans     Remove containers for services not defined in the Compose file
 # @option --scale <scale>    Scale SERVICE to NUM instances.
+# @flag -y --yes             Assume "yes" as answer to all prompts and run non-interactively
 # @arg service*[`_choice_service`]
 create() {
     :;
@@ -113,8 +185,10 @@ down() {
 
 # {{ docker-compose events
 # @cmd Receive real time events from containers
-# @flag --dry-run    Execute command in dry run mode
-# @flag --json       Output events as a stream of json objects
+# @flag --dry-run             Execute command in dry run mode
+# @flag --json                Output events as a stream of json objects
+# @option --since <string>    Show all events created since timestamp
+# @option --until <string>    Stream events until this timestamp
 # @arg service*[`_choice_service`]
 events() {
     :;
@@ -123,14 +197,14 @@ events() {
 
 # {{ docker-compose exec
 # @cmd Execute a command in a running container
-# @flag -d --detach                                Detached mode: Run command in the background
-# @flag --dry-run                                  Execute command in dry run mode
-# @option -e --env* <string>                       Set environment variables
-# @option --index <int>                            Index of the container if service has multiple replicas
-# @option -T --no-TTY <docker> <compose> <exec>    Disable pseudo-TTY allocation.
-# @flag --privileged                               Give extended privileges to the process
-# @option -u --user <string>                       Run the command as this user
-# @option -w --workdir <dir>                       Path to workdir directory for this command
+# @flag -d --detach             Detached mode: Run command in the background
+# @flag --dry-run               Execute command in dry run mode
+# @option -e --env* <string>    Set environment variables
+# @option --index <int>         Index of the container if service has multiple replicas
+# @flag -T --no-tty             Disable pseudo-TTY allocation.
+# @flag --privileged            Give extended privileges to the process
+# @option -u --user <string>    Run the command as this user
+# @option -w --workdir <dir>    Path to workdir directory for this command
 # @arg service[`_choice_service`]
 # @arg command[`_module_os_command`]
 # @arg args~[`_choice_args`]
@@ -138,6 +212,17 @@ exec() {
     :;
 }
 # }} docker-compose exec
+
+# {{ docker-compose export
+# @cmd Export a service container's filesystem as a tar archive
+# @flag --dry-run               Execute command in dry run mode
+# @option --index <int>         index of the container if service has multiple replicas.
+# @option -o --output <file>    Write to a file, instead of STDOUT
+# @arg service[`_choice_service`]
+export() {
+    :;
+}
+# }} docker-compose export
 
 # {{ docker-compose images
 # @cmd List images used by the created containers
@@ -184,7 +269,7 @@ logs() {
 # @flag --dry-run              Execute command in dry run mode
 # @option --filter <filter>    Filter output based on conditions provided
 # @option --format <string>    Format the output.
-# @flag -q --quiet             Only display IDs
+# @flag -q --quiet             Only display project names
 ls() {
     :;
 }
@@ -227,6 +312,20 @@ ps() {
     :;
 }
 # }} docker-compose ps
+
+# {{ docker-compose publish
+# @cmd Publish compose application
+# @flag --app                       Published compose application (includes referenced images)
+# @flag --dry-run                   Execute command in dry run mode
+# @option --oci-version <string>    OCI image/artifact specification version (automatically determined by default)
+# @flag --resolve-image-digests     Pin image tags to digests
+# @flag --with-env                  Include environment variables in the published OCI artifact
+# @flag -y --yes                    Assume "yes" as answer to all prompts
+# @arg repository-tag <REPOSITORY[:TAG]>
+publish() {
+    :;
+}
+# }} docker-compose publish
 
 # {{ docker-compose pull
 # @cmd Pull service images
@@ -279,27 +378,31 @@ rm() {
 
 # {{ docker-compose run
 # @cmd Run a one-off command on a service
-# @flag --build                     Build image before starting container
-# @option --cap-add <list>          Add Linux capabilities
-# @option --cap-drop <list>         Drop Linux capabilities
-# @flag -d --detach                 Run container in background and print container ID
-# @flag --dry-run                   Execute command in dry run mode
-# @option --entrypoint <string>     Override the entrypoint of the image
-# @option -e --env* <string>        Set environment variables
-# @flag -i --interactive            Keep STDIN open even if not attached (default true)
-# @option -l --label* <string>      Add or override a label
-# @option --name <string>           Assign a name to the container
-# @flag -T --no-TTY                 Disable pseudo-TTY allocation (default: auto-detected) (default true)
-# @flag --no-deps                   Don't start linked services
-# @option -p --publish* <string>    Publish a container's port(s) to the host
-# @flag --quiet-pull                Pull without printing progress information
-# @flag --remove-orphans            Remove containers for services not defined in the Compose file
-# @flag --rm                        Automatically remove the container when it exits
-# @flag -P --service-ports          Run command with all service's ports enabled and mapped to the host
-# @flag --use-aliases               Use the service's network useAliases in the network(s) the container connects to
-# @option -u --user <string>        Run as specified username or uid
-# @option -v --volume* <string>     Bind mount a volume
-# @option -w --workdir <dir>        Working directory inside the container
+# @flag --build                                    Build image before starting container
+# @option --cap-add <list>                         Add Linux capabilities
+# @option --cap-drop <list>                        Drop Linux capabilities
+# @flag -d --detach                                Run container in background and print container ID
+# @flag --dry-run                                  Execute command in dry run mode
+# @option --entrypoint <string>                    Override the entrypoint of the image
+# @option -e --env* <string>                       Set environment variables
+# @option --env-from-file* <file>                  Set environment variables from file
+# @flag -i --interactive                           Keep STDIN open even if not attached (default true)
+# @option -l --label* <string>                     Add or override a label
+# @option --name <string>                          Assign a name to the container
+# @flag -T --no-TTY                                Disable pseudo-TTY allocation (default: auto-detected) (default true)
+# @flag --no-deps                                  Don't start linked services
+# @option -p --publish* <string>                   Publish a container's port(s) to the host
+# @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
+# @flag -q --quiet                                 Don't print anything to STDOUT
+# @flag --quiet-build                              Suppress progress output from the build process
+# @flag --quiet-pull                               Pull without printing progress information
+# @flag --remove-orphans                           Remove containers for services not defined in the Compose file
+# @flag --rm                                       Automatically remove the container when it exits
+# @flag -P --service-ports                         Run command with all service's ports enabled and mapped to the host
+# @flag --use-aliases                              Use the service's network useAliases in the network(s) the container connects to
+# @option -u --user <string>                       Run as specified username or uid
+# @option -v --volume* <string>                    Bind mount a volume
+# @option -w --workdir <dir>                       Working directory inside the container
 # @arg service[`_choice_service`]
 # @arg command
 # @arg args*
@@ -320,7 +423,9 @@ scale() {
 
 # {{ docker-compose start
 # @cmd Start services
-# @flag --dry-run    Execute command in dry run mode
+# @flag --dry-run                 Execute command in dry run mode
+# @flag --wait                    Wait for services to be running|healthy.
+# @option --wait-timeout <int>    Maximum duration in seconds to wait for the project to be running|healthy
 # @arg service*[`_choice_service`]
 start() {
     :;
@@ -389,6 +494,7 @@ unpause() {
 # @flag --no-recreate                              If containers already exist, don't recreate them.
 # @flag --no-start                                 Don't start the services after creating them
 # @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
+# @flag --quiet-build                              Suppress the build output
 # @flag --quiet-pull                               Pull without printing progress information
 # @flag --remove-orphans                           Remove containers for services not defined in the Compose file
 # @flag -V --renew-anon-volumes                    Recreate anonymous volumes instead of retrieving data from the previous containers
@@ -396,8 +502,9 @@ unpause() {
 # @option -t --timeout <int>                       Use this timeout in seconds for container shutdown when attached or when containers are already running
 # @flag --timestamps                               Show timestamps
 # @flag --wait                                     Wait for services to be running|healthy.
-# @option --wait-timeout <int>                     Maximum duration to wait for the project to be running|healthy
+# @option --wait-timeout <int>                     Maximum duration in seconds to wait for the project to be running|healthy
 # @flag -w --watch                                 Watch source code and rebuild/refresh containers when files are updated.
+# @flag -y --yes                                   Assume "yes" as answer to all prompts and run non-interactively
 # @arg service*[`_choice_service`]
 up() {
     :;
@@ -414,8 +521,19 @@ version() {
 }
 # }} docker-compose version
 
+# {{ docker-compose volumes
+# @cmd List volumes
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format output using a custom template:
+# @flag -q --quiet             Only display volume names
+# @arg service*[`_choice_service`]
+volumes() {
+    :;
+}
+# }} docker-compose volumes
+
 # {{ docker-compose wait
-# @cmd Block until the first service container stops
+# @cmd Block until containers of all (or specified) services stop.
 # @flag --down-project    Drops project when the first container stops
 # @flag --dry-run         Execute command in dry run mode
 # @arg service*[`_choice_service`]
@@ -428,7 +546,7 @@ wait() {
 # @cmd Watch build context for service and rebuild/refresh containers when files are updated
 # @flag --dry-run    Execute command in dry run mode
 # @flag --no-up      Do not build & start services before watching
-# @flag --prune      Prune dangling images on rebuild
+# @flag --prune      Prune dangling images on rebuild (default true)
 # @flag --quiet      hide build output
 # @arg service*[`_choice_service`]
 watch() {

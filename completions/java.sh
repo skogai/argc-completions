@@ -6,9 +6,12 @@
 # @option --class-path*:[`_choice_class_path`] <path>  A : separated list of directories, JAR archives and ZIP archives to search for class files.
 # @option -p*: <dir>                            A : separated list of elements, each element is a file path to a module or a directory containing modules.
 # @option --module-path*: <dir>                 A : separated list of elements, each element is a file path to a module or a directory containing modules.
-# @option --upgrade-module-path*: <dir>         A : separated list of elements, each element is a file path to a module or a directory containing modules to replace upgradeable modules in the runtime image.
+# @option --upgrade-module-path*: <dir>         A ":"-separated list of elements, each element is a file path to a module or a directory containing modules to replace upgradeable modules in the runtime image.
 # @option --add-modules*, <dir>                 root modules to resolve in addition to the initial module.
-# @option --enable-native-access*, <module>     modules that are permitted to perform restricted native operations.
+# @option --enable-native-access*, <module>     allow code in modules to access code and data outside the Java runtime.
+# @option --illegal-native-access <value>       allow or deny access to code and data outside the Java runtime by code in modules for which native access is not explicitly enabled.
+# @option --enable-final-field-mutation <<module name>[,<module name>...]>  allow code in the specified modules to mutate final instance fields.
+# @option --illegal-final-field-mutation <value>  allow or deny final field mutation by code in modules for which final field mutation is not explicitly enabled.
 # @flag --list-modules                          list observable modules and exit
 # @option -d <module name>                      describe a module and exit
 # @option --describe-module <module name>       describe a module and exit

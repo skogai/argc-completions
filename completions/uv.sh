@@ -166,6 +166,7 @@ auth::dir() {
 # @flag -m --module                                Run a Python module
 # @flag --only-dev                                 Only include the development dependency group
 # @flag --no-editable                              Install any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]
+# @option --no-editable-package <NO_EDITABLE_PACKAGE>  Install the specified editable packages as non-editable
 # @flag --exact                                    Perform an exact sync, removing extraneous packages
 # @option --env-file <ENV_FILE>                    Load environment variables from a `.env` file [env: UV_ENV_FILE=]
 # @flag --no-env-file                              Avoid reading environment variables from a `.env` file [env: UV_NO_ENV_FILE=]
@@ -182,7 +183,7 @@ auth::dir() {
 # @flag --all-packages                             Run the command with all workspace members installed
 # @option --package                                Run the command in a specific package in the workspace
 # @flag --no-project                               Avoid discovering the project or workspace [env: UV_NO_PROJECT=]
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
 # @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
@@ -304,9 +305,9 @@ init() {
 # @option --script                                 Add the dependency to the specified Python script, rather than to a project
 # @flag --workspace                                Add the dependency as a workspace member
 # @flag --no-workspace                             Don't add the dependency as a workspace member
-# @flag --no-install-project                       Do not install the current project
-# @flag --no-install-workspace                     Do not install any workspace members, including the current project
-# @flag --no-install-local                         Do not install local path dependencies
+# @flag --no-install-project                       Do not install the current project [env: UV_NO_INSTALL_PROJECT=]
+# @flag --no-install-workspace                     Do not install any workspace members, including the current project [env: UV_NO_INSTALL_WORKSPACE=]
+# @flag --no-install-local                         Do not install local path dependencies [env: UV_NO_INSTALL_LOCAL=]
 # @option --no-install-package <NO_INSTALL_PACKAGE>  Do not install the given package(s)
 # @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
 # @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
@@ -512,11 +513,12 @@ version() {
 # @option --only-group <ONLY_GROUP>                Only include dependencies from the specified dependency group
 # @flag --all-groups                               Include dependencies from all dependency groups
 # @flag --no-editable                              Install any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]
+# @option --no-editable-package <NO_EDITABLE_PACKAGE>  Install the specified editable packages as non-editable
 # @flag --inexact                                  Do not remove extraneous packages present in the environment
 # @flag --active                                   Sync dependencies to the active virtual environment
-# @flag --no-install-project                       Do not install the current project
-# @flag --no-install-workspace                     Do not install any workspace members, including the root project
-# @flag --no-install-local                         Do not install local path dependencies
+# @flag --no-install-project                       Do not install the current project [env: UV_NO_INSTALL_PROJECT=]
+# @flag --no-install-workspace                     Do not install any workspace members, including the root project [env: UV_NO_INSTALL_WORKSPACE=]
+# @flag --no-install-local                         Do not install local path dependencies [env: UV_NO_INSTALL_LOCAL=]
 # @option --no-install-package <NO_INSTALL_PACKAGE>  Do not install the given package(s)
 # @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
 # @flag --frozen                                   Sync without updating the `uv.lock` file [env: UV_FROZEN=]
@@ -524,7 +526,7 @@ version() {
 # @flag --all-packages                             Sync all packages in the workspace
 # @option --package                                Sync for specific packages in the workspace
 # @option --script                                 Sync the environment for a Python script, rather than the current project
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @flag --check                                    Check if the Python environment is synchronized with the project
 # @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
 # @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
@@ -657,7 +659,10 @@ lock() {
 # @flag --all-groups                               Include dependencies from all dependency groups
 # @flag --no-annotate                              Exclude comment annotations indicating the source of each package
 # @flag --no-header                                Exclude the comment header at the top of the generated output file
+# @flag --emit-index-url                           Include `--index-url` and `--extra-index-url` entries in the generated output file
+# @flag --emit-find-links                          Include `--find-links` entries in the generated output file
 # @flag --no-editable                              Export any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]
+# @option --no-editable-package <NO_EDITABLE_PACKAGE>  Export the specified editable packages as non-editable
 # @flag --no-hashes                                Omit hashes in the generated output
 # @option -o --output-file <OUTPUT_FILE>           Write the exported requirements to the given file
 # @flag --no-emit-project                          Do not emit the current project
@@ -740,7 +745,7 @@ export() {
 # @flag --frozen                                   Display the requirements without locking the project [env: UV_FROZEN=]
 # @option --script                                 Show the dependency tree the specified PEP 723 Python script, rather than the current project
 # @option --python-version <PYTHON_VERSION>        The Python version to use when filtering the tree
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform to use when filtering the tree
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform to use when filtering the tree
 # @flag --no-build                                 Don't build source distributions [env: UV_NO_BUILD=]
 # @option --no-build-package <NO_BUILD_PACKAGE>    Don't build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
@@ -821,6 +826,80 @@ format() {
 }
 # }} uv format
 
+# {{ uv check
+# @cmd Run checks on the project
+# @option --script                                 Run checks for the specified PEP 723 Python script, rather than the current project
+# @option --extra                                  Include optional dependencies from the specified extra name
+# @flag --all-extras                               Include all optional dependencies
+# @option --no-extra <NO_EXTRA>                    Exclude the specified optional dependencies, if `--all-extras` is supplied
+# @flag --no-dev                                   Disable the development dependency group [env: UV_NO_DEV=]
+# @flag --only-dev                                 Only include the development dependency group
+# @option --group                                  Include dependencies from the specified dependency group
+# @option --no-group <NO_GROUP>                    Disable the specified dependency group [env: `UV_NO_GROUP`=]
+# @flag --no-default-groups                        Ignore the default dependency groups [env: UV_NO_DEFAULT_GROUPS=]
+# @option --only-group <ONLY_GROUP>                Only include dependencies from the specified dependency group
+# @flag --all-groups                               Include dependencies from all dependency groups
+# @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
+# @flag --frozen                                   Sync without updating the `uv.lock` file [env: UV_FROZEN=]
+# @flag --no-sync                                  Avoid syncing the virtual environment [env: UV_NO_SYNC=]
+# @flag --isolated                                 Run checks without mutating project state [env: UV_ISOLATED=]
+# @option -p --python                              The Python interpreter to use for the project environment [env: UV_PYTHON=]
+# @option --ty-version <TY_VERSION>                The version of ty to use for type checking
+# @flag --no-project                               Avoid discovering a project or workspace [env: UV_NO_PROJECT=]
+# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
+# @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
+# @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
+# @flag --no-index                                 Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+# @option --index-strategy[first-index|unsafe-first-match|unsafe-best-match] <INDEX_STRATEGY>  The strategy to use when resolving against multiple index URLs [env: UV_INDEX_STRATEGY=]
+# @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  Attempt to use `keyring` for authentication for index URLs [env: UV_KEYRING_PROVIDER=]
+# @flag -U --upgrade                               Allow package upgrades, ignoring pinned versions in any existing output file.
+# @option -P --upgrade-package <UPGRADE_PACKAGE>   Allow upgrades for a specific package, ignoring pinned versions in any existing output file.
+# @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+# @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
+# @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
+# @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
+# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
+# @flag --no-sources                               Ignore the `tool.uv.sources` table when resolving dependencies.
+# @option --no-sources-package <NO_SOURCES_PACKAGE>  Don't use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]
+# @flag --reinstall                                Reinstall all packages, regardless of whether they're already installed.
+# @option --reinstall-package <REINSTALL_PACKAGE>  Reinstall a specific package, regardless of whether it's already installed.
+# @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
+# @flag --compile-bytecode                         Compile Python files to bytecode after installation [env: UV_COMPILE_BYTECODE=]
+# @option -C --config-setting <CONFIG_SETTING>     Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+# @option --config-settings-package <CONFIG_SETTINGS_PACKAGE>  Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+# @flag --no-build-isolation                       Disable isolation when building source distributions [env: UV_NO_BUILD_ISOLATION=]
+# @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
+# @flag --no-build                                 Don't build source distributions [env: UV_NO_BUILD=]
+# @option --no-build-package <NO_BUILD_PACKAGE>    Don't build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]
+# @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
+# @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
+# @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @flag --refresh                                  Refresh all cached data
+# @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
+# @flag --managed-python                           Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
+# @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
+# @flag --no-python-downloads                      Disable automatic downloads of Python.
+# @flag -q --quiet*                                Use quiet output
+# @flag -v --verbose*                              Use verbose output
+# @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
+# @flag --system-certs                             Whether to load TLS certificates from the platform's native certificate store [env: UV_SYSTEM_CERTS=]
+# @flag --offline                                  Disable network access [env: UV_OFFLINE=]
+# @option --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+# @flag --no-progress                              Hide all progress outputs [env: UV_NO_PROGRESS=]
+# @option --directory                              Change to the given directory prior to running the command [env: UV_WORKING_DIR=]
+# @option --project                                Discover a project in the given directory [env: UV_PROJECT=]
+# @option --config-file <CONFIG_FILE>              The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+# @flag --no-config                                Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+# @flag -h --help                                  Display the concise help for this command
+check() {
+    :;
+}
+# }} uv check
+
 # {{ uv audit
 # @cmd Audit the project's dependencies
 # @option --no-extra <NO_EXTRA>                    Don't audit the specified optional dependencies
@@ -831,10 +910,10 @@ format() {
 # @flag --only-dev                                 Only audit the development dependency group
 # @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
 # @flag --frozen                                   Audit the requirements without locking the project [env: UV_FROZEN=]
-# @option --output-format[text|json] <OUTPUT_FORMAT>  Select the output format [default: text]
+# @option --output-format[text|json|sarif] <OUTPUT_FORMAT>  Select the output format [default: text]
 # @option --script                                 Audit the specified PEP 723 Python script, rather than the current project
 # @option --python-version <PYTHON_VERSION>        The Python version to use when auditing
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform to use when auditing
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform to use when auditing
 # @option --ignore                                 Ignore a vulnerability by ID
 # @option --ignore-until-fixed <IGNORE_UNTIL_FIXED>  Ignore a vulnerability by ID, but only while no fix is available
 # @option --service-format[osv] <SERVICE_FORMAT>   The service format to use for vulnerability lookups [default: osv]
@@ -924,7 +1003,7 @@ tool() {
 # @option --env-file <ENV_FILE>                    Load environment variables from a `.env` file [env: UV_ENV_FILE=]
 # @flag --no-env-file                              Avoid reading environment variables from a `.env` file [env: UV_NO_ENV_FILE=]
 # @flag --lfs                                      Whether to use Git LFS when adding a dependency from Git
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @option --torch-backend <TORCH_BACKEND>          The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
 # @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
 # @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
@@ -995,7 +1074,7 @@ tool::run() {
 # @option -b --build-constraints <BUILD_CONSTRAINTS>  Constrain build dependencies using the given requirements files when building source distributions [env: UV_BUILD_CONSTRAINT=]
 # @flag --force                                    Force installation of the tool
 # @flag --lfs                                      Whether to use Git LFS when adding a dependency from Git
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @option --torch-backend <TORCH_BACKEND>          The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
 # @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
 # @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
@@ -1056,7 +1135,7 @@ tool::install() {
 # {{{ uv tool upgrade
 # @cmd Upgrade installed tools
 # @flag --all                                      Upgrade all tools
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @option -p --python                              Upgrade a tool, and specify it to use the given Python interpreter to build its environment.
 # @flag --managed-python                           Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
@@ -1521,7 +1600,7 @@ pip() {
 # @flag --no-build                                Don't build source distributions
 # @option --no-binary <NO_BINARY>                 Don't install pre-built wheels
 # @option --only-binary <ONLY_BINARY>             Only use pre-built wheels; don't build source distributions
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be resolved
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be resolved
 # @flag --universal                               Perform a universal resolution, attempting to generate a single `requirements.txt` output file that is compatible with all operating systems, architectures, and Python implementations
 # @option --no-emit-package <NO_EMIT_PACKAGE>     Specify a package to omit from the output resolution.
 # @flag --emit-index-url                          Include `--index-url` and `--extra-index-url` entries in the generated output file
@@ -1598,7 +1677,7 @@ pip::compile() {
 # @flag --allow-empty-requirements                Allow sync of empty requirements, which will clear the environment of all packages
 # @flag --no-allow-empty-requirements
 # @option --python-version <PYTHON_VERSION>       The minimum Python version that should be supported by the requirements (e.g., `3.7` or `3.7.9`)
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @flag --strict                                  Validate the Python environment after completing the installation, to detect packages with missing dependencies or other issues
 # @flag --dry-run                                 Perform a dry run, i.e., don't actually install anything but resolve the dependencies and print the resulting plan
 # @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
@@ -1651,6 +1730,7 @@ pip::sync() {
 # @option -r --requirements                       Install the packages listed in the given files
 # @option -e --editable                           Install the editable package based on the provided local file path
 # @flag --no-editable                             Install any editable dependencies as non-editable [env: UV_NO_EDITABLE=]
+# @option --no-editable-package <NO_EDITABLE_PACKAGE>  Install the specified editable packages as non-editable
 # @option -c --constraints                        Constrain versions using the given requirements files [env: UV_CONSTRAINT=]
 # @option --overrides                             Override versions using the given requirements files [env: UV_OVERRIDE=]
 # @option --excludes                              Exclude packages from resolution using the given requirements files [env: UV_EXCLUDE=]
@@ -1670,7 +1750,7 @@ pip::sync() {
 # @option --no-binary <NO_BINARY>                 Don't install pre-built wheels
 # @option --only-binary <ONLY_BINARY>             Only use pre-built wheels; don't build source distributions
 # @option --python-version <PYTHON_VERSION>       The minimum Python version that should be supported by the requirements (e.g., `3.7` or `3.7.9`)
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @flag --exact                                   Perform an exact sync, removing extraneous packages
 # @flag --strict                                  Validate the Python environment after completing the installation, to detect packages with missing dependencies or other issues
 # @flag --dry-run                                 Perform a dry run, i.e., don't actually install anything but resolve the dependencies and print the resulting plan
@@ -1916,7 +1996,7 @@ pip::tree() {
 # @cmd Verify installed packages have compatible dependencies
 # @flag --system                               Check packages in the system Python environment [env: UV_SYSTEM_PYTHON=]
 # @option --python-version <PYTHON_VERSION>    The Python version against which packages should be checked
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which packages should be checked
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which packages should be checked
 # @option -p --python                          The Python interpreter for which packages should be checked.
 # @flag --managed-python                       Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                    Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
@@ -1946,6 +2026,7 @@ pip::check() {
 # @flag --no-project                             Avoid discovering a project or workspace [env: UV_NO_PROJECT=]
 # @flag --seed                                   Install seed packages (one or more of: `pip`, `setuptools`, and `wheel`) into the virtual environment [env: UV_VENV_SEED=]
 # @flag -c --clear                               Remove any existing files or directories at the target path [env: UV_VENV_CLEAR=]
+# @flag --force                                  Allow `--clear` to remove a non-virtual environment directory
 # @flag --allow-existing                         Preserve any existing files or directories at the target path
 # @option --prompt                               Provide an alternative prompt prefix for the virtual environment.
 # @flag --system-site-packages                   Give the virtual environment access to the system site packages directory
@@ -1966,8 +2047,8 @@ pip::check() {
 # @option -f --find-links <FIND_LINKS>           Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
 # @flag --no-index                               Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
 # @flag --refresh                                Refresh all cached data
-# @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
 # @option --refresh-package <REFRESH_PACKAGE>    Refresh cached data for a specific package
+# @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
 # @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
 # @flag -q --quiet*                              Use quiet output
 # @flag -v --verbose*                            Use verbose output
@@ -2088,6 +2169,139 @@ publish() {
     :;
 }
 # }} uv publish
+
+# {{ uv workspace
+# @cmd Inspect uv workspaces
+# @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
+# @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
+# @flag --no-python-downloads            Disable automatic downloads of Python.
+# @flag -q --quiet*                      Use quiet output
+# @flag -v --verbose*                    Use verbose output
+# @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
+# @flag --system-certs                   Whether to load TLS certificates from the platform's native certificate store [env: UV_SYSTEM_CERTS=]
+# @flag --offline                        Disable network access [env: UV_OFFLINE=]
+# @option --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+# @flag --no-progress                    Hide all progress outputs [env: UV_NO_PROGRESS=]
+# @option --directory                    Change to the given directory prior to running the command [env: UV_WORKING_DIR=]
+# @option --project                      Discover a project in the given directory [env: UV_PROJECT=]
+# @option --config-file <CONFIG_FILE>    The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+# @flag --no-config                      Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+# @flag -h --help                        Display the concise help for this command
+workspace() {
+    :;
+}
+
+# {{{ uv workspace metadata
+# @cmd View metadata about the current workspace
+# @option --script                                 View metadata for the specified PEP 723 Python script, rather than the current workspace
+# @flag --locked                                   Check if the lockfile is up-to-date [env: UV_LOCKED=]
+# @flag --frozen                                   Assert that a `uv.lock` exists without checking if it is up-to-date [env: UV_FROZEN=]
+# @flag --dry-run                                  Perform a dry run, without writing the lockfile
+# @flag --sync                                     Sync the environment to include module ownership metadata in the output
+# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
+# @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
+# @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
+# @flag --no-index                                 Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+# @option --index-strategy[first-index|unsafe-first-match|unsafe-best-match] <INDEX_STRATEGY>  The strategy to use when resolving against multiple index URLs [env: UV_INDEX_STRATEGY=]
+# @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  Attempt to use `keyring` for authentication for index URLs [env: UV_KEYRING_PROVIDER=]
+# @flag -U --upgrade                               Allow package upgrades, ignoring pinned versions in any existing output file.
+# @option -P --upgrade-package <UPGRADE_PACKAGE>   Allow upgrades for a specific package, ignoring pinned versions in any existing output file.
+# @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
+# @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
+# @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
+# @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
+# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
+# @flag --no-sources                               Ignore the `tool.uv.sources` table when resolving dependencies.
+# @option --no-sources-package <NO_SOURCES_PACKAGE>  Don't use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]
+# @option -C --config-setting <CONFIG_SETTING>     Settings to pass to the PEP 517 build backend, specified as `KEY=VALUE` pairs
+# @option --config-settings-package <CONFIG_SETTINGS_PACKAGE>  Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
+# @flag --no-build-isolation                       Disable isolation when building source distributions [env: UV_NO_BUILD_ISOLATION=]
+# @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
+# @flag --no-build                                 Don't build source distributions [env: UV_NO_BUILD=]
+# @option --no-build-package <NO_BUILD_PACKAGE>    Don't build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]
+# @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
+# @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
+# @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
+# @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @flag --refresh                                  Refresh all cached data
+# @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
+# @option -p --python                              The Python interpreter to use during resolution.
+# @flag --managed-python                           Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
+# @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
+# @flag --no-python-downloads                      Disable automatic downloads of Python.
+# @flag -q --quiet*                                Use quiet output
+# @flag -v --verbose*                              Use verbose output
+# @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
+# @flag --system-certs                             Whether to load TLS certificates from the platform's native certificate store [env: UV_SYSTEM_CERTS=]
+# @flag --offline                                  Disable network access [env: UV_OFFLINE=]
+# @option --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+# @flag --no-progress                              Hide all progress outputs [env: UV_NO_PROGRESS=]
+# @option --directory                              Change to the given directory prior to running the command [env: UV_WORKING_DIR=]
+# @option --project                                Discover a project in the given directory [env: UV_PROJECT=]
+# @option --config-file <CONFIG_FILE>              The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+# @flag --no-config                                Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+# @flag -h --help                                  Display the concise help for this command
+workspace::metadata() {
+    :;
+}
+# }}} uv workspace metadata
+
+# {{{ uv workspace dir
+# @cmd Display the path of a workspace member
+# @option --package                      Display the path to a specific package in the workspace
+# @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
+# @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
+# @flag --no-python-downloads            Disable automatic downloads of Python.
+# @flag -q --quiet*                      Use quiet output
+# @flag -v --verbose*                    Use verbose output
+# @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
+# @flag --system-certs                   Whether to load TLS certificates from the platform's native certificate store [env: UV_SYSTEM_CERTS=]
+# @flag --offline                        Disable network access [env: UV_OFFLINE=]
+# @option --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+# @flag --no-progress                    Hide all progress outputs [env: UV_NO_PROGRESS=]
+# @option --directory                    Change to the given directory prior to running the command [env: UV_WORKING_DIR=]
+# @option --project                      Discover a project in the given directory [env: UV_PROJECT=]
+# @option --config-file <CONFIG_FILE>    The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+# @flag --no-config                      Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+# @flag -h --help                        Display the concise help for this command
+workspace::dir() {
+    :;
+}
+# }}} uv workspace dir
+
+# {{{ uv workspace list
+# @cmd List the members of a workspace
+# @flag --paths                          Show paths instead of names
+# @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
+# @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
+# @flag --no-python-downloads            Disable automatic downloads of Python.
+# @flag -q --quiet*                      Use quiet output
+# @flag -v --verbose*                    Use verbose output
+# @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
+# @flag --system-certs                   Whether to load TLS certificates from the platform's native certificate store [env: UV_SYSTEM_CERTS=]
+# @flag --offline                        Disable network access [env: UV_OFFLINE=]
+# @option --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+# @flag --no-progress                    Hide all progress outputs [env: UV_NO_PROGRESS=]
+# @option --directory                    Change to the given directory prior to running the command [env: UV_WORKING_DIR=]
+# @option --project                      Discover a project in the given directory [env: UV_PROJECT=]
+# @option --config-file <CONFIG_FILE>    The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+# @flag --no-config                      Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+# @flag -h --help                        Display the concise help for this command
+workspace::list() {
+    :;
+}
+# }}} uv workspace list
+# }} uv workspace
 
 # {{ uv cache
 # @cmd Manage uv's cache

@@ -2,25 +2,18 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta inherit-flag-options
-# @flag -h --help                     Show this help message
+# @flag -h --help                     Show this help
 # @flag --version                     Show package version
-# @flag --no-pager                    Do not pipe output into a pager
+# @flag --no-pager                    Do not start a pager
 # @flag --no-ask-password             Do not prompt for password
 # @option -H --host <[USER@]HOST>     Operate on remote host
 # @option -M --machine <CONTAINER>    Operate on local container
 # @flag --adjust-system-clock         Adjust system clock when changing local RTC mode
 # @flag --monitor                     Monitor status of systemd-timesyncd
 # @option -p --property <NAME>        Show only properties by this name
-# @flag -a --all                      Show all properties, including empty ones
-# @flag --value                       When showing properties, only print the value
 # @option -P <NAME>                   Equivalent to --value --property=NAME
-
-# {{ timedatectl status
-# @cmd Show current time settings
-status() {
-    :;
-}
-# }} timedatectl status
+# @flag --value                       When showing properties, only print the value
+# @flag -a --all                      Show all properties, including empty ones
 
 # {{ timedatectl show
 # @cmd Show properties of systemd-timedated
@@ -83,7 +76,7 @@ show-timesync() {
 # }} timedatectl show-timesync
 
 # {{ timedatectl ntp-servers
-# @cmd INTERFACE SERVER… Set the interface specific NTP servers
+# @cmd Set the interface specific NTP servers
 ntp-servers() {
     :;
 }

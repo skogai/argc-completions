@@ -16,6 +16,9 @@
 # @flag --sha3-256                       Calculate SHA3 message digest.
 # @flag --sha3-384                       Calculate SHA3 message digest.
 # @flag --sha3-512                       Calculate SHA3 message digest.
+# @flag --blake2s                        Calculate BLAKE2S/BLAKE2B message digest.
+# @flag --blake2b                        Calculate BLAKE2S/BLAKE2B message digest.
+# @flag --blake3                         Calculate BLAKE3 message digest.
 # @flag -T --tth                         Calculate TTH message digest.
 # @flag --btih                           Calculate BitTorrent InfoHash message digest.
 # @flag -A --aich                        Calculate AICH message digest.
@@ -28,17 +31,15 @@
 # @flag --gost94-cryptopro               Calculate GOST R 34.11-94 CryptoPro message digest.
 # @flag --ripemd160                      Calculate RIPEMD-160 message digest.
 # @flag --has160                         Calculate HAS-160 message digest.
-# @flag --blake2s                        Calculate BLAKE2S/BLAKE2B message digest.
-# @flag --blake2b                        Calculate BLAKE2S/BLAKE2B message digest.
 # @flag --edonr256                       Calculate EDON-R 256/512 message digest.
 # @flag --edonr512                       Calculate EDON-R 256/512 message digest.
 # @flag --snefru128                      Calculate SNEFRU-128/256 message digest.
 # @flag --snefru256                      Calculate SNEFRU-128/256 message digest.
 # @flag -a --all                         Calculate all supported hash functions.
 # @flag -c --check                       Check hash files specified by command line.
-# @option -u --update <file>             Update the specified hash file.
-# @option --missing <file>               Read the hash file and print missing and inaccessible files.
-# @option --unverified <file>            Print files that can't be verified by the hash file.
+# @option -u --update <hashfile>         Update the specified hash file.
+# @option --missing <hashfile>           List files from hash file that are missing or inaccessible.
+# @option --unverified <hashfile>        List command-line files missing from given hash file.
 # @flag -e --embed-crc                   Rename files by inserting crc32 sum into name.
 # @flag -k --check-embedded              Verify files by crc32 sum embedded in their names.
 # @flag --list-hashes                    List the names of supported hash functions, one per line.
@@ -54,11 +55,13 @@
 # @flag -P --percents                    Show percents, while calculating or verifying message digests.
 # @flag --speed                          Output per-file and total processing speed.
 # @option --max-depth <n>                Descend at most <n> levels of directories.
+# @option --openssl <list>               Specify hash functions to be calculated using OpenSSL.
 # @option -o --output <file>             File to output calculation or checking results.
 # @option -l --log <file>                File to log errors and verbose information.
 # @flag --sfv                            Print message digests, using SFV format (default).
 # @flag --bsd                            Print message digests, using BSD-like format.
 # @flag --simple                         Print message digests, using simple format.
+# @flag --one-hash                       Print one message digest per line without file information.
 # @flag --hex                            Print message digests in hexadecimal format.
 # @flag --base32                         Print message digests in Base32 format.
 # @flag -b --base64                      Print message digests in Base64 format.

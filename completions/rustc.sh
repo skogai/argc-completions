@@ -17,7 +17,7 @@
 # @option --out-dir <DIR>                          Write output to compiler-chosen filename in DIR
 # @option --explain <OPT>                          Provide a detailed explanation of an error message
 # @flag --test                                     Build a test harness
-# @option --target                                 Target tuple for which the code is compiled
+# @option --target                                 Target triple for which the code is compiled
 # @option -A --allow*,[`_choice_lint_option`] <LINT>  Set lint allowed
 # @option -W --warn*,[`_choice_lint_option`] <LINT>  Set lint warnings
 # @option --force-warn*,[`_choice_lint_option`] <LINT>  Set lint force-warn

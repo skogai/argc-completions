@@ -14,7 +14,7 @@
 # @flag -K --rawsequences              Fix numeric keypad key confusion problem
 # @flag -L --nonewlines                Don't add an automatic newline
 # @flag -M --trimblanks                Trim tail spaces when hard-wrapping
-# @flag -N --noconvert                 Don't convert files from DOS/Mac format
+# @flag -N --noconvert                 Don't convert files from DOS format
 # @flag -O --bookstyle                 Leading whitespace means new paragraph
 # @flag -P --positionlog               Save & restore position of the cursor
 # @option -Q --quotestr <regex>        Regular expression to match quoting

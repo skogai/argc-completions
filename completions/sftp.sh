@@ -10,7 +10,7 @@
 # @option -b <batchfile>                           Batch mode reads a series of commands from an input batchfile instead of stdin.
 # @flag -C                                         Enables compression (via ssh's -C flag).
 # @option -c*,[`_module_ssh_cipher`] <cipher>      Selects the cipher to use for encrypting the data transfers.
-# @option -D <sftp_server_path>                    Connect directly to a local sftp server (rather than via ssh(1)).
+# @option -D <sftp_server_command>                 Connect directly to a local sftp server (rather than via ssh(1)).
 # @option -F <ssh_config>                          Specifies an alternative per-user configuration file for ssh(1).
 # @flag -f                                         Requests that files be flushed to disk immediately after transfer.
 # @option -i <identity_file>                       Selects the file from which the identity (private key) for public key authentication is read.
@@ -26,6 +26,7 @@
 # @option -S <program>                             Name of the program to use for the encrypted connection.
 # @flag -s                                         subsystem | sftp_server Specifies the SSH2 subsystem or the path for an sftp server on the remote host.
 # @flag -v                                         Raise logging level.
+# @option -X <sftp_option>                         Specify an option that controls aspects of SFTP protocol behaviour.
 # @arg destination[`_module_ssh_host`]
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

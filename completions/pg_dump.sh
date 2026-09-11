@@ -6,13 +6,16 @@
 # @option -j --jobs <NUM>                         use this many parallel jobs to dump
 # @flag -v --verbose                              verbose mode
 # @flag -V --version                              output version information, then exit
-# @option -Z --compress <0-9>                     compression level for compressed formats
+# @option -Z --compress <METHOD[:DETAIL]>         compress as specified
 # @option --lock-wait-timeout <TIMEOUT>           fail after waiting TIMEOUT for a table lock
 # @flag --no-sync                                 do not wait for changes to be written safely to disk
+# @option --sync-method <METHOD>                  set method for syncing files to disk
 # @flag -? --help                                 show this help, then exit
-# @flag -a --data-only                            dump only the data, not the schema
-# @flag -b --blobs                                include large objects in dump
-# @flag -B --no-blobs                             exclude large objects in dump
+# @flag -a --data-only                            dump only the data, not the schema or statistics
+# @flag -b --large-objects                        include large objects in dump
+# @flag --blobs                                   (same as --large-objects, deprecated)
+# @flag -B --no-large-objects                     exclude large objects in dump
+# @flag --no-blobs                                (same as --no-large-objects, deprecated)
 # @flag -c --clean                                clean (drop) database objects before recreating
 # @flag -C --create                               include commands to create database in dump
 # @option -e --extension <PATTERN>                dump the specified extension(s) only
@@ -20,9 +23,9 @@
 # @option -n --schema <PATTERN>                   dump the specified schema(s) only
 # @option -N --exclude-schema <PATTERN>           do NOT dump the specified schema(s)
 # @flag -O --no-owner                             skip restoration of object ownership in plain-text format
-# @flag -s --schema-only                          dump only the schema, no data
+# @flag -s --schema-only                          dump only the schema, no data or statistics
 # @option -S --superuser <NAME>                   superuser user name to use in plain-text format
-# @option -t --table <PATTERN>                    dump the specified table(s) only
+# @option -t --table <PATTERN>                    dump only the specified table(s)
 # @option -T --exclude-table <PATTERN>            do NOT dump the specified table(s)
 # @flag -x --no-privileges                        do not dump privileges (grant/revoke)
 # @flag --binary-upgrade                          for use by upgrade utilities only
@@ -30,15 +33,23 @@
 # @flag --disable-dollar-quoting                  disable dollar quoting, use SQL standard quoting
 # @flag --disable-triggers                        disable triggers during data-only restore
 # @flag --enable-row-security                     enable row security (dump only content user has access to)
+# @option --exclude-extension <PATTERN>           do NOT dump the specified extension(s)
+# @option --exclude-table-and-children <PATTERN>  do NOT dump the specified table(s), including child and partition tables
 # @option --exclude-table-data <PATTERN>          do NOT dump data for the specified table(s)
+# @option --exclude-table-data-and-children <PATTERN>  do NOT dump data for the specified table(s), including child and partition tables
 # @option --extra-float-digits <NUM>              override default setting for extra_float_digits
+# @option --filter <FILENAME>                     include or exclude objects and data from dump based on expressions in FILENAME
 # @flag --if-exists                               use IF EXISTS when dropping objects
 # @option --include-foreign-data <PATTERN>        include data of foreign tables on foreign servers matching PATTERN
 # @flag --inserts                                 dump data as INSERT commands, rather than COPY
 # @flag --load-via-partition-root                 load partitions via the root table
-# @flag --no-comments                             do not dump comments
+# @flag --no-comments                             do not dump comment commands
+# @flag --no-data                                 do not dump data
+# @flag --no-policies                             do not dump row security policies
 # @flag --no-publications                         do not dump publications
+# @flag --no-schema                               do not dump schema
 # @flag --no-security-labels                      do not dump security label assignments
+# @flag --no-statistics                           do not dump statistics
 # @flag --no-subscriptions                        do not dump subscriptions
 # @flag --no-table-access-method                  do not dump table access methods
 # @flag --no-tablespaces                          do not dump tablespace assignments
@@ -46,11 +57,16 @@
 # @flag --no-unlogged-table-data                  do not dump unlogged table data
 # @flag --on-conflict-do-nothing                  add ON CONFLICT DO NOTHING to INSERT commands
 # @flag --quote-all-identifiers                   quote all identifiers, even if not key words
+# @option --restrict-key <RESTRICT_KEY>           use provided string as psql \restrict key
 # @option --rows-per-insert <NROWS>               number of rows per INSERT; implies --inserts
 # @option --section[pre-data|data|post-data]      dump named section (pre-data, data, or post-data)
+# @flag --sequence-data                           include sequence data in dump
 # @flag --serializable-deferrable                 wait until the dump can run without anomalies
 # @option --snapshot                              use given snapshot for the dump
+# @flag --statistics                              dump the statistics
+# @flag --statistics-only                         dump only the statistics, not schema or data
 # @flag --strict-names                            require table and/or schema include patterns to match at least one entity each
+# @option --table-and-children <PATTERN>          dump only the specified table(s), including child and partition tables
 # @flag --use-set-session-authorization           use SET SESSION AUTHORIZATION commands instead of ALTER OWNER commands to set ownership
 # @option -d --dbname[`_choice_database`]         database to dump
 # @option -h --host[`_module_os_hostname`] <HOSTNAME>  database server host or socket directory

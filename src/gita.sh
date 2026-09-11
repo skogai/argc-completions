@@ -35,10 +35,6 @@ _patch_table() {
     esac
 }
 
-_choice_repo() {
-    gita ls | tr ' ' '\n'
-}
-
 _choice_group() {
     gita group ls | tr ' ' '\n'
 }
@@ -46,6 +42,10 @@ _choice_group() {
 _choice_context() {
     printf "auto\nnone\n"
     gita group ls | tr ' ' '\n'
+}
+
+_choice_repo() {
+    gita ls | tr ' ' '\n'
 }
 
 _choice_repo_group() {

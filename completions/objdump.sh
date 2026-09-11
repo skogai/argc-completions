@@ -13,7 +13,7 @@
 # @flag -g --debugging                           Display debugging information.
 # @flag -e --debugging-tags                      Like -g, but the information is generated in a format compatible with ctags tool.
 # @option -d --disassemble <symbol>              Display the assembler mnemonics for the machine instructions from the input file.
-# @flag -D --disassemble-all                     Like -d, but disassemble the contents of all sections, not just those expected to contain instructions.
+# @flag -D --disassemble-all                     Like -d, but disassemble the contents of all non-empty non-bss sections, not just those expected to contain instructions.
 # @flag --no-addresses                           When disassembling, don't print addresses on each line or for symbols and relocation offsets.
 # @flag --prefix-addresses                       When disassembling, print the complete address on each line.
 # @option -EB[big|little]                        Specify the endianness of the object files.
@@ -27,7 +27,7 @@
 # @flag --headers                                Display summary information from the section headers of the object file.
 # @flag -H --help                                Print a summary of the options to objdump and exit.
 # @flag -i --info                                Display a list showing all architectures and object formats available for specification with -b or -m.
-# @option -j --section <name>                    Display information only for section name.
+# @option -j --section <name>                    Display information for section name.
 # @flag -L --process-links                       Display the contents of non-debug sections found in separate debuginfo files that are linked to the main file.
 # @flag -l --line-numbers                        Label the display (using debugging information) with the filename and source line numbers corresponding to the object code or relocs shown.
 # @option -m --architecture[`_choice_architecture`] <machine>  Specify the architecture to use when disassembling object files.
@@ -36,8 +36,9 @@
 # @option -P --private <options>                 Print information that is specific to the object file format.
 # @flag -r --reloc                               Print the relocation entries of the file.
 # @flag -R --dynamic-reloc                       Print the dynamic relocation entries of the file.
-# @flag -s --full-contents                       Display the full contents of any sections requested.
+# @flag -s --full-contents                       Display the full contents of sections, often used in combination with -j to request specific sections.
 # @flag -S --source                              Display source code intermixed with disassembly, if possible.
+# @flag --show-all-symbols                       When disassembling, show all the symbols that match a given address, not just the first one.
 # @option --source-comment <txt>                 Like the -S option, but all source code lines are displayed with a prefix of txt.
 # @option --prefix <prefix>                      Specify prefix to add to the absolute paths when used with -S.
 # @option --prefix-strip <level>                 Indicate how many initial directory names to strip off the hardwired absolute paths.
@@ -45,12 +46,15 @@
 # @flag --no-show-raw-insn                       When disassembling instructions, do not print the instruction bytes.
 # @option --insn-width <width>                   Display width bytes on a single line when disassembling instructions.
 # @option --visualize-jumps[color|extended-color|off]  Visualize jumps that stay inside a function by drawing ASCII art between the start and target addresses.
+# @option --disassembler-color[extended|extended-color|extended-colour]  Enables or disables the use of colored syntax highlighting in disassembly output.
 # @option -W --dwarf[`_choice_dwarf`] <value>    Displays the contents of the DWARF debug sections in the file, if any are present.
 # @option --dwarf-depth <n>                      Limit the dump of the ".debug_info" section to n children.
 # @option --dwarf-start <n>                      Print only DIEs beginning with the DIE numbered n.
 # @flag --dwarf-check                            Enable additional checks for consistency of Dwarf information.
 # @option --ctf <section>                        Display the contents of the specified CTF section.
 # @option --ctf-parent <member>                  If the CTF section contains ambiguously-defined types, it will consist of an archive of many CTF dictionaries, all inheriting from one dictionary containing unambiguous types.
+# @option --ctf-parent-section <section>         This option lets you pick a completely different section for the CTF parent dictionary containing unambiguous types than for the child dictionaries that contain the ambiguous remainder.
+# @option --sframe <section>                     Display the contents of the specified SFrame section.
 # @flag -G --stabs                               Display the full contents of any sections requested.
 # @option --start-address <address>              Start displaying data at the specified address.
 # @option --stop-address <address>               Stop displaying data at the specified address.
@@ -62,6 +66,7 @@
 # @flag -x --all-headers                         Display all available header information, including the symbol table and relocation entries.
 # @flag -w --wide                                Format some lines for output devices that have more than 80 columns.
 # @flag -z --disassemble-zeroes                  Normally the disassembly output will skip blocks of zeroes.
+# @flag -Z --decompress                          The -Z option is meant to be used in conunction with the -s option.
 
 _choice_target() {
     printf "%s\n" elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 \

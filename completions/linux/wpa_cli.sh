@@ -3,15 +3,15 @@
 
 # @meta combine-shorts
 # @meta inherit-flag-options
-# @option -p <path>                       Change the path where control sockets should be found.
-# @option -g <control> <socket> <path>    Connect to the global control socket at the indicated path rather than an interface-specific control socket.
-# @option -i <ifname>                     Specify the interface that is being configured.
-# @flag -h                                Help.
-# @flag -v                                Show version information.
-# @flag -B                                Run as a daemon in the background.
-# @option -a <file>                       Run in daemon mode executing the action file based on events from wpa_supplicant.
-# @option -P <file>                       Set the location of the PID file.
-# @option -G <ping> <interval>            Set the interval (in seconds) at which wpa_cli pings the supplicant.
+# @option -p <path>      Change the path where control sockets should be found.
+# @flag -g               control socket path Connect to the global control socket at the indicated path rather than an interface-specific control socket.
+# @option -i <ifname>    Specify the interface that is being configured.
+# @flag -h               Help.
+# @flag -v               Show version information.
+# @flag -B               Run as a daemon in the background.
+# @option -a <file>      Run in daemon mode executing the action file based on events from wpa_supplicant.
+# @option -P <file>      Set the location of the PID file.
+# @flag -G               ping interval Set the interval (in seconds) at which wpa_cli pings the supplicant.
 
 # {{ wpa_cli status
 # @cmd get current WPA/EAPOL/EAP status

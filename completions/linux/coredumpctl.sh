@@ -2,34 +2,27 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta inherit-flag-options
-# @flag -h --help                             Show this help
-# @flag --version                             Print version string
-# @flag --no-pager                            Do not pipe output into a pager
-# @flag --no-legend                           Do not print the column headers
-# @option --json[pretty|short|off] <pretty|short|off>  Generate JSON output
-# @option --debugger[`_module_os_command`]    Use the given debugger
-# @option -A --debugger-arguments <ARGS>      Pass the given arguments to the debugger
-# @option -n <INT>                            Show maximum number of rows
-# @flag -1                                    Show information about most recent entry only
-# @option -S --since <DATE>                   Only print coredumps since the date
-# @option -U --until <DATE>                   Only print coredumps until the date
-# @flag -r --reverse                          Show the newest entries first
-# @option -F --field                          List all values a certain field takes
-# @option -o --output <FILE>                  Write output to FILE
-# @option --file <PATH>                       Use journal file
-# @option -D --directory <DIR>                Use journal files from directory
-# @flag -q --quiet                            Do not show info messages and privilege warning
-# @flag --all                                 Look at all journal files instead of local ones
-# @option --root <PATH>                       Operate on an alternate filesystem root
-# @option --image <PATH>                      Operate on disk image as filesystem root
-# @option --image-policy <POLICY>             Specify disk image dissection policy
-
-# {{ coredumpctl list
-# @cmd List available coredumps (default)
-list() {
-    :;
-}
-# }} coredumpctl list
+# @flag -h --help                              Show this help
+# @flag --version                              Show package version
+# @flag --no-pager                             Do not start a pager
+# @flag --no-legend                            Do not show headers and footers
+# @option --debugger[`_module_os_command`]     Use the given debugger
+# @option -A --debugger-arguments <…>          Pass the given arguments to the debugger
+# @option --file <PATH>                        Use journal file
+# @option -o --output <FILE>                   Write output to FILE
+# @option -S --since <DATE>                    Only print coredumps since the date
+# @option -U --until <DATE>                    Only print coredumps until the date
+# @option -F --field                           List all values a certain field takes
+# @flag -1                                     Show information about most recent entry only
+# @option -n <INT>                             Show at most this many rows
+# @option -D --directory <DIR>                 Use journal files from directory
+# @option --root <PATH>                        Operate on an alternate filesystem root
+# @option --image <PATH>                       Operate on disk image as filesystem root
+# @option --image-policy <POLICY>              Specify disk image dissection policy
+# @flag -r --reverse                           Show the newest entries first
+# @flag -q --quiet                             Do not show info messages and privilege warning
+# @option --json[pretty|short|off] <FORMAT>    Generate JSON output (pretty, short, or off)
+# @flag --all                                  Look at all journal files instead of local ones
 
 # {{ coredumpctl info
 # @cmd Show detailed information about one or more coredumps

@@ -1,4 +1,5 @@
 ## Common
+
 - [7z](https://www.7-zip.org): A file archiver with high compression ratio format [src](src/7z.sh) [completion](completions/7z.sh)
 - [7za](https://www.7-zip.org): A file archiver with high compression ratio format [src](src/7za.sh) [completion](completions/7za.sh)
 - [7zr](https://www.7-zip.org): A file archiver with high compression ratio format [src](src/7zr.sh) [completion](completions/7zr.sh)
@@ -42,7 +43,7 @@
 - [autocorrect](https://github.com/huacnlee/autocorrect): Linter and formatter to improve copywriting, correct spaces, words between CJK [src](src/autocorrect.sh) [completion](completions/autocorrect.sh)
 - [autojump](https://github.com/wting/autojump): Automatically jump to directory passed as an argument. [completion](completions/autojump.sh)
 - [awk](http://www.gnu.org/software/gawk): pattern scanning and processing language [src](src/awk.sh) [completion](completions/awk.sh)
-- [aws](https://github.com/aws/aws-cli): The  AWS  Command  Line  Interface is a unified tool to manage your AWS services. [src](src/aws.sh) [completion](completions/aws.sh)
+- [aws](https://github.com/aws/aws-cli): The AWS Command Line Interface is a unified tool to manage your AWS services. [src](src/aws.sh) [completion](completions/aws.sh)
 - [awsume](https://github.com/trek10inc/awsume): A utility for easily assuming AWS IAM roles from the command line. [completion](completions/awsume.sh)
 - [az](https://github.com/Azure/azure-cli): A set of commands used to create and manage Azure resources. [src](src/az.sh) [completion](completions/az.sh)
 - [babel](https://github.com/babel/babel): a compiler for writing next generation JavaScript. [completion](completions/babel.sh)
@@ -109,7 +110,7 @@
 - [certtool](https://www.gnutls.org): GnuTLS certificate tool [src](src/certtool.sh) [completion](completions/certtool.sh)
 - [cf](https://github.com/cloudfoundry/cli): The official command line client for Cloud Foundry [src](src/cf.sh) [completion](completions/cf.sh)
 - [checkov](https://github.com/bridgecrewio/checkov): A static code analysis tool for scanning infrastructure as code (IaC) files for misconfigurations that may lead to security or compliance problems [completion](completions/checkov.sh)
-- [cheat](https://github.com/cheat/cheat): Create and view interactive cheat sheets for *nix commands [src](src/cheat.sh) [completion](completions/cheat.sh)
+- [cheat](https://github.com/cheat/cheat): Create and view interactive cheat sheets for \*nix commands [src](src/cheat.sh) [completion](completions/cheat.sh)
 - [chezmoi](https://github.com/twpayne/chezmoi): Manage your dotfiles across multiple diverse machines, securely [src](src/chezmoi.sh) [completion](completions/chezmoi.sh)
 - [chgrp](http://gnu.org/software/coreutils): change group ownership [src](src/chgrp.sh) [completion](completions/chgrp.sh)
 - [chmod](http://gnu.org/software/coreutils): chmod - change file mode bits [src](src/chmod.sh) [completion](completions/chmod.sh)
@@ -128,7 +129,7 @@
 - [cloudflared](https://github.com/cloudflare/cloudflared): Cloudflare Tunnel client [src](src/cloudflared.sh) [completion](completions/cloudflared.sh)
 - [cmake](https://gitlab.kitware.com/cmake/cmake): an open-source, cross-platform family of tools designed to build, test and package software. [src](src/cmake.sh) [completion](completions/cmake.sh)
 - [cmark](https://github.com/commonmark/cmark): convert CommonMark formatted text to HTM [src](src/cmark.sh) [completion](completions/cmark.sh)
-- [cmus](https://github.com/cmus/cmus): C* Music Player [completion](completions/cmus.sh)
+- [cmus](https://github.com/cmus/cmus): C\* Music Player [completion](completions/cmus.sh)
 - [code](https://github.com/microsoft/vscode): Visual Studio Code [src](src/code.sh) [completion](completions/code.sh)
 - [code-insiders](https://github.com/microsoft/vscode): Visual Studio Code Insiders [src](src/code-insiders.sh) [completion](completions/code-insiders.sh)
 - [codex](https://github.com/openai/codex): Lightweight coding agent that runs in your terminal [completion](completions/codex.sh)
@@ -875,12 +876,14 @@
 - [zoxide](https://github.com/ajeetdsouza/zoxide): A smarter cd command. [completion](completions/zoxide.sh)
 
 ## Windows
+
 - [nssm](https://github.com/kirillkovalenko/nssm): Non-Sucking Service Manager [src](src/windows/nssm.sh) [completion](completions/windows/nssm.sh)
 - [scoop](https://github.com/ScoopInstaller/Scoop): A command-line installer for Windows. [src](src/windows/scoop.sh) [completion](completions/windows/scoop.sh)
 - [winget](https://github.com/microsoft/winget-cli): Windows Package Manager. [src](src/windows/winget.sh) [completion](completions/windows/winget.sh)
 - [wsl](https://github.com/microsoft/WSL): CLI for Windows Subsytem for Linux. [src](src/windows/wsl.sh) [completion](completions/windows/wsl.sh)
 
 ## MacOS
+
 - [afplay](https://ss64.com/osx/afplay.html): Audio File Play. [src](src/macos/afplay.sh) [completion](completions/macos/afplay.sh)
 - [arp](https://keith.github.io/xcode-man-pages/arp.8.html): address resolution display and control [src](src/macos/arp.sh) [completion](completions/macos/arp.sh)
 - [asr](https://ss64.com/osx/asr.html): Apple Software Restore; copy volumes [src](src/macos/asr.sh) [completion](completions/macos/asr.sh)
@@ -924,6 +927,7 @@
 - [xcrun](https://keith.github.io/xcode-man-pages/xcrun.1.html): Run or locate development tools and properties. [src](src/macos/xcrun.sh) [completion](completions/macos/xcrun.sh)
 
 ## Linux
+
 - [acpi](http://sourceforge.net/projects/acpiclient): shows battery status and other ACPI information [completion](completions/linux/acpi.sh)
 - [acpitool](http://sourceforge.net/projects/acpitool): a Linux ACPI client, allowing you to query or set ACPI values [src](src/linux/acpitool.sh) [completion](completions/linux/acpitool.sh)
 - [adduser](https://salsa.debian.org/debian/adduser): add a user or group to the system [src](src/linux/adduser.sh) [completion](completions/linux/adduser.sh)
@@ -1096,3 +1100,4 @@
 - [zfs](https://github.com/zfs-fuse/zfs-fuse): configures ZFS file systems [src](src/linux/zfs.sh) [completion](completions/linux/zfs.sh)
 - [zpool](https://github.com/zfs-fuse/zfs-fuse): configures ZFS storage pools [src](src/linux/zpool.sh) [completion](completions/linux/zpool.sh)
 - [zypper](https://github.com/openSUSE/zypper): package manager for openSUSE linux [src](src/linux/zypper.sh) [completion](completions/linux/zypper.sh)
+- [agentboard](https://github.com/gptme/gptme-contrib): gptme-contrib packages [src](src/skogai/agentboard.sh) [completion](completions/skogai/agentboard.sh)

@@ -3,10 +3,10 @@ name: CI
 on:
   pull_request:
     branches:
-    - '*'
+      - "*"
   push:
     branches:
-    - main
+      - master
 
 defaults:
   run:
@@ -19,15 +19,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup Tools
-      run: |
-        ./scripts/download-tools.sh
-        echo `pwd`/bin >> $GITHUB_PATH
+      - name: Setup Tools
+        run: |
+          ./scripts/download-tools.sh
+          echo `pwd`/bin >> $GITHUB_PATH
 
-    - name: Check versions
-      run: argc version
+      - name: Check versions
+        run: argc version
 
-    - name: Check scripts
-      run: argc check:all
+      - name: Check scripts
+        run: argc check:all

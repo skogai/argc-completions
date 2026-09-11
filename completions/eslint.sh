@@ -4,6 +4,7 @@
 # @flag --no-config-lookup                    Disable look up for eslint.config.js
 # @option -c --config <path::String>          Use this configuration instead of eslint.config.js, eslint.config.mjs, or eslint.config.cjs
 # @flag --inspect-config                      Open the config inspector with the current configuration
+# @option --ext <String>                      Specify additional file extensions to lint
 # @option --global <String>                   Define global variables
 # @option --parser <String>                   Specify the parser to be used
 # @option --parser-options <Object>           Specify parser options
@@ -25,10 +26,16 @@
 # @flag --no-inline-config                    Prevent comments from changing config or rules
 # @flag --report-unused-disable-directives    Adds reported errors for unused eslint-disable and eslint-enable directives
 # @option --report-unused-disable-directives-severity <String>  Chooses severity level for reporting unused eslint-disable and eslint-enable directives - either: off, warn, error, 0, 1, or 2
+# @option --report-unused-inline-configs <String>  Adds reported errors for unused eslint inline config comments - either: off, warn, error, 0, 1, or 2
 # @flag --cache                               Only check changed files - default: false
 # @option --cache-file <path::String>         Path to the cache file.
 # @option --cache-location <path::String>     Path to the cache file or directory
 # @option --cache-strategy <String>           Strategy to use for detecting changed files in the cache - either: metadata or content - default: metadata
+# @flag --suppress-all                        Suppress all violations - default: false
+# @option --suppress-rule <String>            Suppress specific rules
+# @option --suppressions-location <path::String>  Specify the location of the suppressions file
+# @flag --prune-suppressions                  Prune unused suppressions - default: false
+# @flag --pass-on-unpruned-suppressions       Ignore unused suppressions - default: false
 # @flag --init                                Run config initialization wizard - default: false
 # @flag --env-info                            Output execution environment information - default: false
 # @flag --no-error-on-unmatched-pattern       Prevent errors when pattern is unmatched
@@ -41,5 +48,7 @@
 # @option --print-config <path::String>       Print the configuration for the given file
 # @flag --stats                               Add statistics to the lint report - default: false
 # @option --flag <String>                     Enable a feature flag
+# @flag --mcp                                 Start the ESLint MCP server
+# @option --concurrency <Int|String>          Number of linting threads, auto to choose automatically, off for no multithreading - default: off
 
 command eval "$(argc --argc-eval "$0" "$@")"

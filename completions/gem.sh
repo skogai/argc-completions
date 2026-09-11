@@ -354,6 +354,7 @@ info() {
 # @flag --no-lock                        Create a lock file (when used with -g/--file)
 # @flag --suggestions                    Suggest alternates when gems are not found
 # @flag --no-suggestions                 Suggest alternates when gems are not found
+# @option --target-rbconfig <FILE>       rbconfig.rb for the deployment target platform
 # @flag -l --local                       Restrict operations to the LOCAL domain
 # @flag -r --remote                      Restrict operations to the REMOTE domain
 # @flag -b --both                        Allow LOCAL and REMOTE operations
@@ -513,7 +514,7 @@ outdated() {
 
 # {{ gem owner
 # @cmd Manage gem owners of a gem on the push server
-# @option -k --key <KEYNAME>         Use the given API key from /home/sigo/.local/share/gem/credentials
+# @option -k --key <KEYNAME>         Use the given API key from /home/skogix/.local/share/gem/credentials
 # @option --otp <CODE>               Digit code for multifactor authentication You can also use the environment variable GEM_HOST_OTP_CODE
 # @option -a --add <NEW_OWNER>       Add an owner by user identifier
 # @option -r --remove <OLD_OWNER>    Remove an owner by user identifier
@@ -570,9 +571,10 @@ pristine() {
 
 # {{ gem push
 # @cmd Push a gem up to the gem server
-# @option -k --key <KEYNAME>       Use the given API key from /home/sigo/.local/share/gem/credentials
+# @option -k --key <KEYNAME>       Use the given API key from /home/skogix/.local/share/gem/credentials
 # @option --otp <CODE>             Digit code for multifactor authentication You can also use the environment variable GEM_HOST_OTP_CODE
 # @option --host                   Push to another gemcutter-compatible host (e.g. https://rubygems.org)
+# @option --attestation <FILE>     Push with sigstore attestations
 # @option -p <URL>                 Use HTTP proxy for remote operations
 # @option --http-proxy <URL>       Use HTTP proxy for remote operations
 # @option --no-http-proxy <URL>    Use HTTP proxy for remote operations
@@ -935,6 +937,7 @@ unpack() {
 # @flag --no-lock                        Create a lock file (when used with -g/--file)
 # @flag --suggestions                    Suggest alternates when gems are not found
 # @flag --no-suggestions                 Suggest alternates when gems are not found
+# @option --target-rbconfig <FILE>       rbconfig.rb for the deployment target platform
 # @flag -l --local                       Restrict operations to the LOCAL domain
 # @flag -r --remote                      Restrict operations to the REMOTE domain
 # @flag -b --both                        Allow LOCAL and REMOTE operations
@@ -990,7 +993,7 @@ which() {
 # @option --platform              Specify the platform of gem to remove
 # @option --otp <CODE>            Digit code for multifactor authentication You can also use the environment variable GEM_HOST_OTP_CODE
 # @option --host                  Yank from another gemcutter-compatible host (e.g. https://rubygems.org)
-# @option -k --key <KEYNAME>      Use the given API key from /home/sigo/.local/share/gem/credentials
+# @option -k --key <KEYNAME>      Use the given API key from /home/skogix/.local/share/gem/credentials
 # @flag -h --help                 Get help on this command
 # @flag -V                        Set the verbose level of output
 # @flag --verbose                 Set the verbose level of output

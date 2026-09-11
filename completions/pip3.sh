@@ -1,38 +1,39 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 
 # {{ pip3 install
 # @cmd Install packages.
 # @option -r --requirement <file>                  Install from the given requirements file.
 # @option -c --constraint <file>                   Constrain versions using the given constraints file.
+# @option --build-constraint <file>                Constrain build dependencies using the given constraints file.
+# @option --requirements-from-script <file>        Install dependencies of the given script file as defined by PEP 723 inline metadata.
 # @flag --no-deps                                  Don't install package dependencies.
-# @flag --pre                                      Include pre-release and development versions.
 # @option -e --editable <path/url>                 Install a project in editable mode (i.e.
 # @flag --dry-run                                  Don't actually install anything, just print what would be.
 # @option -t --target <dir>                        Install packages into <dir>.
@@ -50,27 +51,30 @@
 # @flag -I --ignore-installed                      Ignore the installed packages, overwriting them.
 # @flag --ignore-requires-python                   Ignore the Requires-Python information.
 # @flag --no-build-isolation                       Disable isolation when building a modern source distribution.
-# @flag --use-pep517                               Use PEP 517 for building source distributions (use --no-use-pep517 to force legacy behaviour).
-# @flag --check-build-dependencies                 Check the build dependencies when PEP517 is used.
+# @flag --check-build-dependencies                 Check the build dependencies.
 # @flag --break-system-packages                    Allow pip to modify an EXTERNALLY-MANAGED Python installation
-# @option -C --config-settings <settings>          Configuration settings to be passed to the PEP 517 build backend.
-# @option --global-option <options>                Extra global options to be supplied to the setup.py call before the install or bdist_wheel command.
+# @option -C --config-settings <settings>          Configuration settings to be passed to the build backend.
 # @flag --compile                                  Compile Python source files to bytecode
 # @flag --no-compile                               Do not compile Python source files to bytecode
 # @flag --no-warn-script-location                  Do not warn when installing scripts outside PATH
 # @flag --no-warn-conflicts                        Do not warn about broken dependencies
+# @flag --require-hashes                           Require a hash to check each requirement against, for repeatable installs.
+# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used.
+# @option --root-user-action <root_user_action>    Action if pip is run as a root user [warn, ignore] (default: warn)
+# @option --report <file>                          Generate a JSON file describing what pip did to install the provided requirements.
+# @option --group <[path:]group>                   Install a named dependency-group from a "pyproject.toml" file.
+# @flag --no-clean                                 Don't clean up build directories.
+# @flag --pre                                      Include pre-release and development versions.
+# @option --all-releases <release_control>         Allow all release types (including pre-releases) for a package.
+# @option --only-final <release_control>           Only allow final releases (no pre-releases) for a package.
 # @option --no-binary <format_control>             Do not use binary packages.
 # @option --only-binary <format_control>           Do not use source packages.
 # @flag --prefer-binary                            Prefer binary packages over source packages, even if the source packages are newer.
-# @flag --require-hashes                           Require a hash to check each requirement against, for repeatable installs.
-# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used (default: on)
-# @option --root-user-action <root_user_action>    Action if pip is run as a root user [warn, ignore] (default: warn)
-# @option --report <file>                          Generate a JSON file describing what pip did to install the provided requirements.
-# @flag --no-clean                                 Don't clean up build directories.
 # @option -i --index-url <url>                     Base URL of the Python Package Index (default https://pypi.org/simple).
 # @option --extra-index-url <url>                  Extra URLs of package indexes to use in addition to --index-url.
 # @flag --no-index                                 Ignore package index (only looking at --find-links URLs instead).
 # @option -f --find-links <url>                    If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
+# @option --uploaded-prior-to <datetime_or_duration>  Only consider packages uploaded prior to the given value.
 # @flag -h --help                                  Show help.
 # @flag --debug                                    Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
 # @flag --isolated                                 Run pip in an isolated mode, ignoring environment variables and user configuration.
@@ -81,9 +85,9 @@
 # @flag -q --quiet                                 Give less output.
 # @option --log <path>                             Path to a verbose appending log.
 # @flag --no-input                                 Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
 # @option --proxy <proxy>                          Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>                      Maximum number of retries each connection should attempt (default 5 times).
+# @option --retries <retries>                      Maximum attempts to establish a new HTTP connection.
 # @option --timeout <sec>                          Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
 # @option --trusted-host <hostname>                Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
@@ -93,41 +97,43 @@
 # @flag --no-cache-dir                             Disable the cache.
 # @flag --disable-pip-version-check                Don't periodically check PyPI to determine whether a new version of pip is available for download.
 # @flag --no-color                                 Suppress colored output.
-# @flag --no-python-version-warning                Silence deprecation warnings for upcoming unsupported Pythons.
 # @option --use-feature <feature>                  Enable new functionality, that may be backward incompatible.
 # @option --use-deprecated <feature>               Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>        Maximum attempts to resume or restart an incomplete download.
 install() {
     :;
 }
 # }} pip3 install
 
-# {{ pip3 download
-# @cmd Download packages.
-# @option -c --constraint <file>               Constrain versions using the given constraints file.
+# {{ pip3 lock
+# @cmd Generate a lock file.
+# @option -o --output <path>                   Lock file name (default=pylock.toml).
 # @option -r --requirement <file>              Install from the given requirements file.
+# @option --requirements-from-script <file>    Install dependencies of the given script file as defined by PEP 723 inline metadata.
+# @option -c --constraint <file>               Constrain versions using the given constraints file.
+# @option --build-constraint <file>            Constrain build dependencies using the given constraints file.
 # @flag --no-deps                              Don't install package dependencies.
-# @option --global-option <options>            Extra global options to be supplied to the setup.py call before the install or bdist_wheel command.
+# @option -e --editable <path/url>             Install a project in editable mode (i.e.
+# @option --src <dir>                          Directory to check out editable projects into.
+# @flag --ignore-requires-python               Ignore the Requires-Python information.
+# @flag --no-build-isolation                   Disable isolation when building a modern source distribution.
+# @flag --check-build-dependencies             Check the build dependencies.
+# @option -C --config-settings <settings>      Configuration settings to be passed to the build backend.
+# @flag --require-hashes                       Require a hash to check each requirement against, for repeatable installs.
+# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used.
+# @option --group <[path:]group>               Install a named dependency-group from a "pyproject.toml" file.
+# @flag --no-clean                             Don't clean up build directories.
+# @flag --pre                                  Include pre-release and development versions.
+# @option --all-releases <release_control>     Allow all release types (including pre-releases) for a package.
+# @option --only-final <release_control>       Only allow final releases (no pre-releases) for a package.
 # @option --no-binary <format_control>         Do not use binary packages.
 # @option --only-binary <format_control>       Do not use source packages.
 # @flag --prefer-binary                        Prefer binary packages over source packages, even if the source packages are newer.
-# @option --src <dir>                          Directory to check out editable projects into.
-# @flag --pre                                  Include pre-release and development versions.
-# @flag --require-hashes                       Require a hash to check each requirement against, for repeatable installs.
-# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used (default: on)
-# @flag --no-build-isolation                   Disable isolation when building a modern source distribution.
-# @flag --use-pep517                           Use PEP 517 for building source distributions (use --no-use-pep517 to force legacy behaviour).
-# @flag --check-build-dependencies             Check the build dependencies when PEP517 is used.
-# @flag --ignore-requires-python               Ignore the Requires-Python information.
-# @option -d --dest <dir>                      Download packages into <dir>.
-# @option --platform <platform>                Only use wheels compatible with <platform>.
-# @option --python-version <python_version>    The Python interpreter version to use for wheel and "Requires-Python" compatibility checks.
-# @option --implementation[pp|jy|cp|ip] <implementation>  Only use wheels compatible with Python implementation <implementation>, e.g. 'pp', 'jy', 'cp',  or 'ip'.
-# @option --abi <abi>                          Only use wheels compatible with Python abi <abi>, e.g. 'pypy_41'.
-# @flag --no-clean                             Don't clean up build directories.
 # @option -i --index-url <url>                 Base URL of the Python Package Index (default https://pypi.org/simple).
 # @option --extra-index-url <url>              Extra URLs of package indexes to use in addition to --index-url.
 # @flag --no-index                             Ignore package index (only looking at --find-links URLs instead).
 # @option -f --find-links <url>                If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
+# @option --uploaded-prior-to <datetime_or_duration>  Only consider packages uploaded prior to the given value.
 # @flag -h --help                              Show help.
 # @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
 # @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
@@ -138,9 +144,9 @@ install() {
 # @flag -q --quiet                             Give less output.
 # @option --log <path>                         Path to a verbose appending log.
 # @flag --no-input                             Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
 # @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>                  Maximum number of retries each connection should attempt (default 5 times).
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
 # @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
 # @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
@@ -150,9 +156,70 @@ install() {
 # @flag --no-cache-dir                         Disable the cache.
 # @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
 # @flag --no-color                             Suppress colored output.
-# @flag --no-python-version-warning            Silence deprecation warnings for upcoming unsupported Pythons.
 # @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
 # @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
+lock() {
+    :;
+}
+# }} pip3 lock
+
+# {{ pip3 download
+# @cmd Download packages.
+# @option -c --constraint <file>               Constrain versions using the given constraints file.
+# @option --build-constraint <file>            Constrain build dependencies using the given constraints file.
+# @option -r --requirement <file>              Install from the given requirements file.
+# @option --requirements-from-script <file>    Install dependencies of the given script file as defined by PEP 723 inline metadata.
+# @flag --no-deps                              Don't install package dependencies.
+# @option --src <dir>                          Directory to check out editable projects into.
+# @flag --require-hashes                       Require a hash to check each requirement against, for repeatable installs.
+# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used.
+# @flag --no-build-isolation                   Disable isolation when building a modern source distribution.
+# @flag --check-build-dependencies             Check the build dependencies.
+# @flag --ignore-requires-python               Ignore the Requires-Python information.
+# @option -d --dest <dir>                      Download packages into <dir>.
+# @option --platform <platform>                Only use wheels compatible with <platform>.
+# @option --python-version <python_version>    The Python interpreter version to use for wheel and "Requires-Python" compatibility checks.
+# @option --implementation[pp|jy|cp|ip] <implementation>  Only use wheels compatible with Python implementation <implementation>, e.g. 'pp', 'jy', 'cp',  or 'ip'.
+# @option --abi <abi>                          Only use wheels compatible with Python abi <abi>, e.g. 'pypy_41'.
+# @option --group <[path:]group>               Install a named dependency-group from a "pyproject.toml" file.
+# @flag --no-clean                             Don't clean up build directories.
+# @flag --pre                                  Include pre-release and development versions.
+# @option --all-releases <release_control>     Allow all release types (including pre-releases) for a package.
+# @option --only-final <release_control>       Only allow final releases (no pre-releases) for a package.
+# @option --no-binary <format_control>         Do not use binary packages.
+# @option --only-binary <format_control>       Do not use source packages.
+# @flag --prefer-binary                        Prefer binary packages over source packages, even if the source packages are newer.
+# @option -i --index-url <url>                 Base URL of the Python Package Index (default https://pypi.org/simple).
+# @option --extra-index-url <url>              Extra URLs of package indexes to use in addition to --index-url.
+# @flag --no-index                             Ignore package index (only looking at --find-links URLs instead).
+# @option -f --find-links <url>                If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
+# @option --uploaded-prior-to <datetime_or_duration>  Only consider packages uploaded prior to the given value.
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
+# @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 download() {
     :;
 }
@@ -174,9 +241,9 @@ download() {
 # @flag -q --quiet                                 Give less output.
 # @option --log <path>                             Path to a verbose appending log.
 # @flag --no-input                                 Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
 # @option --proxy <proxy>                          Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>                      Maximum number of retries each connection should attempt (default 5 times).
+# @option --retries <retries>                      Maximum attempts to establish a new HTTP connection.
 # @option --timeout <sec>                          Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
 # @option --trusted-host <hostname>                Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
@@ -186,9 +253,9 @@ download() {
 # @flag --no-cache-dir                             Disable the cache.
 # @flag --disable-pip-version-check                Don't periodically check PyPI to determine whether a new version of pip is available for download.
 # @flag --no-color                                 Suppress colored output.
-# @flag --no-python-version-warning                Silence deprecation warnings for upcoming unsupported Pythons.
 # @option --use-feature <feature>                  Enable new functionality, that may be backward incompatible.
 # @option --use-deprecated <feature>               Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>        Maximum attempts to resume or restart an incomplete download.
 # @arg package[`_choice_package`]
 uninstall() {
     :;
@@ -197,38 +264,38 @@ uninstall() {
 
 # {{ pip3 freeze
 # @cmd Output installed packages in requirements format.
-# @option -r --requirement <file>       Use the order in the given requirements file and its comments when generating output.
-# @flag -l --local                      If in a virtualenv that has global access, do not output globally-installed packages.
-# @flag --user                          Only output packages installed in user-site.
-# @option --path <path>                 Restrict to the specified installation path for listing packages (can be used multiple times).
+# @option -r --requirement <file>              Use the order in the given requirements file and its comments when generating output.
+# @flag -l --local                             If in a virtualenv that has global access, do not output globally-installed packages.
+# @flag --user                                 Only output packages installed in user-site.
+# @option --path <path>                        Restrict to the specified installation path for listing packages (can be used multiple times).
 # @option --all[pip|setuptools|wheel|distribute]  Do not skip these packages in the output.
-# @flag --exclude-editable              Exclude editable package from output.
+# @flag --exclude-editable                     Exclude editable package from output.
 # @option --exclude[`_choice_package`] <package>  Exclude specified package from the output
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 freeze() {
     :;
 }
@@ -236,34 +303,34 @@ freeze() {
 
 # {{ pip3 inspect
 # @cmd Inspect the python environment.
-# @flag --local                         If in a virtualenv that has global access, do not list globally-installed packages.
-# @flag --user                          Only output packages installed in user-site.
-# @option --path <path>                 Restrict to the specified installation path for listing packages (can be used multiple times).
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag --local                                If in a virtualenv that has global access, do not list globally-installed packages.
+# @flag --user                                 Only output packages installed in user-site.
+# @option --path <path>                        Restrict to the specified installation path for listing packages (can be used multiple times).
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 inspect() {
     :;
 }
@@ -271,47 +338,53 @@ inspect() {
 
 # {{ pip3 list
 # @cmd List installed packages.
-# @flag -o --outdated                   List outdated packages
-# @flag -u --uptodate                   List uptodate packages
-# @flag -e --editable                   List editable projects.
-# @flag -l --local                      If in a virtualenv that has global access, do not list globally-installed packages.
-# @flag --user                          Only output packages installed in user-site.
-# @option --path <path>                 Restrict to the specified installation path for listing packages (can be used multiple times).
-# @flag --pre                           Include pre-release and development versions.
-# @option --format <list_format>        Select the output format among: columns (default), freeze, or json.
-# @flag --not-required                  List packages that are not dependencies of installed packages.
-# @flag --exclude-editable              Exclude editable package from output.
-# @flag --include-editable              Include editable package from output.
+# @flag -o --outdated                          List outdated packages
+# @flag -u --uptodate                          List uptodate packages
+# @flag -e --editable                          List editable projects.
+# @flag -l --local                             If in a virtualenv that has global access, do not list globally-installed packages.
+# @flag --user                                 Only output packages installed in user-site.
+# @option --path <path>                        Restrict to the specified installation path for listing packages (can be used multiple times).
+# @option --format <list_format>               Select the output format among: columns (default), freeze, or json.
+# @flag --not-required                         List packages that are not dependencies of installed packages.
+# @flag --exclude-editable                     Exclude editable package from output.
+# @flag --include-editable                     Include editable package in output.
 # @option --exclude[`_choice_package`] <package>  Exclude specified package from the output
-# @option -i --index-url <url>          Base URL of the Python Package Index (default https://pypi.org/simple).
-# @option --extra-index-url <url>       Extra URLs of package indexes to use in addition to --index-url.
-# @flag --no-index                      Ignore package index (only looking at --find-links URLs instead).
-# @option -f --find-links <url>         If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag --pre                                  Include pre-release and development versions.
+# @option --all-releases <release_control>     Allow all release types (including pre-releases) for a package.
+# @option --only-final <release_control>       Only allow final releases (no pre-releases) for a package.
+# @option --no-binary <format_control>         Do not use binary packages.
+# @option --only-binary <format_control>       Do not use source packages.
+# @flag --prefer-binary                        Prefer binary packages over source packages, even if the source packages are newer.
+# @option -i --index-url <url>                 Base URL of the Python Package Index (default https://pypi.org/simple).
+# @option --extra-index-url <url>              Extra URLs of package indexes to use in addition to --index-url.
+# @flag --no-index                             Ignore package index (only looking at --find-links URLs instead).
+# @option -f --find-links <url>                If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
+# @option --uploaded-prior-to <datetime_or_duration>  Only consider packages uploaded prior to the given value.
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 list() {
     :;
 }
@@ -319,32 +392,32 @@ list() {
 
 # {{ pip3 show
 # @cmd Show information about installed packages.
-# @flag -f --files                      Show the full list of installed files for each package.
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag -f --files                             Show the full list of installed files for each package.
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 # @arg package[`_choice_package`]
 show() {
     :;
@@ -353,31 +426,31 @@ show() {
 
 # {{ pip3 check
 # @cmd Verify installed packages have compatible dependencies.
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 check() {
     :;
 }
@@ -385,35 +458,35 @@ check() {
 
 # {{ pip3 config
 # @cmd Manage local and global configuration.
-# @option --editor <editor>             Editor to use to edit the file.
-# @flag --global                        Use the system-wide configuration file only
-# @flag --user                          Use the user configuration file only
-# @flag --site                          Use the current environment configuration file only
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @option --editor <editor>                    Editor to use to edit the file.
+# @flag --global                               Use the system-wide configuration file only
+# @flag --user                                 Use the user configuration file only
+# @flag --site                                 Use the current environment configuration file only
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 config() {
     :;
 }
@@ -468,32 +541,32 @@ config::debug() {
 
 # {{ pip3 search
 # @cmd Search PyPI for packages.
-# @option -i --index <url>              Base URL of Python Package Index (default https://pypi.org/pypi)
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @option -i --index <url>                     Base URL of Python Package Index (default https://pypi.org/pypi)
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 search() {
     :;
 }
@@ -501,32 +574,32 @@ search() {
 
 # {{ pip3 cache
 # @cmd Inspect and manage pip's wheel cache.
-# @option --format <list_format>        Select the output format among: human (default) or abspath
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @option --format <list_format>               Select the output format among: human (default) or abspath
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 cache() {
     :;
 }
@@ -577,13 +650,18 @@ cache::purge() {
 # @option --implementation[pp|jy|cp|ip] <implementation>  Only use wheels compatible with Python implementation <implementation>, e.g. 'pp', 'jy', 'cp',  or 'ip'.
 # @option --abi <abi>                          Only use wheels compatible with Python abi <abi>, e.g. 'pypy_41'.
 # @flag --ignore-requires-python               Ignore the Requires-Python information.
+# @flag --json                                 Output data in a machine-readable JSON format.
 # @flag --pre                                  Include pre-release and development versions.
+# @option --all-releases <release_control>     Allow all release types (including pre-releases) for a package.
+# @option --only-final <release_control>       Only allow final releases (no pre-releases) for a package.
 # @option --no-binary <format_control>         Do not use binary packages.
 # @option --only-binary <format_control>       Do not use source packages.
+# @flag --prefer-binary                        Prefer binary packages over source packages, even if the source packages are newer.
 # @option -i --index-url <url>                 Base URL of the Python Package Index (default https://pypi.org/simple).
 # @option --extra-index-url <url>              Extra URLs of package indexes to use in addition to --index-url.
 # @flag --no-index                             Ignore package index (only looking at --find-links URLs instead).
 # @option -f --find-links <url>                If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
+# @option --uploaded-prior-to <datetime_or_duration>  Only consider packages uploaded prior to the given value.
 # @flag -h --help                              Show help.
 # @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
 # @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
@@ -594,9 +672,9 @@ cache::purge() {
 # @flag -q --quiet                             Give less output.
 # @option --log <path>                         Path to a verbose appending log.
 # @flag --no-input                             Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
 # @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>                  Maximum number of retries each connection should attempt (default 5 times).
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
 # @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
 # @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
@@ -606,9 +684,9 @@ cache::purge() {
 # @flag --no-cache-dir                         Disable the cache.
 # @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
 # @flag --no-color                             Suppress colored output.
-# @flag --no-python-version-warning            Silence deprecation warnings for upcoming unsupported Pythons.
 # @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
 # @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 index() {
     :;
 }
@@ -616,56 +694,59 @@ index() {
 
 # {{ pip3 wheel
 # @cmd Build wheels from your requirements.
-# @option -w --wheel-dir <dir>               Build wheels into <dir>, where the default is the current working directory.
-# @option --no-binary <format_control>       Do not use binary packages.
-# @option --only-binary <format_control>     Do not use source packages.
-# @flag --prefer-binary                      Prefer binary packages over source packages, even if the source packages are newer.
-# @flag --no-build-isolation                 Disable isolation when building a modern source distribution.
-# @flag --use-pep517                         Use PEP 517 for building source distributions (use --no-use-pep517 to force legacy behaviour).
-# @flag --check-build-dependencies           Check the build dependencies when PEP517 is used.
-# @option -c --constraint <file>             Constrain versions using the given constraints file.
-# @option -e --editable <path/url>           Install a project in editable mode (i.e.
-# @option -r --requirement <file>            Install from the given requirements file.
-# @option --src <dir>                        Directory to check out editable projects into.
-# @flag --ignore-requires-python             Ignore the Requires-Python information.
-# @flag --no-deps                            Don't install package dependencies.
-# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used (default: on)
-# @flag --no-verify                          Don't verify if built wheel is valid.
-# @option -C --config-settings <settings>    Configuration settings to be passed to the PEP 517 build backend.
-# @option --build-option <options>           Extra arguments to be supplied to 'setup.py bdist_wheel'.
-# @option --global-option <options>          Extra global options to be supplied to the setup.py call before the install or bdist_wheel command.
-# @flag --pre                                Include pre-release and development versions.
-# @flag --require-hashes                     Require a hash to check each requirement against, for repeatable installs.
-# @flag --no-clean                           Don't clean up build directories.
-# @option -i --index-url <url>               Base URL of the Python Package Index (default https://pypi.org/simple).
-# @option --extra-index-url <url>            Extra URLs of package indexes to use in addition to --index-url.
-# @flag --no-index                           Ignore package index (only looking at --find-links URLs instead).
-# @option -f --find-links <url>              If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
-# @flag -h --help                            Show help.
-# @flag --debug                              Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                           Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv                 Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>                  Run pip with the specified Python interpreter.
-# @flag -v --verbose                         Give more output.
-# @flag -V --version                         Show version and exit.
-# @flag -q --quiet                           Give less output.
-# @option --log <path>                       Path to a verbose appending log.
-# @flag --no-input                           Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>                    Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>                Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>                    Set the socket timeout (default 15 seconds).
+# @option -w --wheel-dir <dir>                 Build wheels into <dir>, where the default is the current working directory.
+# @flag --no-build-isolation                   Disable isolation when building a modern source distribution.
+# @flag --check-build-dependencies             Check the build dependencies.
+# @option -c --constraint <file>               Constrain versions using the given constraints file.
+# @option --build-constraint <file>            Constrain build dependencies using the given constraints file.
+# @option -e --editable <path/url>             Install a project in editable mode (i.e.
+# @option -r --requirement <file>              Install from the given requirements file.
+# @option --requirements-from-script <file>    Install dependencies of the given script file as defined by PEP 723 inline metadata.
+# @option --src <dir>                          Directory to check out editable projects into.
+# @flag --ignore-requires-python               Ignore the Requires-Python information.
+# @flag --no-deps                              Don't install package dependencies.
+# @option --progress-bar[off|on|ascii|pretty|emoji] <progress_bar>  Specify whether the progress bar should be used.
+# @flag --no-verify                            Don't verify if built wheel is valid.
+# @option -C --config-settings <settings>      Configuration settings to be passed to the build backend.
+# @flag --require-hashes                       Require a hash to check each requirement against, for repeatable installs.
+# @option --group <[path:]group>               Install a named dependency-group from a "pyproject.toml" file.
+# @flag --no-clean                             Don't clean up build directories.
+# @flag --pre                                  Include pre-release and development versions.
+# @option --all-releases <release_control>     Allow all release types (including pre-releases) for a package.
+# @option --only-final <release_control>       Only allow final releases (no pre-releases) for a package.
+# @option --no-binary <format_control>         Do not use binary packages.
+# @option --only-binary <format_control>       Do not use source packages.
+# @flag --prefer-binary                        Prefer binary packages over source packages, even if the source packages are newer.
+# @option -i --index-url <url>                 Base URL of the Python Package Index (default https://pypi.org/simple).
+# @option --extra-index-url <url>              Extra URLs of package indexes to use in addition to --index-url.
+# @flag --no-index                             Ignore package index (only looking at --find-links URLs instead).
+# @option -f --find-links <url>                If a URL or path to an html file, then parse for links to archives such as sdist (.tar.gz) or wheel (.whl) files.
+# @option --uploaded-prior-to <datetime_or_duration>  Only consider packages uploaded prior to the given value.
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>          Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                      Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>               Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>                  Store the cache data in <dir>.
-# @flag --no-cache-dir                       Disable the cache.
-# @flag --disable-pip-version-check          Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                           Suppress colored output.
-# @flag --no-python-version-warning          Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>            Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>         Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 wheel() {
     :;
 }
@@ -674,31 +755,31 @@ wheel() {
 # {{ pip3 hash
 # @cmd Compute hashes of package archives.
 # @option -a --algorithm[sha256|sha384|sha512] <algorithm>  The hash algorithm to use: one of sha256, sha384, sha512
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 # @arg file+
 hash() {
     :;
@@ -707,35 +788,35 @@ hash() {
 
 # {{ pip3 completion
 # @cmd A helper command used for command completion.
-# @flag -b --bash                       Emit completion code for bash
-# @flag -z --zsh                        Emit completion code for zsh
-# @flag -f --fish                       Emit completion code for fish
-# @flag -p --powershell                 Emit completion code for powershell
-# @flag -h --help                       Show help.
-# @flag --debug                         Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
-# @flag --isolated                      Run pip in an isolated mode, ignoring environment variables and user configuration.
-# @flag --require-virtualenv            Allow pip to only run in a virtual environment; exit with an error otherwise.
-# @option --python <python>             Run pip with the specified Python interpreter.
-# @flag -v --verbose                    Give more output.
-# @flag -V --version                    Show version and exit.
-# @flag -q --quiet                      Give less output.
-# @option --log <path>                  Path to a verbose appending log.
-# @flag --no-input                      Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
-# @option --proxy <proxy>               Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>           Maximum number of retries each connection should attempt (default 5 times).
-# @option --timeout <sec>               Set the socket timeout (default 15 seconds).
+# @flag -b --bash                              Emit completion code for bash
+# @flag -z --zsh                               Emit completion code for zsh
+# @flag -f --fish                              Emit completion code for fish
+# @flag -p --powershell                        Emit completion code for powershell
+# @flag -h --help                              Show help.
+# @flag --debug                                Let unhandled exceptions propagate outside the main subroutine, instead of logging them to stderr.
+# @flag --isolated                             Run pip in an isolated mode, ignoring environment variables and user configuration.
+# @flag --require-virtualenv                   Allow pip to only run in a virtual environment; exit with an error otherwise.
+# @option --python <python>                    Run pip with the specified Python interpreter.
+# @flag -v --verbose                           Give more output.
+# @flag -V --version                           Show version and exit.
+# @flag -q --quiet                             Give less output.
+# @option --log <path>                         Path to a verbose appending log.
+# @flag --no-input                             Disable prompting for input.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
+# @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
-# @option --trusted-host <hostname>     Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
-# @option --cert <path>                 Path to PEM-encoded CA certificate bundle.
-# @option --client-cert <path>          Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
-# @option --cache-dir <dir>             Store the cache data in <dir>.
-# @flag --no-cache-dir                  Disable the cache.
-# @flag --disable-pip-version-check     Don't periodically check PyPI to determine whether a new version of pip is available for download.
-# @flag --no-color                      Suppress colored output.
-# @flag --no-python-version-warning     Silence deprecation warnings for upcoming unsupported Pythons.
-# @option --use-feature <feature>       Enable new functionality, that may be backward incompatible.
-# @option --use-deprecated <feature>    Enable deprecated functionality, that will be removed in the future.
+# @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
+# @option --cert <path>                        Path to PEM-encoded CA certificate bundle.
+# @option --client-cert <path>                 Path to SSL client certificate, a single file containing the private key and the certificate in PEM format.
+# @option --cache-dir <dir>                    Store the cache data in <dir>.
+# @flag --no-cache-dir                         Disable the cache.
+# @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
+# @flag --no-color                             Suppress colored output.
+# @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
+# @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 completion() {
     :;
 }
@@ -757,9 +838,9 @@ completion() {
 # @flag -q --quiet                             Give less output.
 # @option --log <path>                         Path to a verbose appending log.
 # @flag --no-input                             Disable prompting for input.
-# @option --keyring-provider[disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
+# @option --keyring-provider[auto|disabled|import|subprocess] <keyring_provider>  Enable the credential lookup via the keyring library if user input is allowed.
 # @option --proxy <proxy>                      Specify a proxy in the form scheme://[user:passwd@]proxy.server:port.
-# @option --retries <retries>                  Maximum number of retries each connection should attempt (default 5 times).
+# @option --retries <retries>                  Maximum attempts to establish a new HTTP connection.
 # @option --timeout <sec>                      Set the socket timeout (default 15 seconds).
 # @option --exists-action[`_choice_exists_action`] <action>  Default action when a path already exists: (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort.
 # @option --trusted-host <hostname>            Mark this host or host:port pair as trusted, even though it does not have valid or any HTTPS.
@@ -769,9 +850,9 @@ completion() {
 # @flag --no-cache-dir                         Disable the cache.
 # @flag --disable-pip-version-check            Don't periodically check PyPI to determine whether a new version of pip is available for download.
 # @flag --no-color                             Suppress colored output.
-# @flag --no-python-version-warning            Silence deprecation warnings for upcoming unsupported Pythons.
 # @option --use-feature <feature>              Enable new functionality, that may be backward incompatible.
 # @option --use-deprecated <feature>           Enable deprecated functionality, that will be removed in the future.
+# @option --resume-retries <resume_retries>    Maximum attempts to resume or restart an incomplete download.
 debug() {
     :;
 }
