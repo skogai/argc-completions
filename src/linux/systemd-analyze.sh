@@ -1,6 +1,8 @@
 _patch_help() {
     if [[ "$#" -eq 1 ]]; then
         $@ --help
+    elif [[ "$2" == "srk" ]]; then
+        echo "Usage: $1 $2"
     else
         $1 --help  | sed -n "s/^  $2 \(.*\)  .*/Usage: $1 $2 \1/p"
     fi
