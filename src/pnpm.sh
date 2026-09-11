@@ -73,17 +73,11 @@ _patch_table() {
     if [[ "$*" == "pnpm" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[`_choice_script`]'
 
-    elif [[ "$*" == "pnpm ls" ]]; then
-        echo "$table" | \
-        _patch_table_edit_options '--depth(<number>)' | \
-        _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+    elif [[ "$*" == "pnpm config" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;'
 
-    elif [[ "$*" == "pnpm outdated" ]] \
-      || [[ "$*" == "pnpm why" ]] \
-      || [[ "$*" == "pnpm rb" ]] \
-      || [[ "$*" == "pnpm up" ]] \
-    ; then
-        echo "$table" | _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+    elif [[ "$*" == "pnpm config "* ]]; then
+        echo "$table" | _patch_table_edit_arguments 'key;[`_choice_config_key`]'
 
     elif [[ "$*" == "pnpm dlx" ]] \
       || [[ "$*" == "pnpm env" ]] \
@@ -93,15 +87,6 @@ _patch_table() {
     elif [[ "$*" == "pnpm exec" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_bin`]' 'args...'
 
-    elif [[ "$*" == "pnpm run" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_script`]' 'args...'
-
-    elif [[ "$*" == "pnpm config" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;'
-
-    elif [[ "$*" == "pnpm config "* ]]; then
-        echo "$table" | _patch_table_edit_arguments 'key;[`_choice_config_key`]'
-
     elif [[ "$*" == "pnpm install" ]]; then
         echo "$table" | \
         _patch_table_edit_options '--package-import-method;[`_choice_pacakge_import_method`];Import package method'
@@ -109,8 +94,23 @@ _patch_table() {
     elif [[ "$*" == "pnpm licenses" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[list]'
 
+    elif [[ "$*" == "pnpm ls" ]]; then
+        echo "$table" | \
+        _patch_table_edit_options '--depth(<number>)' | \
+        _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+
+    elif [[ "$*" == "pnpm outdated" ]] \
+      || [[ "$*" == "pnpm rb" ]] \
+      || [[ "$*" == "pnpm up" ]] \
+      || [[ "$*" == "pnpm why" ]] \
+    ; then
+        echo "$table" | _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+
     elif [[ "$*" == "pnpm rm" ]]; then
         echo "$table" | _patch_table_edit_arguments 'pkg-version;[`_choice_dependency`]'
+
+    elif [[ "$*" == "pnpm run" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_script`]' 'args...'
 
     elif [[ "$*" == "pnpm unlink" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'pkg;[`_choice_dependency`]'
