@@ -35,13 +35,13 @@ _patch_table() {
       || [[ "$*" == "machinectl read-only" ]] \
       || [[ "$*" == "machinectl remove" ]] \
       || [[ "$*" == "machinectl set-limit" ]] \
-      || [[ "$*" == "machinectl pull-tar" ]] \
-      || [[ "$*" == "machinectl pull-raw" ]] \
-      || [[ "$*" == "machinectl import-tar" ]] \
-      || [[ "$*" == "machinectl import-raw" ]] \
-      || [[ "$*" == "machinectl import-fs" ]] \
-      || [[ "$*" == "machinectl export-tar" ]] \
       || [[ "$*" == "machinectl export-raw" ]] \
+      || [[ "$*" == "machinectl export-tar" ]] \
+      || [[ "$*" == "machinectl import-fs" ]] \
+      || [[ "$*" == "machinectl import-raw" ]] \
+      || [[ "$*" == "machinectl import-tar" ]] \
+      || [[ "$*" == "machinectl pull-raw" ]] \
+      || [[ "$*" == "machinectl pull-tar" ]] \
     ; then
         _patch_table_edit_arguments 'name;[`_choice_image`]'
 
