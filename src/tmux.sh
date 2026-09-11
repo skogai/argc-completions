@@ -17,8 +17,10 @@ _patch_table() {
     elif [[ "$*" == "tmux list-commands" ]]; then
         _patch_table_edit_arguments 'command;[`_choice_command`]'
         
-    elif [[ "$*" == "tmux split-window" ]]; then
-        _patch_table_dedup_options -e
+    elif [[ "$*" == "tmux split-window" ]] \
+      || [[ "$*" == "tmux new-pane" ]] \
+    ; then
+        _patch_table_dedup_options -e -l
 
     else
         cat

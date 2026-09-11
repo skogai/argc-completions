@@ -59,53 +59,53 @@ _patch_table() {
     fi
 }
 
-_choice_short() {
-    echo short
-    _chocie_type
-}
-
 _chocie_type() {
     printf "%s\n" modules sinks sources sink-inputs source-outputs clients samples cards message-handlers
-}
-
-_choice_sample() {
-    _helper_list_name_only samples
-}
-
-_choice_sink() {
-    _helper_list_id_name sinks
-}
-
-_choice_module_name() {
-    _helper_list_name_only modules
-}
-
-_choice_module() {
-    _helper_list_id_name modules
-}
-
-_choice_sink_input() {
-    _helper_list_id_only sink-inputs
-}
-
-_choice_source_output() {
-    _helper_list_id_only source-outputs
-}
-
-_choice_source() {
-    _helper_list_id_name sources
 }
 
 _choice_card() {
     _helper_list_id_name cards
 }
 
-_choice_profile() {
-    LC_ALL=C pactl list cards 2>/dev/null | sed -n '/[Pp]rofiles:/,/[Aa]ctive [Pp]rofile:/ {s/^\t\t\(\S\+\): \(.*\)$/\1\t\2/p}'
+_choice_module() {
+    _helper_list_id_name modules
+}
+
+_choice_module_name() {
+    _helper_list_name_only modules
 }
 
 _choice_port() {
     LC_ALL=C pactl list cards 2>/dev/null | sed -n '/[Pp]orts:/,$ {s/^\t\t\(\S\+\): \(.*\)$/\1\t\2/p}'
+}
+
+_choice_profile() {
+    LC_ALL=C pactl list cards 2>/dev/null | sed -n '/[Pp]rofiles:/,/[Aa]ctive [Pp]rofile:/ {s/^\t\t\(\S\+\): \(.*\)$/\1\t\2/p}'
+}
+
+_choice_sample() {
+    _helper_list_name_only samples
+}
+
+_choice_short() {
+    echo short
+    _chocie_type
+}
+
+_choice_sink() {
+    _helper_list_id_name sinks
+}
+
+_choice_sink_input() {
+    _helper_list_id_only sink-inputs
+}
+
+_choice_source() {
+    _helper_list_id_name sources
+}
+
+_choice_source_output() {
+    _helper_list_id_only source-outputs
 }
 
 _helper_list_id_name() {

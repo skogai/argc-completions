@@ -73,30 +73,22 @@ _patch_table() {
     if [[ "$*" == "pnpm" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[`_choice_script`]'
 
-    elif [[ "$*" == "pnpm install" ]]; then
-        echo "$table" | \
-        _patch_table_edit_options '--package-import-method;[`_choice_pacakge_import_method`];Import package method'
-
-    elif [[ "$*" == "pnpm rb" ]] \
-      || [[ "$*" == "pnpm up" ]] \
-      || [[ "$*" == "pnpm outdated" ]] \
-      || [[ "$*" == "pnpm why" ]] \
-    ; then
-        echo "$table" | _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
-
-    elif [[ "$*" == "pnpm rm" ]]; then
-        echo "$table" | _patch_table_edit_arguments 'pkg-version;[`_choice_dependency`]'
-
-    elif [[ "$*" == "pnpm unlink" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;' 'pkg;[`_choice_dependency`]'
-
-    elif [[ "$*" == "pnpm licenses" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[list]'
-
     elif [[ "$*" == "pnpm ls" ]]; then
         echo "$table" | \
         _patch_table_edit_options '--depth(<number>)' | \
         _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+
+    elif [[ "$*" == "pnpm outdated" ]] \
+      || [[ "$*" == "pnpm why" ]] \
+      || [[ "$*" == "pnpm rb" ]] \
+      || [[ "$*" == "pnpm up" ]] \
+    ; then
+        echo "$table" | _patch_table_edit_arguments 'pkg;[`_choice_dependency`]'
+
+    elif [[ "$*" == "pnpm dlx" ]] \
+      || [[ "$*" == "pnpm env" ]] \
+    ; then
+        echo "$table" | _patch_table_edit_arguments ';;'
 
     elif [[ "$*" == "pnpm exec" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_bin`]' 'args...'
@@ -104,16 +96,24 @@ _patch_table() {
     elif [[ "$*" == "pnpm run" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'command;[`_choice_script`]' 'args...'
 
-    elif [[ "$*" == "pnpm dlx" ]] \
-      || [[ "$*" == "pnpm env" ]] \
-    ; then
-        echo "$table" | _patch_table_edit_arguments ';;'
-
     elif [[ "$*" == "pnpm config" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;'
 
     elif [[ "$*" == "pnpm config "* ]]; then
         echo "$table" | _patch_table_edit_arguments 'key;[`_choice_config_key`]'
+
+    elif [[ "$*" == "pnpm install" ]]; then
+        echo "$table" | \
+        _patch_table_edit_options '--package-import-method;[`_choice_pacakge_import_method`];Import package method'
+
+    elif [[ "$*" == "pnpm licenses" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;' 'cmd;[list]'
+
+    elif [[ "$*" == "pnpm rm" ]]; then
+        echo "$table" | _patch_table_edit_arguments 'pkg-version;[`_choice_dependency`]'
+
+    elif [[ "$*" == "pnpm unlink" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;' 'pkg;[`_choice_dependency`]'
 
     else
         echo "$table"
@@ -132,13 +132,12 @@ _choice_script() {
     fi
 }
 
-_choice_pacakge_import_method() {
-    cat <<-'EOF'
-auto	Clones/hardlinks or copies packages. The selected method depends from the file system"
-clone	Clone (aka copy-on-write) packages from the store"
-copy	Copy packages from the store"
-hardlink	Hardlink packages from the store"
-EOF
+_choice_dependency() {
+    _helper_apply_filter
+    _helper_find_pkg_json_path
+    if [[ -n "$pkg_json_path" ]]; then
+        cat "$pkg_json_path" | yq '(.dependencies // {}) + (.devDependencies // {}) + (.optionalDependencies // {}) | keys | .[]'
+    fi
 }
 
 _choice_reporter() {
@@ -148,14 +147,6 @@ default	The default reporter when the stdout is TTY"
 ndjson	The most verbose reporter. Prints all logs in ndjson format"
 silent	No output is logged to the console, except fatal errors"
 EOF
-}
-
-_choice_dependency() {
-    _helper_apply_filter
-    _helper_find_pkg_json_path
-    if [[ -n "$pkg_json_path" ]]; then
-        cat "$pkg_json_path" | yq '(.dependencies // {}) + (.devDependencies // {}) + (.optionalDependencies // {}) | keys | .[]'
-    fi
 }
 
 _choice_bin() {
@@ -170,6 +161,15 @@ _choice_bin() {
 
 _choice_config_key() {
     pnpm config list --json | yq 'keys | .[]'
+}
+
+_choice_pacakge_import_method() {
+    cat <<-'EOF'
+auto	Clones/hardlinks or copies packages. The selected method depends from the file system"
+clone	Clone (aka copy-on-write) packages from the store"
+copy	Copy packages from the store"
+hardlink	Hardlink packages from the store"
+EOF
 }
 
 _helper_apply_filter() {

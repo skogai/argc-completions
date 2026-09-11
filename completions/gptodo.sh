@@ -21,7 +21,6 @@ add() {
 
 # {{ gptodo agents
 # @cmd List all registered agents.
-# @flag --all                    gptodo agents --json
 # @flag --cleanup                Remove stale agent registrations
 # @flag --all                    Include stale agents
 # @flag --json                   Output as JSON
@@ -229,7 +228,6 @@ lock() {
 
 # {{ gptodo locks
 # @cmd List all current task locks.
-# @flag --json
 # @flag --cleanup    Remove expired locks
 # @flag --json       Output as JSON
 # @flag --help       Show this message and exit.
@@ -297,7 +295,6 @@ ready() {
 
 # {{ gptodo run
 # @cmd Run a task synchronously (foreground).
-# @option --type <explore>                        gptodo run my-task --backend claude --coordination
 # @option -p --prompt <TEXT>                      Custom prompt for the agent (default: derived from task)
 # @option --type[general|explore|plan|execute]    Type of agent behavior
 # @option --backend <gptme|claude>                Which backend to use
