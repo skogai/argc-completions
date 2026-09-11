@@ -57,6 +57,7 @@ _patch_table() {
             '--port(<port>)' \
             '--preload(<module>)' \
             '--public-path(<value>)' \
+            '--react;[=tailwind|shadcn]' \
             '--root(<dir>)' \
             '--sourcemap;[inline|external|none]' \
             '--target;[browser|bun|node]' \
