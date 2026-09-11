@@ -10,13 +10,13 @@ Miss Commands:
   stack       Manage Swarm stacks
 EOF
 
-    elif [[ "$*" == "docker compose cp" ]]; then
-        $@ --help | sed '/Usage:/ c\Usage:  docker compose cp [OPTIONS] SRC DEST'
-
     elif [[ "$*" == "docker container cp" ]] \
       || [[ "$*" == "docker cp" ]] \
     ; then
         $@ --help |  sed '/Usage:/ c\Usage:  docker cp [OPTIONS] SRC DEST'
+
+    elif [[ "$*" == "docker compose cp" ]]; then
+        $@ --help | sed '/Usage:/ c\Usage:  docker compose cp [OPTIONS] SRC DEST'
 
     else
         $@ --help
@@ -60,39 +60,6 @@ _patch_table() {
     elif [[ "$*" == "docker builder"* ]]; then
         echo "$table" | _patch_table_edit_arguments 'name;[`_choice_builder`]'
 
-    elif [[ "$*" == "docker buildx"* ]]; then
-        echo "$table" | _patch_table_edit_arguments 'name;[`_choice_builder`]'
-
-    elif [[ "$*" == "docker compose"* ]]; then
-        table="$( \
-            echo "$table" | \
-            _patch_table_edit_arguments \
-                'service;[`_choice_compose_service`]' \
-                'services;[`_choice_compose_service`]' \
-        )"
-
-        if [[ "$*" == "docker compose" ]]; then
-            echo "$table" | _patch_table_edit_commands 'convert(convert, config)'
-
-        elif [[ "$*" == "docker compose cp" ]]; then
-            echo "$table" | \
-            _patch_table_edit_arguments \
-                'src;[`_choice_compose_cp`]' \
-                'dest;[`_choice_compose_cp`]' \
-
-        elif [[ "$*" == "docker compose exec" ]] \
-          || [[ "$*" == "docker compose run" ]] \
-        ; then
-            echo "$table" | \
-            _patch_table_edit_arguments \
-                'command;[`_module_os_command`]' \
-                'arg;~[`_choice_args`]' \
-                'args;~[`_choice_args`]' \
-
-        else
-            echo "$table"
-        fi
-
     elif [[ "$*" == "docker container" ]]; then
         echo "$table" | _patch_table_edit_commands 'ls(ls, list, ps)'
 
@@ -134,9 +101,6 @@ _patch_table() {
     elif [[ "$*" == "docker plugin"* ]]; then
         echo "$table" | _patch_table_edit_arguments 'plugin;[`_choice_plugin`]'  'plugin-tag;[`_choice_plugin`]'
 
-    elif [[ "$*" == "docker trust"* ]]; then
-        echo "$table" | _patch_table_edit_arguments 'repository;[`_choice_repository`]'
-
     elif [[ "$*" == "docker volume"* ]]; then
         echo "$table" | _patch_table_edit_arguments 'volume;[`_choice_volume`]'
 
@@ -157,6 +121,42 @@ _patch_table() {
 
     elif [[ "$*" == "docker stack"* ]]; then
         echo "$table" | _patch_table_edit_arguments 'stack;[`_choice_stack`]'
+
+    elif [[ "$*" == "docker buildx"* ]]; then
+        echo "$table" | _patch_table_edit_arguments 'name;[`_choice_builder`]'
+
+    elif [[ "$*" == "docker compose"* ]]; then
+        table="$( \
+            echo "$table" | \
+            _patch_table_edit_arguments \
+                'service;[`_choice_compose_service`]' \
+                'services;[`_choice_compose_service`]' \
+        )"
+
+        if [[ "$*" == "docker compose" ]]; then
+            echo "$table" | _patch_table_edit_commands 'convert(convert, config)'
+
+        elif [[ "$*" == "docker compose cp" ]]; then
+            echo "$table" | \
+            _patch_table_edit_arguments \
+                'src;[`_choice_compose_cp`]' \
+                'dest;[`_choice_compose_cp`]' \
+
+        elif [[ "$*" == "docker compose exec" ]] \
+          || [[ "$*" == "docker compose run" ]] \
+        ; then
+            echo "$table" | \
+            _patch_table_edit_arguments \
+                'command;[`_module_os_command`]' \
+                'arg;~[`_choice_args`]' \
+                'args;~[`_choice_args`]' \
+
+        else
+            echo "$table"
+        fi
+
+    elif [[ "$*" == "docker trust"* ]]; then
+        echo "$table" | _patch_table_edit_arguments 'repository;[`_choice_repository`]'
 
     else
         echo "$table"
@@ -199,43 +199,6 @@ before=`_module_oci_docker_image`
 since=`_module_oci_docker_image`
 reference=`_module_oci_docker_image`
 EOF
-}
-
-_choice_builder() {
-    _docker buildx ls | tail -n +2 | gawk '{if (match($0, /^\w+/)) {print $1} }'
-}
-
-_choice_compose_service() {
-    _docker compose convert --services
-}
-
-_choice_compose_cp() {
-    _complete_compose_service_path() {
-        _argc_util_mode_kv ':'
-        if [[ -z "$argc__kv_prefix" ]]; then
-            if _argc_util_has_path_prefix; then
-                echo "__argc_value=path"
-                return
-            fi
-            _choice_compose_service | _argc_util_transform suffix=: nospace
-        else
-            _argc_util_mode_parts '/' "$argc__kv_filter" "$argc__kv_prefix"
-            if [[ -z "$argc__kv_filter" ]]; then
-                echo -e "/\0"
-                return
-            fi
-            _docker compose exec "${argc__kv_key}" ls -1p "$argc__parts_local_prefix" | _argc_util_transform nospaceIfEnd=/
-        fi
-    }
-    if [[ ${#argc__positionals[@]} -eq 1 ]]; then
-        _complete_compose_service_path
-    else
-        if [[ "${argc__positionals[0]}" == *':'* ]]; then
-            echo "__argc_value=path"
-        else
-            _complete_compose_service_path
-        fi
-    fi
 }
 
 _choice_container_cp() {
@@ -283,10 +246,6 @@ _choice_plugin() {
     _docker plugin list --format '{{.Name}}\t{{.Description}}'
 }
 
-_choice_repository() {
-    _docker image ls --format '{{.Repository}}'
-}
-
 _choice_volume() {
     _docker volume list --format '{{.Name}}\t{{.Driver}}'
 }
@@ -330,8 +289,49 @@ _choice_stack() {
     _docker stack list --format '{{.Name}}\t{{.Services}} on {{.Orchestrator}}'
 }
 
+_choice_builder() {
+    _docker buildx ls | tail -n +2 | gawk '{if (match($0, /^\w+/)) {print $1} }'
+}
+
+_choice_compose_cp() {
+    _complete_compose_service_path() {
+        _argc_util_mode_kv ':'
+        if [[ -z "$argc__kv_prefix" ]]; then
+            if _argc_util_has_path_prefix; then
+                echo "__argc_value=path"
+                return
+            fi
+            _choice_compose_service | _argc_util_transform suffix=: nospace
+        else
+            _argc_util_mode_parts '/' "$argc__kv_filter" "$argc__kv_prefix"
+            if [[ -z "$argc__kv_filter" ]]; then
+                echo -e "/\0"
+                return
+            fi
+            _docker compose exec "${argc__kv_key}" ls -1p "$argc__parts_local_prefix" | _argc_util_transform nospaceIfEnd=/
+        fi
+    }
+    if [[ ${#argc__positionals[@]} -eq 1 ]]; then
+        _complete_compose_service_path
+    else
+        if [[ "${argc__positionals[0]}" == *':'* ]]; then
+            echo "__argc_value=path"
+        else
+            _complete_compose_service_path
+        fi
+    fi
+}
+
+_choice_compose_service() {
+    _docker compose convert --services
+}
+
 _choice_container_id() {
     _docker ps --format '{{.ID}}\t{{.Image}} ({{.Status}})'
+}
+
+_choice_repository() {
+    _docker image ls --format '{{.Repository}}'
 }
 
 _docker() {
