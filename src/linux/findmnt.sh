@@ -10,8 +10,8 @@ _patch_table() {
 
 }
 
-_choice_column() {
-    findmnt -h | sed -n '/^Available output columns:/,/^\s*$/ {//d; s/^\s*\(\S\+\) \(.*\)/\1\t\2/p}'
+_choice_mountpoint() {
+    findmnt -lnve -o TARGET
 }
 
 _choice_source() {
@@ -24,8 +24,8 @@ PARTUUID=`_choice_partuuid`
 EOF
 }
 
-_choice_mountpoint() {
-    findmnt -lnve -o TARGET
+_choice_column() {
+    findmnt -h | sed -n '/^Available output columns:/,/^\s*$/ {//d; s/^\s*\(\S\+\) \(.*\)/\1\t\2/p}'
 }
 
 _choice_device_mountpoint() {

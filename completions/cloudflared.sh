@@ -29,7 +29,7 @@
 # @option --version <value>    specify a version you wish to upgrade or downgrade to
 # @flag -h --help              show help (default: false)
 update() {
-  :
+    :;
 }
 # }} cloudflared update
 
@@ -38,14 +38,14 @@ update() {
 # @flag -s --short    print just the version number (default: false)
 # @flag -h --help     show help (default: false)
 version() {
-  :
+    :;
 }
 # }} cloudflared version
 
 # {{ cloudflared proxy-dns
 # @cmd dns-proxy feature is no longer supported
 proxy-dns() {
-  :
+    :;
 }
 # }} cloudflared proxy-dns
 
@@ -61,7 +61,7 @@ proxy-dns() {
 # @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
 # @flag -h --help                           show help (default: false)
 tail_() {
-  :
+    :;
 }
 # }} cloudflared tail
 
@@ -69,7 +69,7 @@ tail_() {
 # @cmd Manages the cloudflared system service
 # @flag -h --help    show help (default: false)
 service() {
-  :
+    :;
 }
 
 # {{{ cloudflared service install
@@ -78,7 +78,7 @@ service() {
 # @flag -h --help              show help (default: false)
 # @arg token
 service::install() {
-  :
+    :;
 }
 # }}} cloudflared service install
 
@@ -86,7 +86,7 @@ service::install() {
 # @cmd Uninstall the cloudflared service
 # @flag -h --help    show help (default: false)
 service::uninstall() {
-  :
+    :;
 }
 # }}} cloudflared service uninstall
 # }} cloudflared service
@@ -97,7 +97,7 @@ service::uninstall() {
 # @flag --fedramp    use when performing operations in fedramp account (default: false)
 # @flag -h --help    show help (default: false)
 access() {
-  :
+    :;
 }
 
 # {{{ cloudflared access login
@@ -112,14 +112,14 @@ access() {
 # @arg access
 # @arg application
 access::login() {
-  :
+    :;
 }
 # }}} cloudflared access login
 
 # {{{ cloudflared access curl
 # @cmd curl [--allow-request, -ar] <url> [<curl args>...]
 access::curl() {
-  :
+    :;
 }
 # }}} cloudflared access curl
 
@@ -129,7 +129,7 @@ access::curl() {
 # @flag -h --help    show help (default: false)
 # @arg url
 access::token() {
-  :
+    :;
 }
 # }}} cloudflared access token
 
@@ -154,7 +154,7 @@ access::token() {
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
 # @flag -h --help                           show help (default: false)
 access::tcp() {
-  :
+    :;
 }
 # }}} cloudflared access tcp
 
@@ -164,7 +164,7 @@ access::tcp() {
 # @flag --short-lived-cert      specify if you wish to generate short lived certs.
 # @flag -h --help               show help (default: false)
 access::ssh-config() {
-  :
+    :;
 }
 # }}} cloudflared access ssh-config
 
@@ -173,7 +173,7 @@ access::ssh-config() {
 # @option --hostname <value>    specify the hostname of your application.
 # @flag -h --help               show help (default: false)
 access::ssh-gen() {
-  :
+    :;
 }
 # }}} cloudflared access ssh-gen
 # }} cloudflared access
@@ -208,8 +208,6 @@ access::ssh-gen() {
 # @option --proxy-address <value>                Listen address for the proxy.
 # @option --proxy-port <value>                   Listen port for the proxy.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                       Save application log to this file for reporting issues.
 # @option --log-directory <dir>                  Save application log to this directory for reporting issues.
 # @option --trace-output <file>                  Name of trace output file, generated when cloudflared stops.
@@ -239,7 +237,7 @@ access::ssh-gen() {
 # @flag -f --overwrite-dns                       Overwrites existing DNS records with this hostname (default: false) [$TUNNEL_FORCE_PROVISIONING_DNS]
 # @flag -h --help                                show help (default: false)
 tunnel() {
-  :
+    :;
 }
 
 # {{{ cloudflared tunnel login
@@ -249,7 +247,7 @@ tunnel() {
 # @flag -f --fedramp               Login with FedRAMP High environment.
 # @flag -h --help                  show help (default: false)
 tunnel::login() {
-  :
+    :;
 }
 # }}} cloudflared tunnel login
 
@@ -263,8 +261,6 @@ tunnel::login() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -275,7 +271,7 @@ tunnel::login() {
 # @flag -h --help                           show help (default: false)
 # @arg name
 tunnel::create() {
-  :
+    :;
 }
 # }}} cloudflared tunnel create
 
@@ -283,7 +279,7 @@ tunnel::create() {
 # @cmd Define which traffic routed from Cloudflare edge to this tunnel: requests to a DNS hostname, to a Cloudflare Load Balancer, or traffic originating from Cloudflare WARP clients
 # @flag -h --help    show help (default: false)
 tunnel::route() {
-  :
+    :;
 }
 
 # {{{{ cloudflared tunnel route dns
@@ -293,7 +289,7 @@ tunnel::route() {
 # @arg tunnel[`_choice_tunnel`]
 # @arg hostname
 tunnel::route::dns() {
-  :
+    :;
 }
 # }}}} cloudflared tunnel route dns
 
@@ -304,7 +300,7 @@ tunnel::route::dns() {
 # @arg hostname
 # @arg lb-pool-name
 tunnel::route::lb() {
-  :
+    :;
 }
 # }}}} cloudflared tunnel route lb
 
@@ -312,7 +308,7 @@ tunnel::route::lb() {
 # @cmd Configure and query Cloudflare WARP routing to private IP networks made available through Cloudflare Tunnels.
 # @flag -h --help    show help (default: false)
 tunnel::route::ip() {
-  :
+    :;
 }
 
 # {{{{{ cloudflared tunnel route ip add
@@ -324,7 +320,7 @@ tunnel::route::ip() {
 # @arg tunnel[`_choice_tunnel`]
 # @arg comment <COMMENT?>
 tunnel::route::ip::add() {
-  :
+    :;
 }
 # }}}}} cloudflared tunnel route ip add
 
@@ -342,7 +338,7 @@ tunnel::route::ip::add() {
 # @option -o --output[default|json] <FORMAT>       Render output using given FORMAT.
 # @flag -h --help                                  show help (default: false)
 tunnel::route::ip::show() {
-  :
+    :;
 }
 # }}}}} cloudflared tunnel route ip show
 
@@ -353,7 +349,7 @@ tunnel::route::ip::show() {
 # @flag -h --help           show help (default: false)
 # @arg route-id-or-cidr[`_choice_cidr`] <Route ID or CIDR>
 tunnel::route::ip::delete() {
-  :
+    :;
 }
 # }}}}} cloudflared tunnel route ip delete
 
@@ -364,7 +360,7 @@ tunnel::route::ip::delete() {
 # @flag -h --help           show help (default: false)
 # @arg ip
 tunnel::route::ip::get() {
-  :
+    :;
 }
 # }}}}} cloudflared tunnel route ip get
 # }}}} cloudflared tunnel route ip
@@ -374,7 +370,7 @@ tunnel::route::ip::get() {
 # @cmd Configure and query virtual networks to manage private IP routes with overlapping IPs.
 # @flag -h --help    show help (default: false)
 tunnel::vnet() {
-  :
+    :;
 }
 
 # {{{{ cloudflared tunnel vnet add
@@ -384,7 +380,7 @@ tunnel::vnet() {
 # @arg name
 # @arg comment <"comment">
 tunnel::vnet::add() {
-  :
+    :;
 }
 # }}}} cloudflared tunnel vnet add
 
@@ -397,7 +393,7 @@ tunnel::vnet::add() {
 # @option -o --output[default|json] <FORMAT>    Render output using given FORMAT.
 # @flag -h --help                               show help (default: false)
 tunnel::vnet::list() {
-  :
+    :;
 }
 # }}}} cloudflared tunnel vnet list
 
@@ -407,7 +403,7 @@ tunnel::vnet::list() {
 # @flag -h --help     show help (default: false)
 # @arg virtual_network[`_choice_vnet`]
 tunnel::vnet::delete() {
-  :
+    :;
 }
 # }}}} cloudflared tunnel vnet delete
 
@@ -419,7 +415,7 @@ tunnel::vnet::delete() {
 # @flag -h --help                 show help (default: false)
 # @arg virtual_network[`_choice_vnet`]
 tunnel::vnet::update() {
-  :
+    :;
 }
 # }}}} cloudflared tunnel vnet update
 # }}} cloudflared tunnel vnet
@@ -434,8 +430,6 @@ tunnel::vnet::update() {
 # @option --metrics <value>                     Listen address for metrics reporting.
 # @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                      Save application log to this file for reporting issues.
 # @option --log-directory <dir>                 Save application log to this directory for reporting issues.
 # @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
@@ -475,7 +469,7 @@ tunnel::vnet::update() {
 # @flag -h --help                               show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::run() {
-  :
+    :;
 }
 # }}} cloudflared tunnel run
 
@@ -489,8 +483,6 @@ tunnel::run() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -509,7 +501,7 @@ tunnel::run() {
 # @flag --invert-sort                       Inverts the sort order of the tunnel list.
 # @flag -h --help                           show help (default: false)
 tunnel::list() {
-  :
+    :;
 }
 # }}} cloudflared tunnel list
 
@@ -523,15 +515,13 @@ tunnel::list() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
 # @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
 # @flag -h --help                           show help (default: false)
 tunnel::ready() {
-  :
+    :;
 }
 # }}} cloudflared tunnel ready
 
@@ -545,8 +535,6 @@ tunnel::ready() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -558,7 +546,7 @@ tunnel::ready() {
 # @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::info() {
-  :
+    :;
 }
 # }}} cloudflared tunnel info
 
@@ -572,8 +560,6 @@ tunnel::info() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -584,7 +570,7 @@ tunnel::info() {
 # @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::delete() {
-  :
+    :;
 }
 # }}} cloudflared tunnel delete
 
@@ -598,8 +584,6 @@ tunnel::delete() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -608,7 +592,7 @@ tunnel::delete() {
 # @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::cleanup() {
-  :
+    :;
 }
 # }}} cloudflared tunnel cleanup
 
@@ -622,8 +606,6 @@ tunnel::cleanup() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -633,7 +615,7 @@ tunnel::cleanup() {
 # @flag -h --help                           show help (default: false)
 # @arg tunnel[`_choice_tunnel`]
 tunnel::token() {
-  :
+    :;
 }
 # }}} cloudflared tunnel token
 
@@ -644,15 +626,13 @@ tunnel::token() {
 # @option --autoupdate-freq <value>         Autoupdate frequency.
 # @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
 # @flag --no-prechecks                      Skip connectivity pre-checks at startup.
-# @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
 # @option --output[default|json] <value>    Output format for the logs (default: "default") [$TUNNEL_MANAGEMENT_OUTPUT, $TUNNEL_LOG_OUTPUT]
+# @option --metrics <value>                 The metrics server address i.e.: 127.0.0.1:12345.
 # @option --diag-container-id <value>       Container ID or Name to collect logs from
 # @option --diag-pod-id <value>             Kubernetes POD to collect logs from
 # @flag --no-diag-logs                      Log collection will not be performed (default: false)
@@ -662,14 +642,14 @@ tunnel::token() {
 # @flag --no-diag-network                   Network diagnostics won't be performed (default: false)
 # @flag -h --help                           show help (default: false)
 tunnel::diag() {
-  :
+    :;
 }
 # }}} cloudflared tunnel diag
 
 # {{{ cloudflared tunnel proxy-dns
 # @cmd dns-proxy feature is no longer supported
 tunnel::proxy-dns() {
-  :
+    :;
 }
 # }}} cloudflared tunnel proxy-dns
 # }} cloudflared tunnel
@@ -677,15 +657,15 @@ tunnel::proxy-dns() {
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 
 _choice_tunnel() {
-  cloudflared tunnel list | _argc_util_transform_table 'NAME' ''
+    cloudflared tunnel list | _argc_util_transform_table 'NAME' ''
 }
 
 _choice_cidr() {
-  cloudflared tunnel ip show | _argc_util_transform_table 'NETWORK' ''
+    cloudflared tunnel ip show | _argc_util_transform_table 'NETWORK' ''
 }
 
 _choice_vnet() {
-  cloudflared tunnel vnet list | _argc_util_transform_table 'NAME' ''
+    cloudflared tunnel vnet list | _argc_util_transform_table 'NAME' ''
 }
 
 command eval "$(argc --argc-eval "$0" "$@")"

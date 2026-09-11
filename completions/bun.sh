@@ -31,8 +31,6 @@
 # @option --port <port>                   Set the default port for Bun.serve
 # @option --conditions <val>              Pass custom conditions to resolve
 # @option --fetch-preconnect <val>        Preconnect to a URL while code is loading
-# @flag --experimental-http2-fetch        Offer h2 in fetch() TLS ALPN.
-# @flag --experimental-http3-fetch        Honor Alt-Svc: h3 in fetch() and upgrade to HTTP/3.
 # @option --max-http-header-size <val>    Set the maximum size of HTTP headers in bytes.
 # @option --dns-result-order[verbatim|ipv4first|ipv6first] <val>  Set the default order of DNS lookup results.
 # @flag --expose-gc                       Expose gc() on the global object.
@@ -57,7 +55,6 @@
 # @flag --revision                        Print version with revision and exit
 # @option -F --filter <val>               Run a script in all workspace packages matching the pattern
 # @flag -b --bun                          Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
-# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
 # @option --shell <val>                   Control the shell used for package.json scripts.
 # @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
 # @flag --parallel                        Run multiple scripts concurrently with Foreman-style output
@@ -76,7 +73,6 @@
 # @option --elide-lines <val>             Number of lines of script output shown when using --filter (default: 10).
 # @option -F --filter <val>               Run a script in all workspace packages matching the pattern
 # @flag -b --bun                          Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
-# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
 # @option --shell <val>                   Control the shell used for package.json scripts.
 # @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
 # @flag --parallel                        Run multiple scripts concurrently with Foreman-style output
@@ -112,8 +108,6 @@
 # @option --port <port>                   Set the default port for Bun.serve
 # @option --conditions <val>              Pass custom conditions to resolve
 # @option --fetch-preconnect <val>        Preconnect to a URL while code is loading
-# @flag --experimental-http2-fetch        Offer h2 in fetch() TLS ALPN.
-# @flag --experimental-http3-fetch        Honor Alt-Svc: h3 in fetch() and upgrade to HTTP/3.
 # @option --max-http-header-size <val>    Set the maximum size of HTTP headers in bytes.
 # @option --dns-result-order[verbatim|ipv4first|ipv6first] <val>  Set the default order of DNS lookup results.
 # @flag --expose-gc                       Expose gc() on the global object.
@@ -162,7 +156,6 @@ run() {
 
 # {{ bun test
 # @cmd Run unit tests with Bun
-# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
 # @option --timeout <value>               Set the per-test timeout in milliseconds, default is 5000.
 # @flag -u --update-snapshots             Update snapshot files
 # @option --rerun-each <val>              Re-run each test file <NUMBER> times, helps catch certain bugs
@@ -184,12 +177,6 @@ run() {
 # @flag --only-failures                   Only display test failures, hiding passing tests.
 # @option --max-concurrency <val>         Maximum number of concurrent tests to execute at once.
 # @option --path-ignore-patterns <val>    Glob patterns for test file paths to ignore.
-# @option --changed <val>                 Only run test files affected by changed files according to git.
-# @flag --isolate                         Run each test file in a fresh global object.
-# @option --parallel <val>                Run test files in parallel using N worker processes.
-# @option --parallel-delay <val>          Milliseconds the first --parallel worker must be busy before spawning the rest.
-# @flag --test-worker                     (internal) Run as a --parallel worker, receiving files over IPC.
-# @option --shard <val>                   Run a subset of test files, e.g. '--shard=1/3' runs the first of three shards.
 # @arg patterns
 test() {
     :;
@@ -209,7 +196,6 @@ x() {
 # @option --elide-lines <val>             Number of lines of script output shown when using --filter (default: 10).
 # @option -F --filter <val>               Run a script in all workspace packages matching the pattern
 # @flag -b --bun                          Force a script or package to use Bun's runtime instead of Node.js (via symlinking node)
-# @flag --no-orphans                      Exit when the parent process dies, and on exit SIGKILL every descendant.
 # @option --shell <val>                   Control the shell used for package.json scripts.
 # @flag --workspaces                      Run a script in all workspace packages (from the "workspaces" field in package.json)
 # @flag --parallel                        Run multiple scripts concurrently with Foreman-style output
@@ -245,8 +231,6 @@ x() {
 # @option --port <port>                   Set the default port for Bun.serve
 # @option --conditions <val>              Pass custom conditions to resolve
 # @option --fetch-preconnect <val>        Preconnect to a URL while code is loading
-# @flag --experimental-http2-fetch        Offer h2 in fetch() TLS ALPN.
-# @flag --experimental-http3-fetch        Honor Alt-Svc: h3 in fetch() and upgrade to HTTP/3.
 # @option --max-http-header-size <val>    Set the maximum size of HTTP headers in bytes.
 # @option --dns-result-order[verbatim|ipv4first|ipv6first] <val>  Set the default order of DNS lookup results.
 # @flag --expose-gc                       Expose gc() on the global object.
@@ -327,7 +311,7 @@ exec() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -377,7 +361,7 @@ install() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -426,7 +410,7 @@ add() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -468,7 +452,7 @@ remove() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -524,7 +508,7 @@ audit() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -568,7 +552,7 @@ outdated() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -610,7 +594,7 @@ link() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -651,7 +635,7 @@ unlink() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -699,7 +683,7 @@ publish() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -869,7 +853,7 @@ pm::default-trusted() {
 # @option --cwd <dir>                    Set a specific cwd
 # @option --backend[hardlink|symlink|copyfile] <val>  Platform-specific optimizations for installing dependencies.
 # @option --registry <val>               Use a specific registry by default, overriding .npmrc, bunfig.toml and environment variables
-# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default: 2x CPU cores)
+# @option --concurrent-scripts <val>     Maximum number of concurrent jobs for lifecycle scripts (default 5)
 # @option --network-concurrency <val>    Maximum number of concurrent network requests (default 48)
 # @flag --save-text-lockfile             Save a text-based lockfile
 # @option --omit <val>                   Exclude 'dev', 'optional', or 'peer' dependencies from install
@@ -960,12 +944,10 @@ build() {
 
 # {{ bun init
 # @cmd Start an empty Bun project from a built-in template
-# @flag --help                  Print this menu
-# @flag -y --yes                Accept all default options
-# @flag -m --minimal            Only initialize type definitions
-# @flag -r --react              Initialize a React project
-# @option --react <tailwind>    Initialize a React project with TailwindCSS
-# @option --react <shadcn>      Initialize a React project with @shadcn/ui and TailwindCSS
+# @flag --help                            Print this menu
+# @flag -y --yes                          Accept all default options
+# @flag -m --minimal                      Only initialize type definitions
+# @option -r --react[=tailwind|shadcn]    Initialize a React project
 # @arg folder
 init() {
     :;

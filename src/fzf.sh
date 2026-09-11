@@ -7,6 +7,7 @@ _patch_table() {
         '--border;[rounded|sharp|bold|block|thinblock|double|horizontal|vertical|top|bottom|left|right|none]' \
         '--color;[dark|light|16|bw]' \
         '--info;[default|right|hidden|inline|inline-right]' \
+        '--listen(<[ADDR:]PORT|SOCKET_PATH>)' \
         ';;' \
         '+i;;Case-sensitive match' \
         '+s;;Do not sort the result' \

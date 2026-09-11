@@ -20,7 +20,6 @@
 # @option --chunk-strategy <auto|regex>    Chunking mode (default: regex; auto uses AST for code files)
 # @option -l <num>                         - Maximum lines per file
 # @option --max-bytes <num>                - Skip files larger than N bytes (default 10240)
-# @option --format <kind>                  - Same formats as search
 
 # {{ qmd mcp
 # @cmd - Start the MCP server (stdio transport for AI agents)

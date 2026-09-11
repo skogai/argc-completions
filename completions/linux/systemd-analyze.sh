@@ -96,7 +96,6 @@ nvpcrs() {
 
 # {{ systemd-analyze srk
 # @cmd Write TPM2 SRK (to FILE)
-# @arg file <>FILE>
 srk() {
     :;
 }
