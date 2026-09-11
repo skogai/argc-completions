@@ -131,6 +131,7 @@
 - [cmus](https://github.com/cmus/cmus): C* Music Player [completion](completions/cmus.sh)
 - [code](https://github.com/microsoft/vscode): Visual Studio Code [src](src/code.sh) [completion](completions/code.sh)
 - [code-insiders](https://github.com/microsoft/vscode): Visual Studio Code Insiders [src](src/code-insiders.sh) [completion](completions/code-insiders.sh)
+- [codex](https://github.com/openai/codex): Lightweight coding agent that runs in your terminal [completion](completions/codex.sh)
 - [coffee](https://github.com/jashkenas/coffeescript): a little language that compiles into JavaScript. [src](src/coffee.sh) [completion](completions/coffee.sh)
 - [column](https://github.com/util-linux/util-linux): columnate lists [completion](completions/column.sh)
 - [comm](http://gnu.org/software/coreutils): compare two sorted files line by line [completion](completions/comm.sh)
