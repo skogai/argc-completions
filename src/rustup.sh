@@ -1,3 +1,11 @@
+_patch_help() {
+    if [[ "$*" == "rustup completions" ]]; then
+        _patch_help_run_help $@ | sed '/^Discussion:/,$ d'
+    else
+        _patch_help_run_help $@
+    fi
+}
+
 _patch_table() {
     table="$( \
         _patch_table_edit_options  \
@@ -13,13 +21,13 @@ _patch_table() {
     if [[ "$*" == "rustup" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;'
 
-    elif [[ "$*" == "rustup update" ]]; then
-        echo "$table" | _patch_table_edit_arguments 'toolchain;[`_choice_channel`]'
-
     elif [[ "$*" == "rustup toolchain install" ]]; then
         echo "$table" | \
             _patch_table_edit_options '--component;*,[`_choice_available_component`]' | \
             _patch_table_edit_arguments 'toolchain;[`_choice_channel`]'
+
+    elif [[ "$*" == "rustup update" ]]; then
+        echo "$table" | _patch_table_edit_arguments 'toolchain;[`_choice_channel`]'
 
     elif [[ "$*" == "rustup component remove" ]]; then
         echo "$table" | _patch_table_edit_arguments 'component;[`_choice_installed_component`]'
@@ -40,10 +48,8 @@ _patch_table() {
     fi
 }
 
-_choice_channel() {
-    echo stable
-    echo beta
-    echo nightly
+_choice_target() {
+    rustup target list | gawk '{print $1}' | _argc_util_comp_parts -
 }
 
 _choice_toolchain() {
@@ -70,8 +76,10 @@ rustc-dev	This component contains the compiler as a library.
 EOF
 }
 
-_choice_target() {
-    rustup target list | gawk '{print $1}' | _argc_util_comp_parts -
+_choice_channel() {
+    echo stable
+    echo beta
+    echo nightly
 }
 
 _choice_installed_component() {
