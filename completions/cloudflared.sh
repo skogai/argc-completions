@@ -76,6 +76,7 @@ service() {
 # @cmd Install cloudflared as a system service
 # @flag --no-update-service    Disable auto-update of the cloudflared linux service, which restarts the server to upgrade for new versions.
 # @flag -h --help              show help (default: false)
+# @arg token
 service::install() {
     :;
 }
@@ -207,8 +208,6 @@ access::ssh-gen() {
 # @option --proxy-address <value>                Listen address for the proxy.
 # @option --proxy-port <value>                   Listen port for the proxy.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                       Save application log to this file for reporting issues.
 # @option --log-directory <dir>                  Save application log to this directory for reporting issues.
 # @option --trace-output <file>                  Name of trace output file, generated when cloudflared stops.
@@ -262,8 +261,6 @@ tunnel::login() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -433,8 +430,6 @@ tunnel::vnet::update() {
 # @option --metrics <value>                     Listen address for metrics reporting.
 # @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                      Save application log to this file for reporting issues.
 # @option --log-directory <dir>                 Save application log to this directory for reporting issues.
 # @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
@@ -488,8 +483,6 @@ tunnel::run() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -522,8 +515,6 @@ tunnel::list() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -544,8 +535,6 @@ tunnel::ready() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -571,8 +560,6 @@ tunnel::info() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -597,8 +584,6 @@ tunnel::delete() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -621,8 +606,6 @@ tunnel::cleanup() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -643,11 +626,8 @@ tunnel::token() {
 # @option --autoupdate-freq <value>         Autoupdate frequency.
 # @flag --no-autoupdate                     Disable periodic check for updates, restarting the server with the new version.
 # @flag --no-prechecks                      Skip connectivity pre-checks at startup.
-# @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
-# @option --transport-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
-# @option --proto-loglevel[debug|info|warn|error|fatal] <value>  Transport logging level(previously called protocol logging level)  (default: "info") [$TUNNEL_PROTO_LOGLEVEL, $TUNNEL_TRANSPORT_LOGLEVEL]
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
