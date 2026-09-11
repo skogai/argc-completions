@@ -60,9 +60,6 @@ _patch_table() {
     elif [[ "$*" == "systemctl isolate" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'unit;[`_choice_unit`]'
 
-    elif [[ "$*" == "systemctl set-property" ]]; then
-        echo "$table" | _patch_table_edit_arguments ';;' 'unit;[`_choice_unit`]' 'property;[`_choice_perperty`]'
-
     elif [[ "$*" == "systemctl bind" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'unit;[`_choice_unit`]' 'path...'
 
@@ -109,6 +106,9 @@ _patch_table() {
     elif [[ "$*" == "systemctl log-target" ]]; then
         echo "$table" | _patch_table_edit_arguments ';;' 'target;[`_choice_target`]'
 
+    elif [[ "$*" == "systemctl set-property" ]]; then
+        echo "$table" | _patch_table_edit_arguments ';;' 'unit;[`_choice_unit`]' 'property;[`_choice_perperty`]'
+
     else
         echo "$table" 
     fi
@@ -136,13 +136,6 @@ _choice_unit_pid() {
 
 _choice_unit_job() {
     _argc_util_parallel _choice_unit_only ::: _choice_unit_file  ::: _choice_job
-}
-
-_choice_perperty() {
-    _argc_util_mode_kv =
-    if [[ -z "$argc__kv_prefix" ]]; then
-        _systemctl show | _argc_util_transform format== suffix== nospace
-    fi
 }
 
 _choice_service() {
@@ -196,6 +189,13 @@ _choice_set_environment() {
 
 _choice_environment() {
     _systemctl show-environment | _argc_util_transform format==
+}
+
+_choice_perperty() {
+    _argc_util_mode_kv =
+    if [[ -z "$argc__kv_prefix" ]]; then
+        _systemctl show | _argc_util_transform format== suffix== nospace
+    fi
 }
 
 _choice_unit_file() {
