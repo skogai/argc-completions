@@ -6,9 +6,8 @@
 # @flag --backup                                  Backup any modified files.
 # @option --config-path <Path for the configuration file>  Recursively searches the given path for the rustfmt.toml config file.
 # @option --edition[2015|2018|2021|2024]          Rust edition to use
-# @option --style-edition[2015|2018|2021|2024]    The edition of the Style Guide (unstable).
 # @option --color[always|never|auto]              Use colored output (if supported)
-# @option --print-config[default|minimal|current]  PATH Dumps a default or minimal config to PATH.
+# @option --print-config <default|minimal|current> <PATH>  Dumps a default or minimal config to PATH.
 # @flag -l --files-with-diff                      Prints the names of mismatched files that were formatted.
 # @option --config*,[`_choice_config`] <key1=val1,key2=val2>  Set options from command line.
 # @option --style-edition[2015|2018|2021|2024]    The edition of the Style Guide.
