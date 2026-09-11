@@ -709,6 +709,7 @@
 - [task](https://github.com/GothenburgBitFactory/taskwarrior): Command line Task Management [src](src/task.sh) [completion](completions/task.sh)
 - [tcpdump](https://github.com/the-tcpdump-group/tcpdump): dump traffic on a network [src](src/tcpdump.sh) [completion](completions/tcpdump.sh)
 - [tcsh](https://github.com/tcsh-org/tcsh): C shell with file name completion and command line editing [src](src/tcsh.sh) [completion](completions/tcsh.sh)
+- [tea](https://gitea.com/gitea/tea): A command line tool to interact with Gitea servers [completion](completions/tea.sh)
 - [tee](http://gnu.org/software/coreutils): read from standard input and write to standard output and files [src](src/tee.sh) [completion](completions/tee.sh)
 - [telnet](https://www.gnu.org/software/inetutils): user interface to the TELNET protocol [src](src/telnet.sh) [completion](completions/telnet.sh)
 - [terraform](https://github.com/hashicorp/terraform): Automate infrastructure on any cloud [src](src/terraform.sh) [completion](completions/terraform.sh)
