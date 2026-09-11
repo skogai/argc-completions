@@ -303,6 +303,9 @@ _patch_table() {
     elif [[ "$*" == "git add" ]]; then
         _patch_table_edit_arguments 'pathspec;[`_choice_unstaged_file`]'
 
+    elif [[ "$*" == "git restore" ]]; then
+        _patch_table_edit_arguments 'pathspec;[`_choice_restore_file`]'
+
     elif [[ "$*" == "git diff" ]]; then
         _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_diff`]'
 
@@ -358,14 +361,14 @@ _patch_table() {
     elif [[ "$*" == "git difftool" ]]; then
         _patch_table_edit_options '--extcmd;[`_module_os_command`]'
 
+    elif [[ "$*" == "git format-patch" ]]; then
+        _patch_table_dedup_options '--no-numbered'
+
     elif [[ "$*" == "git range-diff" ]]; then
         _patch_table_edit_arguments ';;' '<base>;[`_choice_branch`]' '<new>;[`_choice_branch`]'
 
     elif [[ "$*" == "git remote"* ]]; then
         _patch_table_edit_arguments 'name;[`_choice_remote`]' 'old;[`_choice_remote`]' 'new;[`_choice_remote`]'
-
-    elif [[ "$*" == "git restore" ]]; then
-        _patch_table_edit_arguments 'pathspec;[`_choice_restore_file`]'
 
     elif [[ "$*" == "git shortlog" ]]; then
         _patch_table_dedup_options '--committer' | \
@@ -511,14 +514,6 @@ _choice_ref() {
     _argc_util_parallel _choice_local_branch ::: _choice_remote_branch ::: _choice_tag
 }
 
-_choice_restore_file() {
-    if [[ -n "$argc_staged" ]]; then
-        _choice_staged_file
-    else
-        _choice_changed_file
-    fi
-}
-
 _choice_stash() {
     _git stash list --format='%gd	%gs'
 }
@@ -539,6 +534,14 @@ _choice_changed_file() {
 
 _choice_local_branch() {
     _git branch --format '%(refname:short)	%(subject)'
+}
+
+_choice_restore_file() {
+    if [[ -n "$argc_staged" ]]; then
+        _choice_staged_file
+    else
+        _choice_changed_file
+    fi
 }
 
 _choice_staged_file() {

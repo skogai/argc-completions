@@ -1712,7 +1712,6 @@ difftool() {
 # @cmd Prepare patches for e-mail submission
 # @flag -n                                         use [PATCH n/m] even with a single patch
 # @flag --numbered                                 use [PATCH n/m] even with a single patch
-# @flag --no-numbered                              use [PATCH n/m] even with a single patch
 # @flag -N --no-numbered                           use [PATCH] even with multiple patches
 # @flag -s                                         add a Signed-off-by trailer
 # @flag --signoff                                  add a Signed-off-by trailer
