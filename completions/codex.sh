@@ -269,6 +269,7 @@ plugin() {
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @option -m --marketplace           Configured marketplace name to use when PLUGIN does not include @MARKETPLACE
 # @option --enable <FEATURE>         Enable a feature (repeatable).
+# @flag --json                       Output install result as JSON
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
 # @arg plugin-marketplace! <PLUGIN[@MARKETPLACE]>  Plugin selector to install: either PLUGIN@MARKETPLACE or PLUGIN with --marketplace
@@ -282,6 +283,8 @@ plugin::add() {
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @option -m --marketplace           Only list plugins from this configured marketplace name
 # @option --enable <FEATURE>         Enable a feature (repeatable).
+# @flag --json                       Output plugin list as JSON
+# @flag --available                  Include uninstalled marketplace plugins in the JSON output
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
 plugin::list() {
@@ -306,6 +309,7 @@ plugin::marketplace() {
 # @option --enable <FEATURE>         Enable a feature (repeatable).
 # @option --sparse <PATH>            Sparse checkout path for Git marketplace sources.
 # @option --disable <FEATURE>        Disable a feature (repeatable).
+# @flag --json                       Output add result as JSON
 # @flag -h --help                    Print help (see a summary with '-h')
 # @arg source!                       Marketplace source: a local path, owner/repo[@ref], HTTPS Git URL, or SSH Git URL
 plugin::marketplace::add() {
@@ -316,6 +320,7 @@ plugin::marketplace::add() {
 # {{{{ codex plugin marketplace list
 # @cmd List plugin marketplaces Codex is currently considering and their roots
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag --json                       Output marketplace list as JSON
 # @option --enable <FEATURE>         Enable a feature (repeatable).
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
@@ -327,6 +332,7 @@ plugin::marketplace::list() {
 # {{{{ codex plugin marketplace upgrade
 # @cmd Refresh configured Git marketplace snapshots
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag --json                       Output upgrade result as JSON
 # @option --enable <FEATURE>         Enable a feature (repeatable).
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
@@ -339,6 +345,7 @@ plugin::marketplace::upgrade() {
 # {{{{ codex plugin marketplace remove
 # @cmd Remove a configured marketplace source by name
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag --json                       Output remove result as JSON
 # @option --enable <FEATURE>         Enable a feature (repeatable).
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
@@ -354,6 +361,7 @@ plugin::marketplace::remove() {
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @option -m --marketplace           Marketplace name to use when PLUGIN does not include @MARKETPLACE
 # @option --enable <FEATURE>         Enable a feature (repeatable).
+# @flag --json                       Output remove result as JSON
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
 # @arg plugin-marketplace! <PLUGIN[@MARKETPLACE]>  Plugin selector to remove: either PLUGIN@MARKETPLACE or PLUGIN with --marketplace
@@ -382,6 +390,7 @@ mcp-server() {
 # @option --disable <FEATURE>                      Disable a feature (repeatable).
 # @flag --strict-config                            Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option --listen <URL>                           Transport endpoint URL.
+# @flag --stdio                                    Use stdio as the transport (equivalent to `--listen stdio://`)
 # @flag --analytics-default-enabled                Controls whether analytics are enabled by default.
 # @option --ws-auth[capability-token|signed-bearer-token] <MODE>  Websocket auth mode for non-loopback listeners
 # @option --ws-token-file <PATH>                   Absolute path to the capability-token file
@@ -603,15 +612,15 @@ doctor() {
 
 # {{ codex sandbox
 # @cmd Run commands within a Codex-provided sandbox
-# @option -c --config <key=value>          Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
-# @option --permissions-profile <NAME>     Named permissions profile to apply from the active configuration stack
-# @option --enable <FEATURE>               Enable a feature (repeatable).
-# @option -p --profile <CONFIG_PROFILE>    Layer $CODEX_HOME/<name>.config.toml on top of the base user config
-# @option -C --cd <DIR>                    Working directory used for profile resolution and command execution
-# @option --disable <FEATURE>              Disable a feature (repeatable).
-# @flag --include-managed-config           Include managed requirements while resolving an explicit permissions profile
-# @flag -h --help                          Print help (see a summary with '-h')
-# @arg command*                            Full command args to run under the Linux sandbox
+# @option -c --config <key=value>            Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @option -P --permissions-profile <NAME>    Named permissions profile to apply from the active configuration stack
+# @option --enable <FEATURE>                 Enable a feature (repeatable).
+# @option -p --profile <CONFIG_PROFILE>      Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -C --cd <DIR>                      Working directory used for profile resolution and command execution
+# @option --disable <FEATURE>                Disable a feature (repeatable).
+# @flag --include-managed-config             Include managed requirements while resolving an explicit permissions profile
+# @flag -h --help                            Print help (see a summary with '-h')
+# @arg command*                              Full command args to run under the Linux sandbox
 sandbox() {
     :;
 }
@@ -714,12 +723,88 @@ apply() {
 # @flag --no-alt-screen                        Disable alternate screen mode
 # @flag -h --help                              Print help (see a summary with '-h')
 # @flag -V --version                           Print version
-# @arg session_id                              Conversation/session id (UUID) or thread name.
+# @arg session_id                              Session id (UUID) or session name.
 # @arg prompt                                  Optional user prompt to start the session
 resume() {
     :;
 }
 # }} codex resume
+
+# {{ codex archive
+# @cmd Archive a saved session by id or session name
+# @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
+# @option --enable <FEATURE>                   Enable a feature (repeatable).
+# @option --remote-auth-token-env <ENV_VAR>    Name of the environment variable containing the bearer token to send to a remote app server websocket
+# @option --disable <FEATURE>                  Disable a feature (repeatable).
+# @option -i --image* <FILE>                   Optional image(s) to attach to the initial prompt
+# @option -m --model                           Model the agent should use
+# @flag --oss                                  Use open-source provider
+# @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
+# @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
+# @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
+# @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag -h --help                              Print help (see a summary with '-h')
+# @arg session!                                Session id (UUID) or session name.
+archive() {
+    :;
+}
+# }} codex archive
+
+# {{ codex delete
+# @cmd Permanently delete a saved session by id or session name
+# @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
+# @option --enable <FEATURE>                   Enable a feature (repeatable).
+# @option --remote-auth-token-env <ENV_VAR>    Name of the environment variable containing the bearer token to send to a remote app server websocket
+# @option --disable <FEATURE>                  Disable a feature (repeatable).
+# @option -i --image* <FILE>                   Optional image(s) to attach to the initial prompt
+# @option -m --model                           Model the agent should use
+# @flag --oss                                  Use open-source provider
+# @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
+# @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
+# @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
+# @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag --force                                Delete without prompting.
+# @flag -h --help                              Print help (see a summary with '-h')
+# @arg session!                                Session id (UUID) or session name.
+delete() {
+    :;
+}
+# }} codex delete
+
+# {{ codex unarchive
+# @cmd Unarchive a saved session by id or session name
+# @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
+# @option --enable <FEATURE>                   Enable a feature (repeatable).
+# @option --remote-auth-token-env <ENV_VAR>    Name of the environment variable containing the bearer token to send to a remote app server websocket
+# @option --disable <FEATURE>                  Disable a feature (repeatable).
+# @option -i --image* <FILE>                   Optional image(s) to attach to the initial prompt
+# @option -m --model                           Model the agent should use
+# @flag --oss                                  Use open-source provider
+# @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
+# @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
+# @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
+# @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag -h --help                              Print help (see a summary with '-h')
+# @arg session!                                Session id (UUID) or session name.
+unarchive() {
+    :;
+}
+# }} codex unarchive
 
 # {{ codex fork
 # @cmd Fork a previous interactive session (picker by default; use --last to fork the most recent)

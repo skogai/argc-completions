@@ -12,8 +12,7 @@
 # @flag -i --internal-only                         don't call the mount.<type> helpers
 # @flag -l --show-labels                           show also filesystem labels
 # @option --map-groups <<inner>:<outer>:<count>>   add the specified GID map to an ID-mapped mount
-# @option --map-users <<inner>:<outer>:<count>>    add the specified UID map to an ID-mapped mount
-# @option --map-users </proc/<pid>/ns/user>        specify the user namespace for an ID-mapped mount
+# @option --map-users <<inner>:<outer>:<count>|/proc/<pid>/ns/user>  add the specified UID map to an ID-mapped mount
 # @option -m --mkdir <mode>                        alias to '-o X-mount.mkdir[=<mode>]'
 # @flag -n --no-mtab                               don't write to /etc/mtab
 # @option --options-mode[ignore|append|prepend|replace] <mode>  what to do with options loaded from fstab

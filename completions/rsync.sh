@@ -100,6 +100,7 @@
 # @flag -z --compress                  compress file data during the transfer
 # @option --compress-choice[`_choice_compress`] <STR>  choose the compression algorithm (aka --zc)
 # @option --compress-level <NUM>       explicitly set compression level (aka --zl)
+# @option --compress-threads <NUM>     explicitly set compression threads (aka --zt)
 # @option --skip-compress <LIST>       skip compressing files with suffix in LIST
 # @flag -C --cvs-exclude               auto-ignore files in the same way CVS does
 # @option -f --filter <RULE>           add a file-filtering RULE

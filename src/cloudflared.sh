@@ -26,6 +26,10 @@ _patch_table() {
         echo "$table" | \
         _patch_table_edit_arguments ';;' 'url'
 
+    elif [[ "$*" == "cloudflared tunnel diag" ]]; then
+        echo "$table" | \
+        _patch_table_edit_options '--metrics'
+
     elif [[ "$*" == "cloudflared tunnel"* ]]; then
         echo "$table" | \
         _patch_table_edit_arguments \

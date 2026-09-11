@@ -8,6 +8,7 @@
 # @flag --allow-child-process                      allow use of child process when any permissions are set
 # @option --allow-fs-read <string>                 allow permissions to read the filesystem
 # @option --allow-fs-write <string>                allow permissions to write in the filesystem
+# @flag --allow-inspector                          allow use of inspector when any permissions are set
 # @flag --allow-wasi                               allow wasi when any permissions are set
 # @flag --allow-worker                             allow worker threads when any permissions are set
 # @flag --build-snapshot                           Generate a snapshot blob when the process exits.
@@ -21,6 +22,7 @@
 # @option --cpu-prof-name <string>                 specified file name of the V8 CPU profile generated with --cpu-prof
 # @option --diagnostic-dir <string>                set dir for all output files (default: current working directory)
 # @option --disable-proto <string>                 disable Object.prototype.__proto__
+# @flag --disable-sigusr1                          Disable inspector thread to be listening for SIGUSR1 signal
 # @option --disable-warning <string>               silence specific process warnings
 # @flag --disable-wasm-trap-handler                Disable trap-handler-based WebAssembly bound checks.
 # @flag --disallow-code-generation-from-strings    disallow eval and friends
@@ -28,27 +30,28 @@
 # @flag --enable-etw-stack-walking                 provides heap data to ETW Windows native tracing
 # @flag --enable-fips                              enable FIPS crypto at startup
 # @flag --enable-source-maps                       Source Map V3 support for stack traces
+# @flag --entry-url                                Treat the entrypoint as a URL
 # @option --env-file <string>                      set environment variables from supplied file
+# @option --env-file-if-exists <string>            set environment variables from supplied file
 # @option -e --eval <string>                       evaluate script
-# @option --experimental-default-type <string>     set module system to use by default
-# @flag --experimental-detect-module               when ambiguous modules fail to evaluate because they contain ES module syntax, try again to evaluate them as ES modules
+# @flag --experimental-addon-modules               experimental import support for addons
+# @option --experimental-config-file <string>      set config file from supplied file
+# @flag --experimental-default-config-file         set config file from default config file
 # @flag --experimental-eventsource                 experimental EventSource API
 # @flag --experimental-import-meta-resolve         experimental ES Module import.meta.resolve() parentURL support
+# @flag --experimental-inspector-network-resource  experimental load network resources via the inspector
 # @option --loader <string>                        use the specified module as a custom loader
 # @option --experimental-loader <string>           use the specified module as a custom loader
 # @flag --experimental-network-inspection          experimental network inspection support
-# @flag --experimental-permission                  enable the permission system
 # @flag --experimental-print-required-tla          Print pending top-level await.
-# @flag --experimental-require-module              Allow loading explicit ES Modules in require().
 # @option --experimental-sea-config <string>       Generate a blob that can be embedded into the single executable application
-# @flag --experimental-sqlite                      experimental node:sqlite module
-# @flag --experimental-strip-types                 Experimental type-stripping for TypeScript files.
+# @flag --experimental-storage-inspection          experimental storage inspection support
 # @flag --experimental-test-coverage               enable code coverage in the test runner
 # @flag --experimental-test-module-mocks           enable module mocking in the test runner
-# @flag --experimental-test-snapshots              enable snapshot testing in the test runner
+# @flag --experimental-transform-types             enable transformation of TypeScript-onlysyntax into JavaScript code
 # @flag --experimental-vm-modules                  experimental ES Module support in vm module
-# @flag --experimental-wasm-modules                experimental ES Module support for webassembly modules
 # @flag --experimental-webstorage                  experimental Web Storage API
+# @flag --experimental-worker-inspection           experimental worker inspection support
 # @flag --expose-gc                                expose gc extension
 # @flag --force-context-aware                      disable loading non-context-aware addons
 # @flag --force-fips                               force FIPS crypto (cannot be disabled)
@@ -61,7 +64,6 @@
 # @option --heapsnapshot-near-heap-limit <string>  Generate heap snapshots whenever V8 is approaching the heap limit.
 # @option --heapsnapshot-signal <string>           Generate heap snapshot on specified signal
 # @flag -h --help                                  print node command line options (currently set)
-# @flag --huge-max-old-generation-size             increase default maximum heap size on machines with 16GB memory or more
 # @option --icu-data-dir <string>                  set ICU data load path to dir (overrides NODE_ICU_DATA) (note: linked-in ICU data is present)
 # @option --import <string>                        ES module to preload (option can be repeated)
 # @option --input-type <string>                    set module type for string input
@@ -77,26 +79,32 @@
 # @flag --jitless                                  disable runtime allocation of executable memory
 # @option --localstorage-file <string>             file used to persist localStorage data
 # @option --max-http-header-size <string>          set the maximum size of HTTP headers (default: 16384 (16KB))
+# @option --max-old-space-size-percentage <string>  set V8's max old space size as a percentage of available memory (e.g., '50%').
 # @option --network-family-autoselection-attempt-timeout <string>  Sets the default value for the network family autoselection attempt timeout.
 # @flag --no-addons                                disable loading native addons
+# @flag --no-async-context-frame                   Improve AsyncLocalStorage performance with AsyncContextFrame
 # @flag --no-deprecation                           silence deprecation warnings
-# @flag --no-experimental-fetch                    experimental Fetch API
-# @flag --no-experimental-global-customevent       expose experimental CustomEvent on the global scope
+# @flag --no-experimental-detect-module            when ambiguous modules fail to evaluate because they contain ES module syntax, try again to evaluate them as ES modules
 # @flag --no-experimental-global-navigator         expose experimental Navigator API on the global scope
-# @flag --no-experimental-global-webcrypto         expose experimental Web Crypto API on the global scope
 # @flag --no-experimental-repl-await               experimental await keyword support in REPL
+# @flag --no-experimental-require-module           Legacy alias for --require-module
+# @flag --no-experimental-sqlite                   experimental node:sqlite module
 # @flag --no-experimental-websocket                experimental WebSocket API
 # @flag --no-extra-info-on-fatal-exception         hide extra information on fatal exception that causes exit
 # @flag --no-force-async-hooks-checks              disable checks for async_hooks
 # @flag --no-global-search-paths                   disable global module search paths
 # @flag --enable-network-family-autoselection      Disable network address family autodetection algorithm
 # @flag --no-network-family-autoselection          Disable network address family autodetection algorithm
+# @flag --no-require-module                        Allow loading synchronous ES Modules in require().
+# @flag --experimental-strip-types                 Type-stripping for TypeScript files.
+# @flag --no-strip-types                           Type-stripping for TypeScript files.
 # @flag --no-warnings                              silence all process warnings
 # @flag --node-memory-debug                        Run with extra debug checks for memory leaks in Node.js itself
 # @option --openssl-config <string>                load OpenSSL configuration from the specified file (overrides OPENSSL_CONF)
 # @flag --openssl-legacy-provider                  enable OpenSSL 3.0 legacy provider
 # @flag --openssl-shared-config                    enable OpenSSL shared configuration
 # @flag --pending-deprecation                      emit pending deprecation warnings
+# @flag --permission                               enable the permission system
 # @flag --preserve-symlinks                        preserve symbolic links when resolving
 # @flag --preserve-symlinks-main                   preserve symbolic links when resolving the main module
 # @flag -p --print*                                evaluate script and print result
@@ -106,6 +114,7 @@
 # @flag --report-compact                           output compact single-line JSON
 # @option --report-directory <string>              define custom report pathname.
 # @option --report-dir <string>                    define custom report pathname.
+# @flag --report-exclude-env                       Exclude environment variables when generating report (default: false)
 # @flag --report-exclude-network                   exclude network interface diagnostics.
 # @option --report-filename <string>               define custom report file name.
 # @flag --report-on-fatalerror                     generate diagnostic report on fatal (internal) errors
@@ -119,13 +128,22 @@
 # @option --snapshot-blob <string>                 Path to the snapshot blob that's either the result of snapshotbuilding, or the blob that is used to restore the application state
 # @flag --test                                     launch test runner on startup
 # @option --test-concurrency <string>              specify test runner concurrency
+# @option --test-coverage-branches <string>        the branch coverage minimum threshold
 # @flag --test-coverage-exclude                    string exclude files from coverage report that match this glob pattern
+# @option --test-coverage-functions <string>       the function coverage minimum threshold
 # @flag --test-coverage-include                    string include files in coverage report that match this glob pattern
+# @option --test-coverage-lines <string>           the line coverage minimum threshold
 # @flag --test-force-exit                          force test runner to exit upon completion
+# @option --test-global-setup <string>             specifies the path to the global setup file
+# @option --experimental-test-isolation <string>   configures the type of test isolation used in the test runner
+# @option --test-isolation <string>                configures the type of test isolation used in the test runner
 # @option --test-name-pattern <string>             run tests whose name matches this regular expression
 # @flag --test-only                                run tests with 'only' option set
+# @option --test-random-seed <string>              seed used to randomize test execution order
+# @flag --test-randomize                           run tests in a random order
 # @option --test-reporter <string>                 report test output using the given reporter
 # @option --test-reporter-destination <string>     report given reporter to the given destination
+# @option --test-rerun-failures <string>           specifies the path to the rerun state file
 # @option --test-shard <string>                    run test at specific shard
 # @option --test-skip-pattern <string>             run tests whose name do not match this regular expression
 # @option --test-timeout <string>                  specify test runner timeout
@@ -140,12 +158,15 @@
 # @flag --tls-min-v1.1                             set default TLS minimum to TLSv1.1 (default: TLSv1.2)
 # @flag --tls-min-v1.2                             set default TLS minimum to TLSv1.2 (default: TLSv1.2)
 # @flag --tls-min-v1.3                             set default TLS minimum to TLSv1.3 (default: TLSv1.2)
-# @flag --trace-atomics-wait                       (deprecated) trace Atomics.wait() operations
 # @flag --trace-deprecation                        show stack traces on deprecations
+# @flag --trace-env                                Print accesses to the environment variables
+# @flag --trace-env-js-stack                       Print accesses to the environment variables and the JavaScript stack trace
+# @flag --trace-env-native-stack                   Print accesses to the environment variables and the native stack trace
 # @option --trace-event-categories <string>        comma separated list of trace event categories to record
 # @option --trace-event-file-pattern <string>      Template string specifying the filepath for the trace-events data, it supports ${rotation} and ${pid}.
 # @flag --trace-exit                               show stack trace when an environment exits
 # @flag --trace-promises                           show stack traces on promise initialization and resolution
+# @option --trace-require-module <string>          Print access to require(esm).
 # @flag --trace-sigint                             enable printing JavaScript stacktrace on SIGINT
 # @flag --trace-sync-io                            show stack trace when use of sync IO is detected after the first tick
 # @flag --trace-tls                                prints TLS packet trace information to stderr
@@ -154,12 +175,15 @@
 # @flag --track-heap-objects                       track heap object allocations for heap snapshots
 # @option --unhandled-rejections[`_choice_unhandled_rejections`] <string>  define unhandled rejections behavior.
 # @flag --use-bundled-ca                           use bundled CA store (default)
+# @flag --use-env-proxy                            parse proxy settings from HTTP_PROXY/HTTPS_PROXY/NO_PROXYenvironment variables and apply the setting in global HTTP/HTTPS clients
 # @option --use-largepages[`_choice_use_largepages`] <string>  Map the Node.js static code to large pages.
 # @flag --use-openssl-ca                           use OpenSSL's default CA store
+# @flag --use-system-ca                            use system's CA store
 # @flag --v8-options                               print V8 command line options
 # @option --v8-pool-size <string>                  set V8's thread pool size
 # @flag -v --version                               print Node.js version
 # @flag --watch                                    run in watch mode
+# @option --watch-kill-signal <string>             kill signal to send to the process on watch mode restarts(default: SIGTERM)
 # @option --watch-path <string>                    path to watch
 # @flag --watch-preserve-output                    preserve outputs on watch mode restart
 # @flag --zero-fill-buffers                        automatically zero-fill all newly allocated Buffer and SlowBuffer instances
@@ -168,8 +192,10 @@
 # {{ tsx watch
 # @cmd Run the script and watch for changes file name is provided, interactive mode if a tty)
 # @flag --clear-screen           Clearing the screen on rerun (default: true)
+# @option --exclude <string>     Paths & globs to exclude from being watched
 # @flag -h --help                Show help
-# @option --ignore <string>      Paths & globs to exclude from being watched
+# @option --ignore <string>      Paths & globs to exclude from being watched (Deprecated: use --exclude)
+# @option --include <string>     Additional paths & globs to watch
 # @flag --no-cache               Disable caching
 # @option --tsconfig <string>    Custom tsconfig.json path
 # @arg script-path! <script path>

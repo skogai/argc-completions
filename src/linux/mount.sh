@@ -2,6 +2,7 @@ _patch_table() {
     _patch_table_add_metadata combine-shorts | \
     _patch_table_edit_options \
         '--label;[`_choice_label`]' \
+        '--map-users(<<inner>:<outer>:<count>|/proc/<pid>/ns/user>)' \
         '--options;*,[`_choice_options`]' \
         '--options-mode;[ignore|append|prepend|replace]' \
         '--options-source;[fstab|mtab|disable]' \

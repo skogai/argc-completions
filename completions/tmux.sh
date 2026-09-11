@@ -5,7 +5,6 @@
 # @flag -2
 # @flag -C
 # @flag -D
-# @flag -h
 # @flag -l
 # @flag -N
 # @flag -u
@@ -14,7 +13,8 @@
 # @option -c <shell-command>
 # @option -f <file>
 # @option -L <socket-name>
-# @arg tmux
+# @option -S <socket-path>
+# @option -T <features>
 
 # {{ tmux attach-session
 # @cmd
@@ -68,7 +68,6 @@ break-pane() {
 # @flag -C
 # @flag -e
 # @flag -J
-# @flag -M
 # @flag -N
 # @flag -p
 # @flag -P
@@ -147,7 +146,7 @@ clear-history() {
 # {{ tmux clear-prompt-history
 # @cmd
 # @alias clearphist
-# @option -T <prompt-type>
+# @option -T <type>
 clear-prompt-history() {
     :;
 }
@@ -166,7 +165,7 @@ clock-mode() {
 # @alias confirm
 # @flag -b
 # @flag -y
-# @option -c <confirm-key>
+# @option -c <confirm_key>
 # @option -p <prompt>
 # @option -t <target-client>
 # @arg command
@@ -177,13 +176,11 @@ confirm-before() {
 
 # {{ tmux copy-mode
 # @cmd
-# @flag -d
 # @flag -e
 # @flag -H
 # @flag -M
-# @flag -q
-# @flag -S
 # @flag -u
+# @flag -q
 # @option -s <src-pane>
 # @option -t <target-pane>
 copy-mode() {
@@ -228,7 +225,6 @@ detach-client() {
 # {{ tmux display-menu
 # @cmd
 # @alias menu
-# @flag -M
 # @flag -O
 # @option -b <border-lines>
 # @option -c <target-client>
@@ -252,7 +248,6 @@ display-menu() {
 # @cmd
 # @alias display
 # @flag -a
-# @flag -C
 # @flag -I
 # @flag -l
 # @flag -N
@@ -274,8 +269,6 @@ display-message() {
 # @flag -B
 # @flag -C
 # @flag -E
-# @flag -k
-# @flag -N
 # @option -b <border-lines>
 # @option -c <target-client>
 # @option -d <start-directory>
@@ -704,7 +697,6 @@ previous-window() {
 # @option -B <name:what:format>
 # @option -C <XxY>
 # @option -f <flags>
-# @option -r <pane:report>
 # @option -t <target-client>
 # @arg adjustment
 refresh-client() {
@@ -812,7 +804,6 @@ rotate-window() {
 # @alias run
 # @flag -b
 # @flag -C
-# @flag -E
 # @option -c <start-directory>
 # @option -d <delay>
 # @option -t <target-pane>
@@ -945,7 +936,7 @@ set-buffer() {
 # @flag -r
 # @flag -u
 # @option -t <target-session>
-# @arg variable
+# @arg name
 # @arg value
 set-environment() {
     :;
@@ -1020,7 +1011,7 @@ show-buffer() {
 # @flag -g
 # @flag -s
 # @option -t <target-session>
-# @arg variable
+# @arg name
 show-environment() {
     :;
 }
@@ -1032,7 +1023,6 @@ show-environment() {
 # @flag -p
 # @flag -w
 # @option -t <target-pane>
-# @arg hook
 show-hooks() {
     :;
 }
@@ -1069,7 +1059,7 @@ show-options() {
 # {{ tmux show-prompt-history
 # @cmd
 # @alias showphist
-# @option -T <prompt-type>
+# @option -T <type>
 show-prompt-history() {
     :;
 }

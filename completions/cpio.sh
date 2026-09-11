@@ -20,7 +20,7 @@
 # @option --rsh-command <COMMAND>            Use remote COMMAND instead of rsh.
 # @flag -v --verbose                         Verbosely list the files processed.
 # @flag -V --dot                             Print a "." for each file processed.
-# @option -W --warning <FLAG>                Controlsи warning display.
+# @option -W --warning <FLAG>                Controls what warnings are displayed.
 # @option -F --file <[[USER@]HOST:]ARCHIVE-FILE>  Use this ARCHIVE-FILE instead of standard input (in copy-in mode) or standard output (in copy-out mode).
 # @option -M --message <STRING>              Print STRING when the end of a volume of the backup media is reached.
 # @flag -b --swap                            Swap both halfwords of words and bytes of halfwords in the data.
@@ -36,6 +36,7 @@
 # @flag --device-independent                 Create reproducible archives.
 # @flag --reproducible                       Create reproducible archives.
 # @flag --ignore-devno                       Store 0 in the device number field of each archive member, instead of the actual device number.
+# @flag --ignore-dirnlink                    Store 2 in the nlink field of each directory archive member, instead of the actual number of links.
 # @option -O <[[USER@]HOST:]ARCHIVE-NAME>    Use ARCHIVE-NAME instead of standard output.
 # @flag --renumber-inodes                    Renumber inodes when storing them in the archive.
 # @flag -l --link                            Link files instead of copying them, when possible.

@@ -12,6 +12,7 @@
 # @flag -p --pretty                               Output is pretty.
 # @flag -s --show-secrets                         When using this option nmcli will display passwords and secrets that might be present in an output of an operation.
 # @flag -t --terse                                Output is terse.
+# @flag --offline                                 Work without a daemon.
 # @flag -v --version                              Show nmcli version.
 # @option -w --wait <seconds>                     This option sets a timeout period for which nmcli will wait for NetworkManager to finish operations.
 

@@ -4,17 +4,13 @@
 # @meta inherit-flag-options
 # @flag -h --help                      Show this help
 # @flag --version                      Show package version
-# @flag --no-pager                     Do not pipe output into a pager
-# @flag --no-legend                    Do not show the headers and footers
-# @flag --no-ask-password              Do not ask for system passwords
 # @option -H --host <[USER@]HOST>      Operate on remote host
 # @option -M --machine <CONTAINER>     Operate on local container
 # @flag --system                       Connect to system machine manager
 # @flag --user                         Connect to user machine manager
-# @option -p --property <NAME>         Show only properties by this name
 # @flag --value                        When showing properties, only print the value
+# @option -p --property <NAME>         Show only properties by this name
 # @option -P <NAME>                    Equivalent to --value --property=NAME
-# @flag -q --quiet                     Suppress output
 # @flag -a --all                       Show all properties, including empty ones
 # @flag -l --full                      Do not ellipsize output
 # @option --kill-whom <WHOM>           Whom to send signal to
@@ -30,17 +26,14 @@
 # @flag --now                          Start or power off container after enabling or disabling it
 # @option --runner                     Select between nspawn and vmspawn as the runner
 # @flag -V                             Short for --runner=vmspawn
-
-# {{ machinectl list
-# @cmd List running VMs and containers
-list() {
-    :;
-}
-# }} machinectl list
+# @flag --no-pager                     Do not start a pager
+# @flag --no-legend                    Do not show headers and footers
+# @flag --no-ask-password              Do not prompt for password
+# @flag -q --quiet                     Suppress output
 
 # {{ machinectl status
 # @cmd Show VM/container details
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 status() {
     :;
 }
@@ -48,7 +41,7 @@ status() {
 
 # {{ machinectl show
 # @cmd Show properties of one or more VMs/containers
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 show() {
     :;
 }
@@ -56,7 +49,7 @@ show() {
 
 # {{ machinectl start
 # @cmd Start container as a service
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 start() {
     :;
 }
@@ -71,7 +64,7 @@ login() {
 # }} machinectl login
 
 # {{ machinectl shell
-# @cmd Invoke a shell (or other command) in a container or on the local host
+# @cmd
 # @arg name[`_choice_machine`]
 # @arg command~[`_choice_shell_command`]
 shell() {
@@ -81,7 +74,7 @@ shell() {
 
 # {{ machinectl enable
 # @cmd Enable automatic container start at boot
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 enable() {
     :;
 }
@@ -89,46 +82,62 @@ enable() {
 
 # {{ machinectl disable
 # @cmd Disable automatic container start at boot
-# @arg name*[`_choice_machine`]
+# @arg name[`_choice_machine`] <NAME…>
 disable() {
     :;
 }
 # }} machinectl disable
 
 # {{ machinectl poweroff
-# @cmd Power off one or more containers
-# @arg name*[`_choice_machine`]
+# @cmd Power off one or more machines
+# @arg name[`_choice_machine`] <NAME…>
 poweroff() {
     :;
 }
 # }} machinectl poweroff
 
 # {{ machinectl reboot
-# @cmd Reboot one or more containers
-# @arg name*
+# @cmd Reboot one or more machines
+# @arg name <NAME…>
 reboot() {
     :;
 }
 # }} machinectl reboot
 
+# {{ machinectl pause
+# @cmd Pause one or more machines
+# @arg name <NAME…>
+pause() {
+    :;
+}
+# }} machinectl pause
+
+# {{ machinectl resume
+# @cmd Resume one or more paused machines
+# @arg name <NAME…>
+resume() {
+    :;
+}
+# }} machinectl resume
+
 # {{ machinectl terminate
-# @cmd Terminate one or more VMs/containers
-# @arg name*[`_choice_machine`]
+# @cmd Terminate one or more machines
+# @arg name[`_choice_machine`] <NAME…>
 terminate() {
     :;
 }
 # }} machinectl terminate
 
 # {{ machinectl kill
-# @cmd Send signal to processes of a VM/container
-# @arg name*[`_choice_machine`]
+# @cmd Send signal to processes of a machine
+# @arg name[`_choice_machine`] <NAME…>
 kill() {
     :;
 }
 # }} machinectl kill
 
 # {{ machinectl copy-to
-# @cmd NAME PATH [PATH]  Copy files from the host to a container
+# @cmd NAME PATH  Copy files from the host to a container
 # @arg name[`_choice_machine`]
 # @arg path
 copy-to() {
@@ -137,7 +146,7 @@ copy-to() {
 # }} machinectl copy-to
 
 # {{ machinectl copy-from
-# @cmd NAME PATH [PATH]  Copy files from a container to the host
+# @cmd NAME PATH  Copy files from a container to the host
 # @arg name[`_choice_machine`]
 # @arg path
 copy-from() {
@@ -163,7 +172,7 @@ list-images() {
 
 # {{ machinectl image-status
 # @cmd Show image details
-# @arg name*[`_choice_image`]
+# @arg name[`_choice_image`] <NAME…>
 image-status() {
     :;
 }
@@ -171,7 +180,7 @@ image-status() {
 
 # {{ machinectl show-image
 # @cmd Show properties of image
-# @arg name*[`_choice_image`]
+# @arg name[`_choice_image`] <NAME…>
 show-image() {
     :;
 }
@@ -179,7 +188,7 @@ show-image() {
 
 # {{ machinectl edit
 # @cmd Edit settings of one or more VMs/containers
-# @arg name-file* <NAME|FILE>
+# @arg name-file <NAME|FILE…>
 edit() {
     :;
 }
@@ -187,7 +196,7 @@ edit() {
 
 # {{ machinectl cat
 # @cmd Show settings of one or more VMs/containers
-# @arg name-file* <NAME|FILE>
+# @arg name-file <NAME|FILE…>
 cat_() {
     :;
 }
@@ -220,7 +229,7 @@ read-only() {
 
 # {{ machinectl remove
 # @cmd Remove an image
-# @arg name*[`_choice_image`]
+# @arg name[`_choice_image`] <NAME…>
 remove() {
     :;
 }
@@ -241,6 +250,22 @@ clean() {
     :;
 }
 # }} machinectl clean
+
+# {{ machinectl bind-volume
+# @cmd Attach a volume to a running machine
+# @arg machine
+bind-volume() {
+    :;
+}
+# }} machinectl bind-volume
+
+# {{ machinectl unbind-volume
+# @cmd Detach a volume from a running machine
+# @arg machine
+unbind-volume() {
+    :;
+}
+# }} machinectl unbind-volume
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

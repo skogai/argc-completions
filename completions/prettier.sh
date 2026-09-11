@@ -9,10 +9,12 @@
 # @flag --no-bracket-spacing                     Do not print spaces between brackets.
 # @option --embedded-language-formatting <auto|off>  Control how Prettier formats quoted code embedded in the file.
 # @option --end-of-line[lf|crlf|cr|auto]         Which end of line characters to apply.
+# @option --experimental-operator-position <start|end>  Where to print operators when binary expressions wrap lines.
 # @flag --no-experimental-ternaries              Default behavior of ternaries; keep question marks on the same line as the consequent.
 # @option --html-whitespace-sensitivity[css|strict|ignore]  How to handle whitespaces in HTML.
 # @flag --jsx-single-quote                       Use single quotes in JSX.
-# @option --parser[flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc]  Which parser to use.
+# @option --object-wrap <preserve|collapse>      How to wrap object literals.
+# @option --parser[flow|babel|babel-flow|babel-ts|typescript|acorn|espree|meriyah|css|less|scss|json|json5|jsonc|json-stringify|graphql|markdown|mdx|vue|yaml|glimmer|html|angular|lwc|mjml]  Which parser to use.
 # @option --print-width <int>                    The line length where Prettier will try wrap.
 # @option --prose-wrap[always|never|preserve]    How to wrap prose.
 # @option --quote-props[as-needed|consistent|preserve]  Change when properties in objects are quoted.
@@ -37,6 +39,7 @@
 # @flag --cache                                  Only format changed files.
 # @option --cache-location <path>                Path to the cache file.
 # @option --cache-strategy <metadata|content>    Strategy for the cache to use for detecting changed files.
+# @flag --check-ignore-pragma                    Check whether the file's first docblock comment contains '@noprettier' or '@noformat' to determine if it should be formatted.
 # @flag --no-color                               Do not colorize error messages.
 # @flag --no-error-on-unmatched-pattern          Prevent errors when pattern is unmatched.
 # @option --file-info[string|null] <path>        Extract the following info (as JSON) for a given file path.

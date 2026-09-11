@@ -5,6 +5,8 @@
 # @flag -f                            Forced mode: doesn't check if the keys are present on the remote server.
 # @flag -n                            do a dry-run.
 # @flag -s                            SFTP mode: usually the public keys are installed by executing commands on the remote side.
+# @option -t <target_path>            the path on the target system where the keys should be added (defaults to ".ssh/authorized_keys")
+# @flag -x                            This option is for debugging the ssh-copy-id script itself.
 # @flag -h                            Print Usage summary
 # @flag -?                            Print Usage summary
 # @option -o[`_module_ssh_option`]    Can be used to pass options to ssh in the format used in ssh_config

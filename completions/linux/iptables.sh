@@ -14,10 +14,10 @@
 # @option -i --in-interface <name>                Name of an interface via which a packet was received (only for packets entering the INPUT, FORWARD and PREROUTING chains).
 # @option -o --out-interface <name>               Name of an interface via which a packet is going to be sent (for packets entering the FORWARD, OUTPUT and POSTROUTING chains).
 # @flag -f --fragment                             This means that the rule only refers to second and further IPv4 fragments of fragmented packets.
-# @option -c --set-counters <packets> <bytes>     This enables the administrator to initialize the packet and byte counters of a rule (during INSERT, APPEND, REPLACE operations).
+# @flag -c --set-counters                         packets bytes This enables the administrator to initialize the packet and byte counters of a rule (during INSERT, APPEND, REPLACE operations).
 # @flag -v --verbose                              Verbose output.
+# @flag -V --version                              Show program version and the kernel API used.
 # @option -w --wait <seconds>                     Wait for the xtables lock.
-# @option -W --wait-interval <microseconds>       Interval to wait per each iteration.
 # @flag -n --numeric                              Numeric output.
 # @flag -x --exact                                Expand numbers.
 # @flag --line-numbers                            When listing rules, add line numbers to the beginning of each rule, corresponding to that rule's position in the chain.

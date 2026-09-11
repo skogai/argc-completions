@@ -4,8 +4,6 @@
 # @meta inherit-flag-options
 # @flag -h --help                                  Show this help
 # @flag --version                                  Show package version
-# @flag --no-pager                                 Do not pipe output into a pager
-# @flag --no-ask-password                          Do not prompt for password
 # @flag -4                                         Resolve IPv4 addresses
 # @flag -6                                         Resolve IPv6 addresses
 # @option -i --interface[`_choice_interface`]      Look on interface
@@ -25,9 +23,11 @@
 # @option --network <BOOL>                         Allow response from network (default: yes)
 # @option --search <BOOL>                          Use search domains for single-label names (default: yes)
 # @option --raw <payload|packet>                   Dump the answer as binary data
+# @flag --no-pager                                 Do not start a pager
+# @flag --no-ask-password                          Do not prompt for password
 # @option --legend <BOOL>                          Print headers and additional info (default: yes)
-# @option --json <MODE>                            Output as JSON
-# @flag -j                                         Same as --json=pretty on tty, --json=short otherwise
+# @option --json <FORMAT>                          Generate JSON output (pretty, short, or off)
+# @flag -j                                         Equivalent to --json=pretty (on TTY) or --json=short (otherwise)
 
 # {{ resolvectl query
 # @cmd Resolve domain names, IPv4 and IPv6 addresses
@@ -37,7 +37,7 @@ query() {
 # }} resolvectl query
 
 # {{ resolvectl service
-# @cmd DOMAIN Resolve service (SRV)
+# @cmd Resolve service (SRV)
 service() {
     :;
 }
@@ -56,13 +56,6 @@ tlsa() {
     :;
 }
 # }} resolvectl tlsa
-
-# {{ resolvectl status
-# @cmd Show link and server status
-status() {
-    :;
-}
-# }} resolvectl status
 
 # {{ resolvectl statistics
 # @cmd Show resolver statistics
@@ -121,14 +114,14 @@ dns() {
 # }} resolvectl dns
 
 # {{ resolvectl domain
-# @cmd Get/set per-interface search domain
+# @cmd
 domain() {
     :;
 }
 # }} resolvectl domain
 
 # {{ resolvectl default-route
-# @cmd Get/set per-interface default route flag
+# @cmd
 default-route() {
     :;
 }
@@ -149,7 +142,7 @@ mdns() {
 # }} resolvectl mdns
 
 # {{ resolvectl dnsovertls
-# @cmd Get/set per-interface DNS-over-TLS mode
+# @cmd
 dnsovertls() {
     :;
 }

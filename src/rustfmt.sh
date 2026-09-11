@@ -1,7 +1,8 @@
-_patch_table() { 
+_patch_table() {
     _patch_table_edit_options \
         '--config;*,[`_choice_config`]' \
-
+    | \
+    _patch_table_dedup_options '--style-edition'
 }
 
 _choice_config() {

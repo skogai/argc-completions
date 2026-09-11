@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @flag --abort                                   Stop execution of suite on first failed test
 # @flag -c --count                                Count test cases without running any tests
 # @option --code-quote-style <style>              A two character string of code quote delimiters or 'custom' which requires setting $BATS_BEGIN_CODE_QUOTE and $BATS_END_CODE_QUOTE.
 # @flag --line-reference-format                   Controls how file/line references e.g. in stack traces are printed: - comma_line (default): a.bats, line 1
 # @option -f --filter <regex>                     Only run tests that match the regular expression
+# @option --negative-filter <regex>               Only run tests that do not match the regular expression
 # @option --filter-status <status>                Only run tests with the given status in the last completed (no CTRL+C/SIGINT) run.
 # @option --filter-tags <comma-separated-tag-list>  Only run tests that match all the tags in the list (&&).
 # @option -F --formatter <type>                   Switch between formatters: pretty (default), tap (default w/o term), tap13, junit, /<absolute path to formatter>

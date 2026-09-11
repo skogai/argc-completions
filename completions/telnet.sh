@@ -2,19 +2,23 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta combine-shorts
-# @flag -4                                Force IPv4 address resolution.
-# @flag -6                                Force IPv6 address resolution.
-# @flag -8                                Request 8-bit operation.
-# @flag -E                                Disables the escape character functionality; that is, sets the escape character to ``no character''.
-# @flag -L                                Specifies an 8-bit data path on output.
-# @flag -a                                Attempt automatic login.
-# @option -b <address>                    Use bind(2) on the local socket to bind it to a specific local address.
-# @flag -d                                Sets the initial value of the debug toggle to TRUE.
-# @flag -r                                Emulate rlogin(1).
-# @option -S <tos>                        Sets the IP type-of-service (TOS) option for the telnet connection to the value tos.
-# @option -e <escapechar>                 Sets the escape character to escapechar.
-# @option -l[`_module_os_user`] <user>    Specify user as the user to log in as on the remote system.
-# @option -n <tracefile>                  Opens tracefile for recording trace information.
+# @flag -4 --ipv4                         use only IPv4
+# @flag -6 --ipv6                         use only IPv6
+# @flag -8 --binary                       use an 8-bit data transmission
+# @flag -a --login                        attempt automatic login
+# @option -b --bind <ADDRESS>             bind to specific local ADDRESS
+# @flag -c --no-rc                        do not read the user's .telnetrc file
+# @flag -d --debug                        turn on debugging
+# @option -e --escape <CHAR>              use CHAR as an escape character
+# @flag -E --no-escape                    use no escape character
+# @flag -K --no-login                     do not automatically login to the remote system
+# @option -l --user[`_module_os_user`]    attempt automatic login as USER
+# @flag -L --binary-output                use an 8-bit data transmission for output only
+# @option -n --trace <FILE>               record trace information into FILE
+# @flag -r --rlogin                       use a user-interface similar to rlogin
+# @flag -? --help                         give this help list
+# @flag --usage                           give a short usage message
+# @flag -V --version                      print program version
 # @arg host
 
 _module_os_user() {

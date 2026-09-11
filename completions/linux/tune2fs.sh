@@ -18,7 +18,7 @@
 # @option -o*,[`_choice_mount_option`] <[^]mount-option[,...]>  Set or clear the indicated default mount options in the file system.
 # @option -O*,[`_choice_feature`] <[^]feature[,...]>  Set or clear the indicated file system features (options) in the file system.
 # @option -r <reserved-blocks-count>         Set the number of reserved file system blocks.
-# @option -Q*[`_choice_quota_option`] <quota-options>  Sets 'quota' feature on the superblock and works on the quota files for the given quota type.
+# @option -Q*[`_choice_quota_option`] <quota-options>  Sets the quota feature on the superblock and works on the quota files for the given quota type.
 # @option -T <time-last-checked>             Set the time the file system was last checked using e2fsck.
 # @option -u <user>                          Set the user who can use the reserved file system blocks.
 # @option -U*[`_choice_uuid`] <UUID>         Set the universally unique identifier (UUID) of the file system to UUID.

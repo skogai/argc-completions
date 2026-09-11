@@ -2,9 +2,9 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -h --help                                  Show this help
-# @flag --version                                  Print version string
+# @flag --version                                  Show package version
 # @flag -q --quiet                                 Do not show status information
-# @flag --no-pager                                 Do not pipe output into a pager
+# @flag --no-pager                                 Do not start a pager
 # @option --settings <BOOLEAN>                     Load additional settings from .nspawn file
 # @flag --cleanup                                  Clean up left-over mounts and underlying mount points used by the container
 # @flag --no-ask-password                          Do not prompt for password
@@ -17,14 +17,14 @@
 # @flag --read-only                                Mount the root directory read-only
 # @option --volatile <MODE>                        Run the system in volatile mode
 # @option --root-hash <HASH>                       Specify verity root hash for root disk image
-# @option --root-hash-sig <SIG>                    Specify pkcs7 signature of root hash for verity as a DER encoded PKCS7, either as a path to a file or as an ASCII base64 encoded string prefixed by 'base64:'
+# @option --root-hash-sig <SIG>                    Specify pkcs7 signature of root hash for verity
 # @option --verity-data <PATH>                     Specify hash device for verity
 # @option --pivot-root <PATH[:PATH]>               Pivot root to given directory in the container
 # @flag -a --as-pid2                               Maintain a stub init as PID1, invoke binary as PID2
 # @flag -b --boot                                  Boot up full system (i.e.
 # @option --chdir <PATH>                           Set working directory in the container
 # @option -E --setenv <NAME[=VALUE]>               Pass an environment variable to PID 1
-# @option -u --user                                Run the command under specified user or UID
+# @option -u --uid <USER>                          Run the command under specified user or UID
 # @option --kill-signal <SIGNAL>                   Select signal to use for shutting down PID 1
 # @option --notify-ready <BOOLEAN>                 Receive notifications from the child init process
 # @option --suppress-sync <BOOLEAN>                Suppress any form of disk data synchronization
@@ -35,10 +35,10 @@
 # @option --property <NAME=VALUE>                  Set scope unit property
 # @option --register <BOOLEAN>                     Register container as machine
 # @flag --keep-unit                                Do not register a scope for the machine, reuse the service unit nspawn is running in
-# @option --private-users <UIDBASE[:NUIDS]>        Similar, but with user configured UID/GID range
+# @option --private-users <MODE>                   Run within user namespace, configure UID/GID range
 # @option --private-users-ownership <MODE>         Adjust ('chown') or map ('map') OS tree ownership to private UID/GID range
-# @option --private-users-delegate <N>             Delegate N additional 64K UID/GID ranges for use by nested containers (requires managed user namespaces)
-# @flag -U                                         Equivalent to --private-users=pick and --private-users-ownership=auto
+# @option --private-users-delegate <N>             Delegate N additional 64K UID/GID ranges for use by nested containers
+# @flag -U                                         Equivalent to
 # @flag --private-network                          Disable network in container
 # @option --network-interface <HOSTIF[:CONTAINERIF]>  Assign an existing network interface to the container
 # @option --network-macvlan <HOSTIF[:CONTAINERIF]>  Create a macvlan network interface based on an existing network interface to the container
@@ -51,9 +51,10 @@
 # @option -p --port <[PROTOCOL:]HOSTPORT[:CONTAINERPORT]>  Expose a container IP port on the host
 # @option --capability <CAP>                       In addition to the default, retain specified capability
 # @option --drop-capability <CAP>                  Drop the specified capability from the default set
-# @option --ambient-capability <CAP>               Sets the specified capability for the started process.
-# @flag --no-new-privileges                        Set PR_SET_NO_NEW_PRIVS flag for container payload
+# @option --ambient-capability <CAP>               Sets the specified capability for the started process
+# @option --no-new-privileges <BOOL>               Set PR_SET_NO_NEW_PRIVS flag for container payload
 # @option --system-call-filter <LIST|~LIST>        Permit/prohibit specific system calls
+# @option --restrict-address-families <LIST>       Restrict socket address families to the given allowlist
 # @option -Z --selinux-context <SECLABEL>          Set the SELinux security context to be used by processes in the container
 # @option -L --selinux-apifs-context <SECLABEL>    Set the SELinux security context to be used by API/tmpfs file systems in the container
 # @option --rlimit <NAME=LIMIT>                    Set a resource limit for the payload
@@ -64,8 +65,13 @@
 # @option --timezone <MODE>                        Select mode of /etc/localtime initialization
 # @option --link-journal <MODE>                    Link up guest journal, one of no, auto, guest, host, try-guest, try-host
 # @flag -j                                         Equivalent to --link-journal=try-guest
+# @option --forward-journal <FILE|DIR>             Forward the container's journal to the host
+# @option --forward-journal-max-use <BYTES>        Maximum disk space for forwarded journal
+# @option --forward-journal-keep-free <BYTES>      Minimum disk space to keep free
+# @option --forward-journal-max-file-size <BYTES>  Maximum size of individual journal files
+# @option --forward-journal-max-files <N>          Maximum number of journal files to keep
 # @option --bind <PATH[:PATH[:OPTIONS]]>           Bind mount a file or directory from the host into the container
-# @option --bind-ro <PATH[:PATH[:OPTIONS] # Similar but creates a read-only bind mount>
+# @option --bind-ro <PATH[:PATH[:OPTIONS]]>        Similar, but creates a read-only bind mount
 # @option --inaccessible <PATH>                    Over-mount file node with inaccessible node to mask it
 # @option --tmpfs <PATH:[OPTIONS]>                 Mount an empty tmpfs to the specified directory
 # @option --overlay <PATH[:PATH...]:PATH>          Create an overlay mount from the host to the container
@@ -73,10 +79,12 @@
 # @option --bind-user <NAME>                       Bind user from host to container
 # @option --bind-user-shell <BOOL|PATH>            Configure the shell to use for --bind-user= users
 # @option --bind-user-group <GROUP>                Add an auxiliary group to --bind-user= users
-# @option --console <MODE>                         Select how stdin/stdout/stderr and /dev/console are set up for the container.
+# @option --console <MODE>                         Select how stdin/stdout/stderr and /dev/console are set up for the container
 # @flag -P --pipe                                  Equivalent to --console=pipe
 # @option --background <COLOR>                     Set ANSI color for background
-# @option --set-credential <ID:VALUE>              Pass a credential with literal value to container.
-# @option --load-credential <ID:PATH>              Load credential to pass to container from file or AF_UNIX stream socket.
+# @option --set-credential <ID:VALUE>              Pass a credential with literal value to container
+# @option --load-credential <ID:PATH>              Load credential to pass to container from file or AF_UNIX stream socket
+# @option --user <NAME>                            Run in the user service manager scope
+# @flag --system                                   Run in the system service manager scope
 
 command eval "$(argc --argc-eval "$0" "$@")"

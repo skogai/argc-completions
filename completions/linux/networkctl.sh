@@ -2,28 +2,20 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @meta inherit-flag-options
-# @flag -h --help                     Show this help
-# @flag --version                     Show package version
-# @flag --no-pager                    Do not pipe output into a pager
-# @flag --no-legend                   Do not show the headers and footers
-# @flag --no-ask-password             Do not prompt for password
-# @flag -a --all                      Show status for all links
-# @flag -s --stats                    Show detailed link statistics
-# @flag -l --full                     Do not ellipsize output
-# @option -n --lines <INTEGER>        Number of journal entries to show
-# @option --json[pretty|short|off]    Generate JSON output
-# @flag --no-reload                   Do not reload systemd-networkd or systemd-udevd after editing network config
-# @option --drop-in <NAME>            Edit specified drop-in instead of main config file
-# @flag --runtime                     Edit runtime config files
-# @flag --stdin                       Read new contents of edited file from stdin
-
-# {{ networkctl list
-# @cmd List links
-# @arg pattern*
-list() {
-    :;
-}
-# }} networkctl list
+# @flag -h --help                 Show this help
+# @flag --version                 Show package version
+# @flag --no-pager                Do not start a pager
+# @flag --no-legend               Do not show headers and footers
+# @flag --no-ask-password         Do not prompt for password
+# @flag -a --all                  Show status for all links
+# @flag -s --stats                Show detailed link statistics
+# @flag -l --full                 Do not ellipsize output
+# @option -n --lines <INTEGER>    Number of journal entries to show
+# @option --json <FORMAT>         Generate JSON output (pretty, short, or off)
+# @flag --no-reload               Do not reload systemd-networkd or systemd-udevd after editing network config
+# @option --drop-in <NAME>        Edit specified drop-in instead of main config file
+# @flag --runtime                 Edit runtime config files
+# @flag --stdin                   Read new contents of edited file from stdin
 
 # {{ networkctl status
 # @cmd Show link status
@@ -32,6 +24,14 @@ status() {
     :;
 }
 # }} networkctl status
+
+# {{ networkctl dhcp-lease
+# @cmd Show DHCP lease
+# @arg interface
+dhcp-lease() {
+    :;
+}
+# }} networkctl dhcp-lease
 
 # {{ networkctl lldp
 # @cmd Show LLDP neighbors
@@ -89,7 +89,8 @@ forcerenew() {
 # }} networkctl forcerenew
 
 # {{ networkctl reconfigure
-# @cmd DEVICES... Reconfigure interfaces
+# @cmd Reconfigure interfaces
+# @arg devices*[`_choice_device`]
 reconfigure() {
     :;
 }
@@ -112,6 +113,7 @@ edit() {
 
 # {{ networkctl cat
 # @cmd Show network configuration files
+# @arg files-devices* <FILES|DEVICES>
 cat_() {
     :;
 }
@@ -132,13 +134,6 @@ unmask() {
     :;
 }
 # }} networkctl unmask
-
-# {{ networkctl persistent-storage
-# @cmd Notify systemd-networkd if persistent storage is ready
-persistent-storage() {
-    :;
-}
-# }} networkctl persistent-storage
 
 _choice_device() {
     networkctl --no-legend --no-pager list 2>/dev/null | \

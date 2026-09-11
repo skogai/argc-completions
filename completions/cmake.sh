@@ -11,6 +11,7 @@
 # @option -A <platform-name>                     Specify platform name if supported by generator.
 # @option --toolchain <file>                     Specify toolchain file [CMAKE_TOOLCHAIN_FILE].
 # @option --install-prefix <directory>           Specify install directory [CMAKE_INSTALL_PREFIX].
+# @option --project-file <project-file-name>     Specify an alternate project file name.
 # @flag -Wdev                                    Enable developer warnings.
 # @flag -Wno-dev                                 Suppress developer warnings.
 # @flag -Wdeprecated                             Enable deprecation warnings.
@@ -19,9 +20,11 @@
 # @option -Wno-error[dev|deprecated] <value>     Make deprecated macro and function warnings not errors.
 # @option --preset[`_choice_preset`] <preset>    Specify a configure preset.
 # @option --list-presets[`_choice_list_preset`] <type>  List available presets.
+# @option --workflow <options>                   Run a workflow preset.
 # @option -E[`_choice_cmd`] <cmd> <args+>        CMake command mode.
 # @flag -LA                                      List non-advanced cached variables.
 # @flag -LH                                      List non-advanced cached variables.
+# @option -LR <[A][H]> <regex>                   Show cached variables that match the regex.
 # @flag --fresh                                  Configure a fresh build tree, removing any existing cache file.
 # @option --build <dir>                          Build a CMake-generated project binary tree.
 # @option --install <dir>                        Install a CMake-generated project binary tree.
@@ -31,6 +34,7 @@
 # @flag --find-package                           Legacy pkg-config like mode.
 # @option --graphviz <file>                      Generate graphviz of dependencies, see CMakeGraphVizOptions.cmake for more.
 # @option --system-information <file>            Dump information about this system.
+# @flag --print-config-dir                       Print CMake config directory for user-wide FileAPI queries.
 # @option --log-level[ERROR|WARNING|NOTICE|STATUS|VERBOSE|DEBUG|TRACE]  Set the verbosity of messages from CMake files.
 # @flag --log-context                            Prepend log messages with context, if given
 # @flag --debug-trycompile                       Do not delete the try_compile build tree.
@@ -47,10 +51,11 @@
 # @flag --no-warn-unused-cli                     Don't warn about command line options.
 # @flag --check-system-vars                      Find problems with variable usage in system files.
 # @option --compile-no-warning-as-error          Ignore COMPILE_WARNING_AS_ERROR property and CMAKE_COMPILE_WARNING_AS_ERROR variable.
+# @flag --link-no-warning-as-error               Ignore LINK_WARNING_AS_ERROR property and CMAKE_LINK_WARNING_AS_ERROR variable.
 # @option --profiling-format <fmt>               Output data for profiling CMake scripts.
 # @option --profiling-output <file>              Select an output path for the profiling data enabled through --profiling-format.
-# @option --version <file>                       Print version number and exit.
-# @option -version <file>                        Print version number and exit.
+# @option --version <json-v1> <file>             Print version number and exit.
+# @option -version <json-v1> <file>              Print version number and exit.
 # @option --help <keyword> <file>                Print help for one keyword and exit.
 # @option --help-full <file>                     Print all help manuals and exit.
 # @option --help-manual[`_choice_help_manual`] <man> <file>  Print one help manual and exit.

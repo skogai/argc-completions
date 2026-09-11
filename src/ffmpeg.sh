@@ -46,10 +46,6 @@ protocol=`_choice_protocol`;;Print detailed information about the protocol
 EOF
 }
 
-_choice_device() {
-    ffmpeg -hide_banner -devices | tail -n +5 | sed 's/^.\{3\} \([^ ]\+\) \(.*\)$/\1\t\2/'
-}
-
 _choice_loglevel() {
     cat <<-'EOF'
 quiet	Show nothing at all; be silent.
@@ -87,6 +83,10 @@ _choice_decoder() {
 
 _choice_demuxer() {
     ffmpeg -hide_banner -demuxers | tail -n +5 | sed 's/^.\{3\} \([^ ]\+\) \(.*\)$/\1\t\2/'
+}
+
+_choice_device() {
+    ffmpeg -hide_banner -devices | tail -n +5 | sed 's/^.\{3\} \([^ ]\+\) \(.*\)$/\1\t\2/'
 }
 
 _choice_encoder() {

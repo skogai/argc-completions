@@ -27,16 +27,25 @@
 # @flag -1 --single-transaction                    restore as a single transaction
 # @flag --disable-triggers                         disable triggers during data-only restore
 # @flag --enable-row-security                      enable row security
+# @option --filter <FILENAME>                      restore or skip objects based on expressions in FILENAME
 # @flag --if-exists                                use IF EXISTS when dropping objects
-# @flag --no-comments                              do not restore comments
+# @flag --no-comments                              do not restore comment commands
+# @flag --no-data                                  do not restore data
 # @flag --no-data-for-failed-tables                do not restore data of tables that could not be created
+# @flag --no-policies                              do not restore row security policies
 # @flag --no-publications                          do not restore publications
+# @flag --no-schema                                do not restore schema
 # @flag --no-security-labels                       do not restore security labels
+# @flag --no-statistics                            do not restore statistics
 # @flag --no-subscriptions                         do not restore subscriptions
 # @flag --no-table-access-method                   do not restore table access methods
 # @flag --no-tablespaces                           do not restore tablespace assignments
+# @option --restrict-key <RESTRICT_KEY>            use provided string as psql \restrict key
 # @option --section[pre-data|data|post-data]       restore named section (pre-data, data, or post-data)
+# @flag --statistics                               restore the statistics
+# @flag --statistics-only                          restore only the statistics, not schema or data
 # @flag --strict-names                             require table and/or schema include patterns to match at least one entity each
+# @option --transaction-size <N>                   commit after every N objects
 # @flag --use-set-session-authorization            use SET SESSION AUTHORIZATION commands instead of ALTER OWNER commands to set ownership
 # @option -h --host[`_module_os_hostname`] <HOSTNAME>  database server host or socket directory
 # @option -p --port                                database server port number

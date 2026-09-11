@@ -10,15 +10,8 @@
 # @flag --transient                   Only set transient hostname
 # @flag --static                      Only set static hostname
 # @flag --pretty                      Only set pretty hostname
-# @option --json[pretty|short|off]    Generate JSON output
-# @flag -j                            Same as --json=pretty on tty, --json=short otherwise
-
-# {{ hostnamectl status
-# @cmd Show current hostname settings
-status() {
-    :;
-}
-# }} hostnamectl status
+# @option --json <FORMAT>             Generate JSON output (pretty, short, or off)
+# @flag -j                            Equivalent to --json=pretty (on TTY) or --json=short (otherwise)
 
 # {{ hostnamectl hostname
 # @cmd Get/set system hostname
@@ -59,5 +52,13 @@ location() {
     :;
 }
 # }} hostnamectl location
+
+# {{ hostnamectl tags
+# @cmd Get/set machine tags for host
+# @arg tag <TAG …>
+tags() {
+    :;
+}
+# }} hostnamectl tags
 
 command eval "$(argc --argc-eval "$0" "$@")"

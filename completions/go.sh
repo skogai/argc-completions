@@ -99,7 +99,6 @@ clean() {
 # @flag -all      Show all the documentation for the package.
 # @flag -c        Respect case when matching symbols.
 # @flag -cmd      Treat a command (package main) like a regular package.
-# @flag -http     Serve HTML docs over HTTP.
 # @flag -short    One-line representation for each symbol.
 # @flag -src      Show the full source code for the symbol.
 # @flag -u        Show documentation for unexported as well as exported symbols, methods, and fields.
@@ -120,7 +119,7 @@ env() {
 # }} go env
 
 # {{ go fix
-# @cmd apply fixes suggested by static checkers
+# @cmd update packages to use new APIs
 # @arg packages*
 fix() {
     :;
@@ -257,7 +256,6 @@ install() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
-# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -495,7 +493,6 @@ telemetry() {
 # @option -gccgoflags <[pattern=]arg list>    arguments to pass on each gccgo compiler/linker invocation.
 # @option -gcflags <[pattern=]arg list>       arguments to pass on each go tool compile invocation.
 # @option -installsuffix <suffix>             a suffix to use in the name of the package installation directory, in order to keep output separate from default builds.
-# @flag -json                                 Emit build output in JSON suitable for automated processing.
 # @option -ldflags <[pattern=]arg list>       arguments to pass on each go tool link invocation.
 # @flag -linkshared                           build code that will be linked against shared libraries previously created with -buildmode=shared.
 # @option -mod[readonly|vendor|mod] <mode>    module download mode to use: readonly, vendor, or mod.
@@ -507,23 +504,11 @@ telemetry() {
 # @option -tags <tag,list>                    a comma-separated list of additional build tags to consider satisfied during the build.
 # @flag -trimpath                             remove all file system paths from the resulting executable.
 # @option -toolexec <cmd args>                a program to use to invoke toolchain programs like vet and asm.
-# @flag -coverprofile
-# @flag -cpu
-# @flag -failfast
-# @flag -fullpath
-# @flag -list
-# @flag -outputdir
-# @flag -parallel
-# @option -run <and>
-# @option -short <and>
-# @option -skip <and>
-# @option -timeout <and>
-# @option -v. <and>
 # @flag -args                                 Pass the remainder of the command line (everything after -args) to the test binary, uninterpreted and unchanged.
 # @flag -c                                    Compile the test binary to pkg.test in the current directory but do not run it (where pkg is the last element of the package's import path).
 # @option -exec <xprog>                       Run the test binary using xprog.
 # @flag -json                                 Convert test output to JSON suitable for automated processing.
-# @option -o <file>                           Save a copy of the test binary to the named file.
+# @option -o <file>                           Compile the test binary to the named file.
 # @option -bench*|[`_choice_bench_target`] <value>  run only those benchmarks matching a regular expression
 # @option -benchtime <value>                  Run enough iterations of each benchmark to take given duration
 # @option -count <value>                      run each test and benchmark n times

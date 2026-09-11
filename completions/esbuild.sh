@@ -15,6 +15,7 @@
 # @flag --splitting                                Enable code splitting (currently only for esm)
 # @option --target <string>                        Environment target (e.g. es2017, chrome58, firefox57, safari11, edge16, node10, ie9, opera45, default esnext)
 # @flag --watch                                    Watch mode-... : rebuild on file system changes (stops when stdin is closed, use "--watch=forever" to ignore stdin)
+# @option --abs-paths[code|log|metafile] <file>    Emit absolute instead of relative paths in these situations
 # @flag --allow-overwrite                          Allow output files to overwrite input files
 # @flag --analyze                                  Print a report about the contents of the bundle (use "--analyze=verbose" for a detailed report)
 # @option --asset-names <file>                     Path template to use for "file" loader files (default "[name]-[hash]")
@@ -23,6 +24,7 @@
 # @option --charset <utf8>                         Do not escape UTF-8 code points
 # @option --chunk-names <path>                     Path template to use for code splitting chunks (default "[name]-[hash]")
 # @option --color[true|false] <string>             Force use of color terminal escapes
+# @option --cors-origin <string>                   Allow cross-origin requests from this origin
 # @option --drop-*[console|debugger] <:>           Remove certain constructs
 # @option --drop-labels <string>                   Remove labeled statements with these label names
 # @option --entry-names <dir>                      Path template to use for entry point output paths (default "[dir]/[name]", can also use "[hash]")
@@ -68,7 +70,8 @@
 # @option --tree-shaking[false|true] <string>      Force tree shaking on or off
 # @option --tsconfig <file>                        Use this tsconfig.json file instead of other ones
 # @option --tsconfig-raw <file>                    Override all tsconfig.json files with this string
-# @flag --version                                  Print the current version (0.23.0) and exit
+# @flag --version                                  Print the current version (0.27.7) and exit
+# @option --watch-delay <string>                   Wait before watch mode rebuilds (in milliseconds)
 # @arg paths*
 
 command eval "$(argc --argc-eval "$0" "$@")"

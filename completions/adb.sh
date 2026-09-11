@@ -80,10 +80,11 @@ reverse() {
 
 # {{ adb push
 # @cmd copy local files/directories to device
-# @flag --sync    only push files that have different timestamps on the host than the device
 # @flag -n        dry run: push files to device without storing to the filesystem
-# @flag -z        enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
+# @flag -q        suppress progress messages
 # @flag -Z        disable compression
+# @flag -z        enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
+# @flag --sync    only push files that have different timestamps on the host than the device
 # @arg local*
 # @arg remote
 push() {
@@ -94,8 +95,9 @@ push() {
 # {{ adb pull
 # @cmd copy files/dirs from device
 # @flag -a    preserve file timestamp and mode
-# @flag -z    enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
+# @flag -q    suppress progress messages
 # @flag -Z    disable compression
+# @flag -z    enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
 # @arg remote*
 # @arg local
 pull() {
@@ -105,10 +107,11 @@ pull() {
 
 # {{ adb sync
 # @cmd sync a local build from $ANDROID_PRODUCT_OUT to the device (default all)
-# @flag -n    dry run: push files to device without storing to the filesystem
 # @flag -l    list files that would be copied, but don't copy them
-# @flag -z    enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
+# @flag -n    dry run: push files to device without storing to the filesystem
+# @flag -q    suppress progress messages
 # @flag -Z    disable compression
+# @flag -z    enable compression with a specified algorithm (any/none/brotli/lz4/zstd)
 # @arg enum[all|data|odm|oem|product|system|system_ext|vendor]
 sync() {
     :;

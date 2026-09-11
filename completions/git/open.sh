@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
+# @cmd
 # @arg remote[`_choice_remote`]
 # @arg branch[`_choice_local_branch`]
 open() {

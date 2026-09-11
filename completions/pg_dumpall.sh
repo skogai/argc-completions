@@ -6,13 +6,13 @@
 # @flag -V --version                              output version information, then exit
 # @option --lock-wait-timeout <TIMEOUT>           fail after waiting TIMEOUT for a table lock
 # @flag -? --help                                 show this help, then exit
-# @flag -a --data-only                            dump only the data, not the schema
+# @flag -a --data-only                            dump only the data, not the schema or statistics
 # @flag -c --clean                                clean (drop) databases before recreating
 # @option -E --encoding                           dump the data in encoding ENCODING
 # @flag -g --globals-only                         dump only global objects, no databases
 # @flag -O --no-owner                             skip restoration of object ownership
 # @flag -r --roles-only                           dump only roles, no databases or tablespaces
-# @flag -s --schema-only                          dump only the schema, no data
+# @flag -s --schema-only                          dump only the schema, no data or statistics
 # @option -S --superuser <NAME>                   superuser user name to use in the dump
 # @flag -t --tablespaces-only                     dump only tablespaces, no databases or roles
 # @flag -x --no-privileges                        do not dump privileges (grant/revoke)
@@ -22,13 +22,18 @@
 # @flag --disable-triggers                        disable triggers during data-only restore
 # @option --exclude-database <PATTERN>            exclude databases whose name matches PATTERN
 # @option --extra-float-digits <NUM>              override default setting for extra_float_digits
+# @option --filter <FILENAME>                     exclude databases based on expressions in FILENAME
 # @flag --if-exists                               use IF EXISTS when dropping objects
 # @flag --inserts                                 dump data as INSERT commands, rather than COPY
 # @flag --load-via-partition-root                 load partitions via the root table
-# @flag --no-comments                             do not dump comments
+# @flag --no-comments                             do not dump comment commands
+# @flag --no-data                                 do not dump data
+# @flag --no-policies                             do not dump row security policies
 # @flag --no-publications                         do not dump publications
 # @flag --no-role-passwords                       do not dump passwords for roles
+# @flag --no-schema                               do not dump schema
 # @flag --no-security-labels                      do not dump security label assignments
+# @flag --no-statistics                           do not dump statistics
 # @flag --no-subscriptions                        do not dump subscriptions
 # @flag --no-sync                                 do not wait for changes to be written safely to disk
 # @flag --no-table-access-method                  do not dump table access methods
@@ -37,7 +42,11 @@
 # @flag --no-unlogged-table-data                  do not dump unlogged table data
 # @flag --on-conflict-do-nothing                  add ON CONFLICT DO NOTHING to INSERT commands
 # @flag --quote-all-identifiers                   quote all identifiers, even if not key words
+# @option --restrict-key <RESTRICT_KEY>           use provided string as psql \restrict key
 # @option --rows-per-insert <NROWS>               number of rows per INSERT; implies --inserts
+# @flag --sequence-data                           include sequence data in dump
+# @flag --statistics                              dump the statistics
+# @flag --statistics-only                         dump only the statistics, not schema or data
 # @flag --use-set-session-authorization           use SET SESSION AUTHORIZATION commands instead of ALTER OWNER commands to set ownership
 # @option -d --dbname[`_choice_database`] <CONNSTR>  connect using connection string
 # @option -h --host[`_module_os_hostname`] <HOSTNAME>  database server host or socket directory

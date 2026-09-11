@@ -7,8 +7,8 @@
 # @option -o --output*,[`_choice_column`]    Specify which output columns to print.
 # @flag --output-all                         Output all available columns.
 # @flag -r --raw                             Use the raw output format.
-# @flag --help                               Display help text and exit.
-# @flag --version                            Display version information and exit.
+# @flag -h --help                            Display help text and exit.
+# @flag -V --version                         Display version and exit.
 # @arg id-type* <ID|type>
 
 # {{ rfkill event

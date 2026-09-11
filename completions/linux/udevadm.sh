@@ -1,39 +1,41 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-
+# @flag -h --help     Show this help
+# @flag --version     Show package version
+# @flag -d --debug    Enable debug logging
 
 # {{ udevadm info
 # @cmd Query sysfs or the udev database
-# @flag -h --help                            Print this message
-# @flag -V --version                         Print version of the program
-# @option -q --query <TYPE>                  Query device information:
-# @option --property <NAME>                  Show only properties by this name
-# @flag --value                              When showing properties, print only their values
-# @option -p --path <SYSPATH>                sysfs device path used for query or attribute walk
-# @option -n --name                          Node or symlink name used for query or attribute walk
-# @flag -r --root                            Prepend dev directory to path names
-# @flag -a --attribute-walk                  Print all key matches walking along the chain of parent devices
-# @flag -t --tree                            Show tree of devices
-# @option -d --device-id-of-file <FILE>      Print major:minor of device containing this file
-# @flag -x --export                          Export key/value pairs
-# @flag -P --export-prefix                   Export the key name with a prefix
-# @flag -e --export-db                       Export the content of the udev database
-# @flag -c --cleanup-db                      Clean up the udev database
-# @option -w --wait-for-initialization <SECONDS>  Wait for device to be initialized
-# @flag --no-pager                           Do not pipe output into a pager
-# @option --json[pretty|short|off]           Generate JSON output
-# @option --subsystem-match <SUBSYSTEM>      Query devices matching a subsystem
-# @option --subsystem-nomatch <SUBSYSTEM>    Query devices not matching a subsystem
-# @option --attr-match <FILE[=VALUE]>        Query devices that match an attribute
-# @option --attr-nomatch <FILE[=VALUE]>      Query devices that do not match an attribute
-# @option --property-match <KEY=VALUE>       Query devices with matching properties
-# @option --tag-match <TAG>                  Query devices with a matching tag
-# @option --sysname-match <NAME>             Query devices with this /sys path
-# @option --name-match <NAME>                Query devices with this /dev name
-# @option --parent-match <NAME>              Query devices with this parent device
-# @flag --initialized-match                  Query devices that are already initialized
-# @flag --initialized-nomatch                Query devices that are not initialized yet
+# @flag -h --help                                Show this help
+# @flag -V --version                             Show package version
+# @option -q --query <TYPE>                      Query device information: name  - name of device node symlink  - pointing to node path  - sysfs device path property  - the device properties all  - all values
+# @option --property <NAME>                      Show only properties by this name
+# @flag --value                                  When showing properties, print only their values
+# @option -p --path <SYSPATH>                    sysfs device path used for query or attribute walk
+# @option -n --name                              Node or symlink name used for query or attribute walk
+# @flag -r --root                                Prepend dev directory to path names
+# @flag -a --attribute-walk                      Print all key matches walking along the chain of parent devices
+# @flag -t --tree                                Show tree of devices
+# @option -d --device-id-of-file <FILE>          Print major:minor of device containing this file
+# @flag -x --export                              Export key/value pairs
+# @option -P --export-prefix <NAME>              Export the key name with a prefix
+# @flag -e --export-db                           Export the content of the udev database
+# @flag -c --cleanup-db                          Clean up the udev database
+# @option -w --wait-for-initialization <SECS>    Wait for device to be initialized
+# @flag --no-pager                               Do not start a pager
+# @option --json <FORMAT>                        Generate JSON output (pretty, short, or off)
+# @option --subsystem-match <SUBSYSTEM>          Query devices matching a subsystem
+# @option --subsystem-nomatch <SUBSYSTEM>        Query devices not matching a subsystem
+# @option --attr-match <FILE[=VALUE]>            Query devices that match an attribute
+# @option --attr-nomatch <FILE[=VALUE]>          Query devices that do not match an attribute
+# @option --property-match <KEY=VALUE>           Query devices with matching properties
+# @option --tag-match <TAG>                      Query devices with a matching tag
+# @option --sysname-match <NAME>                 Query devices with this /sys path
+# @option --name-match <NAME>                    Query devices with this /dev name
+# @option --parent-match <NAME>                  Query devices with this parent device
+# @flag --initialized-match                      Query devices that are already initialized
+# @flag --initialized-nomatch                    Query devices that are not initialized yet
 info() {
     :;
 }
@@ -46,7 +48,7 @@ info() {
 # @flag -v --verbose                            Print the list of devices while running
 # @flag -n --dry-run                            Do not actually trigger the events
 # @flag -q --quiet                              Suppress error logging in triggering events
-# @option -t --type                             Type of events to trigger devices  sysfs devices (default) subsystems  sysfs subsystems and drivers all  sysfs devices, subsystems, and drivers
+# @option -t --type                             Type of sysfs events to trigger: devices  - devices (default) subsystems  - subsystems and drivers all  - devices, subsystems, and drivers
 # @option -c --action <ACTION|help>             Event action value, default is "change"
 # @option -s --subsystem-match <SUBSYSTEM>      Trigger devices from a matching subsystem
 # @option -S --subsystem-nomatch <SUBSYSTEM>    Exclude devices from a matching subsystem
@@ -117,13 +119,13 @@ monitor() {
 
 # {{ udevadm test
 # @cmd Test an event run
-# @flag -h --help                                 Show this help
-# @flag -V --version                              Show package version
-# @option -a --action <ACTION|help>               Set action string
-# @option -N --resolve-names[early|late|never]    When to resolve names
-# @option -D --extra-rules-dir <DIR>              Also load rules from the directory
-# @flag -v --verbose                              Show verbose logs
-# @option --json[pretty|short|off]                Generate JSON output
+# @flag -h --help                       Show this help
+# @flag -V --version                    Show package version
+# @option -a --action <ACTION|help>     Set action string
+# @option -N --resolve-names <MODE>     When to resolve users and groups (early, late, or never)
+# @option -D --extra-rules-dir <DIR>    Also load rules from the directory
+# @flag -v --verbose                    Show verbose logs
+# @option --json <FORMAT>               Generate JSON output (pretty, short, or off)
 test() {
     :;
 }
@@ -131,8 +133,8 @@ test() {
 
 # {{ udevadm test-builtin
 # @cmd Test a built-in command
-# @flag -h --help                      Print this message
-# @flag -V --version                   Print version of the program
+# @flag -h --help                      Show this help
+# @flag -V --version                   Show package version
 # @option -a --action <ACTION|help>    Set action string
 test-builtin() {
     :;
@@ -141,12 +143,12 @@ test-builtin() {
 
 # {{ udevadm verify
 # @cmd Verify udev rules files
-# @flag -h --help                                 Show this help
-# @flag -V --version                              Show package version
-# @option -N --resolve-names[early|late|never]    When to resolve names
-# @option --root <PATH>                           Operate on an alternate filesystem root
-# @flag --no-summary                              Do not show summary
-# @flag --no-style                                Ignore style issues
+# @flag -h --help                      Show this help
+# @flag -V --version                   Show package version
+# @option -N --resolve-names <MODE>    When to resolve users and groups (early, late, or never)
+# @option --root <PATH>                Operate on an alternate filesystem root
+# @flag --no-summary                   Do not show summary
+# @flag --no-style                     Ignore style issues
 verify() {
     :;
 }
@@ -155,7 +157,7 @@ verify() {
 # {{ udevadm cat
 # @cmd Show udev rules files
 # @flag -h --help          Show this help
-# @flag -V --version       Show package version
+# @flag --version          Show package version
 # @option --root <PATH>    Operate on an alternate filesystem root
 # @flag --tldr             Skip comments and empty lines
 # @flag --config           Show udev.conf rather than udev rules files
@@ -166,8 +168,8 @@ cat_() {
 
 # {{ udevadm wait
 # @cmd Wait for device or device symlink
-# @flag -h --help                 Print this message
-# @flag -V --version              Print version of the program
+# @flag -h --help                 Show this help
+# @flag -V --version              Show package version
 # @option -t --timeout <SEC>      Maximum time to wait for the device
 # @option --initialized <BOOL>    Wait for devices being initialized by systemd-udevd
 # @flag --removed                 Wait for devices being removed
@@ -179,8 +181,8 @@ wait() {
 
 # {{ udevadm lock
 # @cmd Lock a block device
-# @flag -h --help                Print this message
-# @flag -V --version             Print version of the program
+# @flag -h --help                Show this help
+# @flag -V --version             Show package version
 # @option -d --device            Block device to lock
 # @option -b --backing <FILE>    File whose backing block device to lock
 # @option -t --timeout <SECS>    Block at most the specified time waiting for lock

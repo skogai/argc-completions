@@ -1,27 +1,9 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -a --all                 Display all available interfaces.
-# @option -A --address <addr>    Set the interface address to addr.
-# @option -B --broadcast <addr>
-# @option -b --brdaddr <addr>    Set the broadcast address to addr.
-# @option -d --dstaddr <addr>
-# @option -p --peer <addr>       Set the destination (peer) address to addr.
-# @flag --up                     Activate the interface (default if address is given).
-# @flag --down                   Shut the interface down.
-# @flag -F --flags               flag,[flag ...] Set the interface flags.
-# @option -i --interface[`_module_os_network_interface`] <name>  Configure the network interface name.
-# @flag -l --list                List the available or selected interfaces.
-# @option -m --netmask <mask>    Set the netmask to mask.
-# @option --metric <n>           Set the interface metric to n.
-# @option -M --mtu <n>           Set the interface MTU to n.
-# @option --format <format>      Select the output format; set to help for information.
-# @flag -s --short               Short output format.
-# @flag -v --verbose             Output information when configuring the interface.
-# @flag -? --help                Give this help list.
-# @flag --usage                  Give a short usage message.
-# @flag -V --version             Print program version.
-# @option -T --txqlen <n>        Set the transmit queue length to n.
+# @flag -a    display all interfaces which are currently available, even if down
+# @flag -s    display a short list (like netstat -i)
+# @flag -v    be more verbose for some error conditions
 # @arg args~[`_choice_args`]
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"

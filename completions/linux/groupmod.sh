@@ -9,7 +9,7 @@
 # @option -p --password                change the password to this (encrypted) PASSWORD
 # @option -R --root <CHROOT_DIR>       directory to chroot into
 # @option -P --prefix <PREFIX_DIR>     prefix directory where are located the /etc/* files
-# @option -U --users                   list of user members of this group
+# @option -U --users                   comma-separated list of users to add as members of this group
 # @arg group[`_module_os_group`]
 
 _module_os_group() {

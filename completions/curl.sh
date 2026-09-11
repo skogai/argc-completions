@@ -169,6 +169,7 @@
 # @flag --proxy-digest                             Digest auth with the proxy
 # @option --proxy-header <header/@file>            Pass custom header(s) to proxy
 # @flag --proxy-http2                              Use HTTP/2 with HTTPS proxy
+# @flag --proxy-http3                              Use HTTP/3 with HTTPS proxy
 # @flag --proxy-insecure                           Skip HTTPS proxy cert verification
 # @option --proxy-key <key>                        Private key for HTTPS proxy
 # @option --proxy-key-type <type>                  Private key file type for proxy

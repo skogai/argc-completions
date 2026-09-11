@@ -9,6 +9,7 @@
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 
@@ -22,6 +23,7 @@
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 about() {
@@ -35,9 +37,10 @@ about() {
 # @flag -D --dev               Add as a development dependency.
 # @flag -e --editable          Add vcs/path dependencies as editable.
 # @option -E --extras          Extras to activate for the dependency.
-# @flag --optional             Add as an optional dependency.
+# @option --optional           Add as an optional dependency to an extra.
 # @option --python             Python version for which the dependency must be installed.
 # @option --platform           Platforms for which the dependency must be installed.
+# @option --markers            Environment markers which describe when the dependency should be installed.
 # @option --source             Name of the source to use to install the package.
 # @flag --allow-prereleases    Accept prereleases.
 # @flag --dry-run              Output the operations but do not execute anything (implicitly enables --verbose).
@@ -50,6 +53,7 @@ about() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg name                    The packages to add.
@@ -60,18 +64,22 @@ add() {
 
 # {{ poetry build
 # @cmd Builds a package, as a tarball and a wheel by default.
-# @option -f --format          Limit the format to either sdist or wheel.
-# @option -o --output          Set output directory for build artifacts.
-# @flag -h --help              Display help for the given command.
-# @flag -q --quiet             Do not output any message.
-# @flag -V --version           Display this application version.
-# @flag --ansi                 Force ANSI output.
-# @flag --no-ansi              Disable ANSI output.
-# @flag -n --no-interaction    Do not ask any interactive question.
-# @flag --no-plugins           Disables plugins.
-# @flag --no-cache             Disables Poetry source caches.
-# @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
-# @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+# @option -f --format             Limit the format to either sdist or wheel.
+# @flag --clean                   Clean output directory before building.
+# @option -l --local-version      Add or replace a local version label to the build.
+# @option -o --output             Set output directory for build artifacts.
+# @option -c --config-settings    Provide config settings that should be passed to backend in <key>=<value> format.
+# @flag -h --help                 Display help for the given command.
+# @flag -q --quiet                Do not output any message.
+# @flag -V --version              Display this application version.
+# @flag --ansi                    Force ANSI output.
+# @flag --no-ansi                 Disable ANSI output.
+# @flag -n --no-interaction       Do not ask any interactive question.
+# @flag --no-plugins              Disables plugins.
+# @flag --no-cache                Disables Poetry source caches.
+# @option -P --project            Specify another path as the project root.
+# @option -C --directory          The working directory for the Poetry command (defaults to the current working directory).
+# @flag -v --verbose              Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 build() {
     :;
 }
@@ -80,6 +88,7 @@ build() {
 # {{ poetry check
 # @cmd Validates the content of the pyproject.toml file and its consistency with the poetry.lock file.
 # @flag --lock                 Checks that poetry.lock exists for the current version of pyproject.toml.
+# @flag --strict               Fail if check reports warnings.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message.
 # @flag -V --version           Display this application version.
@@ -88,6 +97,7 @@ build() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 check() {
@@ -100,6 +110,7 @@ check() {
 # @flag --list                      List configuration settings.
 # @flag --unset                     Unset configuration setting.
 # @flag --local                     Set/Get from the project's local configuration.
+# @flag --migrate                   Migrate outdated configuration settings.
 # @flag -h --help                   Display help for the given command.
 # @flag -q --quiet                  Do not output any message.
 # @flag -V --version                Display this application version.
@@ -108,6 +119,7 @@ check() {
 # @flag -n --no-interaction         Do not ask any interactive question.
 # @flag --no-plugins                Disables plugins.
 # @flag --no-cache                  Disables Poetry source caches.
+# @option -P --project              Specify another path as the project root.
 # @option -C --directory            The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg key[`_choice_config_key`]    Setting key.
@@ -116,34 +128,6 @@ config() {
     :;
 }
 # }} poetry config
-
-# {{ poetry export
-# @cmd Exports the lock file to alternative formats.
-# @option -f --format                     Format to export to.
-# @option -o --output                     The name of the output file.
-# @flag --without-hashes                  Exclude hashes from the exported file.
-# @flag --without-urls                    Exclude source repository urls from the exported file.
-# @flag --dev                             Include development dependencies.
-# @option --without*,[`_choice_group`]    The dependency groups to ignore.
-# @option --with*,[`_choice_group`]       The optional dependency groups to include.
-# @option --only*,[`_choice_group`]       The only dependency groups to include.
-# @option -E --extras                     Extra sets of dependencies to include.
-# @flag --all-extras                      Include all sets of extra dependencies.
-# @flag --with-credentials                Include credentials for extra indices.
-# @flag -h --help                         Display help for the given command.
-# @flag -q --quiet                        Do not output any message.
-# @flag -V --version                      Display this application version.
-# @flag --ansi                            Force ANSI output.
-# @flag --no-ansi                         Disable ANSI output.
-# @flag -n --no-interaction               Do not ask any interactive question.
-# @flag --no-plugins                      Disables plugins.
-# @flag --no-cache                        Disables Poetry source caches.
-# @option -C --directory                  The working directory for the Poetry command (defaults to the current working directory).
-# @flag -v --verbose                      Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
-export() {
-    :;
-}
-# }} poetry export
 
 # {{ poetry init
 # @cmd Creates a basic pyproject.toml file in the current directory.
@@ -162,6 +146,7 @@ export() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 init() {
@@ -174,14 +159,13 @@ init() {
 # @option --without*,[`_choice_group`]    The dependency groups to ignore.
 # @option --with*,[`_choice_group`]       The optional dependency groups to include.
 # @option --only*,[`_choice_group`]       The only dependency groups to include.
-# @flag --no-dev                          Do not install the development dependencies.
 # @flag --sync                            Synchronize the environment with the locked packages and the specified groups.
 # @flag --no-root                         Do not install the root package (the current project).
 # @flag --no-directory                    Do not install any directory path dependencies; useful to install dependencies without source code, e.g. for caching of Docker layers)
 # @flag --dry-run                         Output the operations but do not execute anything (implicitly enables --verbose).
-# @flag --remove-untracked                Removes packages not present in the lock file.
 # @option -E --extras                     Extra sets of dependencies to install.
 # @flag --all-extras                      Install all extra dependencies.
+# @flag --all-groups                      Install dependencies from all groups.
 # @flag --only-root                       Exclude all dependencies.
 # @flag --compile                         Compile Python source files to bytecode.
 # @flag -h --help                         Display help for the given command.
@@ -192,6 +176,7 @@ init() {
 # @flag -n --no-interaction               Do not ask any interactive question.
 # @flag --no-plugins                      Disables plugins.
 # @flag --no-cache                        Disables Poetry source caches.
+# @option -P --project                    Specify another path as the project root.
 # @option -C --directory                  The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                      Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 install() {
@@ -209,6 +194,7 @@ install() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg namespace               The namespace name
@@ -219,8 +205,7 @@ list() {
 
 # {{ poetry lock
 # @cmd Locks the project dependencies.
-# @flag --no-update            Do not update locked versions, only refresh lock file.
-# @flag --check                Check that the poetry.lock file corresponds to the current version of pyproject.toml.
+# @flag --regenerate           Ignore existing lock file and overwrite it with a new lock file created from scratch.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message.
 # @flag -V --version           Display this application version.
@@ -229,6 +214,7 @@ list() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 lock() {
@@ -238,9 +224,17 @@ lock() {
 
 # {{ poetry new
 # @cmd Creates a new Python project at <path>.
+# @flag -i --interactive       Allow interactive specification of project configuration.
 # @option --name               Set the resulting package name.
 # @flag --src                  Use the src layout for the project.
+# @flag --flat                 Use the flat layout for the project.
 # @option --readme             Specify the readme file format.
+# @option --description        Description of the package.
+# @option --author             Author name of the package.
+# @option --python             Compatible Python versions.
+# @option --dependency         Package to require, with an optional version constraint, e.g. requests:^2.10.0 or requests=2.11.1.
+# @option --dev-dependency     Package to require for development, with an optional version constraint, e.g. requests:^2.10.0 or requests=2.11.1.
+# @option -l --license         License of the package.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message.
 # @flag -V --version           Display this application version.
@@ -249,6 +243,7 @@ lock() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg path                    The path to create the project at.
@@ -276,6 +271,7 @@ new() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 publish() {
@@ -297,6 +293,7 @@ publish() {
 # @flag -n --no-interaction               Do not ask any interactive question.
 # @flag --no-plugins                      Disables plugins.
 # @flag --no-cache                        Disables Poetry source caches.
+# @option -P --project                    Specify another path as the project root.
 # @option -C --directory                  The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                      Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg packages*[`_choice_dependency`]    The packages to remove.
@@ -307,17 +304,6 @@ remove() {
 
 # {{ poetry run
 # @cmd Runs a command in the appropriate environment.
-# @flag -h --help              Display help for the given command.
-# @flag -q --quiet             Do not output any message.
-# @flag -V --version           Display this application version.
-# @flag --ansi                 Force ANSI output.
-# @flag --no-ansi              Disable ANSI output.
-# @flag -n --no-interaction    Do not ask any interactive question.
-# @flag --no-plugins           Disables plugins.
-# @flag --no-cache             Disables Poetry source caches.
-# @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
-# @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
-# @arg args*                   The command and arguments/options to run.
 run() {
     :;
 }
@@ -333,6 +319,7 @@ run() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg tokens*                 The tokens to search for.
@@ -341,35 +328,19 @@ search() {
 }
 # }} poetry search
 
-# {{ poetry shell
-# @cmd Spawns a shell within the virtual environment.
-# @flag -h --help              Display help for the given command.
-# @flag -q --quiet             Do not output any message.
-# @flag -V --version           Display this application version.
-# @flag --ansi                 Force ANSI output.
-# @flag --no-ansi              Disable ANSI output.
-# @flag -n --no-interaction    Do not ask any interactive question.
-# @flag --no-plugins           Disables plugins.
-# @flag --no-cache             Disables Poetry source caches.
-# @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
-# @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
-shell() {
-    :;
-}
-# }} poetry shell
-
 # {{ poetry show
 # @cmd Shows information about packages.
 # @option --without*,[`_choice_group`]    The dependency groups to ignore.
 # @option --with*,[`_choice_group`]       The optional dependency groups to include.
 # @option --only*,[`_choice_group`]       The only dependency groups to include.
-# @flag --no-dev                          Do not list the development dependencies.
 # @flag -t --tree                         List the dependencies as a tree.
 # @flag --why                             When showing the full list, or a --tree for a single package, display whether they are a direct dependency or required by other packages
 # @flag -l --latest                       Show the latest version.
 # @flag -o --outdated                     Show the latest version but only for packages that are outdated.
 # @flag -a --all                          Show all packages (even those not compatible with current system).
 # @flag -T --top-level                    Show only top-level dependencies.
+# @flag --no-truncate                     Do not truncate the output based on the terminal width.
+# @option -f --format                     Specify the output format (`json` or `text`).
 # @flag -h --help                         Display help for the given command.
 # @flag -q --quiet                        Do not output any message.
 # @flag -V --version                      Display this application version.
@@ -378,6 +349,7 @@ shell() {
 # @flag -n --no-interaction               Do not ask any interactive question.
 # @flag --no-plugins                      Disables plugins.
 # @flag --no-cache                        Disables Poetry source caches.
+# @option -P --project                    Specify another path as the project root.
 # @option -C --directory                  The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                      Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg package[`_choice_dependency`]      The package to inspect
@@ -386,12 +358,40 @@ show() {
 }
 # }} poetry show
 
+# {{ poetry sync
+# @cmd Update the project's environment according to the lockfile.
+# @option --without*,[`_choice_group`]    The dependency groups to ignore.
+# @option --with*,[`_choice_group`]       The optional dependency groups to include.
+# @option --only*,[`_choice_group`]       The only dependency groups to include.
+# @flag --no-root                         Do not install the root package (the current project).
+# @flag --no-directory                    Do not install any directory path dependencies; useful to install dependencies without source code, e.g. for caching of Docker layers)
+# @flag --dry-run                         Output the operations but do not execute anything (implicitly enables --verbose).
+# @option -E --extras                     Extra sets of dependencies to install.
+# @flag --all-extras                      Install all extra dependencies.
+# @flag --all-groups                      Install dependencies from all groups.
+# @flag --only-root                       Exclude all dependencies.
+# @flag --compile                         Compile Python source files to bytecode.
+# @flag -h --help                         Display help for the given command.
+# @flag -q --quiet                        Do not output any message.
+# @flag -V --version                      Display this application version.
+# @flag --ansi                            Force ANSI output.
+# @flag --no-ansi                         Disable ANSI output.
+# @flag -n --no-interaction               Do not ask any interactive question.
+# @flag --no-plugins                      Disables plugins.
+# @flag --no-cache                        Disables Poetry source caches.
+# @option -P --project                    Specify another path as the project root.
+# @option -C --directory                  The working directory for the Poetry command (defaults to the current working directory).
+# @flag -v --verbose                      Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+sync() {
+    :;
+}
+# }} poetry sync
+
 # {{ poetry update
 # @cmd Update the dependencies as according to the pyproject.toml file.
 # @option --without*,[`_choice_group`]    The dependency groups to ignore.
 # @option --with*,[`_choice_group`]       The optional dependency groups to include.
 # @option --only*,[`_choice_group`]       The only dependency groups to include.
-# @flag --no-dev                          Do not update the development dependencies.
 # @flag --sync                            Synchronize the environment with the locked packages and the specified groups.
 # @flag --dry-run                         Output the operations but do not execute anything (implicitly enables --verbose).
 # @flag --lock                            Do not perform operations (only update the lockfile).
@@ -403,6 +403,7 @@ show() {
 # @flag -n --no-interaction               Do not ask any interactive question.
 # @flag --no-plugins                      Disables plugins.
 # @flag --no-cache                        Disables Poetry source caches.
+# @option -P --project                    Specify another path as the project root.
 # @option -C --directory                  The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                      Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg packages*[`_choice_dependency`]    The packages to update
@@ -424,6 +425,7 @@ update() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg version                 The version number or the rule to update the version.
@@ -439,7 +441,7 @@ cache() {
 }
 
 # {{{ poetry cache clear
-# @cmd Clears a Poetry cache by name.
+# @cmd Clear Poetry's caches.
 # @flag --all                  Clear all entries in the cache.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message.
@@ -449,6 +451,7 @@ cache() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg cache                   The name of the cache to clear.
@@ -467,6 +470,7 @@ cache::clear() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 cache::list() {
@@ -491,6 +495,7 @@ debug() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 debug::info() {
@@ -512,6 +517,7 @@ debug::info() {
 # @flag -n --no-interaction             Do not ask any interactive question.
 # @flag --no-plugins                    Disables plugins.
 # @flag --no-cache                      Disables Poetry source caches.
+# @option -P --project                  Specify another path as the project root.
 # @option -C --directory                The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                    Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg package[`_choice_dependency`]    The packages to resolve.
@@ -519,6 +525,24 @@ debug::resolve() {
     :;
 }
 # }}} poetry debug resolve
+
+# {{{ poetry debug tags
+# @cmd Shows compatible tags for your project's current active environment.
+# @flag -h --help              Display help for the given command.
+# @flag -q --quiet             Do not output any message.
+# @flag -V --version           Display this application version.
+# @flag --ansi                 Force ANSI output.
+# @flag --no-ansi              Disable ANSI output.
+# @flag -n --no-interaction    Do not ask any interactive question.
+# @flag --no-plugins           Disables plugins.
+# @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
+# @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
+# @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+debug::tags() {
+    :;
+}
+# }}} poetry debug tags
 # }} poetry debug
 
 # {{ poetry env
@@ -526,6 +550,24 @@ debug::resolve() {
 env() {
     :;
 }
+
+# {{{ poetry env activate
+# @cmd Print the command to activate a virtual environment.
+# @flag -h --help              Display help for the given command.
+# @flag -q --quiet             Do not output any message.
+# @flag -V --version           Display this application version.
+# @flag --ansi                 Force ANSI output.
+# @flag --no-ansi              Disable ANSI output.
+# @flag -n --no-interaction    Do not ask any interactive question.
+# @flag --no-plugins           Disables plugins.
+# @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
+# @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
+# @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+env::activate() {
+    :;
+}
+# }}} poetry env activate
 
 # {{{ poetry env info
 # @cmd Displays information about the current environment.
@@ -539,6 +581,7 @@ env() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 env::info() {
@@ -557,6 +600,7 @@ env::info() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 env::list() {
@@ -575,6 +619,7 @@ env::list() {
 # @flag -n --no-interaction     Do not ask any interactive question.
 # @flag --no-plugins            Disables plugins.
 # @flag --no-cache              Disables Poetry source caches.
+# @option -P --project          Specify another path as the project root.
 # @option -C --directory        The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose            Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg python[`_choice_env`]    The python executables associated with, or names of the virtual environments which are to be removed.
@@ -593,6 +638,7 @@ env::remove() {
 # @flag -n --no-interaction     Do not ask any interactive question.
 # @flag --no-plugins            Disables plugins.
 # @flag --no-cache              Disables Poetry source caches.
+# @option -P --project          Specify another path as the project root.
 # @option -C --directory        The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose            Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg python[`_choice_env`]    The python executable to use.
@@ -623,6 +669,7 @@ self() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg name                    The packages to add.
@@ -643,6 +690,7 @@ self::add() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 self::install() {
@@ -652,8 +700,7 @@ self::install() {
 
 # {{{ poetry self lock
 # @cmd Lock the Poetry installation's system requirements.
-# @flag --no-update            Do not update locked versions, only refresh lock file.
-# @flag --check                Check that the poetry.lock file corresponds to the current version of pyproject.toml.
+# @flag --regenerate           Ignore existing lock file and overwrite it with a new lock file created from scratch.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message.
 # @flag -V --version           Display this application version.
@@ -662,6 +709,7 @@ self::install() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 self::lock() {
@@ -680,6 +728,7 @@ self::lock() {
 # @flag -n --no-interaction           Do not ask any interactive question.
 # @flag --no-plugins                  Disables plugins.
 # @flag --no-cache                    Disables Poetry source caches.
+# @option -P --project                Specify another path as the project root.
 # @option -C --directory              The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg packages*[`_choice_plugin`]    The packages to remove.
@@ -694,6 +743,7 @@ self::remove() {
 # @flag -t --tree                       List the dependencies as a tree.
 # @flag -l --latest                     Show the latest version.
 # @flag -o --outdated                   Show the latest version but only for packages that are outdated.
+# @option -f --format                   Specify the output format (`json` or `text`).
 # @flag -h --help                       Display help for the given command.
 # @flag -q --quiet                      Do not output any message.
 # @flag -V --version                    Display this application version.
@@ -702,6 +752,7 @@ self::remove() {
 # @flag -n --no-interaction             Do not ask any interactive question.
 # @flag --no-plugins                    Disables plugins.
 # @flag --no-cache                      Disables Poetry source caches.
+# @option -P --project                  Specify another path as the project root.
 # @option -C --directory                The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose                    Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg package*[`_choice_self_show`]    The package to inspect
@@ -709,6 +760,25 @@ self::show() {
     :;
 }
 # }}} poetry self show
+
+# {{{ poetry self sync
+# @cmd Sync Poetry's own environment according to the locked packages (incl.
+# @flag --dry-run              Output the operations but do not execute anything (implicitly enables --verbose).
+# @flag -h --help              Display help for the given command.
+# @flag -q --quiet             Do not output any message.
+# @flag -V --version           Display this application version.
+# @flag --ansi                 Force ANSI output.
+# @flag --no-ansi              Disable ANSI output.
+# @flag -n --no-interaction    Do not ask any interactive question.
+# @flag --no-plugins           Disables plugins.
+# @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
+# @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
+# @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
+self::sync() {
+    :;
+}
+# }}} poetry self sync
 
 # {{{ poetry self update
 # @cmd Updates Poetry to the latest version.
@@ -722,6 +792,7 @@ self::show() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg version                 The version to update to.
@@ -739,9 +810,7 @@ source() {
 
 # {{{ poetry source add
 # @cmd Add source configuration for project.
-# @flag -d --default           Set this source as the default (disable PyPI).
-# @flag -s --secondary         Set this source as secondary.
-# @option -p --priority[default|primary|secondary|supplemental|explicit]  Set the priority of this source.
+# @option -p --priority[primary|supplemental|explicit]  Set the priority of this source.
 # @flag -h --help              Display help for the given command.
 # @flag -q --quiet             Do not output any message.
 # @flag -V --version           Display this application version.
@@ -750,6 +819,7 @@ source() {
 # @flag -n --no-interaction    Do not ask any interactive question.
 # @flag --no-plugins           Disables plugins.
 # @flag --no-cache             Disables Poetry source caches.
+# @option -P --project         Specify another path as the project root.
 # @option -C --directory       The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg name                    Source repository name.
@@ -769,6 +839,7 @@ source::add() {
 # @flag -n --no-interaction      Do not ask any interactive question.
 # @flag --no-plugins             Disables plugins.
 # @flag --no-cache               Disables Poetry source caches.
+# @option -P --project           Specify another path as the project root.
 # @option -C --directory         The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose             Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg name[`_choice_source`]    Source repository name.
@@ -787,6 +858,7 @@ source::remove() {
 # @flag -n --no-interaction        Do not ask any interactive question.
 # @flag --no-plugins               Disables plugins.
 # @flag --no-cache                 Disables Poetry source caches.
+# @option -P --project             Specify another path as the project root.
 # @option -C --directory           The working directory for the Poetry command (defaults to the current working directory).
 # @flag -v --verbose               Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug.
 # @arg source[`_choice_source`]    Source(s) to show information for.
