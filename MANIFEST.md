@@ -121,6 +121,7 @@
 - [cksum](http://gnu.org/software/coreutils): checksum and count the bytes in a file [completion](completions/cksum.sh)
 - [clang](https://clang.llvm.org): the Clang C, C++, and Objective-C compiler [src](src/clang.sh) [completion](completions/clang.sh)
 - [clang++](https://clang.llvm.org): the Clang C, C++, and Objective-C compiler [src](src/clang++.sh) [completion](completions/clang++.sh)
+- [claude](https://github.com/anthropics/claude-code): Claude Code, Anthropic's official CLI for Claude [completion](completions/claude.sh)
 - [clib](https://github.com/clibs/clib): Package manager for the C programming language. [src](src/clib.sh) [completion](completions/clib.sh)
 - [clj](https://github.com/clojure/clojure): runners to launch Clojure programs [src](src/clj.sh) [completion](completions/clj.sh)
 - [clojure](https://github.com/clojure/clojure): runners to launch Clojure programs [src](src/clojure.sh) [completion](completions/clojure.sh)
