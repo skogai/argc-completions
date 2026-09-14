@@ -99,6 +99,8 @@ clean() {
 # @flag -all      Show all the documentation for the package.
 # @flag -c        Respect case when matching symbols.
 # @flag -cmd      Treat a command (package main) like a regular package.
+# @flag -ex       Include executable examples.
+# @flag -http     Serve HTML docs over HTTP.
 # @flag -short    One-line representation for each symbol.
 # @flag -src      Show the full source code for the symbol.
 # @flag -u        Show documentation for unexported as well as exported symbols, methods, and fields.
@@ -119,7 +121,7 @@ env() {
 # }} go env
 
 # {{ go fix
-# @cmd update packages to use new APIs
+# @cmd apply fixes suggested by static checkers
 # @arg packages*
 fix() {
     :;
@@ -370,59 +372,6 @@ mod::why() {
 # }}} go mod why
 # }} go mod
 
-# {{ go work
-# @cmd workspace maintenance
-work() {
-    :;
-}
-
-# {{{ go work edit
-# @cmd edit go.work from tools or scripts
-# @option -dropreplace*|[`_choice_work_dropreplace`] <value>  drop a replacement
-# @option -dropuse*|[`_choice_work_dropuse`] <value>  drop a use directive
-# @flag -fmt              reformat the go.work file without making other changes
-# @option -go <value>     set the expected Go language version
-# @flag -json             print the final go.work in JSON format
-# @flag -print            print the final go.work in its text format
-# @option -replace*|[`_choice_work_replace`] <value>  add a replacement
-# @option -use* <file>    add a use directive
-# @arg workfile <file:go.work>
-work::edit() {
-    :;
-}
-# }}} go work edit
-
-# {{{ go work init
-# @cmd initialize workspace file
-# @arg moddirs*
-work::init() {
-    :;
-}
-# }}} go work init
-
-# {{{ go work sync
-# @cmd sync workspace build list to modules
-work::sync() {
-    :;
-}
-# }}} go work sync
-
-# {{{ go work use
-# @cmd add modules to workspace file
-# @flag -r    recursively for modules in the argument directories
-work::use() {
-    :;
-}
-# }}} go work use
-
-# {{{ go work vendor
-# @cmd make vendored copy of dependencies
-work::vendor() {
-    :;
-}
-# }}} go work vendor
-# }} go work
-
 # {{ go run
 # @cmd compile and run Go program
 # @option -C <dir>                            Change to dir before running the command.
@@ -504,11 +453,23 @@ telemetry() {
 # @option -tags <tag,list>                    a comma-separated list of additional build tags to consider satisfied during the build.
 # @flag -trimpath                             remove all file system paths from the resulting executable.
 # @option -toolexec <cmd args>                a program to use to invoke toolchain programs like vet and asm.
+# @flag -coverprofile
+# @flag -cpu
+# @flag -failfast
+# @flag -fullpath
+# @flag -list
+# @flag -outputdir
+# @flag -parallel
+# @option -run <and>
+# @option -short <and>
+# @option -skip <and>
+# @option -timeout <and>
+# @option -v. <and>
 # @flag -args                                 Pass the remainder of the command line (everything after -args) to the test binary, uninterpreted and unchanged.
 # @flag -c                                    Compile the test binary to pkg.test in the current directory but do not run it (where pkg is the last element of the package's import path).
 # @option -exec <xprog>                       Run the test binary using xprog.
 # @flag -json                                 Convert test output to JSON suitable for automated processing.
-# @option -o <file>                           Compile the test binary to the named file.
+# @option -o <file>                           Save a copy of the test binary to the named file.
 # @option -bench*|[`_choice_bench_target`] <value>  run only those benchmarks matching a regular expression
 # @option -benchtime <value>                  Run enough iterations of each benchmark to take given duration
 # @option -count <value>                      run each test and benchmark n times
@@ -555,6 +516,59 @@ vet() {
     :;
 }
 # }} go vet
+
+# {{ go work
+# @cmd workspace maintenance
+work() {
+    :;
+}
+
+# {{{ go work edit
+# @cmd edit go.work from tools or scripts
+# @option -dropreplace*|[`_choice_work_dropreplace`] <value>  drop a replacement
+# @option -dropuse*|[`_choice_work_dropuse`] <value>  drop a use directive
+# @flag -fmt              reformat the go.work file without making other changes
+# @option -go <value>     set the expected Go language version
+# @flag -json             print the final go.work in JSON format
+# @flag -print            print the final go.work in its text format
+# @option -replace*|[`_choice_work_replace`] <value>  add a replacement
+# @option -use* <file>    add a use directive
+# @arg workfile <file:go.work>
+work::edit() {
+    :;
+}
+# }}} go work edit
+
+# {{{ go work init
+# @cmd initialize workspace file
+# @arg moddirs*
+work::init() {
+    :;
+}
+# }}} go work init
+
+# {{{ go work sync
+# @cmd sync workspace build list to modules
+work::sync() {
+    :;
+}
+# }}} go work sync
+
+# {{{ go work use
+# @cmd add modules to workspace file
+# @flag -r    recursively for modules in the argument directories
+work::use() {
+    :;
+}
+# }}} go work use
+
+# {{{ go work vendor
+# @cmd make vendored copy of dependencies
+work::vendor() {
+    :;
+}
+# }}} go work vendor
+# }} go work
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

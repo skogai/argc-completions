@@ -6,12 +6,12 @@
 # @flag -a                                        Split each input line ($_) into fields ($F).
 # @flag -c                                        Check syntax (no execution).
 # @option -C <dirpath>                            Execute program in specified directory.
-# @flag -d --debug                                Set debugging flag ($DEBUG) to true.
+# @flag -d --debug                                Set debugging flag ($DEBUG) and $VERBOSE to true.
 # @option -e <code>                               Execute given Ruby code; multiple -e allowed.
 # @option -E --encoding <ex[:in]>                 Set default external and internal encodings.
 # @option -F <pattern>                            Set input field separator ($;); used with -a.
 # @option -i <extension>                          Set ARGF in-place mode; create backup files with given extension.
-# @option -I <dirpath>                            Add specified directory to load paths ($LOAD_PATH); multiple -I allowed.
+# @option -I <dirpath>                            Prepend specified directory to load paths ($LOAD_PATH); relative paths are expanded; multiple -I are allowed.
 # @flag -l                                        Set output record separator ($\) to $/; used for line-oriented output.
 # @flag -n                                        Run program in gets loop.
 # @flag -p                                        Like -n, with printing added.
@@ -22,9 +22,9 @@
 # @flag -w                                        Synonym for -W1.
 # @option -W <level=2|:category>                  Set warning flag ($-W): 0 for silent; 1 for moderate; 2 for verbose.
 # @option -x <dirpath>                            Execute Ruby code starting from a ♯!ruby line.
-# @flag --jit                                     Enable JIT for the platform; same as --yjit.
+# @flag --jit                                     Enable the default JIT for the build; same as --yjit.
 # @flag --yjit                                    Enable in-process JIT compiler.
-# @flag --rjit                                    Enable pure-Ruby JIT compiler (experimental).
+# @flag --zjit                                    Enable method-based JIT compiler.
 # @option --backtrace-limit <num>                 Set backtrace limit.
 # @flag --copyright                               Print Ruby copyright.
 # @option --crash-report <template>               Set template for crash report file.
@@ -50,12 +50,16 @@
 # @flag --yjit-perf                               Enable frame pointers and perf profiling.
 # @flag --yjit-trace-exits                        Record Ruby source location when exiting from generated code.
 # @option --yjit-trace-exits-sample-rate <num>    Trace exit locations only every Nth occurrence.
-# @option --rjit-exec-mem-size <num>              Size of executable memory block in MiB (default: 64).
-# @option --rjit-call-threshold <num>             Number of calls to trigger JIT (default: 10).
-# @flag --rjit-stats                              Enable collecting RJIT statistics.
-# @flag --rjit-disable                            Disable RJIT for lazily enabling it with RubyVM::RJIT.enable.
-# @flag --rjit-trace                              Allow TracePoint during JIT compilation.
-# @flag --rjit-trace-exits                        Trace side exit locations.
+# @option --zjit-mem-size <num>                   Max amount of memory that ZJIT can use in MiB (default: 128).
+# @option --zjit-call-threshold <num>             Number of calls to trigger JIT (default: 30).
+# @option --zjit-num-profiles <num>               Number of profiled calls before JIT (default: 5).
+# @flag --zjit-stats-quiet                        Collect ZJIT stats and suppress output.
+# @option --zjit-stats <file>                     Collect ZJIT stats (=file to write to a file).
+# @flag --zjit-disable                            Disable ZJIT for lazily enabling it with RubyVM::ZJIT.enable.
+# @flag --zjit-perf                               Dump ISEQ symbols into /tmp/perf-{}.map for Linux perf.
+# @option --zjit-log-compiled-iseqs <path>        Log compiled ISEQs to the file.
+# @option --zjit-trace-exits <counter>            Record source on side-exit.
+# @option --zjit-trace-exits-sample-rate <num>    Frequency at which to record side exits.
 # @arg filepath
 
 command eval "$(argc --argc-eval "$0" "$@")"

@@ -10,8 +10,8 @@
 # @flag --absolute-names                         Do not strip leading slash characters ('/').
 # @flag --only-values                            Dump out the raw extended attribute value(s) without encoding them.
 # @flag -R --recursive                           List the attributes of all files and directories recursively.
-# @flag -L --logical                             Logical walk, follow symbolic links to directories.
-# @flag -P --physical                            Physical walk, do not follow symbolic links to directories.
+# @flag -L --logical                             Logical walk, recurse into symbolic links that refer to a directory.
+# @flag -P --physical                            Physical walk, do not recurse into symbolic links that refer to a directory.
 # @flag --version                                Print the version of getfattr and exit.
 # @flag --help                                   Print help explaining the command line options.
 # @arg pathname*

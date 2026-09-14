@@ -15,13 +15,16 @@
 # @flag -i --ignorekeyboard            Don't exit for keyboard input.
 # @option -k --stack <OPT>             Capture stack/overlapped windows and join them.
 # @option -l --line <STYLE>            STYLE indicates the style of the line when the -s option is used; see SELECTION STYLE.
-# @option -M --monitor <NUM>           Capture Xinerama monitor number NUM.
+# @option -M --monitor <NUM>           Capture Xrandr monitor number NUM.
 # @flag -m --multidisp                 For multiple heads, screenshot all of them in order.
 # @flag -o --overwrite                 By default scrot does not overwrite the output FILE, use this option to enable it.
 # @flag -p --pointer                   Capture the mouse pointer.
 # @option -q --quality <NUM>           NUM must be within [1, 100].
 # @option -s --select <OPTS>           Interactively select a window or rectangle with the mouse, use the arrow keys to resize.
 # @option -t --thumb[10|25|320x240|500x200|100x0|0x480] <%> <|>  WxH Also generate a thumbnail.
+# @flag -u                             Use the currently focused window.
+# @flag --focused                      Use the currently focused window.
+# @flag --focussed                     Use the currently focused window.
 # @flag -v --version                   Output version information and exit.
 # @option -w --window <WID>            Window identifier to capture.
 # @option -Z --compression <LVL>       Compression level to use, LVL must be within [0, 9].

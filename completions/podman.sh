@@ -1,20 +1,141 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @option --config <file>             Location of authentication config file
-# @option -c --connection <string>    Connection to use for remote Podman service (CONTAINER_CONNECTION)
-# @flag --help                        Help for podman
-# @option --identity <file>           path to SSH identity file, (CONTAINER_SSHKEY)
+# @option --cdi-spec-dir* <dir>         Set the CDI spec directory path (may be set multiple times) (default [/etc/cdi,/var/run/cdi])
+# @option --cgroup-manager[cgroupfs|systemd] <string>  Cgroup manager to use (default "systemd")
+# @option --config <path>               Path to directory containing authentication config file
+# @option --conmon <path>               Path of the conmon binary
+# @option -c --connection <string>      Connection to use for remote Podman service (CONTAINER_CONNECTION)
+# @option --events-backend[file|journald|none] <file>  Events backend to use (default "journald")
+# @flag --help                          Help for podman
+# @option --hooks-dir* <dir>            Set the OCI hooks directory path (may be set multiple times) (default [/usr/share/containers/oci/hooks.d])
+# @option --identity <file>             path to SSH identity file, (CONTAINER_SSHKEY)
+# @option --imagestore <path>           Path to the 'image store', different from 'graph root', use this to split storing the image into a separate 'image store', see 'man containers-storage.conf' for details
 # @option --log-level[trace|debug|info|warn|warning|error|fatal|panic] <string>  Log messages above specified level (default "warn")
-# @option --out <file>                Send output (stdout) from podman to a file
-# @option --ssh <string>              define the ssh mode (default "golang")
-# @option --storage-opt* <string>     Used to pass an option to the storage driver
-# @option --url <string>              URL to access Podman service (CONTAINER_HOST) (default "unix:///run/user/1000/podman/podman.sock")
-# @flag -v --version                  version for podman
+# @option --module* <string>            Load the containers.conf(5) module
+# @option --network-config-dir <dir>    Path of the configuration directory for networks
+# @option --out <file>                  Send output (stdout) from podman to a file
+# @flag -r --remote                     Access remote Podman service
+# @option --root <dir>                  Path to the graph root directory where images, containers, etc.
+# @option --runroot <dir>               Path to the 'run directory' where all state information is stored
+# @option --runtime <path>              Path to the OCI-compatible binary used to run containers.
+# @option --runtime-flag* <string>      add global flags for the container runtime
+# @option --ssh <string>                define the ssh mode (default "golang")
+# @option --storage-driver <string>     Select which storage driver is used to manage storage of images and containers
+# @option --storage-opt* <string>       Used to pass an option to the storage driver
+# @flag --syslog                        Output podman-internal logs to syslog as well as the console (default false)
+# @option --tls-ca <file>               path to TLS certificate Authority PEM file for remote.
+# @option --tls-cert <file>             path to TLS client certificate PEM file for remote.
+# @option --tls-details <file>          Path to a containers-tls-details.yaml(5) file
+# @option --tls-key <file>              path to TLS client certificate private key PEM file for remote.
+# @option --tmpdir <dir>                Path to the tmp directory for libpod state content.
+# @flag --transient-store               Enable transient container storage
+# @option --url <string>                URL to access Podman service (CONTAINER_HOST) (default "unix:///run/user/1000/podman/podman.sock")
+# @flag -v --version                    version for podman
+# @option --volumepath <dir>            Path to the volume directory in which volume data is stored
+
+# {{ podman artifact
+# @cmd Manage OCI artifacts
+artifact() {
+    :;
+}
+
+# {{{ podman artifact add
+# @cmd Add an OCI artifact to the local store
+# @option --annotation <annotation>    set an annotation for the specified files of artifact
+# @flag -a --append                    Append files to an existing artifact
+# @option --file-type <file>           Set file type to use for the artifact (layer)
+# @flag --replace                      Replace an existing artifact
+# @option --type <string>              Use type to describe an artifact
+# @arg artifact
+# @arg path*
+artifact::add() {
+    :;
+}
+# }}} podman artifact add
+
+# {{{ podman artifact extract
+# @cmd Extract an OCI artifact to a local path
+# @option --digest <string>    Only extract blob with the given digest
+# @option --title <string>     Only extract blob with the given title
+# @arg artifact
+# @arg path
+artifact::extract() {
+    :;
+}
+# }}} podman artifact extract
+
+# {{{ podman artifact inspect
+# @cmd Inspect an OCI artifact
+# @option -f --format <string>    Format volume output using JSON or a Go template (default "json")
+# @arg artifact
+artifact::inspect() {
+    :;
+}
+# }}} podman artifact inspect
+
+# {{{ podman artifact ls
+# @cmd List OCI artifacts
+# @option --format <string>    Format volume output using JSON or a Go template (default "{{range .}}{{.Repository}}\t{{.Tag}}\t{{.Digest}}\t{{.Created}}\t{{.Size}}\n{{end -}}")
+# @flag --no-trunc             Do not truncate output
+# @flag -n --noheading         Do not print column headings
+artifact::ls() {
+    :;
+}
+# }}} podman artifact ls
+
+# {{{ podman artifact pull
+# @cmd Pull an OCI artifact
+# @option --authfile <file>           Path of the authentication file.
+# @option --cert-dir <Pathname>       Pathname of a directory containing TLS certificates and keys
+# @option --creds <Credentials>       Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>    Key needed to decrypt the image (e.g. /path/to/key.pem)
+# @flag -q --quiet                    Suppress output information when pulling images
+# @option --retry <uint>              number of times to retry in case of failure when performing pull (default 3)
+# @option --retry-delay <string>      delay between retries in case of pull failures
+# @flag --tls-verify                  Require HTTPS and verify certificates when contacting registries (default true)
+# @arg artifact
+artifact::pull() {
+    :;
+}
+# }}} podman artifact pull
+
+# {{{ podman artifact push
+# @cmd Push an OCI artifact
+# @option --authfile <file>                        Path of the authentication file.
+# @option --cert-dir <dir>                         Path to a directory containing TLS certificates and keys
+# @option --creds <Credentials>                    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --digestfile <file>                      Write the digest of the pushed image to the specified file
+# @flag -q --quiet                                 Suppress output information when pushing images
+# @option --retry <uint>                           number of times to retry in case of failure when performing push (default 3)
+# @option --retry-delay <string>                   delay between retries in case of push failures
+# @option --sign-by <path>                         Add a signature at the destination using the specified key
+# @option --sign-by-sigstore <PATH>                Sign the image using a sigstore parameter file at PATH
+# @option --sign-by-sigstore-private-key <PATH>    Sign the image using a sigstore private key at PATH
+# @option --sign-by-sq-fingerprint <FINGERPRINT>   Sign the image using a Sequoia-PGP key with the specified FINGERPRINT
+# @option --sign-passphrase-file <PATH>            Read a passphrase for signing an image from PATH
+# @flag --tls-verify                               Require HTTPS and verify certificates when contacting registries (default true)
+# @arg artifact <ARTIFACT.>
+artifact::push() {
+    :;
+}
+# }}} podman artifact push
+
+# {{{ podman artifact rm
+# @cmd Remove one or more OCI artifacts
+# @flag -a --all       Remove all artifacts
+# @flag -i --ignore    Ignore error if artifact does not exist
+# @arg artifact*
+artifact::rm() {
+    :;
+}
+# }}} podman artifact rm
+# }} podman artifact
 
 # {{ podman attach
 # @cmd Attach to a running container
 # @option --detach-keys <a-Z>    Select the key sequence for detaching a container.
+# @flag -l --latest              Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-stdin               Do not attach STDIN.
 # @flag --sig-proxy              Proxy received signals to the process (default true)
 # @arg container[`_choice_container`]
@@ -42,21 +163,28 @@ attach() {
 # @option --cgroup-parent <string>               optional parent cgroup for the container
 # @option --cgroupns <string>                    'private', or 'host'
 # @flag --compat-volumes                         preserve the contents of VOLUMEs during RUN instructions
+# @flag --compress                               this is a legacy option, which has no effect on the image
+# @option --compression-format <string>          compression format to use for layers and cache
+# @option --compression-level <int>              compression level to use for layers and cache
 # @option --cpp-flag* <string>                   set additional flag to pass to C preprocessor (cpp)
 # @option --cpu-period <uint>                    limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                      limit the CPU CFS (Completely Fair Scheduler) quota
 # @option -c --cpu-shares <uint>                 CPU shares (relative weight)
 # @option --cpuset-cpus <string>                 CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>                 memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @flag --created-annotation                     set an "org.opencontainers.image.created" annotation in the image (default true)
 # @option --creds <username[:password]>          use [username[:password]] for accessing the registry
+# @option --cw <options>                         confidential workload options
 # @option --decryption-key* <string>             key needed to decrypt the image
 # @option --device* <string>                     additional devices to provide
 # @flag -D --disable-compression                 don't compress layers by default (default true)
+# @flag --disable-content-trust                  this is a Docker specific option and is a NOOP
 # @option --dns </etc/resolv.conf>               set custom DNS servers or disable it completely by setting it to 'none', which prevents the automatic creation of /etc/resolv.conf.
 # @option --dns-option* <string>                 set custom DNS options
 # @option --dns-search* <string>                 set custom DNS search domains
 # @option --env* <string>                        set environment variable for the image
 # @option -f --filepathname or URL of a Dockerfile <file>  pathname or URL  pathname or URL of a Dockerfile
+# @flag --force-compression                      use the specified compression algorithm even if the destination contains a differently-compressed variant already
 # @flag --force-rm                               always remove intermediate containers after a build, even if the build is unsuccessful.
 # @option --format <format>                      format of the built image's manifest and metadata.
 # @option --from <file>                          image name used to replace the value in the first FROM instruction in the Containerfile
@@ -66,6 +194,9 @@ attach() {
 # @flag --identity-label                         add default identity label (default true)
 # @option --ignorefile <file>                    path to an alternate .dockerignore file
 # @option --iidfile <file>                       file to write the image ID to
+# @option --iidfile-raw <file>                   file to write the image ID to (without algorithm prefix)
+# @flag --inherit-annotations                    inherit the annotations from the base image or base stages.
+# @flag --inherit-labels                         inherit the labels from the base image or base stages.
 # @option --ipc <path>                           'private', path of IPC namespace to join, or 'host'
 # @option --isolation <type>                     type of process isolation to use.
 # @option --jobs <int>                           how many stages to run in parallel (default 1)
@@ -73,9 +204,12 @@ attach() {
 # @option --layer-label* <string>                set metadata for an intermediate image (default [])
 # @flag --layers                                 use intermediate layers during build.
 # @option --logfile <file>                       log to file instead of stdout/stderr
+# @flag --logsplit                               split logfile to different files for each platform
 # @option --manifest <string>                    add the image to the specified manifest list.
 # @option -m --memory <string>                   memory limit (format: <number>[<unit>], where unit = b, k, m or g)
 # @option --memory-swap <string>                 swap limit equal to memory plus swap: '-1' to enable unlimited swap
+# @option --metadata-file <file>                 file to write metadata about the image to
+# @option --mount* <string>                      set transient mounts for each RUN instruction, e.g. type=secret,id=mysecret
 # @option --network[`_choice_network`] <path>    'private', 'none', 'ns:path' of network namespace to join, or 'host'
 # @flag --no-cache                               do not use existing cached images for the container build.
 # @flag --no-hostname                            do not create new /etc/hostname file for RUN instructions, use the one from the base image.
@@ -84,14 +218,17 @@ attach() {
 # @option --os <string>                          set the OS to the provided value instead of the current operating system of the host (default "linux")
 # @option --os-feature <feature>                 set required OS feature for the target image in addition to values from the base image
 # @option --os-version <version>                 set required OS version for the target image instead of the value from the base image
+# @option -o --output* <path>                    output destination (format: type=local,dest=path)
 # @option --pid <path>                           private, path of PID namespace to join, or 'host'
 # @option --platform <OS/ARCH[/VARIANT]>         set the OS/ARCH[/VARIANT] of the image to the provided value instead of the current operating system and architecture of the host (for example "linux/arm") (default [linux/amd64])
-# @option --pull[always|missing|never|newer] <string[="missing"]>  Pull image policy (default "missing")
+# @option --pull[always|missing|never|newer] <string[="always"]>  Pull image policy (default "missing")
 # @flag -q --quiet                               refrain from announcing build instructions and image read/write progress
 # @option --retry <int>                          number of times to retry in case of failure when performing push/pull (default 3)
 # @option --retry-delay <string>                 delay between retries in case of push/pull failures
+# @flag --rewrite-timestamp                      set timestamps in layers to no later than the value for --source-date-epoch
 # @flag --rm                                     remove intermediate containers after a successful build (default true)
 # @option --runtime-flag* <string>               add global flags for the container runtime
+# @flag --save-stages                            save intermediate stage images.
 # @option --sbom <preset>                        scan working container using preset configuration
 # @option --sbom-image-output <path>             add scan results to image as path
 # @option --sbom-image-purl-output <path>        add scan results to image as path
@@ -103,15 +240,21 @@ attach() {
 # @option --secret* <file>                       secret file to expose to the build
 # @option --security-opt* <string>               security options (default [])
 # @option --shm-size <<number><unit>>            size of '/dev/shm'.
+# @option --sign-by <FINGERPRINT>                sign the image using a GPG key with the specified FINGERPRINT
 # @flag --skip-unused-stages                     skips stages in multi-stage builds which do not affect the final target (default true)
+# @option --source-date-epoch <seconds>          set new timestamps in image info to seconds after the epoch, defaults to current time
+# @option --source-policy-file <pathname>        pathname of source policy file for controlling source references during build
 # @flag --squash                                 squash all image layers into a single layer
 # @flag --squash-all                             Squash all layers into a single layer
 # @option --ssh* <string>                        SSH agent socket or keys to expose to the build.
+# @flag --stage-labels                           add metadata labels to intermediate stage images (requires --save-stages).
 # @flag --stdin                                  pass stdin into containers
 # @option -t --tag <name>                        tagged name to apply to the built image
 # @option --target <string>                      set the target build stage to build
-# @option --timestamp <int>                      set created timestamp to the specified epoch seconds to allow for deterministic builds, defaults to current time
+# @option --timestamp <seconds>                  set new timestamps in image info and layer to seconds after the epoch, defaults to current times
+# @flag --tls-verify                             require HTTPS and verify certificates when accessing the registry (default true)
 # @option --ulimit* <string>                     ulimit options
+# @option --unsetannotation* <string>            unset annotation when inheriting annotations from base image
 # @option --unsetenv* <string>                   unset environment variable from final image
 # @option --unsetlabel* <string>                 unset label when inheriting labels from base image
 # @option --userns <path>                        'container', path of user namespace to join, or 'host'
@@ -137,7 +280,7 @@ build() {
 # @option --iidfile <file>         file to write the image ID to
 # @flag --include-volumes          Include container volumes as image volumes
 # @option -m --message <string>    Set commit message for imported image
-# @flag -p --pause                 Pause container during commit
+# @flag -p --pause                 Pause container during commit (default true)
 # @flag -q --quiet                 Suppress output
 # @flag -s --squash                squash newly built layers into a single new layer
 # @arg container[`_choice_container`]
@@ -149,6 +292,30 @@ commit() {
 
 # {{ podman compose
 # @cmd Run compose workloads via an external provider such as docker-compose or podman-compose
+# @flag -h --help                             show this help message and exit
+# @flag -v --version                          show version
+# @option --in-pod <in_pod>                   Specify pod usage: 'true'  - create/use a pod named pod_<project name> 'false'  - do not use a pod '<name>' - create/use a custom pod with the given name
+# @option --pod-args <pod_args>               custom arguments to be passed to `podman pod`
+# @option --env-file <env_file>               Specify an alternate environment file
+# @option -f --file <file>                    Specify an compose file (default: docker-compose.yml) or '-' to read from stdin.
+# @option --profile <profile>                 Specify a profile to enable
+# @option -p --project-name <PROJECT_NAME>    Specify an alternate project name (default: directory name)
+# @option --podman-path <PODMAN_PATH>         Specify an alternate path to podman (default: use location in $PATH variable)
+# @option --podman-args <args>                custom global arguments to be passed to `podman`
+# @option --podman-pull-args <args>           custom arguments to be passed to `podman pull`
+# @option --podman-push-args <args>           custom arguments to be passed to `podman push`
+# @option --podman-build-args <args>          custom arguments to be passed to `podman build`
+# @option --podman-inspect-args <args>        custom arguments to be passed to `podman inspect`
+# @option --podman-run-args <args>            custom arguments to be passed to `podman run`
+# @option --podman-start-args <args>          custom arguments to be passed to `podman start`
+# @option --podman-stop-args <args>           custom arguments to be passed to `podman stop`
+# @option --podman-rm-args <args>             custom arguments to be passed to `podman rm`
+# @option --podman-volume-args <args>         custom arguments to be passed to `podman volume`
+# @flag --no-ansi                             Do not print ANSI control characters
+# @flag --no-cleanup                          Do not stop and remove existing pod & containers
+# @flag --dry-run                             No action; perform a simulation of commands
+# @option --parallel
+# @flag --verbose                             Print debugging output
 compose() {
     :;
 }
@@ -163,6 +330,7 @@ container() {
 # {{{ podman container attach
 # @cmd Attach to a running container
 # @option --detach-keys <a-Z>    Select the key sequence for detaching a container.
+# @flag -l --latest              Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-stdin               Do not attach STDIN.
 # @flag --sig-proxy              Proxy received signals to the process (default true)
 # @arg container[`_choice_container`]
@@ -181,6 +349,7 @@ container::attach() {
 # @flag --ignore-rootfs              Do not include root file-system changes when exporting
 # @flag --ignore-volumes             Do not export volumes associated with container
 # @flag -k --keep                    Keep all temporary checkpoint files
+# @flag -l --latest                  Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag -R --leave-running           Leave the container running after writing checkpoint to disk
 # @flag -P --pre-checkpoint          Dump container's memory information only, leave the container running
 # @flag --print-stats                Display checkpoint statistics
@@ -191,6 +360,19 @@ container::checkpoint() {
     :;
 }
 # }}} podman container checkpoint
+
+# {{{ podman container cleanup
+# @cmd Clean up network and mountpoints of one or more containers
+# @flag -a --all             Cleans up all containers
+# @option --exec <string>    Clean up the given exec session instead of the container
+# @flag -l --latest          Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --rm                 After cleanup, remove the container entirely
+# @flag --rmi                After cleanup, remove the image entirely
+# @arg container*[`_choice_container`]
+container::cleanup() {
+    :;
+}
+# }}} podman container cleanup
 
 # {{{ podman container clone
 # @cmd Clone an existing container
@@ -232,7 +414,7 @@ container::clone() {
 # @option --iidfile <file>         file to write the image ID to
 # @flag --include-volumes          Include container volumes as image volumes
 # @option -m --message <string>    Set commit message for imported image
-# @flag -p --pause                 Pause container during commit
+# @flag -p --pause                 Pause container during commit (default true)
 # @flag -q --quiet                 Suppress output
 # @flag -s --squash                squash newly built layers into a single new layer
 # @arg container[`_choice_container`]
@@ -264,12 +446,14 @@ container::cp() {
 # @option --blkio-weight-device <DEVICE_NAME:WEIGHT>  Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT)
 # @option --cap-add* <string>                      Add capabilities to the container
 # @option --cap-drop* <string>                     Drop capabilities from the container
+# @option --cert-dir <Pathname>                    Pathname of a directory containing TLS certificates and keys
 # @option --cgroup-conf* <string>                  Configure cgroup v2 (key=value)
 # @option --cgroup-parent <string>                 Optional parent cgroup for the container
 # @option --cgroupns <string>                      cgroup namespace to use
-# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration
+# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration (default "enabled")
 # @option --chrootdirs* <dir>                      Chroot directories inside the container
 # @option --cidfile <file>                         Write the container ID to the file
+# @option --conmon-pidfile <file>                  Path to the file that will receive the PID of conmon
 # @option --cpu-period <uint>                      Limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                        Limit the CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <uint>                   Limit the CPU real-time period in microseconds
@@ -278,6 +462,8 @@ container::cp() {
 # @option --cpus <float>                           Number of CPUs.
 # @option --cpuset-cpus <string>                   CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>                   Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @option --creds <credentials>                    credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>                 Key needed to decrypt the image (e.g. /path/to/key.pem)
 # @option --device* <string>                       Add a host device to the container
 # @option --device-cgroup-rule* <string>           Add a rule to the cgroup allowed devices list
 # @option --device-read-bps* <string>              Limit read rate (bytes per second) from a device (e.g. --device-read-bps=/dev/sda:1mb)
@@ -289,8 +475,9 @@ container::cp() {
 # @option --dns-option* <string>                   Set custom DNS options
 # @option --dns-search* <string>                   Set custom DNS search domains
 # @option --entrypoint <string>                    Overwrite the default ENTRYPOINT of the image
-# @option -e --env* <string>                       Set environment variables in container
+# @option -e --env* <string>                       Set environment variables in container (default [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin])
 # @option --env-file* <file>                       Read in a file of environment variables
+# @flag --env-host                                 Use all current host environment variables in container
 # @option --env-merge* <string>                    Preprocess environment variables from image before injecting them into the container
 # @option --expose* <string>                       Expose a port or a range of ports
 # @option --gidmap* <string>                       GID map to use for the user namespace
@@ -298,31 +485,35 @@ container::cp() {
 # @option --group-add* <string>                    Add additional groups to the primary container process.
 # @option --group-entry <string>                   Entry to write to /etc/group
 # @option --health-cmd <string>                    set a healthcheck command for the container ('none' disables the existing healthcheck)
-# @option --health-interval <string>               set an interval for the healthcheck (a value of disable results in no automatic timer setup) (default "30s")
+# @option --health-interval <string>               set an interval for the healthcheck.
+# @option --health-log-destination <path>          set the destination of the HealthCheck log.
+# @option --health-max-log-count <uint>            set maximum number of attempts in the HealthCheck log file.
+# @option --health-max-log-size <uint>             set maximum length in characters of stored HealthCheck log.
 # @option --health-on-failure <string>             action to take once the container turns unhealthy (default "none")
 # @option --health-retries <uint>                  the number of retries allowed before a healthcheck is considered to be unhealthy (default 3)
 # @option --health-start-period <string>           the initialization time needed for a container to bootstrap (default "0s")
 # @option --health-startup-cmd <string>            Set a startup healthcheck command for the container
-# @option --health-startup-interval <string>       Set an interval for the startup healthcheck (default "30s")
+# @option --health-startup-interval <string>       Set an interval for the startup healthcheck.
 # @option --health-startup-retries <uint>          Set the maximum number of retries before the startup healthcheck will restart the container
 # @option --health-startup-success <uint>          Set the number of consecutive successes before the startup healthcheck is marked as successful and the normal healthcheck begins (0 indicates any success will start the regular healthcheck)
 # @option --health-startup-timeout <string>        Set the maximum amount of time that the startup healthcheck may take before it is considered failed (default "30s")
-# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed (default "30s")
+# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed and SIGKILL is sent to the healthcheck process (default "30s")
 # @flag --help
 # @option -h --hostname <string>                   Set container hostname
+# @option --hosts-file[image|none] <file>          Base file to create the /etc/hosts file inside the container, or one of the special values.
 # @option --hostuser* <string>                     Host user account to add to /etc/passwd within container
 # @flag --http-proxy                               Set proxy environment variables in the container based on the host proxy vars (default true)
 # @option --image-volume[bind|tmpfs|ignore] <string>  Tells podman how to handle the builtin image volumes (default "anonymous")
 # @flag --init                                     Run an init binary inside the container that forwards signals and reaps processes
 # @option --init-ctr <string>                      Make this a pod init container.
 # @option --init-path <path>                       Path to the container-init binary
-# @flag -i --interactive                           Keep STDIN open even if not attached
+# @flag -i --interactive                           Make STDIN available to the contained process
 # @option --ip <string>                            Specify a static IPv4 address for the container
 # @option --ip6 <string>                           Specify a static IPv6 address for the container
 # @option --ipc <string>                           IPC namespace to use
 # @option -l --label* <string>                     Set metadata on container
 # @option --label-file* <file>                     Read in a line delimited file of labels
-# @option --log-driver <string>                    Logging driver for the container
+# @option --log-driver <string>                    Logging driver for the container (default "journald")
 # @option --log-opt* <string>                      Logging driver options
 # @option --mac-address <string>                   Container MAC address (e.g. 92:d0:c6:0a:29:33)
 # @option -m --memory <<number>[<unit>]>           Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
@@ -334,6 +525,7 @@ container::cp() {
 # @option --network*[`_choice_network`] <string>   Connect a container to a network
 # @option --network-alias* <string>                Add network-scoped alias for the container
 # @flag --no-healthcheck                           Disable healthchecks on container
+# @flag --no-hostname                              Do not create /etc/hostname within the container, instead use the version from the image
 # @flag --no-hosts                                 Do not create /etc/hosts within the container, instead use the version from the image
 # @flag --oom-kill-disable                         Disable OOM Killer
 # @option --oom-score-adj <int>                    Tune the host's OOM preferences (-1000 to 1000)
@@ -341,14 +533,15 @@ container::cp() {
 # @option --passwd-entry <string>                  Entry to write to /etc/passwd
 # @option --personality <string>                   Configure execution domain using personality (e.g., LINUX/LINUX32)
 # @option --pid <string>                           PID namespace to use
-# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default -1)
+# @option --pidfile <file>                         Write the container process ID to the file
+# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default 2048)
 # @option --platform <string>                      Specify the platform for selecting the image.
 # @option --pod <string>                           Run container in an existing pod
 # @option --pod-id-file <file>                     Read the pod ID from the file
 # @flag --privileged                               Give extended privileges to container
 # @option -p --publish* <string>                   Publish a container's port, or a range of ports, to the host (default [])
 # @flag -P --publish-all                           Publish all exposed ports to random ports on the host interface
-# @option --pull[always|missing|never|newer] <string>  Pull image policy
+# @option --pull[always|missing|never|newer] <string>  Pull image policy (default "missing")
 # @flag -q --quiet                                 Suppress output information when pulling images
 # @option --rdt-class <string>                     Class of Service (COS) that the container should be assigned to
 # @flag --read-only                                Make containers root filesystem read-only
@@ -356,7 +549,7 @@ container::cp() {
 # @flag --replace                                  If a container with the same name exists, replace it
 # @option --requires* <string>                     Add one or more requirement containers that must be started before this container will start
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
-# @option --retry <uint>                           number of times to retry in case of failure when performing pull
+# @option --retry <uint>                           number of times to retry in case of failure when performing pull (default 3)
 # @option --retry-delay <string>                   delay between retries in case of pull failures
 # @flag --rm                                       Remove container and any anonymous unnamed volume associated with the container after exit
 # @flag --rootfs                                   The first argument is not an image but the rootfs to the exploded container
@@ -364,7 +557,7 @@ container::cp() {
 # @option --seccomp-policy <file>                  Policy for selecting a seccomp profile (experimental) (default "default")
 # @option --secret* <string>                       Add secret to container
 # @option --security-opt* <string>                 Security Options
-# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes)) (default "65536k")
 # @option --shm-size-systemd <<number>[<unit>]>    Size of systemd specific tmpfs mounts (/run, /run/lock) (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @option --stop-signal <string>                   Signal to stop a container.
 # @option --stop-timeout <uint>                    Timeout (in seconds) that containers stopped by user command have to exit.
@@ -386,7 +579,7 @@ container::cp() {
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
 # @option --variant                                Use VARIANT instead of the running architecture variant for choosing images
-# @option -v --volume* <string>                    Bind mount a volume into the container.
+# @option -v --volume* <string>                    Bind mount a volume into the container
 # @option --volumes-from* <string>                 Mount volumes from the specified container(s)
 # @option -w --workdir <dir>                       Working directory inside the container
 # @arg image[`_module_oci_podman_image`]
@@ -400,6 +593,7 @@ container::create() {
 # {{{ podman container diff
 # @cmd Inspect changes to the container's file systems
 # @option --format <string>    Change the output format (json)
+# @flag -l --latest            Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container[`_choice_container`]
 container::diff() {
     :;
@@ -408,12 +602,16 @@ container::diff() {
 
 # {{{ podman container exec
 # @cmd Run a process in a running container
+# @option --cidfile <file>          File to read the container ID from
 # @flag -d --detach                 Run the exec session in detached mode (backgrounded)
 # @option --detach-keys <string>    Select the key sequence for detaching a container.
 # @option -e --env* <string>        Set environment variables
 # @option --env-file* <file>        Read in a file of environment variables
-# @flag -i --interactive            Keep STDIN open even if not attached
+# @flag -i --interactive            Make STDIN available to the contained process
+# @flag -l --latest                 Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --no-session                Do not create a database session for the exec process
 # @option --preserve-fd <uints>     Pass a list of additional file descriptors to the container (default [])
+# @option --preserve-fds <uint>     Pass N additional file descriptors to the container
 # @flag --privileged                Give the process extended Linux capabilities inside the container.
 # @flag -t --tty                    Allocate a pseudo-TTY.
 # @option -u --user <string>        Sets the username or UID used and optionally the groupname or GID for the specified command
@@ -446,7 +644,8 @@ container::export() {
 
 # {{{ podman container init
 # @cmd Initialize one or more containers
-# @flag -a --all    Initialize all containers
+# @flag -a --all       Initialize all containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 container::init() {
     :;
@@ -456,6 +655,7 @@ container::init() {
 # {{{ podman container inspect
 # @cmd Display the configuration of a container
 # @option -f --format <string>    Format the output to a Go template or json (default "json")
+# @flag -l --latest               Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag -s --size                 Display total file size
 # @arg container*[`_choice_container`]
 container::inspect() {
@@ -467,6 +667,7 @@ container::inspect() {
 # @cmd Kill one or more running containers with a specific signal
 # @flag -a --all                  Signal all running containers
 # @option --cidfile* <file>       Read the container ID from the file
+# @flag -l --latest               Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -s --signal <string>    Signal to send to the container (default "KILL")
 # @arg container*[`_choice_container`]
 container::kill() {
@@ -482,6 +683,7 @@ container::kill() {
 # @option -f --filter* <string>    Filter output based on conditions given
 # @option --format <string>        Pretty-print containers to JSON or using a Go template
 # @option -n --last <int>          Print the n last created containers (all states) (default -1)
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-trunc                 Display the extended information
 # @flag --noheading                Do not print headers
 # @flag --ns                       Display namespace information
@@ -500,21 +702,36 @@ container::list() {
 # @cmd Fetch the logs of one or more containers
 # @flag --color               Output the containers with different colors in the log.
 # @flag -f --follow           Follow log output.
+# @flag -l --latest           Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag -n --names            Output the container name in the log
 # @option --since <string>    Show logs since TIMESTAMP
 # @option --tail <int>        Output the specified number of LINES at the end of the logs.
 # @flag -t --timestamps       Output the timestamps in the log
 # @option --until <string>    Show logs until TIMESTAMP
-# @arg container[`_choice_container`]
+# @arg container*[`_choice_container`]
 container::logs() {
     :;
 }
 # }}} podman container logs
 
+# {{{ podman container mount
+# @cmd Mount a working container's root filesystem
+# @flag -a --all               Mount all containers
+# @option --format <string>    Print the mounted containers in specified format (json)
+# @flag -l --latest            Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --no-trunc             Do not truncate output
+# @arg container*[`_choice_container`]
+container::mount() {
+    :;
+}
+# }}} podman container mount
+
 # {{{ podman container pause
 # @cmd Pause all the processes in one or more containers
 # @flag -a --all                   Pause all running containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 container::pause() {
     :;
@@ -523,7 +740,8 @@ container::pause() {
 
 # {{{ podman container port
 # @cmd List port mappings or a specific mapping for the container
-# @flag -a --all    Display port information for all containers
+# @flag -a --all       Display port information for all containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container[`_choice_container`]
 # @arg port
 container::port() {
@@ -547,6 +765,7 @@ container::prune() {
 # @option -f --filter* <string>    Filter output based on conditions given
 # @option --format <string>        Pretty-print containers to JSON or using a Go template
 # @option -n --last <int>          Print the n last created containers (all states) (default -1)
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-trunc                 Display the extended information
 # @flag --noheading                Do not print headers
 # @flag --ns                       Display namespace information
@@ -573,7 +792,9 @@ container::rename() {
 # {{{ podman container restart
 # @cmd Restart one or more containers
 # @flag -a --all                   Restart all non-running containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --running                  Restart only running containers
 # @option -t --time <int>          Seconds to wait for stop before killing the container (default 10)
 # @arg container*[`_choice_container`]
@@ -593,10 +814,12 @@ container::restart() {
 # @option -i --import <string>          Restore from exported checkpoint archive (tar.gz)
 # @option --import-previous <string>    Restore from exported pre-checkpoint archive (tar.gz)
 # @flag -k --keep                       Keep all temporary checkpoint files
+# @flag -l --latest                     Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -n --name <string>            Specify new name for container restored from exported checkpoint (only works with image or --import)
 # @option --pod <string>                Restore container into existing Pod (only works with image or --import)
 # @flag --print-stats                   Display restore statistics
 # @option -p --publish* <string>        Publish a container's port, or a range of ports, to the host (default [])
+# @flag --tcp-close                     Restore a container and close all TCP connections
 # @flag --tcp-established               Restore a container with established TCP connections
 # @arg container-image* <CONTAINER|IMAGE>
 container::restore() {
@@ -612,6 +835,7 @@ container::restore() {
 # @option --filter* <string>    Filter output based on conditions given
 # @flag -f --force              Force removal of a running or unusable container
 # @flag -i --ignore             Ignore errors when a specified container is missing
+# @flag -l --latest             Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -t --time <int>       Seconds to wait for stop before killing the container (default 10)
 # @flag -v --volumes            Remove anonymous volumes associated with the container
 # @arg container*[`_choice_container`]
@@ -631,12 +855,14 @@ container::rm() {
 # @option --blkio-weight-device <DEVICE_NAME:WEIGHT>  Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT)
 # @option --cap-add* <string>                      Add capabilities to the container
 # @option --cap-drop* <string>                     Drop capabilities from the container
+# @option --cert-dir <Pathname>                    Pathname of a directory containing TLS certificates and keys
 # @option --cgroup-conf* <string>                  Configure cgroup v2 (key=value)
 # @option --cgroup-parent <string>                 Optional parent cgroup for the container
 # @option --cgroupns <string>                      cgroup namespace to use
-# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration
+# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration (default "enabled")
 # @option --chrootdirs* <dir>                      Chroot directories inside the container
 # @option --cidfile <file>                         Write the container ID to the file
+# @option --conmon-pidfile <file>                  Path to the file that will receive the PID of conmon
 # @option --cpu-period <uint>                      Limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                        Limit the CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <uint>                   Limit the CPU real-time period in microseconds
@@ -645,6 +871,8 @@ container::rm() {
 # @option --cpus <float>                           Number of CPUs.
 # @option --cpuset-cpus <string>                   CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>                   Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @option --creds <credentials>                    credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>                 Key needed to decrypt the image (e.g. /path/to/key.pem)
 # @flag -d --detach                                Run container in background and print container ID
 # @option --detach-keys <a-Z>                      Override the key sequence for detaching a container.
 # @option --device* <string>                       Add a host device to the container
@@ -658,8 +886,9 @@ container::rm() {
 # @option --dns-option* <string>                   Set custom DNS options
 # @option --dns-search* <string>                   Set custom DNS search domains
 # @option --entrypoint <string>                    Overwrite the default ENTRYPOINT of the image
-# @option -e --env* <string>                       Set environment variables in container
+# @option -e --env* <string>                       Set environment variables in container (default [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin])
 # @option --env-file* <file>                       Read in a file of environment variables
+# @flag --env-host                                 Use all current host environment variables in container
 # @option --env-merge* <string>                    Preprocess environment variables from image before injecting them into the container
 # @option --expose* <string>                       Expose a port or a range of ports
 # @option --gidmap* <string>                       GID map to use for the user namespace
@@ -667,30 +896,34 @@ container::rm() {
 # @option --group-add* <string>                    Add additional groups to the primary container process.
 # @option --group-entry <string>                   Entry to write to /etc/group
 # @option --health-cmd <string>                    set a healthcheck command for the container ('none' disables the existing healthcheck)
-# @option --health-interval <string>               set an interval for the healthcheck (a value of disable results in no automatic timer setup) (default "30s")
+# @option --health-interval <string>               set an interval for the healthcheck.
+# @option --health-log-destination <path>          set the destination of the HealthCheck log.
+# @option --health-max-log-count <uint>            set maximum number of attempts in the HealthCheck log file.
+# @option --health-max-log-size <uint>             set maximum length in characters of stored HealthCheck log.
 # @option --health-on-failure <string>             action to take once the container turns unhealthy (default "none")
 # @option --health-retries <uint>                  the number of retries allowed before a healthcheck is considered to be unhealthy (default 3)
 # @option --health-start-period <string>           the initialization time needed for a container to bootstrap (default "0s")
 # @option --health-startup-cmd <string>            Set a startup healthcheck command for the container
-# @option --health-startup-interval <string>       Set an interval for the startup healthcheck (default "30s")
+# @option --health-startup-interval <string>       Set an interval for the startup healthcheck.
 # @option --health-startup-retries <uint>          Set the maximum number of retries before the startup healthcheck will restart the container
 # @option --health-startup-success <uint>          Set the number of consecutive successes before the startup healthcheck is marked as successful and the normal healthcheck begins (0 indicates any success will start the regular healthcheck)
 # @option --health-startup-timeout <string>        Set the maximum amount of time that the startup healthcheck may take before it is considered failed (default "30s")
-# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed (default "30s")
+# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed and SIGKILL is sent to the healthcheck process (default "30s")
 # @flag --help
 # @option -h --hostname <string>                   Set container hostname
+# @option --hosts-file[image|none] <file>          Base file to create the /etc/hosts file inside the container, or one of the special values.
 # @option --hostuser* <string>                     Host user account to add to /etc/passwd within container
 # @flag --http-proxy                               Set proxy environment variables in the container based on the host proxy vars (default true)
 # @option --image-volume[bind|tmpfs|ignore] <string>  Tells podman how to handle the builtin image volumes (default "anonymous")
 # @flag --init                                     Run an init binary inside the container that forwards signals and reaps processes
 # @option --init-path <path>                       Path to the container-init binary
-# @flag -i --interactive                           Keep STDIN open even if not attached
+# @flag -i --interactive                           Make STDIN available to the contained process
 # @option --ip <string>                            Specify a static IPv4 address for the container
 # @option --ip6 <string>                           Specify a static IPv6 address for the container
 # @option --ipc <string>                           IPC namespace to use
 # @option -l --label* <string>                     Set metadata on container
 # @option --label-file* <file>                     Read in a line delimited file of labels
-# @option --log-driver <string>                    Logging driver for the container
+# @option --log-driver <string>                    Logging driver for the container (default "journald")
 # @option --log-opt* <string>                      Logging driver options
 # @option --mac-address <string>                   Container MAC address (e.g. 92:d0:c6:0a:29:33)
 # @option -m --memory <<number>[<unit>]>           Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
@@ -702,6 +935,7 @@ container::rm() {
 # @option --network*[`_choice_network`] <string>   Connect a container to a network
 # @option --network-alias* <string>                Add network-scoped alias for the container
 # @flag --no-healthcheck                           Disable healthchecks on container
+# @flag --no-hostname                              Do not create /etc/hostname within the container, instead use the version from the image
 # @flag --no-hosts                                 Do not create /etc/hosts within the container, instead use the version from the image
 # @flag --oom-kill-disable                         Disable OOM Killer
 # @option --oom-score-adj <int>                    Tune the host's OOM preferences (-1000 to 1000)
@@ -710,14 +944,17 @@ container::rm() {
 # @option --passwd-entry <string>                  Entry to write to /etc/passwd
 # @option --personality <string>                   Configure execution domain using personality (e.g., LINUX/LINUX32)
 # @option --pid <string>                           PID namespace to use
-# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default -1)
+# @option --pidfile <file>                         Write the container process ID to the file
+# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default 2048)
 # @option --platform <string>                      Specify the platform for selecting the image.
 # @option --pod <string>                           Run container in an existing pod
 # @option --pod-id-file <file>                     Read the pod ID from the file
+# @option --preserve-fd <uints>                    Pass a file descriptor into the container (default [])
+# @option --preserve-fds <uint>                    Pass a number of additional file descriptors into the container
 # @flag --privileged                               Give extended privileges to container
 # @option -p --publish* <string>                   Publish a container's port, or a range of ports, to the host (default [])
 # @flag -P --publish-all                           Publish all exposed ports to random ports on the host interface
-# @option --pull[always|missing|never|newer] <string>  Pull image policy
+# @option --pull[always|missing|never|newer] <string>  Pull image policy (default "missing")
 # @flag -q --quiet                                 Suppress output information when pulling images
 # @option --rdt-class <string>                     Class of Service (COS) that the container should be assigned to
 # @flag --read-only                                Make containers root filesystem read-only
@@ -725,7 +962,7 @@ container::rm() {
 # @flag --replace                                  If a container with the same name exists, replace it
 # @option --requires* <string>                     Add one or more requirement containers that must be started before this container will start
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
-# @option --retry <uint>                           number of times to retry in case of failure when performing pull
+# @option --retry <uint>                           number of times to retry in case of failure when performing pull (default 3)
 # @option --retry-delay <string>                   delay between retries in case of pull failures
 # @flag --rm                                       Remove container and any anonymous unnamed volume associated with the container after exit
 # @flag --rmi                                      Remove image unless used by other containers, implies --rm
@@ -734,7 +971,7 @@ container::rm() {
 # @option --seccomp-policy <file>                  Policy for selecting a seccomp profile (experimental) (default "default")
 # @option --secret* <string>                       Add secret to container
 # @option --security-opt* <string>                 Security Options
-# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes)) (default "65536k")
 # @option --shm-size-systemd <<number>[<unit>]>    Size of systemd specific tmpfs mounts (/run, /run/lock) (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @flag --sig-proxy                                Proxy received signals to the process (default true)
 # @option --stop-signal <string>                   Signal to stop a container.
@@ -757,7 +994,7 @@ container::rm() {
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
 # @option --variant                                Use VARIANT instead of the running architecture variant for choosing images
-# @option -v --volume* <string>                    Bind mount a volume into the container.
+# @option -v --volume* <string>                    Bind mount a volume into the container
 # @option --volumes-from* <string>                 Mount volumes from the specified container(s)
 # @option -w --workdir <dir>                       Working directory inside the container
 # @arg image[`_module_oci_podman_image`]
@@ -768,13 +1005,33 @@ container::run() {
 }
 # }}} podman container run
 
+# {{{ podman container runlabel
+# @cmd Execute the command described by an image label
+# @option --authfile <file>        Path of the authentication file.
+# @option --cert-dir <Pathname>    Pathname of a directory containing TLS certificates and keys
+# @option --creds <Credentials>    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @flag --display                  Preview the command that the label would run
+# @option -n --name <string>       Assign a name to the container
+# @flag -q --quiet                 Suppress output information when installing images
+# @flag --replace                  Replace existing container with a new one from the image
+# @flag --tls-verify               Require HTTPS and verify certificates when contacting registries (default true)
+# @arg label
+# @arg image[`_module_oci_podman_image`]
+# @arg arg*
+container::runlabel() {
+    :;
+}
+# }}} podman container runlabel
+
 # {{{ podman container start
 # @cmd Start one or more containers
 # @flag --all                      Start all containers regardless of their state or configuration
 # @flag -a --attach                Attach container's STDOUT and STDERR
 # @option --detach-keys <a-Z>      Select the key sequence for detaching a container.
 # @option -f --filter* <string>    Filter output based on conditions given
-# @flag -i --interactive           Keep STDIN open even if not attached
+# @flag -i --interactive           Make STDIN available to the contained process
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --sig-proxy                Proxy received signals to the process (default true if attaching, false otherwise)
 # @arg container*[`_choice_container`]
 container::start() {
     :;
@@ -786,6 +1043,7 @@ container::start() {
 # @flag -a --all                 Show all containers.
 # @option --format <string>      Pretty-print container statistics to JSON or using a Go template
 # @option -i --interval <int>    Time in seconds between stats reports (default 5)
+# @flag -l --latest              Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-reset               Disable resetting the screen between intervals
 # @flag --no-stream              Disable streaming stats and only pull the first result, default setting is false
 # @flag --no-trunc               Do not truncate output
@@ -798,7 +1056,10 @@ container::stats() {
 # {{{ podman container stop
 # @cmd Stop one or more containers
 # @flag -a --all                   Stop all running containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -i --ignore                Ignore errors when a specified container is missing
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -t --time <int>          Seconds to wait for stop before killing the container (default 10)
 # @arg container*[`_choice_container`]
 container::stop() {
@@ -808,6 +1069,7 @@ container::stop() {
 
 # {{{ podman container top
 # @cmd Display the running processes of a container
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container[`_choice_container`]
 # @arg format-descriptors-args* <FORMAT-DESCRIPTORS|ARGS>
 container::top() {
@@ -815,10 +1077,24 @@ container::top() {
 }
 # }}} podman container top
 
+# {{{ podman container unmount
+# @cmd Unmount working container's root filesystem
+# @alias umount
+# @flag -a --all       Unmount all of the currently mounted containers
+# @flag -f --force     Force the complete unmount of the specified mounted containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @arg container*[`_choice_container`]
+container::unmount() {
+    :;
+}
+# }}} podman container unmount
+
 # {{{ podman container unpause
 # @cmd Unpause the processes in one or more containers
 # @flag -a --all                   Unpause all paused containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 container::unpause() {
     :;
@@ -827,26 +1103,45 @@ container::unpause() {
 
 # {{{ podman container update
 # @cmd Update an existing container
-# @option --blkio-weight <string>           Block IO weight (relative weight) accepts a weight value between 10 and 1000.
+# @option --blkio-weight <string>               Block IO weight (relative weight) accepts a weight value between 10 and 1000.
 # @option --blkio-weight-device <DEVICE_NAME:WEIGHT>  Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT)
-# @option --cpu-period <uint>               Limit the CPU CFS (Completely Fair Scheduler) period
-# @option --cpu-quota <int>                 Limit the CPU CFS (Completely Fair Scheduler) quota
-# @option --cpu-rt-period <uint>            Limit the CPU real-time period in microseconds
-# @option --cpu-rt-runtime <int>            Limit the CPU real-time runtime in microseconds
-# @option -c --cpu-shares <uint>            CPU shares (relative weight)
-# @option --cpus <float>                    Number of CPUs.
-# @option --cpuset-cpus <string>            CPUs in which to allow execution (0-3, 0,1)
-# @option --cpuset-mems <string>            Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
-# @option --device-read-bps* <string>       Limit read rate (bytes per second) from a device (e.g. --device-read-bps=/dev/sda:1mb)
-# @option --device-read-iops* <string>      Limit read rate (IO per second) from a device (e.g. --device-read-iops=/dev/sda:1000)
-# @option --device-write-bps* <string>      Limit write rate (bytes per second) to a device (e.g. --device-write-bps=/dev/sda:1mb)
-# @option --device-write-iops* <string>     Limit write rate (IO per second) to a device (e.g. --device-write-iops=/dev/sda:1000)
-# @option -m --memory <<number>[<unit>]>    Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --cpu-period <uint>                   Limit the CPU CFS (Completely Fair Scheduler) period
+# @option --cpu-quota <int>                     Limit the CPU CFS (Completely Fair Scheduler) quota
+# @option --cpu-rt-period <uint>                Limit the CPU real-time period in microseconds
+# @option --cpu-rt-runtime <int>                Limit the CPU real-time runtime in microseconds
+# @option -c --cpu-shares <uint>                CPU shares (relative weight)
+# @option --cpus <float>                        Number of CPUs.
+# @option --cpuset-cpus <string>                CPUs in which to allow execution (0-3, 0,1)
+# @option --cpuset-mems <string>                Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @option --device-read-bps* <string>           Limit read rate (bytes per second) from a device (e.g. --device-read-bps=/dev/sda:1mb)
+# @option --device-read-iops* <string>          Limit read rate (IO per second) from a device (e.g. --device-read-iops=/dev/sda:1000)
+# @option --device-write-bps* <string>          Limit write rate (bytes per second) to a device (e.g. --device-write-bps=/dev/sda:1mb)
+# @option --device-write-iops* <string>         Limit write rate (IO per second) to a device (e.g. --device-write-iops=/dev/sda:1000)
+# @option -e --env* <string>                    Set environment variables in container (default [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin])
+# @option --health-cmd <string>                 set a healthcheck command for the container ('none' disables the existing healthcheck)
+# @option --health-interval <string>            set an interval for the healthcheck.
+# @option --health-log-destination <path>       set the destination of the HealthCheck log.
+# @option --health-max-log-count <uint>         set maximum number of attempts in the HealthCheck log file.
+# @option --health-max-log-size <uint>          set maximum length in characters of stored HealthCheck log.
+# @option --health-on-failure <string>          action to take once the container turns unhealthy (default "none")
+# @option --health-retries <uint>               the number of retries allowed before a healthcheck is considered to be unhealthy (default 3)
+# @option --health-start-period <string>        the initialization time needed for a container to bootstrap (default "0s")
+# @option --health-startup-cmd <string>         Set a startup healthcheck command for the container
+# @option --health-startup-interval <string>    Set an interval for the startup healthcheck.
+# @option --health-startup-retries <uint>       Set the maximum number of retries before the startup healthcheck will restart the container
+# @option --health-startup-success <uint>       Set the number of consecutive successes before the startup healthcheck is marked as successful and the normal healthcheck begins (0 indicates any success will start the regular healthcheck)
+# @option --health-startup-timeout <string>     Set the maximum amount of time that the startup healthcheck may take before it is considered failed (default "30s")
+# @option --health-timeout <string>             the maximum time allowed to complete the healthcheck before an interval is considered failed and SIGKILL is sent to the healthcheck process (default "30s")
+# @flag -l --latest                             Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @option -m --memory <<number>[<unit>]>        Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @option --memory-reservation <<number>[<unit>]>  Memory soft limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
-# @option --memory-swap <string>            Swap limit equal to memory plus swap: '-1' to enable unlimited swap
-# @option --memory-swappiness <int>         Tune container memory swappiness (0 to 100, or -1 for system default) (default -1)
-# @option --pids-limit <int>                Tune container pids limit (set -1 for unlimited) (default -1)
+# @option --memory-swap <string>                Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+# @option --memory-swappiness <int>             Tune container memory swappiness (0 to 100, or -1 for system default) (default -1)
+# @flag --no-healthcheck                        Disable healthchecks on container
+# @option --pids-limit <int>                    Tune container pids limit (set -1 for unlimited) (default 2048)
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
+# @option --ulimit* <string>                    Ulimit options
+# @option --unsetenv* <string>                  Unset environment default variables in container
 # @arg container[`_choice_container`]
 container::update() {
     :;
@@ -856,8 +1151,10 @@ container::update() {
 # {{{ podman container wait
 # @cmd Block on one or more containers
 # @option --condition* <string>     Condition to wait on
+# @flag --exit-first-match          Wait for exit of first container which matches conditions, ignore other ones
 # @flag --ignore                    Ignore if a container does not exist
 # @option -i --interval <string>    Time Interval to wait before polling for completion (default "250ms")
+# @flag -l --latest                 Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 container::wait() {
     :;
@@ -887,12 +1184,14 @@ cp() {
 # @option --blkio-weight-device <DEVICE_NAME:WEIGHT>  Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT)
 # @option --cap-add* <string>                      Add capabilities to the container
 # @option --cap-drop* <string>                     Drop capabilities from the container
+# @option --cert-dir <Pathname>                    Pathname of a directory containing TLS certificates and keys
 # @option --cgroup-conf* <string>                  Configure cgroup v2 (key=value)
 # @option --cgroup-parent <string>                 Optional parent cgroup for the container
 # @option --cgroupns <string>                      cgroup namespace to use
-# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration
+# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration (default "enabled")
 # @option --chrootdirs* <dir>                      Chroot directories inside the container
 # @option --cidfile <file>                         Write the container ID to the file
+# @option --conmon-pidfile <file>                  Path to the file that will receive the PID of conmon
 # @option --cpu-period <uint>                      Limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                        Limit the CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <uint>                   Limit the CPU real-time period in microseconds
@@ -901,6 +1200,8 @@ cp() {
 # @option --cpus <float>                           Number of CPUs.
 # @option --cpuset-cpus <string>                   CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>                   Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @option --creds <credentials>                    credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>                 Key needed to decrypt the image (e.g. /path/to/key.pem)
 # @option --device* <string>                       Add a host device to the container
 # @option --device-cgroup-rule* <string>           Add a rule to the cgroup allowed devices list
 # @option --device-read-bps* <string>              Limit read rate (bytes per second) from a device (e.g. --device-read-bps=/dev/sda:1mb)
@@ -912,8 +1213,9 @@ cp() {
 # @option --dns-option* <string>                   Set custom DNS options
 # @option --dns-search* <string>                   Set custom DNS search domains
 # @option --entrypoint <string>                    Overwrite the default ENTRYPOINT of the image
-# @option -e --env* <string>                       Set environment variables in container
+# @option -e --env* <string>                       Set environment variables in container (default [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin])
 # @option --env-file* <file>                       Read in a file of environment variables
+# @flag --env-host                                 Use all current host environment variables in container
 # @option --env-merge* <string>                    Preprocess environment variables from image before injecting them into the container
 # @option --expose* <string>                       Expose a port or a range of ports
 # @option --gidmap* <string>                       GID map to use for the user namespace
@@ -921,31 +1223,35 @@ cp() {
 # @option --group-add* <string>                    Add additional groups to the primary container process.
 # @option --group-entry <string>                   Entry to write to /etc/group
 # @option --health-cmd <string>                    set a healthcheck command for the container ('none' disables the existing healthcheck)
-# @option --health-interval <string>               set an interval for the healthcheck (a value of disable results in no automatic timer setup) (default "30s")
+# @option --health-interval <string>               set an interval for the healthcheck.
+# @option --health-log-destination <path>          set the destination of the HealthCheck log.
+# @option --health-max-log-count <uint>            set maximum number of attempts in the HealthCheck log file.
+# @option --health-max-log-size <uint>             set maximum length in characters of stored HealthCheck log.
 # @option --health-on-failure <string>             action to take once the container turns unhealthy (default "none")
 # @option --health-retries <uint>                  the number of retries allowed before a healthcheck is considered to be unhealthy (default 3)
 # @option --health-start-period <string>           the initialization time needed for a container to bootstrap (default "0s")
 # @option --health-startup-cmd <string>            Set a startup healthcheck command for the container
-# @option --health-startup-interval <string>       Set an interval for the startup healthcheck (default "30s")
+# @option --health-startup-interval <string>       Set an interval for the startup healthcheck.
 # @option --health-startup-retries <uint>          Set the maximum number of retries before the startup healthcheck will restart the container
 # @option --health-startup-success <uint>          Set the number of consecutive successes before the startup healthcheck is marked as successful and the normal healthcheck begins (0 indicates any success will start the regular healthcheck)
 # @option --health-startup-timeout <string>        Set the maximum amount of time that the startup healthcheck may take before it is considered failed (default "30s")
-# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed (default "30s")
+# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed and SIGKILL is sent to the healthcheck process (default "30s")
 # @flag --help
 # @option -h --hostname <string>                   Set container hostname
+# @option --hosts-file[image|none] <file>          Base file to create the /etc/hosts file inside the container, or one of the special values.
 # @option --hostuser* <string>                     Host user account to add to /etc/passwd within container
 # @flag --http-proxy                               Set proxy environment variables in the container based on the host proxy vars (default true)
 # @option --image-volume[bind|tmpfs|ignore] <string>  Tells podman how to handle the builtin image volumes (default "anonymous")
 # @flag --init                                     Run an init binary inside the container that forwards signals and reaps processes
 # @option --init-ctr <string>                      Make this a pod init container.
 # @option --init-path <path>                       Path to the container-init binary
-# @flag -i --interactive                           Keep STDIN open even if not attached
+# @flag -i --interactive                           Make STDIN available to the contained process
 # @option --ip <string>                            Specify a static IPv4 address for the container
 # @option --ip6 <string>                           Specify a static IPv6 address for the container
 # @option --ipc <string>                           IPC namespace to use
 # @option -l --label* <string>                     Set metadata on container
 # @option --label-file* <file>                     Read in a line delimited file of labels
-# @option --log-driver <string>                    Logging driver for the container
+# @option --log-driver <string>                    Logging driver for the container (default "journald")
 # @option --log-opt* <string>                      Logging driver options
 # @option --mac-address <string>                   Container MAC address (e.g. 92:d0:c6:0a:29:33)
 # @option -m --memory <<number>[<unit>]>           Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
@@ -957,6 +1263,7 @@ cp() {
 # @option --network*[`_choice_network`] <string>   Connect a container to a network
 # @option --network-alias* <string>                Add network-scoped alias for the container
 # @flag --no-healthcheck                           Disable healthchecks on container
+# @flag --no-hostname                              Do not create /etc/hostname within the container, instead use the version from the image
 # @flag --no-hosts                                 Do not create /etc/hosts within the container, instead use the version from the image
 # @flag --oom-kill-disable                         Disable OOM Killer
 # @option --oom-score-adj <int>                    Tune the host's OOM preferences (-1000 to 1000)
@@ -964,14 +1271,15 @@ cp() {
 # @option --passwd-entry <string>                  Entry to write to /etc/passwd
 # @option --personality <string>                   Configure execution domain using personality (e.g., LINUX/LINUX32)
 # @option --pid <string>                           PID namespace to use
-# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default -1)
+# @option --pidfile <file>                         Write the container process ID to the file
+# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default 2048)
 # @option --platform <string>                      Specify the platform for selecting the image.
 # @option --pod <string>                           Run container in an existing pod
 # @option --pod-id-file <file>                     Read the pod ID from the file
 # @flag --privileged                               Give extended privileges to container
 # @option -p --publish* <string>                   Publish a container's port, or a range of ports, to the host (default [])
 # @flag -P --publish-all                           Publish all exposed ports to random ports on the host interface
-# @option --pull[always|missing|never|newer] <string>  Pull image policy
+# @option --pull[always|missing|never|newer] <string>  Pull image policy (default "missing")
 # @flag -q --quiet                                 Suppress output information when pulling images
 # @option --rdt-class <string>                     Class of Service (COS) that the container should be assigned to
 # @flag --read-only                                Make containers root filesystem read-only
@@ -979,7 +1287,7 @@ cp() {
 # @flag --replace                                  If a container with the same name exists, replace it
 # @option --requires* <string>                     Add one or more requirement containers that must be started before this container will start
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
-# @option --retry <uint>                           number of times to retry in case of failure when performing pull
+# @option --retry <uint>                           number of times to retry in case of failure when performing pull (default 3)
 # @option --retry-delay <string>                   delay between retries in case of pull failures
 # @flag --rm                                       Remove container and any anonymous unnamed volume associated with the container after exit
 # @flag --rootfs                                   The first argument is not an image but the rootfs to the exploded container
@@ -987,7 +1295,7 @@ cp() {
 # @option --seccomp-policy <file>                  Policy for selecting a seccomp profile (experimental) (default "default")
 # @option --secret* <string>                       Add secret to container
 # @option --security-opt* <string>                 Security Options
-# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes)) (default "65536k")
 # @option --shm-size-systemd <<number>[<unit>]>    Size of systemd specific tmpfs mounts (/run, /run/lock) (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @option --stop-signal <string>                   Signal to stop a container.
 # @option --stop-timeout <uint>                    Timeout (in seconds) that containers stopped by user command have to exit.
@@ -1009,7 +1317,7 @@ cp() {
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
 # @option --variant                                Use VARIANT instead of the running architecture variant for choosing images
-# @option -v --volume* <string>                    Bind mount a volume into the container.
+# @option -v --volume* <string>                    Bind mount a volume into the container
 # @option --volumes-from* <string>                 Mount volumes from the specified container(s)
 # @option -w --workdir <dir>                       Working directory inside the container
 # @arg image[`_module_oci_podman_image`]
@@ -1023,6 +1331,7 @@ create() {
 # {{ podman diff
 # @cmd Display the changes to the object's file system
 # @option --format <string>    Change the output format (json)
+# @flag -l --latest            Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container-image <CONTAINER|IMAGE>
 diff() {
     :;
@@ -1044,12 +1353,16 @@ events() {
 
 # {{ podman exec
 # @cmd Run a process in a running container
+# @option --cidfile <file>          File to read the container ID from
 # @flag -d --detach                 Run the exec session in detached mode (backgrounded)
 # @option --detach-keys <string>    Select the key sequence for detaching a container.
 # @option -e --env* <string>        Set environment variables
 # @option --env-file* <file>        Read in a file of environment variables
-# @flag -i --interactive            Keep STDIN open even if not attached
+# @flag -i --interactive            Make STDIN available to the contained process
+# @flag -l --latest                 Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --no-session                Do not create a database session for the exec process
 # @option --preserve-fd <uints>     Pass a list of additional file descriptors to the container (default [])
+# @option --preserve-fds <uint>     Pass N additional file descriptors to the container
 # @flag --privileged                Give the process extended Linux capabilities inside the container.
 # @flag -t --tty                    Allocate a pseudo-TTY.
 # @option -u --user <string>        Sets the username or UID used and optionally the groupname or GID for the specified command
@@ -1095,12 +1408,15 @@ farm() {
 # @option --cgroupns <string>                    'private', or 'host'
 # @flag --cleanup                                Remove built images from farm nodes on success
 # @flag --compat-volumes                         preserve the contents of VOLUMEs during RUN instructions
+# @option --compression-format <string>          compression format to use for layers and cache
+# @option --compression-level <int>              compression level to use for layers and cache
 # @option --cpp-flag* <string>                   set additional flag to pass to C preprocessor (cpp)
 # @option --cpu-period <uint>                    limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                      limit the CPU CFS (Completely Fair Scheduler) quota
 # @option -c --cpu-shares <uint>                 CPU shares (relative weight)
 # @option --cpuset-cpus <string>                 CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>                 memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @flag --created-annotation                     set an "org.opencontainers.image.created" annotation in the image (default true)
 # @option --creds <username[:password]>          use [username[:password]] for accessing the registry
 # @option --decryption-key* <string>             key needed to decrypt the image
 # @option --device* <string>                     additional devices to provide
@@ -1111,6 +1427,7 @@ farm() {
 # @option --env* <string>                        set environment variable for the image
 # @option --farm <string>                        Farm to use for builds
 # @flag -f --file                                pathname or URL  pathname or URL of a Dockerfile
+# @flag --force-compression                      use the specified compression algorithm even if the destination contains a differently-compressed variant already
 # @flag --force-rm                               always remove intermediate containers after a build, even if the build is unsuccessful.
 # @option --format <format>                      format of the built image's manifest and metadata.
 # @option --from <file>                          image name used to replace the value in the first FROM instruction in the Containerfile
@@ -1120,6 +1437,9 @@ farm() {
 # @flag --identity-label                         add default identity label (default true)
 # @option --ignorefile <file>                    path to an alternate .dockerignore file
 # @option --iidfile <file>                       file to write the image ID to
+# @option --iidfile-raw <file>                   file to write the image ID to (without algorithm prefix)
+# @flag --inherit-annotations                    inherit the annotations from the base image or base stages.
+# @flag --inherit-labels                         inherit the labels from the base image or base stages.
 # @option --ipc <path>                           'private', path of IPC namespace to join, or 'host'
 # @option --isolation <type>                     type of process isolation to use.
 # @option --jobs <int>                           how many stages to run in parallel (default 1)
@@ -1130,6 +1450,7 @@ farm() {
 # @option --logfile <file>                       log to file instead of stdout/stderr
 # @option -m --memory <string>                   memory limit (format: <number>[<unit>], where unit = b, k, m or g)
 # @option --memory-swap <string>                 swap limit equal to memory plus swap: '-1' to enable unlimited swap
+# @option --mount* <string>                      set transient mounts for each RUN instruction, e.g. type=secret,id=mysecret
 # @option --network[`_choice_network`] <path>    'private', 'none', 'ns:path' of network namespace to join, or 'host'
 # @flag --no-cache                               do not use existing cached images for the container build.
 # @flag --no-hostname                            do not create new /etc/hostname file for RUN instructions, use the one from the base image.
@@ -1139,12 +1460,14 @@ farm() {
 # @option --os-version <version>                 set required OS version for the target image instead of the value from the base image
 # @option --pid <path>                           private, path of PID namespace to join, or 'host'
 # @option --platforms* <string>                  Build only on farm nodes that match the given platforms
-# @option --pull[always|missing|never|newer] <string[="missing"]>  Pull image policy (default "missing")
+# @option --pull[always|missing|never|newer] <string[="always"]>  Pull image policy (default "missing")
 # @flag -q --quiet                               refrain from announcing build instructions and image read/write progress
 # @option --retry <int>                          number of times to retry in case of failure when performing push/pull (default 3)
 # @option --retry-delay <string>                 delay between retries in case of push/pull failures
+# @flag --rewrite-timestamp                      set timestamps in layers to no later than the value for --source-date-epoch
 # @flag --rm                                     remove intermediate containers after a successful build (default true)
 # @option --runtime-flag* <string>               add global flags for the container runtime
+# @flag --save-stages                            save intermediate stage images.
 # @option --sbom <preset>                        scan working container using preset configuration
 # @option --sbom-image-output <path>             add scan results to image as path
 # @option --sbom-image-purl-output <path>        add scan results to image as path
@@ -1157,14 +1480,18 @@ farm() {
 # @option --security-opt* <string>               security options (default [])
 # @option --shm-size <<number><unit>>            size of '/dev/shm'.
 # @flag --skip-unused-stages                     skips stages in multi-stage builds which do not affect the final target (default true)
+# @option --source-date-epoch <seconds>          set new timestamps in image info to seconds after the epoch, defaults to current time
+# @option --source-policy-file <pathname>        pathname of source policy file for controlling source references during build
 # @flag --squash                                 squash all image layers into a single layer
 # @flag --squash-all                             Squash all layers into a single layer
 # @option --ssh* <string>                        SSH agent socket or keys to expose to the build.
+# @flag --stage-labels                           add metadata labels to intermediate stage images (requires --save-stages).
 # @option -t --tag <name>                        tagged name to apply to the built image
 # @option --target <string>                      set the target build stage to build
-# @option --timestamp <int>                      set created timestamp to the specified epoch seconds to allow for deterministic builds, defaults to current time
+# @option --timestamp <seconds>                  set new timestamps in image info and layer to seconds after the epoch, defaults to current times
 # @flag --tls-verify                             require HTTPS and verify certificates when accessing the registry (default true)
 # @option --ulimit* <string>                     ulimit options
+# @option --unsetannotation* <string>            unset annotation when inheriting annotations from base image
 # @option --unsetenv* <string>                   unset environment variable from final image
 # @option --unsetlabel* <string>                 unset label when inheriting labels from base image
 # @option --userns <path>                        'container', path of user namespace to join, or 'host'
@@ -1230,7 +1557,7 @@ generate() {
 # @flag --podman-only              Add podman-only reserved annotations to the generated YAML file (Cannot be used by Kubernetes)
 # @option -r --replicas <int32>    Set the replicas number for Deployment kind (default 1)
 # @flag -s --service               Generate YAML for a Kubernetes service object
-# @option -t --type <string>       Generate YAML for the given Kubernetes kind
+# @option -t --type <string>       Generate YAML for the given Kubernetes kind (default "pod")
 # @arg container-pod-volume* <CONTAINER...|POD...|VOLUME>
 generate::kube() {
     :;
@@ -1274,21 +1601,6 @@ generate::systemd() {
 # }}} podman generate systemd
 # }} podman generate
 
-# {{ podman healthcheck
-# @cmd Manage health checks on containers
-healthcheck() {
-    :;
-}
-
-# {{{ podman healthcheck run
-# @cmd Run the health check of a container
-# @arg container[`_choice_container`]
-healthcheck::run() {
-    :;
-}
-# }}} podman healthcheck run
-# }} podman healthcheck
-
 # {{ podman history
 # @cmd Show history of a specified image
 # @option --format <string>    Change the output to JSON or a Go template
@@ -1326,21 +1638,28 @@ image() {
 # @option --cgroup-parent <string>            optional parent cgroup for the container
 # @option --cgroupns <string>                 'private', or 'host'
 # @flag --compat-volumes                      preserve the contents of VOLUMEs during RUN instructions
+# @flag --compress                            this is a legacy option, which has no effect on the image
+# @option --compression-format <string>       compression format to use for layers and cache
+# @option --compression-level <int>           compression level to use for layers and cache
 # @option --cpp-flag* <string>                set additional flag to pass to C preprocessor (cpp)
 # @option --cpu-period <uint>                 limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                   limit the CPU CFS (Completely Fair Scheduler) quota
 # @option -c --cpu-shares <uint>              CPU shares (relative weight)
 # @option --cpuset-cpus <string>              CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>              memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @flag --created-annotation                  set an "org.opencontainers.image.created" annotation in the image (default true)
 # @option --creds <username[:password]>       use [username[:password]] for accessing the registry
+# @option --cw <options>                      confidential workload options
 # @option --decryption-key* <string>          key needed to decrypt the image
 # @option --device* <string>                  additional devices to provide
 # @flag -D --disable-compression              don't compress layers by default (default true)
+# @flag --disable-content-trust               this is a Docker specific option and is a NOOP
 # @option --dns </etc/resolv.conf>            set custom DNS servers or disable it completely by setting it to 'none', which prevents the automatic creation of /etc/resolv.conf.
 # @option --dns-option* <string>              set custom DNS options
 # @option --dns-search* <string>              set custom DNS search domains
 # @option --env* <string>                     set environment variable for the image
 # @option -f --file <file>                    pathname or URL of a Dockerfile
+# @flag --force-compression                   use the specified compression algorithm even if the destination contains a differently-compressed variant already
 # @flag --force-rm                            always remove intermediate containers after a build, even if the build is unsuccessful.
 # @option --format <format>                   format of the built image's manifest and metadata.
 # @option --from <file>                       image name used to replace the value in the first FROM instruction in the Containerfile
@@ -1350,6 +1669,9 @@ image() {
 # @flag --identity-label                      add default identity label (default true)
 # @option --ignorefile <file>                 path to an alternate .dockerignore file
 # @option --iidfile <file>                    file to write the image ID to
+# @option --iidfile-raw <file>                file to write the image ID to (without algorithm prefix)
+# @flag --inherit-annotations                 inherit the annotations from the base image or base stages.
+# @flag --inherit-labels                      inherit the labels from the base image or base stages.
 # @option --ipc <path>                        'private', path of IPC namespace to join, or 'host'
 # @option --isolation <type>                  type of process isolation to use.
 # @option --jobs <int>                        how many stages to run in parallel (default 1)
@@ -1357,9 +1679,12 @@ image() {
 # @option --layer-label* <string>             set metadata for an intermediate image (default [])
 # @flag --layers                              use intermediate layers during build.
 # @option --logfile <file>                    log to file instead of stdout/stderr
+# @flag --logsplit                            split logfile to different files for each platform
 # @option --manifest <string>                 add the image to the specified manifest list.
 # @option -m --memory <string>                memory limit (format: <number>[<unit>], where unit = b, k, m or g)
 # @option --memory-swap <string>              swap limit equal to memory plus swap: '-1' to enable unlimited swap
+# @option --metadata-file <file>              file to write metadata about the image to
+# @option --mount* <string>                   set transient mounts for each RUN instruction, e.g. type=secret,id=mysecret
 # @option --network[private|none|ns:|host] <path>  'private', 'none', 'ns:path' of network namespace to join, or 'host'
 # @flag --no-cache                            do not use existing cached images for the container build.
 # @flag --no-hostname                         do not create new /etc/hostname file for RUN instructions, use the one from the base image.
@@ -1368,14 +1693,17 @@ image() {
 # @option --os <string>                       set the OS to the provided value instead of the current operating system of the host (default "linux")
 # @option --os-feature <feature>              set required OS feature for the target image in addition to values from the base image
 # @option --os-version <version>              set required OS version for the target image instead of the value from the base image
+# @option -o --output* <path>                 output destination (format: type=local,dest=path)
 # @option --pid <path>                        private, path of PID namespace to join, or 'host'
 # @option --platform <OS/ARCH[/VARIANT]>      set the OS/ARCH[/VARIANT] of the image to the provided value instead of the current operating system and architecture of the host (for example "linux/arm") (default [linux/amd64])
-# @option --pull[always|missing|never|newer] <string[="missing"]>  Pull image policy (default "missing")
+# @option --pull[always|missing|never|newer] <string[="always"]>  Pull image policy (default "missing")
 # @flag -q --quiet                            refrain from announcing build instructions and image read/write progress
 # @option --retry <int>                       number of times to retry in case of failure when performing push/pull (default 3)
 # @option --retry-delay <string>              delay between retries in case of push/pull failures
+# @flag --rewrite-timestamp                   set timestamps in layers to no later than the value for --source-date-epoch
 # @flag --rm                                  remove intermediate containers after a successful build (default true)
 # @option --runtime-flag* <string>            add global flags for the container runtime
+# @flag --save-stages                         save intermediate stage images.
 # @option --sbom <preset>                     scan working container using preset configuration
 # @option --sbom-image-output <path>          add scan results to image as path
 # @option --sbom-image-purl-output <path>     add scan results to image as path
@@ -1387,15 +1715,21 @@ image() {
 # @option --secret* <file>                    secret file to expose to the build
 # @option --security-opt* <string>            security options (default [])
 # @option --shm-size <<number><unit>>         size of '/dev/shm'.
+# @option --sign-by <FINGERPRINT>             sign the image using a GPG key with the specified FINGERPRINT
 # @flag --skip-unused-stages                  skips stages in multi-stage builds which do not affect the final target (default true)
+# @option --source-date-epoch <seconds>       set new timestamps in image info to seconds after the epoch, defaults to current time
+# @option --source-policy-file <pathname>     pathname of source policy file for controlling source references during build
 # @flag --squash                              squash all image layers into a single layer
 # @flag --squash-all                          Squash all layers into a single layer
 # @option --ssh* <string>                     SSH agent socket or keys to expose to the build.
+# @flag --stage-labels                        add metadata labels to intermediate stage images (requires --save-stages).
 # @flag --stdin                               pass stdin into containers
 # @option -t --tag <name>                     tagged name to apply to the built image
 # @option --target <string>                   set the target build stage to build
-# @option --timestamp <int>                   set created timestamp to the specified epoch seconds to allow for deterministic builds, defaults to current time
+# @option --timestamp <seconds>               set new timestamps in image info and layer to seconds after the epoch, defaults to current times
+# @flag --tls-verify                          require HTTPS and verify certificates when accessing the registry (default true)
 # @option --ulimit* <string>                  ulimit options
+# @option --unsetannotation* <string>         unset annotation when inheriting annotations from base image
 # @option --unsetenv* <string>                unset environment variable from final image
 # @option --unsetlabel* <string>              unset label when inheriting labels from base image
 # @option --userns <path>                     'container', path of user namespace to join, or 'host'
@@ -1492,9 +1826,20 @@ image::load() {
 }
 # }}} podman image load
 
+# {{{ podman image mount
+# @cmd Mount an image's root filesystem
+# @flag -a --all               Mount all images
+# @option --format <string>    Print the mounted images in specified format (json)
+# @arg image*[`_module_oci_podman_image`]
+image::mount() {
+    :;
+}
+# }}} podman image mount
+
 # {{{ podman image prune
 # @cmd Remove unused images
 # @flag -a --all                Remove all images not in use by containers, not just dangling ones
+# @flag --build-cache           Remove persistent build cache created by --mount=type=cache
 # @flag --external              Remove images even when they are used by external containers (e.g., by build containers)
 # @option --filter* <string>    Provide filter values (e.g. 'label=<key>=<value>')
 # @flag -f --force              Do not prompt for confirmation
@@ -1505,18 +1850,21 @@ image::prune() {
 
 # {{{ podman image pull
 # @cmd Pull an image from a registry
-# @flag -a --all-tags               All tagged images in the repository will be pulled
-# @option --arch                    Use ARCH instead of the architecture of the machine for choosing images
-# @option --authfile <file>         Path of the authentication file.
-# @option --creds <Credentials>     Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
-# @flag --disable-content-trust     This is a Docker specific option and is a NOOP
-# @option --os                      Use OS instead of the running OS for choosing images
-# @option --platform <string>       Specify the platform for selecting the image.
-# @flag -q --quiet                  Suppress output information when pulling images
-# @option --retry <uint>            number of times to retry in case of failure when performing pull
-# @option --retry-delay <string>    delay between retries in case of pull failures
-# @flag --tls-verify                Require HTTPS and verify certificates when contacting registries (default true)
-# @option --variant <string>        Use VARIANT instead of the running architecture variant for choosing images
+# @flag -a --all-tags                 All tagged images in the repository will be pulled
+# @option --arch                      Use ARCH instead of the architecture of the machine for choosing images
+# @option --authfile <file>           Path of the authentication file.
+# @option --cert-dir <Pathname>       Pathname of a directory containing TLS certificates and keys
+# @option --creds <Credentials>       Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>    Key needed to decrypt the image (e.g. /path/to/key.pem)
+# @flag --disable-content-trust       This is a Docker specific option and is a NOOP
+# @option --os                        Use OS instead of the running OS for choosing images
+# @option --platform <string>         Specify the platform for selecting the image.
+# @option --policy[always|missing|never|newer] <string>  Pull image policy (default "always")
+# @flag -q --quiet                    Suppress output information when pulling images
+# @option --retry <uint>              number of times to retry in case of failure when performing pull (default 3)
+# @option --retry-delay <string>      delay between retries in case of pull failures
+# @flag --tls-verify                  Require HTTPS and verify certificates when contacting registries (default true)
+# @option --variant <string>          Use VARIANT instead of the running architecture variant for choosing images
 # @arg image*[`_module_oci_podman_image`]
 image::pull() {
     :;
@@ -1525,18 +1873,28 @@ image::pull() {
 
 # {{{ podman image push
 # @cmd Push an image to a specified destination
-# @option --authfile <file>                Path of the authentication file.
-# @option --compression-format <string>    compression format to use
-# @option --compression-level <int>        compression level to use
-# @option --creds <Credentials>            Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
-# @option --digestfile <file>              Write the digest of the pushed image to the specified file
-# @flag --disable-content-trust            This is a Docker specific option and is a NOOP
-# @flag --force-compression                Use the specified compression algorithm even if the destination contains a differently-compressed variant already
-# @option -f --format <path>               Manifest type (oci, v2s2, or v2s1) to use in the destination (default is manifest type of source, with fallbacks)
-# @flag --remove-signatures                Discard any pre-existing signatures in the image
-# @option --retry <uint>                   number of times to retry in case of failure when performing push
-# @option --retry-delay <string>           delay between retries in case of push failures
-# @flag --tls-verify                       Require HTTPS and verify certificates when contacting registries (default true)
+# @option --authfile <file>                        Path of the authentication file.
+# @option --cert-dir <dir>                         Path to a directory containing TLS certificates and keys
+# @flag --compress                                 Compress tarball image layers when pushing to a directory using the 'dir' transport.
+# @option --compression-format <string>            compression format to use (default "gzip")
+# @option --compression-level <int>                compression level to use
+# @option --creds <Credentials>                    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --digestfile <file>                      Write the digest of the pushed image to the specified file
+# @flag --disable-content-trust                    This is a Docker specific option and is a NOOP
+# @option --encrypt-layer <ints>                   Layers to encrypt, 0-indexed layer indices with support for negative indexing (e.g. 0 is the first layer, -1 is the last layer).
+# @option --encryption-key* <path>                 Key with the encryption protocol to use to encrypt the image (e.g. jwe:/path/to/key.pem)
+# @flag --force-compression                        Use the specified compression algorithm even if the destination contains a differently-compressed variant already
+# @option -f --format <path>                       Manifest type (oci, v2s2, or v2s1) to use in the destination (default is manifest type of source, with fallbacks)
+# @flag -q --quiet                                 Suppress output information when pushing images
+# @flag --remove-signatures                        Discard any pre-existing signatures in the image
+# @option --retry <uint>                           number of times to retry in case of failure when performing push (default 3)
+# @option --retry-delay <string>                   delay between retries in case of push failures
+# @option --sign-by <path>                         Add a signature at the destination using the specified key
+# @option --sign-by-sigstore <PATH>                Sign the image using a sigstore parameter file at PATH
+# @option --sign-by-sigstore-private-key <PATH>    Sign the image using a sigstore private key at PATH
+# @option --sign-by-sq-fingerprint <FINGERPRINT>   Sign the image using a Sequoia-PGP key with the specified FINGERPRINT
+# @option --sign-passphrase-file <PATH>            Read a passphrase for signing an image from PATH
+# @flag --tls-verify                               Require HTTPS and verify certificates when contacting registries (default true)
 # @arg image[`_module_oci_podman_image`]
 # @arg destination
 image::push() {
@@ -1572,7 +1930,8 @@ image::save() {
 
 # {{{ podman image scp
 # @cmd Securely copy images
-# @flag -q --quiet    Suppress the output
+# @option --format[oci-archive|docker-archive]    podman save  Format for podman save when creating the transfer archive.
+# @flag -q --quiet                                Suppress the output
 # @arg image[`_module_oci_podman_image`]
 # @arg host <HOST::>
 image::scp() {
@@ -1583,6 +1942,7 @@ image::scp() {
 # {{{ podman image search
 # @cmd Search registry for image
 # @option --authfile <file>        Path of the authentication file.
+# @option --cert-dir <Pathname>    Pathname of a directory containing TLS certificates and keys
 # @flag --compatible               List stars, official and automated columns (Docker compatibility)
 # @option --creds <Credentials>    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
 # @option -f --filter* <string>    Filter output based on conditions provided (default [])
@@ -1596,6 +1956,19 @@ image::search() {
     :;
 }
 # }}} podman image search
+
+# {{{ podman image sign
+# @cmd Sign an image
+# @flag -a --all                   Sign all the manifests of the multi-architecture image
+# @option --authfile <file>        Path of the authentication file.
+# @option --cert-dir <Pathname>    Pathname of a directory containing TLS certificates and keys
+# @option -d --directory <dir>     Define an alternate directory to store signatures
+# @option --sign-by <string>       Name of the signing key
+# @arg image*[`_module_oci_podman_image`]
+image::sign() {
+    :;
+}
+# }}} podman image sign
 
 # {{{ podman image tag
 # @cmd Add an additional name to a local image
@@ -1614,6 +1987,47 @@ image::tree() {
     :;
 }
 # }}} podman image tree
+
+# {{{ podman image trust
+# @cmd Manage container image trust policy
+image::trust() {
+    :;
+}
+
+# {{{{ podman image trust set
+# @cmd Set default trust policy or a new trust policy for a registry
+# @option -f --pubkeysfile* <file>     Path of installed public key(s) to trust for TARGET.
+# @option --signature-policy <file>    Path to a signature-policy file
+# @option -t --type <string>           Trust type, accept values: signedBy(default), accept, reject (default "signedBy")
+# @arg registry
+image::trust::set() {
+    :;
+}
+# }}}} podman image trust set
+
+# {{{{ podman image trust show
+# @cmd Display trust policy for the system
+# @flag -j --json                      Output as json
+# @flag -n --noheading                 Do not print column headings
+# @flag --raw                          Output raw policy file
+# @option --signature-policy <file>    Path to a signature-policy file
+# @arg registry
+image::trust::show() {
+    :;
+}
+# }}}} podman image trust show
+# }}} podman image trust
+
+# {{{ podman image unmount
+# @cmd Unmount an image's root filesystem
+# @alias umount
+# @flag -a --all      Unmount all of the currently mounted images
+# @flag -f --force    Force the complete unmount of the specified mounted images
+# @arg image*[`_module_oci_podman_image`]
+image::unmount() {
+    :;
+}
+# }}} podman image unmount
 
 # {{{ podman image untag
 # @cmd Remove a name from a local image
@@ -1666,7 +2080,8 @@ info() {
 
 # {{ podman init
 # @cmd Initialize one or more containers
-# @flag -a --all    Initialize all containers
+# @flag -a --all       Initialize all containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 init() {
     :;
@@ -1676,6 +2091,7 @@ init() {
 # {{ podman inspect
 # @cmd Display the configuration of object denoted by ID
 # @option -f --format <string>    Format the output to a Go template or json (default "json")
+# @flag -l --latest               Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag -s --size                 Display total file size
 # @option -t --type[image|container|all] <string>  Specify inspect-object type (default "all")
 # @arg name
@@ -1688,6 +2104,7 @@ inspect() {
 # @cmd Kill one or more running containers with a specific signal
 # @flag -a --all                  Signal all running containers
 # @option --cidfile* <file>       Read the container ID from the file
+# @flag -l --latest               Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -s --signal <string>    Signal to send to the container (default "KILL")
 # @arg container*[`_choice_container`]
 kill() {
@@ -1717,7 +2134,7 @@ kube::apply() {
 # {{{ podman kube down
 # @cmd Remove pods based on Kubernetes YAML
 # @flag --force    remove volumes
-# @arg kubefile <KUBEFILE|->
+# @arg kubefile-kubefile <[KUBEFILE [KUBEFILE...]]|->
 kube::down() {
     :;
 }
@@ -1729,7 +2146,7 @@ kube::down() {
 # @flag --podman-only              Add podman-only reserved annotations to the generated YAML file (Cannot be used by Kubernetes)
 # @option -r --replicas <int32>    Set the replicas number for Deployment kind (default 1)
 # @flag -s --service               Generate YAML for a Kubernetes service object
-# @option -t --type <string>       Generate YAML for the given Kubernetes kind
+# @option -t --type <string>       Generate YAML for the given Kubernetes kind (default "pod")
 # @arg container-pod-volume* <CONTAINER...|POD...|VOLUME>
 kube::generate() {
     :;
@@ -1738,26 +2155,32 @@ kube::generate() {
 
 # {{{ podman kube play
 # @cmd Play a pod or volume based on Kubernetes YAML
-# @option --annotation* <string>                   Add annotations to pods (key=value)
+# @option --annotation* <string>                   Add Podman-specific annotations to containers and pods created by Podman (key=value)
 # @option --authfile <file>                        Path of the authentication file.
+# @flag --build                                    Build all images in a YAML (given Containerfiles exist)
+# @option --cert-dir <Pathname>                    Pathname of a directory containing TLS certificates and keys
 # @option --configmap <Pathname>                   Pathname of a YAML file containing a kubernetes configmap
+# @option --context-dir <dir>                      Path to top level of context directory
 # @option --creds <Credentials>                    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
 # @flag --force                                    Remove volumes as part of --down
 # @option --ip <ipSlice>                           Static IP addresses to assign to the pods (default [])
-# @option --log-driver <string>                    Logging driver for the container
+# @option --log-driver <string>                    Logging driver for the container (default "journald")
 # @option --log-opt* <string>                      Logging driver options
 # @option --mac-address* <string>                  Static MAC addresses to assign to the pods
 # @option --network*[`_choice_network`] <string>   Connect pod to network(s) or network mode
+# @flag --no-hostname                              Do not create /etc/hostname within the container, instead use the version from the image
 # @flag --no-hosts                                 Do not create /etc/hosts within the pod's containers, instead use the version from the image
+# @flag --no-pod-prefix                            Do not prefix container name with pod name
 # @option --publish* <string>                      Publish a container's port, or a range of ports, to the host
 # @option --publish-all[containerPort|hostPort]    Whether to publish all ports defined in the K8S YAML file, if false only hostPort will be published
 # @flag -q --quiet                                 Suppress output information when pulling images
 # @flag --replace                                  Delete and recreate pods defined in the YAML file
+# @option --seccomp-profile-root <path>            Directory path for seccomp profiles (default "/var/lib/kubelet/seccomp")
 # @flag --start                                    Start the pod after creating it (default true)
 # @flag --tls-verify                               Require HTTPS and verify certificates when contacting registries (default true)
 # @option --userns <string>                        User namespace to use
 # @flag -w --wait                                  Clean up all objects created when a SIGTERM is received or pods exit
-# @arg kubefile <KUBEFILE|->
+# @arg kubefile-kubefile <[KUBEFILE [KUBEFILE...]]|->
 kube::play() {
     :;
 }
@@ -1806,12 +2229,13 @@ logout() {
 # @cmd Fetch the logs of one or more containers
 # @flag --color               Output the containers with different colors in the log.
 # @flag -f --follow           Follow log output.
+# @flag -l --latest           Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag -n --names            Output the container name in the log
 # @option --since <string>    Show logs since TIMESTAMP
 # @option --tail <int>        Output the specified number of LINES at the end of the logs.
 # @flag -t --timestamps       Output the timestamps in the log
 # @option --until <string>    Show logs until TIMESTAMP
-# @arg container[`_choice_container`]
+# @arg container*[`_choice_container`]
 logs() {
     :;
 }
@@ -1823,6 +2247,16 @@ machine() {
     :;
 }
 
+# {{{ podman machine cp
+# @cmd Securely copy contents between the virtual machine
+# @flag -q --quiet    Suppress copy status output
+# @arg src_path
+# @arg dest_path
+machine::cp() {
+    :;
+}
+# }}} podman machine cp
+
 # {{{ podman machine info
 # @cmd Display machine host info
 # @option -f --format <string>    Change the output format to JSON or a Go template
@@ -1833,18 +2267,24 @@ machine::info() {
 
 # {{{ podman machine init
 # @cmd Initialize a virtual machine
-# @option --cpus <uint>             Number of CPUs (default 10)
+# @option --cpus <uint>             Number of CPUs (default 4)
 # @option --disk-size <uint>        Disk size in GiB (default 100)
 # @option --ignition-path <file>    Path to ignition file
-# @option --image <string>          Bootable image for machine
+# @option --image <string>          Bootable image for machine (default "docker://quay.io/podman/machine-os")
+# @flag --import-native-ca          Import the host trusted CA certificates into the machine
 # @option -m --memory <uint>        Memory in MiB (default 2048)
 # @flag --now                       Start machine now
+# @option --playbook <string>       Run an Ansible playbook after first boot
+# @option --provider <string>       Override the default machine provider
 # @flag --rootful                   Whether this machine should prefer rootful container execution
+# @option -s --swap <uint>          Swap in MiB
 # @option --timezone <string>       Set timezone (default "local")
+# @flag --tls-verify                Require HTTPS and verify certificates when contacting registries (default true)
+# @flag -u --update-connection      Set default system connection for this machine
 # @option --usb* <string>           USB Host passthrough: bus=$1,devnum=$2 or vendor=$1,product=$2
 # @flag --user-mode-networking      Whether this machine should use user-mode networking, routing traffic through a host user-space process
 # @option --username <string>       Username used in image (default "core")
-# @option -v --volume* <string>     Volumes to mount, source:target (default [$HOME:$HOME])
+# @option -v --volume* <string>     Volumes to mount, source:target (default [$HOME:$HOME,/home/skogix/.config/containers:/etc/containers])
 # @arg name
 machine::init() {
     :;
@@ -1880,12 +2320,23 @@ machine::os() {
 # {{{{ podman machine os apply
 # @cmd Apply an OCI image to a Podman Machine's OS
 # @flag --restart    Restart VM to apply changes
-# @arg image[`_module_oci_podman_image`]
-# @arg name
+# @arg uri-image <URI|IMAGE>
+# @arg machine[`_choice_machine`]
 machine::os::apply() {
     :;
 }
 # }}}} podman machine os apply
+
+# {{{{ podman machine os upgrade
+# @cmd Upgrade machine os
+# @flag -n --dry-run              Only check if an upgrade is available
+# @option -f --format <string>    suppress output except for specified format.
+# @flag --restart                 Restart VM to upgrade
+# @arg name
+machine::os::upgrade() {
+    :;
+}
+# }}}} podman machine os upgrade
 # }}} podman machine os
 
 # {{{ podman machine reset
@@ -1895,6 +2346,16 @@ machine::reset() {
     :;
 }
 # }}} podman machine reset
+
+# {{{ podman machine restart
+# @cmd Restart an existing machine
+# @flag --no-info     Suppress informational tips
+# @flag -q --quiet    Suppress machine restarting status output
+# @arg machine[`_choice_machine`]
+machine::restart() {
+    :;
+}
+# }}} podman machine restart
 
 # {{{ podman machine rm
 # @cmd Remove an existing machine
@@ -1911,6 +2372,7 @@ machine::rm() {
 # @cmd Set a virtual machine setting
 # @option --cpus <uint>           Number of CPUs
 # @option --disk-size <uint>      Disk size in GiB
+# @flag --import-native-ca        Import the host trusted CA certificates into the machine
 # @option -m --memory <uint>      Memory in MiB
 # @flag --rootful                 Whether this machine should prefer rootful container execution
 # @option --usb* <string>         USBs bus=$1,devnum=$2 or vendor=$1,product=$2
@@ -1934,8 +2396,9 @@ machine::ssh() {
 
 # {{{ podman machine start
 # @cmd Start an existing machine
-# @flag --no-info     Suppress informational tips
-# @flag -q --quiet    Suppress machine starting status output
+# @flag --no-info                 Suppress informational tips
+# @flag -q --quiet                Suppress machine starting status output
+# @flag -u --update-connection    Set default system connection for this machine
 # @arg machine[`_choice_machine`]
 machine::start() {
     :;
@@ -1970,6 +2433,7 @@ manifest() {
 # @option --artifact-subject <string>        artifact subject reference
 # @option --artifact-type <string>           override the artifactType value
 # @option --authfile <file>                  path of the authentication file.
+# @option --cert-dir <dir>                   use certificates at the specified path to access the registry
 # @option --creds <username[:password]>      use [username[:password]] for accessing the registry
 # @option --features <features>              override the features of the specified image
 # @option --os                               override the OS of the specified image
@@ -2034,19 +2498,27 @@ manifest::inspect() {
 
 # {{{ podman manifest push
 # @cmd Push a manifest list or image index to a registry
-# @option --add-compression* <string>      add instances with selected compression while pushing
-# @flag --all                              also push the images in the list (default true)
-# @option --authfile <file>                path of the authentication file.
-# @option --compression-format <string>    compression format to use
-# @option --compression-level <int>        compression level to use
-# @option --creds <username[:password]>    use [username[:password]] for accessing the registry
-# @option --digestfile <file>              after copying the image, write the digest of the resulting digest to the file
-# @flag --force-compression                Use the specified compression algorithm even if the destination contains a differently-compressed variant already
-# @option -f --format <string>             manifest type (oci or v2s2) to attempt to use when pushing the manifest list (default is manifest type of source)
-# @flag -q --quiet                         don't output progress information when pushing lists
-# @flag --remove-signatures                don't copy signatures when pushing images
-# @flag --rm                               remove the manifest list if push succeeds
-# @flag --tls-verify                       require HTTPS and verify certificates when accessing the registry (default true)
+# @option --add-compression* <string>              add instances with selected compression while pushing
+# @flag --all                                      also push the images in the list (default true)
+# @option --authfile <file>                        path of the authentication file.
+# @option --cert-dir <dir>                         use certificates at the specified path to access the registry
+# @option --compression-format <string>            compression format to use
+# @option --compression-level <int>                compression level to use
+# @option --creds <username[:password]>            use [username[:password]] for accessing the registry
+# @option --digestfile <file>                      after copying the image, write the digest of the resulting digest to the file
+# @flag --force-compression                        Use the specified compression algorithm even if the destination contains a differently-compressed variant already
+# @option -f --format <string>                     manifest type (oci or v2s2) to attempt to use when pushing the manifest list (default is manifest type of source)
+# @flag -q --quiet                                 don't output progress information when pushing lists
+# @flag --remove-signatures                        don't copy signatures when pushing images
+# @option --retry <uint>                           number of times to retry in case of failure when performing push (default 3)
+# @option --retry-delay <string>                   delay between retries in case of push failures
+# @flag --rm                                       remove the manifest list if push succeeds
+# @option --sign-by <path>                         Add a signature at the destination using the specified key
+# @option --sign-by-sigstore <PATH>                Sign the image using a sigstore parameter file at PATH
+# @option --sign-by-sigstore-private-key <PATH>    Sign the image using a sigstore private key at PATH
+# @option --sign-by-sq-fingerprint <FINGERPRINT>   Sign the image using a Sequoia-PGP key with the specified FINGERPRINT
+# @option --sign-passphrase-file <PATH>            Read a passphrase for signing an image from PATH
+# @flag --tls-verify                               require HTTPS and verify certificates when accessing the registry (default true)
 # @arg list
 # @arg destination
 manifest::push() {
@@ -2055,9 +2527,9 @@ manifest::push() {
 # }}} podman manifest push
 
 # {{{ podman manifest remove
-# @cmd Remove an entry from a manifest list or image index
+# @cmd Remove an item from a manifest list or image index
 # @arg list
-# @arg image[`_module_oci_podman_image`]
+# @arg digest
 manifest::remove() {
     :;
 }
@@ -2065,12 +2537,25 @@ manifest::remove() {
 
 # {{{ podman manifest rm
 # @cmd Remove manifest list or image index from local storage
+# @flag -i --ignore    Ignore errors when a specified manifest is missing
 # @arg list*
 manifest::rm() {
     :;
 }
 # }}} podman manifest rm
 # }} podman manifest
+
+# {{ podman mount
+# @cmd Mount a working container's root filesystem
+# @flag -a --all               Mount all containers
+# @option --format <string>    Print the mounted containers in specified format (json)
+# @flag -l --latest            Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --no-trunc             Do not truncate output
+# @arg container*[`_choice_container`]
+mount() {
+    :;
+}
+# }} podman mount
 
 # {{ podman network
 # @cmd Manage networks
@@ -2105,7 +2590,7 @@ network::connect() {
 # @flag --ipv6                         enable IPv6 networking
 # @option --label* <string>            set metadata on a network
 # @option -o --opt* <string>           Set driver specific options (default [])
-# @option --route* <string>            static routes
+# @option --route* <string>            Static routes for this network.
 # @option --subnet* <string>           subnets in CIDR format
 # @arg name
 network::create() {
@@ -2161,10 +2646,21 @@ network::prune() {
 }
 # }}} podman network prune
 
+# {{{ podman network reload
+# @cmd Reload firewall rules for one or more containers
+# @flag -a --all       Reload network configuration of all containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @arg container*[`_choice_container`]
+network::reload() {
+    :;
+}
+# }}} podman network reload
+
 # {{{ podman network rm
 # @cmd Remove networks
 # @alias remove
 # @flag -f --force           remove any containers using network
+# @flag -i --ignore          ignore if a specified network does not exist
 # @option -t --time <int>    Seconds to wait for running containers to stop before killing the container (default 10)
 # @arg network*[`_choice_network`]
 network::rm() {
@@ -2186,7 +2682,9 @@ network::update() {
 # {{ podman pause
 # @cmd Pause all the processes in one or more containers
 # @flag -a --all                   Pause all running containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 pause() {
     :;
@@ -2227,7 +2725,7 @@ pod() {
 # @option --pid <string>                           PID namespace to use
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
 # @option --security-opt* <string>                 Security Options
-# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes)) (default "65536k")
 # @option --shm-size-systemd <<number>[<unit>]>    Size of systemd specific tmpfs mounts (/run, /run/lock) (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @flag --start                                    start the new pod
 # @option --subgidname <string>                    Name of range listed in /etc/subgid for use in user namespace
@@ -2236,7 +2734,7 @@ pod() {
 # @option --uidmap* <string>                       UID map to use for the user namespace
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
-# @option -v --volume* <string>                    Bind mount a volume into the container.
+# @option -v --volume* <string>                    Bind mount a volume into the container
 # @option --volumes-from* <string>                 Mount volumes from the specified container(s)
 # @arg pod[`_choice_pod`]
 # @arg name
@@ -2266,6 +2764,7 @@ pod::clone() {
 # @option --gpus* <string>                         GPU devices to add to the container ('all' to pass all GPUs)
 # @flag --help
 # @option -h --hostname <string>                   Set container hostname
+# @option --hosts-file[image|none] <file>          Base file to create the /etc/hosts file inside the container, or one of the special values.
 # @flag --infra                                    Create an infra container associated with the pod to share namespaces with (default true)
 # @option --infra-command <string>                 Overwrite the default ENTRYPOINT of the image
 # @option --infra-conmon-pidfile <file>            Path to the file that will receive the PID of conmon
@@ -2281,6 +2780,7 @@ pod::clone() {
 # @option -n --name <string>                       Assign a name to the pod
 # @option --network*[`_choice_network`] <string>   Connect a container to a network
 # @option --network-alias* <string>                Add network-scoped alias for the container
+# @flag --no-hostname                              Do not create /etc/hostname within the container, instead use the version from the image
 # @flag --no-hosts                                 Do not create /etc/hosts within the container, instead use the version from the image
 # @option --pid <string>                           PID namespace to use
 # @option --pod-id-file <file>                     Write the pod ID to the file
@@ -2290,7 +2790,7 @@ pod::clone() {
 # @option --security-opt* <string>                 Security Options
 # @option --share <string>                         A comma delimited list of kernel namespaces the pod will share (default "ipc,net,uts")
 # @flag --share-parent                             Set the pod's cgroup as the cgroup parent for all containers joining the pod (default true)
-# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes)) (default "65536k")
 # @option --shm-size-systemd <<number>[<unit>]>    Size of systemd specific tmpfs mounts (/run, /run/lock) (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @option --subgidname <string>                    Name of range listed in /etc/subgid for use in user namespace
 # @option --subuidname <string>                    Name of range listed in /etc/subuid for use in user namespace
@@ -2298,7 +2798,7 @@ pod::clone() {
 # @option --uidmap* <string>                       UID map to use for the user namespace
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
-# @option -v --volume* <string>                    Bind mount a volume into the container.
+# @option -v --volume* <string>                    Bind mount a volume into the container
 # @option --volumes-from* <string>                 Mount volumes from the specified container(s)
 # @arg name
 pod::create() {
@@ -2317,6 +2817,7 @@ pod::exists() {
 # {{{ podman pod inspect
 # @cmd Display a pod configuration
 # @option -f --format <string>    Format the output to a Go template or json (default "json")
+# @flag -l --latest               Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg pod*[`_choice_pod`]
 pod::inspect() {
     :;
@@ -2326,6 +2827,7 @@ pod::inspect() {
 # {{{ podman pod kill
 # @cmd Send the specified signal or SIGKILL to containers in pod
 # @flag -a --all                  Kill all containers in all pods
+# @flag -l --latest               Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -s --signal <string>    Signal to send to the containers in the pod (default "KILL")
 # @arg pod*[`_choice_pod`]
 pod::kill() {
@@ -2338,6 +2840,7 @@ pod::kill() {
 # @flag --color                      Output the containers within a pod with different colors in the log
 # @option -c --container <string>    Filter logs by container name or id which belongs to pod
 # @flag -f --follow                  Follow log output.
+# @flag -l --latest                  Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag -n --names                   Output container names instead of container IDs in the log
 # @option --since <string>           Show logs since TIMESTAMP
 # @option --tail <int>               Output the specified number of LINES at the end of the logs.
@@ -2351,7 +2854,8 @@ pod::logs() {
 
 # {{{ podman pod pause
 # @cmd Pause one or more pods
-# @flag -a --all    Pause all running pods
+# @flag -a --all       Pause all running pods
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg pod*[`_choice_pod`]
 pod::pause() {
     :;
@@ -2374,6 +2878,7 @@ pod::prune() {
 # @flag --ctr-status               Display the container status
 # @option -f --filter* <string>    Filter output based on conditions given
 # @option --format <string>        Pretty-print pods to JSON or using a Go template
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-trunc                 Do not truncate pod and container IDs
 # @flag -n --noheading             Do not print headers
 # @flag --ns                       Display namespace information of the pod
@@ -2386,7 +2891,8 @@ pod::ps() {
 
 # {{{ podman pod restart
 # @cmd Restart one or more pods
-# @flag -a --all    Restart all running pods
+# @flag -a --all       Restart all running pods
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg pod*[`_choice_pod`]
 pod::restart() {
     :;
@@ -2397,6 +2903,8 @@ pod::restart() {
 # @cmd Remove one or more pods
 # @flag -a --all                   Remove all running pods
 # @flag -f --force                 Force removal of a running pod by first stopping all containers, then removing all containers in the pod.
+# @flag -i --ignore                Ignore errors when a specified pod is missing
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option --pod-id-file* <file>    Read the pod ID from the file
 # @option -t --time <int>          Seconds to wait for pod stop before killing the container (default 10)
 # @arg pod*[`_choice_pod`]
@@ -2408,6 +2916,7 @@ pod::rm() {
 # {{{ podman pod start
 # @cmd Start one or more pods
 # @flag -a --all                   Restart all running pods
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option --pod-id-file* <file>    Read the pod ID from the file
 # @arg pod*[`_choice_pod`]
 pod::start() {
@@ -2419,6 +2928,7 @@ pod::start() {
 # @cmd Display a live stream of resource usage statistics for the containers in one or more pods
 # @flag -a --all               Provide stats for all pods
 # @option --format <string>    Pretty-print container statistics to JSON or using a Go template
+# @flag -l --latest            Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-reset             Disable resetting the screen when streaming
 # @flag --no-stream            Disable streaming stats and only pull the first result
 # @arg pod*[`_choice_pod`]
@@ -2430,6 +2940,8 @@ pod::stats() {
 # {{{ podman pod stop
 # @cmd Stop one or more pods
 # @flag -a --all                   Stop all running pods
+# @flag -i --ignore                Ignore errors when a specified pod is missing
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option --pod-id-file* <file>    Write the pod ID to the file
 # @option -t --time <int>          Seconds to wait for pod stop before killing the container (default 10)
 # @arg pod*[`_choice_pod`]
@@ -2440,6 +2952,7 @@ pod::stop() {
 
 # {{{ podman pod top
 # @cmd Display the running processes of containers in a pod
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg pod[`_choice_pod`]
 # @arg format-descriptors-args* <FORMAT-DESCRIPTORS|ARGS>
 pod::top() {
@@ -2449,7 +2962,8 @@ pod::top() {
 
 # {{{ podman pod unpause
 # @cmd Unpause one or more pods
-# @flag -a --all    Unpause all running pods
+# @flag -a --all       Unpause all running pods
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg pod*[`_choice_pod`]
 pod::unpause() {
     :;
@@ -2459,7 +2973,8 @@ pod::unpause() {
 
 # {{ podman port
 # @cmd List port mappings or a specific mapping for the container
-# @flag -a --all    Display port information for all containers
+# @flag -a --all       Display port information for all containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container[`_choice_container`]
 # @arg port
 port() {
@@ -2474,6 +2989,7 @@ port() {
 # @option -f --filter* <string>    Filter output based on conditions given
 # @option --format <string>        Pretty-print containers to JSON or using a Go template
 # @option -n --last <int>          Print the n last created containers (all states) (default -1)
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-trunc                 Display the extended information
 # @flag --noheading                Do not print headers
 # @flag --ns                       Display namespace information
@@ -2490,18 +3006,21 @@ ps() {
 
 # {{ podman pull
 # @cmd Pull an image from a registry
-# @flag -a --all-tags               All tagged images in the repository will be pulled
-# @option --arch                    Use ARCH instead of the architecture of the machine for choosing images
-# @option --authfile <file>         Path of the authentication file.
-# @option --creds <Credentials>     Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
-# @flag --disable-content-trust     This is a Docker specific option and is a NOOP
-# @option --os                      Use OS instead of the running OS for choosing images
-# @option --platform <string>       Specify the platform for selecting the image.
-# @flag -q --quiet                  Suppress output information when pulling images
-# @option --retry <uint>            number of times to retry in case of failure when performing pull
-# @option --retry-delay <string>    delay between retries in case of pull failures
-# @flag --tls-verify                Require HTTPS and verify certificates when contacting registries (default true)
-# @option --variant <string>        Use VARIANT instead of the running architecture variant for choosing images
+# @flag -a --all-tags                 All tagged images in the repository will be pulled
+# @option --arch                      Use ARCH instead of the architecture of the machine for choosing images
+# @option --authfile <file>           Path of the authentication file.
+# @option --cert-dir <Pathname>       Pathname of a directory containing TLS certificates and keys
+# @option --creds <Credentials>       Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>    Key needed to decrypt the image (e.g. /path/to/key.pem)
+# @flag --disable-content-trust       This is a Docker specific option and is a NOOP
+# @option --os                        Use OS instead of the running OS for choosing images
+# @option --platform <string>         Specify the platform for selecting the image.
+# @option --policy[always|missing|never|newer] <string>  Pull image policy (default "always")
+# @flag -q --quiet                    Suppress output information when pulling images
+# @option --retry <uint>              number of times to retry in case of failure when performing pull (default 3)
+# @option --retry-delay <string>      delay between retries in case of pull failures
+# @flag --tls-verify                  Require HTTPS and verify certificates when contacting registries (default true)
+# @option --variant <string>          Use VARIANT instead of the running architecture variant for choosing images
 # @arg image*[`_module_oci_podman_image`]
 pull() {
     :;
@@ -2510,24 +3029,84 @@ pull() {
 
 # {{ podman push
 # @cmd Push an image to a specified destination
-# @option --authfile <file>                Path of the authentication file.
-# @option --compression-format <string>    compression format to use
-# @option --compression-level <int>        compression level to use
-# @option --creds <Credentials>            Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
-# @option --digestfile <file>              Write the digest of the pushed image to the specified file
-# @flag --disable-content-trust            This is a Docker specific option and is a NOOP
-# @flag --force-compression                Use the specified compression algorithm even if the destination contains a differently-compressed variant already
-# @option -f --format <path>               Manifest type (oci, v2s2, or v2s1) to use in the destination (default is manifest type of source, with fallbacks)
-# @flag --remove-signatures                Discard any pre-existing signatures in the image
-# @option --retry <uint>                   number of times to retry in case of failure when performing push
-# @option --retry-delay <string>           delay between retries in case of push failures
-# @flag --tls-verify                       Require HTTPS and verify certificates when contacting registries (default true)
+# @option --authfile <file>                        Path of the authentication file.
+# @option --cert-dir <dir>                         Path to a directory containing TLS certificates and keys
+# @flag --compress                                 Compress tarball image layers when pushing to a directory using the 'dir' transport.
+# @option --compression-format <string>            compression format to use (default "gzip")
+# @option --compression-level <int>                compression level to use
+# @option --creds <Credentials>                    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --digestfile <file>                      Write the digest of the pushed image to the specified file
+# @flag --disable-content-trust                    This is a Docker specific option and is a NOOP
+# @option --encrypt-layer <ints>                   Layers to encrypt, 0-indexed layer indices with support for negative indexing (e.g. 0 is the first layer, -1 is the last layer).
+# @option --encryption-key* <path>                 Key with the encryption protocol to use to encrypt the image (e.g. jwe:/path/to/key.pem)
+# @flag --force-compression                        Use the specified compression algorithm even if the destination contains a differently-compressed variant already
+# @option -f --format <path>                       Manifest type (oci, v2s2, or v2s1) to use in the destination (default is manifest type of source, with fallbacks)
+# @flag -q --quiet                                 Suppress output information when pushing images
+# @flag --remove-signatures                        Discard any pre-existing signatures in the image
+# @option --retry <uint>                           number of times to retry in case of failure when performing push (default 3)
+# @option --retry-delay <string>                   delay between retries in case of push failures
+# @option --sign-by <path>                         Add a signature at the destination using the specified key
+# @option --sign-by-sigstore <PATH>                Sign the image using a sigstore parameter file at PATH
+# @option --sign-by-sigstore-private-key <PATH>    Sign the image using a sigstore private key at PATH
+# @option --sign-by-sq-fingerprint <FINGERPRINT>   Sign the image using a Sequoia-PGP key with the specified FINGERPRINT
+# @option --sign-passphrase-file <PATH>            Read a passphrase for signing an image from PATH
+# @flag --tls-verify                               Require HTTPS and verify certificates when contacting registries (default true)
 # @arg image[`_module_oci_podman_image`]
 # @arg destination
 push() {
     :;
 }
 # }} podman push
+
+# {{ podman quadlet
+# @cmd Allows users to manage Quadlets
+quadlet() {
+    :;
+}
+
+# {{{ podman quadlet install
+# @cmd Install a quadlet file or quadlet application
+# @option --application <dir>    Group quadlets and associated file in a directory named after the application
+# @flag --reload-systemd         Reload systemd after installing Quadlets (default true)
+# @flag -r --replace             Replace the installation even if the quadlet already exists
+# @arg quadlet-path-or-url
+# @arg files-path-or-url*
+quadlet::install() {
+    :;
+}
+# }}} podman quadlet install
+
+# {{{ podman quadlet list
+# @cmd List Quadlets
+# @option -f --filter* <string>    Filter output based on conditions given
+# @option --format <path>          Pretty-print output to JSON or using a Go template (default "{{range .}}{{.Name}}\t{{.UnitName}}\t{{.Path}}\t{{.Status}}\t{{.App}}\t{{.Pod}}\n{{end -}}")
+# @flag -n --noheading             Do not print headers
+quadlet::list() {
+    :;
+}
+# }}} podman quadlet list
+
+# {{{ podman quadlet print
+# @cmd Display the contents of a quadlet
+# @arg quadlet
+quadlet::print() {
+    :;
+}
+# }}} podman quadlet print
+
+# {{{ podman quadlet rm
+# @cmd Remove Quadlets
+# @flag -a --all            Remove all Quadlets for the current user
+# @flag -f --force          Remove running quadlets
+# @flag -i --ignore         Do not error for Quadlets that do not exist
+# @flag --recursive         Remove all Quadlets belonging to the specified application and its directory
+# @flag --reload-systemd    Reload systemd after removal (default true)
+# @arg quadlet-application* <QUADLET|APPLICATION>
+quadlet::rm() {
+    :;
+}
+# }}} podman quadlet rm
+# }} podman quadlet
 
 # {{ podman rename
 # @cmd Rename an existing container
@@ -2541,7 +3120,9 @@ rename() {
 # {{ podman restart
 # @cmd Restart one or more containers
 # @flag -a --all                   Restart all non-running containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --running                  Restart only running containers
 # @option -t --time <int>          Seconds to wait for stop before killing the container (default 10)
 # @arg container*[`_choice_container`]
@@ -2558,6 +3139,7 @@ restart() {
 # @option --filter* <string>    Filter output based on conditions given
 # @flag -f --force              Force removal of a running or unusable container
 # @flag -i --ignore             Ignore errors when a specified container is missing
+# @flag -l --latest             Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -t --time <int>       Seconds to wait for stop before killing the container (default 10)
 # @flag -v --volumes            Remove anonymous volumes associated with the container
 # @arg container*[`_choice_container`]
@@ -2589,12 +3171,14 @@ rmi() {
 # @option --blkio-weight-device <DEVICE_NAME:WEIGHT>  Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT)
 # @option --cap-add* <string>                      Add capabilities to the container
 # @option --cap-drop* <string>                     Drop capabilities from the container
+# @option --cert-dir <Pathname>                    Pathname of a directory containing TLS certificates and keys
 # @option --cgroup-conf* <string>                  Configure cgroup v2 (key=value)
 # @option --cgroup-parent <string>                 Optional parent cgroup for the container
 # @option --cgroupns <string>                      cgroup namespace to use
-# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration
+# @option --cgroups[enabled|disabled|no-conmon|split] <string>  control container cgroup configuration (default "enabled")
 # @option --chrootdirs* <dir>                      Chroot directories inside the container
 # @option --cidfile <file>                         Write the container ID to the file
+# @option --conmon-pidfile <file>                  Path to the file that will receive the PID of conmon
 # @option --cpu-period <uint>                      Limit the CPU CFS (Completely Fair Scheduler) period
 # @option --cpu-quota <int>                        Limit the CPU CFS (Completely Fair Scheduler) quota
 # @option --cpu-rt-period <uint>                   Limit the CPU real-time period in microseconds
@@ -2603,6 +3187,8 @@ rmi() {
 # @option --cpus <float>                           Number of CPUs.
 # @option --cpuset-cpus <string>                   CPUs in which to allow execution (0-3, 0,1)
 # @option --cpuset-mems <string>                   Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @option --creds <credentials>                    credentials (USERNAME:PASSWORD) to use for authenticating to a registry
+# @option --decryption-key* <path>                 Key needed to decrypt the image (e.g. /path/to/key.pem)
 # @flag -d --detach                                Run container in background and print container ID
 # @option --detach-keys <a-Z>                      Override the key sequence for detaching a container.
 # @option --device* <string>                       Add a host device to the container
@@ -2616,8 +3202,9 @@ rmi() {
 # @option --dns-option* <string>                   Set custom DNS options
 # @option --dns-search* <string>                   Set custom DNS search domains
 # @option --entrypoint <string>                    Overwrite the default ENTRYPOINT of the image
-# @option -e --env* <string>                       Set environment variables in container
+# @option -e --env* <string>                       Set environment variables in container (default [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin])
 # @option --env-file* <file>                       Read in a file of environment variables
+# @flag --env-host                                 Use all current host environment variables in container
 # @option --env-merge* <string>                    Preprocess environment variables from image before injecting them into the container
 # @option --expose* <string>                       Expose a port or a range of ports
 # @option --gidmap* <string>                       GID map to use for the user namespace
@@ -2625,30 +3212,34 @@ rmi() {
 # @option --group-add* <string>                    Add additional groups to the primary container process.
 # @option --group-entry <string>                   Entry to write to /etc/group
 # @option --health-cmd <string>                    set a healthcheck command for the container ('none' disables the existing healthcheck)
-# @option --health-interval <string>               set an interval for the healthcheck (a value of disable results in no automatic timer setup) (default "30s")
+# @option --health-interval <string>               set an interval for the healthcheck.
+# @option --health-log-destination <path>          set the destination of the HealthCheck log.
+# @option --health-max-log-count <uint>            set maximum number of attempts in the HealthCheck log file.
+# @option --health-max-log-size <uint>             set maximum length in characters of stored HealthCheck log.
 # @option --health-on-failure <string>             action to take once the container turns unhealthy (default "none")
 # @option --health-retries <uint>                  the number of retries allowed before a healthcheck is considered to be unhealthy (default 3)
 # @option --health-start-period <string>           the initialization time needed for a container to bootstrap (default "0s")
 # @option --health-startup-cmd <string>            Set a startup healthcheck command for the container
-# @option --health-startup-interval <string>       Set an interval for the startup healthcheck (default "30s")
+# @option --health-startup-interval <string>       Set an interval for the startup healthcheck.
 # @option --health-startup-retries <uint>          Set the maximum number of retries before the startup healthcheck will restart the container
 # @option --health-startup-success <uint>          Set the number of consecutive successes before the startup healthcheck is marked as successful and the normal healthcheck begins (0 indicates any success will start the regular healthcheck)
 # @option --health-startup-timeout <string>        Set the maximum amount of time that the startup healthcheck may take before it is considered failed (default "30s")
-# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed (default "30s")
+# @option --health-timeout <string>                the maximum time allowed to complete the healthcheck before an interval is considered failed and SIGKILL is sent to the healthcheck process (default "30s")
 # @flag --help
 # @option -h --hostname <string>                   Set container hostname
+# @option --hosts-file[image|none] <file>          Base file to create the /etc/hosts file inside the container, or one of the special values.
 # @option --hostuser* <string>                     Host user account to add to /etc/passwd within container
 # @flag --http-proxy                               Set proxy environment variables in the container based on the host proxy vars (default true)
 # @option --image-volume[bind|tmpfs|ignore] <string>  Tells podman how to handle the builtin image volumes (default "anonymous")
 # @flag --init                                     Run an init binary inside the container that forwards signals and reaps processes
 # @option --init-path <path>                       Path to the container-init binary
-# @flag -i --interactive                           Keep STDIN open even if not attached
+# @flag -i --interactive                           Make STDIN available to the contained process
 # @option --ip <string>                            Specify a static IPv4 address for the container
 # @option --ip6 <string>                           Specify a static IPv6 address for the container
 # @option --ipc <string>                           IPC namespace to use
 # @option -l --label* <string>                     Set metadata on container
 # @option --label-file* <file>                     Read in a line delimited file of labels
-# @option --log-driver <string>                    Logging driver for the container
+# @option --log-driver <string>                    Logging driver for the container (default "journald")
 # @option --log-opt* <string>                      Logging driver options
 # @option --mac-address <string>                   Container MAC address (e.g. 92:d0:c6:0a:29:33)
 # @option -m --memory <<number>[<unit>]>           Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
@@ -2660,6 +3251,7 @@ rmi() {
 # @option --network*[`_choice_network`] <string>   Connect a container to a network
 # @option --network-alias* <string>                Add network-scoped alias for the container
 # @flag --no-healthcheck                           Disable healthchecks on container
+# @flag --no-hostname                              Do not create /etc/hostname within the container, instead use the version from the image
 # @flag --no-hosts                                 Do not create /etc/hosts within the container, instead use the version from the image
 # @flag --oom-kill-disable                         Disable OOM Killer
 # @option --oom-score-adj <int>                    Tune the host's OOM preferences (-1000 to 1000)
@@ -2668,14 +3260,17 @@ rmi() {
 # @option --passwd-entry <string>                  Entry to write to /etc/passwd
 # @option --personality <string>                   Configure execution domain using personality (e.g., LINUX/LINUX32)
 # @option --pid <string>                           PID namespace to use
-# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default -1)
+# @option --pidfile <file>                         Write the container process ID to the file
+# @option --pids-limit <int>                       Tune container pids limit (set -1 for unlimited) (default 2048)
 # @option --platform <string>                      Specify the platform for selecting the image.
 # @option --pod <string>                           Run container in an existing pod
 # @option --pod-id-file <file>                     Read the pod ID from the file
+# @option --preserve-fd <uints>                    Pass a file descriptor into the container (default [])
+# @option --preserve-fds <uint>                    Pass a number of additional file descriptors into the container
 # @flag --privileged                               Give extended privileges to container
 # @option -p --publish* <string>                   Publish a container's port, or a range of ports, to the host (default [])
 # @flag -P --publish-all                           Publish all exposed ports to random ports on the host interface
-# @option --pull[always|missing|never|newer] <string>  Pull image policy
+# @option --pull[always|missing|never|newer] <string>  Pull image policy (default "missing")
 # @flag -q --quiet                                 Suppress output information when pulling images
 # @option --rdt-class <string>                     Class of Service (COS) that the container should be assigned to
 # @flag --read-only                                Make containers root filesystem read-only
@@ -2683,7 +3278,7 @@ rmi() {
 # @flag --replace                                  If a container with the same name exists, replace it
 # @option --requires* <string>                     Add one or more requirement containers that must be started before this container will start
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
-# @option --retry <uint>                           number of times to retry in case of failure when performing pull
+# @option --retry <uint>                           number of times to retry in case of failure when performing pull (default 3)
 # @option --retry-delay <string>                   delay between retries in case of pull failures
 # @flag --rm                                       Remove container and any anonymous unnamed volume associated with the container after exit
 # @flag --rmi                                      Remove image unless used by other containers, implies --rm
@@ -2692,7 +3287,7 @@ rmi() {
 # @option --seccomp-policy <file>                  Policy for selecting a seccomp profile (experimental) (default "default")
 # @option --secret* <string>                       Add secret to container
 # @option --security-opt* <string>                 Security Options
-# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --shm-size <<number>[<unit>]>            Size of /dev/shm (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes)) (default "65536k")
 # @option --shm-size-systemd <<number>[<unit>]>    Size of systemd specific tmpfs mounts (/run, /run/lock) (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @flag --sig-proxy                                Proxy received signals to the process (default true)
 # @option --stop-signal <string>                   Signal to stop a container.
@@ -2715,7 +3310,7 @@ rmi() {
 # @option --userns <string>                        User namespace to use
 # @option --uts <string>                           UTS namespace to use
 # @option --variant                                Use VARIANT instead of the running architecture variant for choosing images
-# @option -v --volume* <string>                    Bind mount a volume into the container.
+# @option -v --volume* <string>                    Bind mount a volume into the container
 # @option --volumes-from* <string>                 Mount volumes from the specified container(s)
 # @option -w --workdir <dir>                       Working directory inside the container
 # @arg image[`_module_oci_podman_image`]
@@ -2743,6 +3338,7 @@ save() {
 # {{ podman search
 # @cmd Search registry for image
 # @option --authfile <file>        Path of the authentication file.
+# @option --cert-dir <Pathname>    Pathname of a directory containing TLS certificates and keys
 # @flag --compatible               List stars, official and automated columns (Docker compatibility)
 # @option --creds <Credentials>    Credentials (USERNAME:PASSWORD) to use for authenticating to a registry
 # @option -f --filter* <string>    Filter output based on conditions provided (default [])
@@ -2768,6 +3364,7 @@ secret() {
 # @option -d --driver <file>                Specify secret driver (default "file")
 # @option --driver-opts <stringToString>    Specify driver specific options (default [])
 # @flag --env                               Read secret data from environment variable
+# @flag --ignore                            If a secret with the same name exists, ignore and do not create a new secret
 # @option -l --label* <string>              Specify labels on the secret
 # @flag --replace                           If a secret with the same name exists, replace it
 # @arg name
@@ -2800,7 +3397,7 @@ secret::inspect() {
 # @cmd List secrets
 # @alias list
 # @option -f --filter* <string>    Filter secret output
-# @option --format <string>        Format volume output using Go template (default "{{range .}}{{.ID}}\t{{.Name}}\t{{.Driver}}\t{{.CreatedAt}}\t{{.UpdatedAt}}\n{{end -}}")
+# @option --format <string>        Format secret output using Go template (default "{{range .}}{{.ID}}\t{{.Name}}\t{{.Driver}}\t{{.CreatedAt}}\t{{.UpdatedAt}}\n{{end -}}")
 # @flag -n --noheading             Do not print headers
 # @flag -q --quiet                 Print secret IDs only
 secret::ls() {
@@ -2825,7 +3422,9 @@ secret::rm() {
 # @flag -a --attach                Attach container's STDOUT and STDERR
 # @option --detach-keys <a-Z>      Select the key sequence for detaching a container.
 # @option -f --filter* <string>    Filter output based on conditions given
-# @flag -i --interactive           Keep STDIN open even if not attached
+# @flag -i --interactive           Make STDIN available to the contained process
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @flag --sig-proxy                Proxy received signals to the process (default true if attaching, false otherwise)
 # @arg container*[`_choice_container`]
 start() {
     :;
@@ -2837,6 +3436,7 @@ start() {
 # @flag -a --all                 Show all containers.
 # @option --format <string>      Pretty-print container statistics to JSON or using a Go template
 # @option -i --interval <int>    Time in seconds between stats reports (default 5)
+# @flag -l --latest              Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @flag --no-reset               Disable resetting the screen between intervals
 # @flag --no-stream              Disable streaming stats and only pull the first result, default setting is false
 # @flag --no-trunc               Do not truncate output
@@ -2849,7 +3449,10 @@ stats() {
 # {{ podman stop
 # @cmd Stop one or more containers
 # @flag -a --all                   Stop all running containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -i --ignore                Ignore errors when a specified container is missing
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @option -t --time <int>          Seconds to wait for stop before killing the container (default 10)
 # @arg container*[`_choice_container`]
 stop() {
@@ -2886,6 +3489,9 @@ system::connection() {
 # @option --identity <file>       path to SSH identity file
 # @option -p --port <int>         SSH port number for destination (default 22)
 # @option --socket-path <path>    path to podman socket on remote host.
+# @option --tls-ca <file>         path to TLS certificate Authority PEM file
+# @option --tls-cert <file>       path to TLS client certificate PEM file
+# @option --tls-key <file>        path to TLS client certificate private key PEM file
 # @arg name
 # @arg destination
 system::connection::add() {
@@ -2961,9 +3567,19 @@ system::info() {
 }
 # }}} podman system info
 
+# {{{ podman system migrate
+# @cmd Migrate containers
+# @flag --migrate-db                Migrate database from BoltDB to SQLite
+# @option --new-runtime <string>    Specify a new runtime for all containers
+system::migrate() {
+    :;
+}
+# }}} podman system migrate
+
 # {{{ podman system prune
 # @cmd Remove unused data
 # @flag -a --all                Remove all unused data
+# @flag --build                 Remove build containers
 # @flag --external              Remove container data in storage not controlled by podman
 # @option --filter* <string>    Provide filter values (e.g. 'label=<key>=<value>')
 # @flag -f --force              Do not prompt for confirmation.
@@ -2972,6 +3588,34 @@ system::prune() {
     :;
 }
 # }}} podman system prune
+
+# {{{ podman system renumber
+# @cmd Migrate lock numbers
+system::renumber() {
+    :;
+}
+# }}} podman system renumber
+
+# {{{ podman system reset
+# @cmd Reset podman storage
+# @flag -f --force    Do not prompt for confirmation
+system::reset() {
+    :;
+}
+# }}} podman system reset
+
+# {{{ podman system service
+# @cmd Run API service
+# @option --cors <string>           Set CORS Headers
+# @option -t --time <uint>          Time until the service session expires in seconds.
+# @option --tls-cert <file>         PEM file containing TLS serving certificate.
+# @option --tls-client-ca <file>    Only trust client connections with certificates signed by this CA PEM file
+# @option --tls-key <file>          PEM file containing TLS serving certificate private key
+# @arg uri
+system::service() {
+    :;
+}
+# }}} podman system service
 # }} podman system
 
 # {{ podman tag
@@ -2985,6 +3629,7 @@ tag() {
 
 # {{ podman top
 # @cmd Display the running processes of a container
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container[`_choice_container`]
 # @arg format-descriptors-args* <FORMAT-DESCRIPTORS|ARGS>
 top() {
@@ -2992,15 +3637,39 @@ top() {
 }
 # }} podman top
 
+# {{ podman unmount
+# @cmd Unmount working container's root filesystem
+# @alias umount
+# @flag -a --all       Unmount all of the currently mounted containers
+# @flag -f --force     Force the complete unmount of the specified mounted containers
+# @flag -l --latest    Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @arg container*[`_choice_container`]
+unmount() {
+    :;
+}
+# }} podman unmount
+
 # {{ podman unpause
 # @cmd Unpause the processes in one or more containers
 # @flag -a --all                   Unpause all paused containers
+# @option --cidfile* <file>        Read the container ID from the file
 # @option -f --filter* <string>    Filter output based on conditions given
+# @flag -l --latest                Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 unpause() {
     :;
 }
 # }} podman unpause
+
+# {{ podman unshare
+# @cmd Run a command in a modified user namespace
+# @flag --rootless-netns    Join the rootless network namespace used for netavark networking
+# @arg command[`_module_os_command`]
+# @arg arg~[`_choice_args`]
+unshare() {
+    :;
+}
+# }} podman unshare
 
 # {{ podman untag
 # @cmd Remove a name from a local image
@@ -3012,26 +3681,45 @@ untag() {
 
 # {{ podman update
 # @cmd Update an existing container
-# @option --blkio-weight <string>           Block IO weight (relative weight) accepts a weight value between 10 and 1000.
+# @option --blkio-weight <string>               Block IO weight (relative weight) accepts a weight value between 10 and 1000.
 # @option --blkio-weight-device <DEVICE_NAME:WEIGHT>  Block IO weight (relative device weight, format: DEVICE_NAME:WEIGHT)
-# @option --cpu-period <uint>               Limit the CPU CFS (Completely Fair Scheduler) period
-# @option --cpu-quota <int>                 Limit the CPU CFS (Completely Fair Scheduler) quota
-# @option --cpu-rt-period <uint>            Limit the CPU real-time period in microseconds
-# @option --cpu-rt-runtime <int>            Limit the CPU real-time runtime in microseconds
-# @option -c --cpu-shares <uint>            CPU shares (relative weight)
-# @option --cpus <float>                    Number of CPUs.
-# @option --cpuset-cpus <string>            CPUs in which to allow execution (0-3, 0,1)
-# @option --cpuset-mems <string>            Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
-# @option --device-read-bps* <string>       Limit read rate (bytes per second) from a device (e.g. --device-read-bps=/dev/sda:1mb)
-# @option --device-read-iops* <string>      Limit read rate (IO per second) from a device (e.g. --device-read-iops=/dev/sda:1000)
-# @option --device-write-bps* <string>      Limit write rate (bytes per second) to a device (e.g. --device-write-bps=/dev/sda:1mb)
-# @option --device-write-iops* <string>     Limit write rate (IO per second) to a device (e.g. --device-write-iops=/dev/sda:1000)
-# @option -m --memory <<number>[<unit>]>    Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
+# @option --cpu-period <uint>                   Limit the CPU CFS (Completely Fair Scheduler) period
+# @option --cpu-quota <int>                     Limit the CPU CFS (Completely Fair Scheduler) quota
+# @option --cpu-rt-period <uint>                Limit the CPU real-time period in microseconds
+# @option --cpu-rt-runtime <int>                Limit the CPU real-time runtime in microseconds
+# @option -c --cpu-shares <uint>                CPU shares (relative weight)
+# @option --cpus <float>                        Number of CPUs.
+# @option --cpuset-cpus <string>                CPUs in which to allow execution (0-3, 0,1)
+# @option --cpuset-mems <string>                Memory nodes (MEMs) in which to allow execution (0-3, 0,1).
+# @option --device-read-bps* <string>           Limit read rate (bytes per second) from a device (e.g. --device-read-bps=/dev/sda:1mb)
+# @option --device-read-iops* <string>          Limit read rate (IO per second) from a device (e.g. --device-read-iops=/dev/sda:1000)
+# @option --device-write-bps* <string>          Limit write rate (bytes per second) to a device (e.g. --device-write-bps=/dev/sda:1mb)
+# @option --device-write-iops* <string>         Limit write rate (IO per second) to a device (e.g. --device-write-iops=/dev/sda:1000)
+# @option -e --env* <string>                    Set environment variables in container (default [PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin])
+# @option --health-cmd <string>                 set a healthcheck command for the container ('none' disables the existing healthcheck)
+# @option --health-interval <string>            set an interval for the healthcheck.
+# @option --health-log-destination <path>       set the destination of the HealthCheck log.
+# @option --health-max-log-count <uint>         set maximum number of attempts in the HealthCheck log file.
+# @option --health-max-log-size <uint>          set maximum length in characters of stored HealthCheck log.
+# @option --health-on-failure <string>          action to take once the container turns unhealthy (default "none")
+# @option --health-retries <uint>               the number of retries allowed before a healthcheck is considered to be unhealthy (default 3)
+# @option --health-start-period <string>        the initialization time needed for a container to bootstrap (default "0s")
+# @option --health-startup-cmd <string>         Set a startup healthcheck command for the container
+# @option --health-startup-interval <string>    Set an interval for the startup healthcheck.
+# @option --health-startup-retries <uint>       Set the maximum number of retries before the startup healthcheck will restart the container
+# @option --health-startup-success <uint>       Set the number of consecutive successes before the startup healthcheck is marked as successful and the normal healthcheck begins (0 indicates any success will start the regular healthcheck)
+# @option --health-startup-timeout <string>     Set the maximum amount of time that the startup healthcheck may take before it is considered failed (default "30s")
+# @option --health-timeout <string>             the maximum time allowed to complete the healthcheck before an interval is considered failed and SIGKILL is sent to the healthcheck process (default "30s")
+# @flag -l --latest                             Act on the latest container podman is aware of Not supported with the "--remote" flag
+# @option -m --memory <<number>[<unit>]>        Memory limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
 # @option --memory-reservation <<number>[<unit>]>  Memory soft limit (format: <number>[<unit>], where unit = b (bytes), k (kibibytes), m (mebibytes), or g (gibibytes))
-# @option --memory-swap <string>            Swap limit equal to memory plus swap: '-1' to enable unlimited swap
-# @option --memory-swappiness <int>         Tune container memory swappiness (0 to 100, or -1 for system default) (default -1)
-# @option --pids-limit <int>                Tune container pids limit (set -1 for unlimited) (default -1)
+# @option --memory-swap <string>                Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+# @option --memory-swappiness <int>             Tune container memory swappiness (0 to 100, or -1 for system default) (default -1)
+# @flag --no-healthcheck                        Disable healthchecks on container
+# @option --pids-limit <int>                    Tune container pids limit (set -1 for unlimited) (default 2048)
 # @option --restart[always|no|never|on-failure|unless-stopped] <string>  Restart policy to apply when a container exits
+# @option --ulimit* <string>                    Ulimit options
+# @option --unsetenv* <string>                  Unset environment default variables in container
 # @arg container[`_choice_container`]
 update() {
     :;
@@ -3055,9 +3743,11 @@ volume() {
 # {{{ podman volume create
 # @cmd Create a new volume
 # @option -d --driver <string>    Specify volume driver name (default "local")
+# @option --gid <int>             Set the GID of the volume owner
 # @flag --ignore                  Don't fail if volume already exists
 # @option -l --label* <string>    Set metadata for a volume (default [])
 # @option -o --opt* <string>      Set driver specific options (default [])
+# @option --uid <int>             Set the UID of the volume owner
 # @arg name
 volume::create() {
     :;
@@ -3071,6 +3761,24 @@ volume::exists() {
     :;
 }
 # }}} podman volume exists
+
+# {{{ podman volume export
+# @cmd Export volumes
+# @option -o --output <dir>    Write to a specified file (default: stdout, which must be redirected)
+# @arg volume[`_choice_volume`]
+volume::export() {
+    :;
+}
+# }}} podman volume export
+
+# {{{ podman volume import
+# @cmd Import a tarball contents into a podman volume
+# @arg volume[`_choice_volume`]
+# @arg source
+volume::import() {
+    :;
+}
+# }}} podman volume import
 
 # {{{ podman volume inspect
 # @cmd Display detailed information on one or more volumes
@@ -3094,8 +3802,18 @@ volume::ls() {
 }
 # }}} podman volume ls
 
+# {{{ podman volume mount
+# @cmd Mount volume
+# @arg name
+volume::mount() {
+    :;
+}
+# }}} podman volume mount
+
 # {{{ podman volume prune
-# @cmd Remove all unused volumes
+# @cmd Remove unused volumes
+# @flag -a --all                Remove all unused volumes, both anonymous and named
+# @flag --dry-run               Show what would be pruned without actually pruning
 # @option --filter* <string>    Provide filter values (e.g. 'label=<key>=<value>')
 # @flag -f --force              Do not prompt for confirmation
 volume::prune() {
@@ -3110,6 +3828,15 @@ volume::reload() {
 }
 # }}} podman volume reload
 
+# {{{ podman volume rename
+# @cmd Rename a volume
+# @arg volume[`_choice_volume`]
+# @arg newname
+volume::rename() {
+    :;
+}
+# }}} podman volume rename
+
 # {{{ podman volume rm
 # @cmd Remove one or more volumes
 # @alias remove
@@ -3121,13 +3848,23 @@ volume::rm() {
     :;
 }
 # }}} podman volume rm
+
+# {{{ podman volume unmount
+# @cmd Unmount volume
+# @arg name
+volume::unmount() {
+    :;
+}
+# }}} podman volume unmount
 # }} podman volume
 
 # {{ podman wait
 # @cmd Block on one or more containers
 # @option --condition* <string>     Condition to wait on
+# @flag --exit-first-match          Wait for exit of first container which matches conditions, ignore other ones
 # @flag --ignore                    Ignore if a container does not exist
 # @option -i --interval <string>    Time Interval to wait before polling for completion (default "250ms")
+# @flag -l --latest                 Act on the latest container podman is aware of Not supported with the "--remote" flag
 # @arg container*[`_choice_container`]
 wait() {
     :;

@@ -1,69 +1,144 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -h --help    show this help message and exit
-# @flag --version    show program's version number and exit
+# @flag -q --quiet      Suppress diagnostic messages and progress indicators.
+# @flag -h --help       Print help (see a summary with '-h')
+# @flag -V --version    Print version
 
-# {{ asciinema rec
-# @cmd Record terminal session
-# @flag -h --help         show this help message and exit
-# @flag --stdin           enable stdin recording, disabled by default
-# @flag --append          append to existing recording
-# @flag --raw             save only raw stdout output
-# @flag --overwrite       overwrite the file if it already exists
-# @option -c --command    command to record, defaults to $SHELL
-# @option -e --env        list of environment variables to capture, defaults to SHELL,TERM
-# @option -t --title      title of the asciicast
-# @option -i --idle-time-limit <IDLE_TIME_LIMIT>  limit recorded idle time to given number of seconds
-# @option --cols          override terminal columns for recorded process
-# @option --rows          override terminal rows for recorded process
-# @flag -y --yes          answer "yes" to all prompts (e.g. upload confirmation)
-# @flag -q --quiet        be quiet, suppress all notices/warnings (implies -y)
-# @arg filename
-rec() {
+# {{ asciinema record
+# @cmd Record a terminal session [aliases: rec]
+# @option -f --output-format <FORMAT>    Specify the format for the output file.
+# @option -c --command                   Specify the command to execute in the recording session.
+# @flag -I --capture-input               Enable recording of keyboard input in addition to terminal output.
+# @option --capture-env <VARS>           Specify which environment variables to capture and include in the recording metadata.
+# @flag -a --append                      Append the new session to an existing recording file instead of creating a new one.
+# @flag --overwrite                      Overwrite the output file if it already exists.
+# @option -t --title                     Set a title that will be stored in the recording metadata.
+# @option -i --idle-time-limit <SECS>    Limit the maximum idle time recorded between terminal events to the specified number of seconds.
+# @flag --headless                       Record in headless mode without using the terminal for input/output.
+# @option --window-size <COLSxROWS>      Override the terminal window size used for the recording session.
+# @flag --return                         Make the asciinema command exit with the same status code as the recorded session.
+# @option --log-file <PATH>              Enable logging of internal events to a file at the specified path.
+# @flag -q --quiet                       Suppress diagnostic messages and progress indicators.
+# @flag -h --help                        Print help (see a summary with '-h')
+# @arg file!                             Output file path
+record() {
     :;
 }
-# }} asciinema rec
+# }} asciinema record
+
+# {{ asciinema stream
+# @cmd Stream a terminal session
+# @option -l --local <IP:PORT>                     Start the local HTTP server to stream the session in real-time.
+# @option -r --remote <STREAM-ID|WS-URL>           Stream the session to a remote asciinema server for public viewing.
+# @option -c --command                             Specify the command to execute in the streaming session.
+# @flag -I --capture-input                         Enable recording of keyboard input in addition to terminal output.
+# @option --capture-env <VARS>                     Specify which environment variables to capture and include in the stream metadata.
+# @option -t --title                               Set a descriptive title for the streaming session.
+# @option --description                            Set a description for the session.
+# @option --visibility[public|unlisted|private]    Set the visibility level for the stream (applies only to remote streaming with --remote).
+# @option --audio-url <URL>                        Specify the URL of a live audio stream (e.g., Icecast MP3/OGG) to synchronize with the terminal stream (applies only to remote streaming with --remote).
+# @flag --headless                                 Stream in headless mode without using the terminal for input/output.
+# @option --window-size <COLSxROWS>                Override the terminal window size used for the streaming session.
+# @flag --return                                   Make the asciinema command exit with the same status code as the streamed session.
+# @option --log-file <PATH>                        Enable logging of internal events to a file at the specified path.
+# @option --server-url <URL>                       Specify a custom asciinema server URL for streaming to self-hosted servers.
+# @flag -q --quiet                                 Suppress diagnostic messages and progress indicators.
+# @flag -h --help                                  Print help (see a summary with '-h')
+stream() {
+    :;
+}
+# }} asciinema stream
+
+# {{ asciinema session
+# @cmd Record and stream a terminal session
+# @option -o --output-file <PATH>                  Save the session to a file at the specified path.
+# @option -f --output-format <FORMAT>              Specify the format for the output file when saving is enabled with --output-file.
+# @option -l --stream-local <IP:PORT>              Start the local HTTP server to stream the session in real-time.
+# @option -r --stream-remote <STREAM-ID|WS-URL>    Stream the session to a remote asciinema server for public viewing.
+# @option -c --command                             Specify the command to execute in the session.
+# @flag -I --capture-input                         Enable recording of keyboard input in addition to terminal output.
+# @option --capture-env <VARS>                     Specify which environment variables to capture and include in the session metadata.
+# @flag -a --append                                Append the new session to an existing recording file instead of creating a new one.
+# @flag --overwrite                                Overwrite the output file if it already exists.
+# @option -t --title                               Set a title for the session that will be stored in the recording metadata and displayed to stream viewers (when doing remote streaming with --remote).
+# @option --description                            Set a description for the session.
+# @option --visibility[public|unlisted|private]    Set the visibility level for the stream (applies only to remote streaming with --stream-remote).
+# @option --audio-url <URL>                        Specify the URL of a live audio stream (e.g., Icecast MP3/OGG) to synchronize with the terminal stream (applies only to remote streaming with --stream-remote).
+# @option -i --idle-time-limit <SECS>              Limit the maximum idle time recorded between terminal events to the specified number of seconds.
+# @flag --headless                                 Run the session in headless mode without using the terminal for input/output.
+# @option --window-size <COLSxROWS>                Override the terminal window size used for the session.
+# @flag --return                                   Make the asciinema command exit with the same status code as the session command.
+# @option --log-file <PATH>                        Enable logging of internal events to a file at the specified path.
+# @option --server-url <URL>                       Specify a custom asciinema server URL for streaming to self-hosted servers.
+# @flag -q --quiet                                 Suppress diagnostic messages and progress indicators.
+# @flag -h --help                                  Print help (see a summary with '-h')
+session() {
+    :;
+}
+# }} asciinema session
 
 # {{ asciinema play
-# @cmd Replay terminal session
-# @flag -h --help                     show this help message and exit
-# @option -i --idle-time-limit <IDLE_TIME_LIMIT>  limit idle time during playback to given number of seconds
-# @option -s --speed                  set playback speed (can be fractional)
-# @flag -l --loop                     loop loop loop loop
-# @flag -m --pause-on-markers         automatically pause on markers
-# @option --out-fmt[raw|asciicast]    select output format
-# @option --stream[o|i]               select stream to play
-# @arg filename
+# @cmd Play back a terminal session
+# @option -s --speed                     Control the playback speed as a multiplier of the original timing.
+# @flag -l --loop                        Enable continuous looping of the recording.
+# @option -i --idle-time-limit <SECS>    Limit the maximum idle time between events during playback to the specified number of seconds.
+# @flag -m --pause-on-markers            Automatically pause playback when encountering marker events.
+# @flag -r --resize                      Automatically resize the terminal window to match the original recording dimensions.
+# @flag -q --quiet                       Suppress diagnostic messages and progress indicators.
+# @flag -h --help                        Print help (see a summary with '-h')
+# @arg file!                             The path to an asciicast file or HTTP(S) URL to play back.
 play() {
     :;
 }
 # }} asciinema play
 
-# {{ asciinema cat
-# @cmd Print full output of terminal sessions
-# @flag -h --help    show this help message and exit
-# @arg filename*
-cat_() {
-    :;
-}
-# }} asciinema cat
-
 # {{ asciinema upload
-# @cmd Upload locally saved terminal session to asciinema.org
-# @flag -h --help    show this help message and exit
-# @arg filename
+# @cmd Upload a recording to an asciinema server
+# @option -t --title                               Set a title for the recording that will be stored in the recording metadata and displayed to viewers.
+# @option --description                            Set a description for the recording.
+# @option --visibility[public|unlisted|private]    Set the visibility level for the recording.
+# @option --audio-url <URL>                        Specify the URL of an audio file (e.g., MP3/OGG) to synchronize with the terminal playback.
+# @option --server-url <URL>                       Specify a custom asciinema server URL for uploading to self-hosted servers.
+# @flag -q --quiet                                 Suppress diagnostic messages and progress indicators.
+# @flag -h --help                                  Print help (see a summary with '-h')
+# @arg file!                                       The path to the asciicast recording file to upload, in a supported asciicast format (v1, v2, or v3)
 upload() {
     :;
 }
 # }} asciinema upload
 
 # {{ asciinema auth
-# @cmd Manage recordings on asciinema.org account
-# @flag -h --help    show this help message and exit
+# @cmd Authenticate this CLI with an asciinema server account
+# @option --server-url <URL>    Specify a custom asciinema server URL for authenticating with self-hosted servers.
+# @flag -q --quiet              Suppress diagnostic messages and progress indicators.
+# @flag -h --help               Print help (see a summary with '-h')
 auth() {
     :;
 }
 # }} asciinema auth
+
+# {{ asciinema cat
+# @cmd Concatenate multiple recordings
+# @flag -q --quiet    Suppress diagnostic messages and progress indicators.
+# @flag -h --help     Print help (see a summary with '-h')
+# @arg file!          <FILE>... List of recording files to concatenate.
+cat_() {
+    :;
+}
+# }} asciinema cat
+
+# {{ asciinema convert
+# @cmd Convert a recording to another format
+# @option -f --output-format <FORMAT>    Specify the format for the converted recording.
+# @flag --overwrite                      Overwrite the output file if it already exists.
+# @flag -q --quiet                       Suppress diagnostic messages and progress indicators.
+# @flag -h --help                        Print help (see a summary with '-h')
+# @arg input!                            The source recording to convert.
+# @arg output!                           The output path for the converted recording.
+convert() {
+    :;
+}
+# }} asciinema convert
 
 command eval "$(argc --argc-eval "$0" "$@")"

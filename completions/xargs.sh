@@ -11,7 +11,7 @@
 # @option -L --max-lines                use at most MAX-LINES non-blank input lines per command line
 # @option -l <MAX-LINES>                similar to -L but defaults to at most one non-blank input line if MAX-LINES is not specified
 # @option -n --max-args                 use at most MAX-ARGS arguments per command line
-# @flag -o --open-tty                   Reopen stdin as /dev/tty in the child process before executing the command; useful to run an interactive application.
+# @flag -o --open-tty                   Reopen standard input as /dev/tty in the child process before executing the command; useful to run an interactive application.
 # @option -P --max-procs                run at most MAX-PROCS processes at a time
 # @flag -p --interactive                prompt before running commands
 # @option --process-slot-var <VAR>      set environment variable VAR in child processes

@@ -11,11 +11,19 @@
 # @flag -v --version             output the version number
 # @flag -h --help                display help for command
 
+# {{ bw sdk-version
+# @cmd Print the SDK version.
+# @flag -h --help    display help for command
+sdk-version() {
+    :;
+}
+# }} bw sdk-version
+
 # {{ bw login
 # @cmd Log into a user account.
 # @option --method <method>                Two-step login method.
 # @option --code <code>                    Two-step login code.
-# @flag --sso                              Log in with Single-Sign On.
+# @option --sso <identifier>               Log in with Single-Sign On with optional organization identifier.
 # @flag --apikey                           Log in with an Api Key.
 # @option --passwordenv <passwordenv>      Environment variable storing your password
 # @option --passwordfile <passwordfile>    Path to a file containing your password as its first line
@@ -248,7 +256,7 @@ import() {
 # }} bw import
 
 # {{ bw export
-# @cmd Export vault data to a CSV or JSON file.
+# @cmd Export vault data to a CSV, JSON or ZIP file.
 # @option --output <output>                    Output directory or filename.
 # @option --format <format>                    Export file format.
 # @option --password <password>                Use password to encrypt instead of your Bitwarden account encryption key.
@@ -274,6 +282,8 @@ share() {
 # @cmd Work with Bitwarden sends.
 # @flag -f --file                         Specifies that <data> is a filepath
 # @option -d --deleteInDays <days>        The number of days in the future to set deletion date, defaults to 7 (default: "7")
+# @option --password <password>           optional password to access this Send.
+# @option --emails <emails>               optional emails to access this Send.
 # @option -a --maxAccessCount <amount>    The amount of max possible accesses.
 # @flag --hidden                          Hide <data> in web by default.
 # @option -n --name <name>                The name of the Send.
@@ -296,7 +306,7 @@ send::list() {
 # {{{ bw send template
 # @cmd Get json templates for send objects
 # @flag -h --help    display help for command
-# @arg object        Valid objects are: send.text, send.file
+# @arg object        Valid objects are: send.text, text, send.file, file
 send::template() {
     :;
 }
@@ -329,12 +339,11 @@ send::receive() {
 
 # {{{ bw send create
 # @cmd create a Send
-# @option --file <path>            file to Send.
-# @option --text <text>            text to Send.
-# @flag --hidden                   text hidden flag.
-# @option --password <password>    optional password to access this Send.
-# @flag -h --help                  display help for command
-# @arg encodedjson                 JSON object to upload.
+# @option --file <path>    file to Send.
+# @option --text <text>    text to Send.
+# @flag --hidden           text hidden flag.
+# @flag -h --help          display help for command
+# @arg encodedjson         JSON object to upload.
 send::create() {
     :;
 }
@@ -383,61 +392,6 @@ receive() {
 }
 # }} bw receive
 
-# {{ bw device-approval
-# @cmd Manage device approval requests sent to organizations that use SSO with trusted devices.
-# @flag -h --help    display help for command
-device-approval() {
-    :;
-}
-
-# {{{ bw device-approval list
-# @cmd List all pending requests for an organization
-# @option --organizationid <organizationid>    The organization id (required)
-# @flag -h --help                              display help for command
-device-approval::list() {
-    :;
-}
-# }}} bw device-approval list
-
-# {{{ bw device-approval approve
-# @cmd Approve a pending request
-# @option --organizationid <organizationid>    The organization id (required)
-# @flag -h --help                              display help for command
-# @arg requestid                               The id of the request to approve
-device-approval::approve() {
-    :;
-}
-# }}} bw device-approval approve
-
-# {{{ bw device-approval approve-all
-# @cmd Approve all pending requests for an organization
-# @option --organizationid <organizationid>    The organization id (required)
-# @flag -h --help                              display help for command
-device-approval::approve-all() {
-    :;
-}
-# }}} bw device-approval approve-all
-
-# {{{ bw device-approval deny
-# @cmd Deny a pending request
-# @option --organizationid <organizationid>    The organization id (required)
-# @flag -h --help                              display help for command
-# @arg requestid                               The id of the request to deny
-device-approval::deny() {
-    :;
-}
-# }}} bw device-approval deny
-
-# {{{ bw device-approval deny-all
-# @cmd Deny all pending requests for an organization
-# @option --organizationid <organizationid>    The organization id (required)
-# @flag -h --help                              display help for command
-device-approval::deny-all() {
-    :;
-}
-# }}} bw device-approval deny-all
-# }} bw device-approval
-
 # {{ bw serve
 # @cmd Start a RESTful API webserver.
 # @option --hostname <hostname>        The hostname to bind your API webserver to.
@@ -448,12 +402,5 @@ serve() {
     :;
 }
 # }} bw serve
-
-# {{ bw echo
-# @cmd
-echo_() {
-    :;
-}
-# }} bw echo
 
 command eval "$(argc --argc-eval "$0" "$@")"

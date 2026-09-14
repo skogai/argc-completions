@@ -53,9 +53,8 @@
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @option --artifact-dir <PATH>                  Copy final artifacts to this directory (unstable)
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -100,9 +99,8 @@ build() {
 # @option --target[`_choice_target`] <TRIPLE>    Check for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -128,8 +126,7 @@ check() {
 # @option --profile <PROFILE-NAME>               Clean artifacts of the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Target triple to clean output for
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -144,6 +141,7 @@ clean() {
 # @flag --open                                   Opens the docs in a browser after the operation
 # @flag --no-deps                                Don't build documentation for dependencies
 # @flag --document-private-items                 Document private items
+# @option --output-format[html|json] <FMT>       The output type to write (unstable)
 # @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
@@ -170,9 +168,8 @@ clean() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -245,8 +242,7 @@ init() {
 # @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help (see a summary with '-h')
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @option --lockfile-path <PATH>               Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --ignore-rust-version                  Ignore `rust-version` specification in packages
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
@@ -281,8 +277,7 @@ add() {
 # @flag --build                                Remove from build-dependencies
 # @option --target[`_choice_target`]           Remove from target-dependencies
 # @option -p --package[`_choice_package`] <SPEC>  Package to remove from
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @option --lockfile-path <PATH>               Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -315,9 +310,8 @@ remove() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -365,9 +359,8 @@ run() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -412,9 +405,8 @@ test() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -439,8 +431,7 @@ bench() {
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag -w --workspace                         Only update the workspace packages
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @option --lockfile-path <PATH>               Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --ignore-rust-version                  Ignore `rust-version` specification in packages
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
@@ -494,8 +485,7 @@ search() {
 # @flag --keep-going                             Do not abort the build as soon as there is an error
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -528,7 +518,6 @@ publish() {
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -544,7 +533,7 @@ publish() {
 # @option --profile <PROFILE-NAME>               Install artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @arg crate[`_choice_remote_crate`]
 install() {
     :;
@@ -608,9 +597,8 @@ uninstall() {
 # @option --profile <PROFILE-NAME>               Build artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Fix for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -671,8 +659,7 @@ config::get() {
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option --target[`_choice_target`] <TRIPLE>    Fetch dependencies for the target triple
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -719,9 +706,8 @@ fetch() {
 # @option --profile <PROFILE-NAME>               Build artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Fix for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -756,8 +742,7 @@ fmt() {
 # @option --config <KEY=VALUE|PATH>                Override a configuration value
 # @option -Z <FLAG>                                Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                  Print help
-# @option --manifest-path <PATH>                   Path to Cargo.toml
-# @option --lockfile-path <PATH>                   Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>                Path to Cargo.toml
 # @flag --ignore-rust-version                      Ignore `rust-version` specification in packages
 # @option --publish-time <yyyy-mm-ddThh:mm:ssZ>    Latest publish time allowed for registry packages (unstable)
 # @flag --locked                                   Assert that `Cargo.lock` will remain unchanged
@@ -785,7 +770,7 @@ git-checkout() {
 # @option --config <KEY=VALUE|PATH>             Override a configuration value
 # @option -Z <FLAG>                             Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                               Print help
-# @option --manifest-path <PATH>                Path to Cargo.toml
+# @option -m --manifest-path <PATH>             Path to Cargo.toml
 # @flag --locked                                Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                               Run without accessing the network
 # @flag --frozen                                Equivalent to specifying both --locked and --offline
@@ -843,8 +828,7 @@ logout() {
 # @option -F --features*,[`_choice_feature`]    Space or comma separated list of features to activate
 # @flag --all-features                          Activate all available features
 # @flag --no-default-features                   Do not activate the `default` feature
-# @option --manifest-path <PATH>                Path to Cargo.toml
-# @option --lockfile-path <PATH>                Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>             Path to Cargo.toml
 # @flag --locked                                Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                               Run without accessing the network
 # @flag --frozen                                Equivalent to specifying both --locked and --offline
@@ -902,8 +886,7 @@ owner() {
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @option -j --jobs <N>                          Number of parallel jobs, defaults to ♯ of CPUs.
 # @flag --keep-going                             Do not abort the build as soon as there is an error
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -921,8 +904,7 @@ package() {
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @option -p --package[`_choice_package`] <SPEC>  Argument to get the package ID specifier for
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @option --lockfile-path <PATH>               Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -940,7 +922,7 @@ pkgid() {
 # @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -981,6 +963,61 @@ report::future-incompatibilities() {
     :;
 }
 # }}} cargo report future-incompatibilities
+
+# {{{ cargo report timings
+# @cmd Reports the build timings of previous sessions (unstable)
+# @flag --open                                 Opens the timing report in a browser
+# @option --id                                 Session ID to report on
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::timings() {
+    :;
+}
+# }}} cargo report timings
+
+# {{{ cargo report sessions
+# @cmd Reports the previous sessions (unstable)
+# @option --limit <N>                          Limit the number of results [default: 10]
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::sessions() {
+    :;
+}
+# }}} cargo report sessions
+
+# {{{ cargo report rebuilds
+# @cmd Reports rebuild reasons from previous sessions (unstable)
+# @option --id                                 Session ID to report on
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::rebuilds() {
+    :;
+}
+# }}} cargo report rebuilds
 # }} cargo report
 
 # {{ cargo rustc
@@ -1016,9 +1053,8 @@ report::future-incompatibilities() {
 # @option --target[`_choice_target`] <TRIPLE>    Target triple which compiles will be for
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -1061,9 +1097,8 @@ rustc() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -1098,8 +1133,7 @@ rustdoc() {
 # @flag --all-features                           Activate all available features
 # @flag --no-default-features                    Do not activate the `default` feature
 # @option --target[`_choice_target`] <TRIPLE>    Filter dependencies matching the given target-triple (default host platform).
-# @option --manifest-path <PATH>                 Path to Cargo.toml
-# @option --lockfile-path <PATH>                 Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -1120,8 +1154,7 @@ tree() {
 # @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @option --lockfile-path <PATH>               Path to Cargo.lock (unstable)
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -1139,7 +1172,7 @@ vendor() {
 # @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline

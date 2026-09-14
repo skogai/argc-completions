@@ -12,6 +12,7 @@
 # @flag -g --glob                                  Perform a glob-based search instead of a regular expression search.
 # @flag --regex                                    Perform a regular-expression based search (default).
 # @flag -F --fixed-strings                         Treat the pattern as a literal string instead of a regular expression.
+# @flag --exact                                    Perform an exact match.
 # @option --and <pattern>                          Add additional required search patterns, all of which must be matched.
 # @flag -a --absolute-path                         Shows the full path starting from the root as opposed to relative paths.
 # @flag -l --list-details                          Use a detailed listing format like 'ls -l'.
@@ -21,16 +22,16 @@
 # @option -d --max-depth <depth>                   Limit the directory traversal to a given depth.
 # @option --min-depth <depth>                      Only show search results starting at the given depth.
 # @option --exact-depth <depth>                    Only show search results at the exact given depth.
-# @option -E --exclude <pattern>                   Exclude files/directories that match the given glob pattern.
+# @option -E --exclude <glob>                      Exclude files/directories that match the given glob pattern.
 # @flag --prune                                    Do not traverse into directories that match the search criteria.
 # @option -t --type*[`_choice_type`] <filetype>    Filter the search
-# @option -e --extension <ext>                     (Additionally) filter search results by their file extension.
+# @option -e --extension <ext>                     Filter results by extension.
 # @option -S --size <size>                         Limit results based on the size of files using the format <+-><NUM><UNIT>.
 # @option --changed-within <date|dur>              Filter results based on the file modification time.
 # @option --changed-before <date|dur>              Filter results based on the file modification time.
 # @option -o --owner <user:group>                  Filter files by their user and/or group.
 # @option --format <fmt>                           Print results according to template
-# @option -x --exec* <args>                        Execute a command for each search result in parallel (use --threads=1 for sequential command execution).
+# @option -x --exec* <args>                        Execute a command for each search result in parallel (use
 # @option -X --exec-batch* <args>                  Execute the given command once, with all search results as arguments.
 # @option --batch-size <size>                      Maximum number of arguments to pass to the command given with -X.
 # @option --ignore-file <path>                     Add a custom ignore-file in '.gitignore' format.

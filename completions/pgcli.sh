@@ -19,10 +19,12 @@
 # @option --prompt <TEXT>                         Prompt format (Default: "\u@\h:\d> ").
 # @option --prompt-dsn <TEXT>                     Prompt format for connections using DSN aliases (Default: "\u@\h:\d> ").
 # @flag -l --list                                 list available databases, then exit.
+# @flag --ping                                    Check database connectivity, then exit.
 # @flag --auto-vertical-output                    Automatically switch to vertical output mode if the result is wider than the terminal width.
 # @option --warn <TEXT>                           Warn before running a destructive query.
 # @option --ssh-tunnel <TEXT>                     Open an SSH tunnel to the given address and connect to the database from it.
 # @option --log-file <TEXT>                       Write all queries & output into a file, in addition to the normal output destination.
+# @option --init-command <TEXT>                   SQL statement to execute after connecting.
 # @flag --help                                    Show this message and exit.
 # @arg dbname[`_choice_database`]
 # @arg username[`_choice_user`]

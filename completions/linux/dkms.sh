@@ -36,6 +36,83 @@ add() {
 }
 # }} dkms add
 
+# {{ dkms remove
+# @cmd Removes a module/version or module/version/kernel/arch combination from the tree.
+remove() {
+    :;
+}
+# }} dkms remove
+
+# {{ dkms build
+# @cmd Builds the specified module/version combo for the specified kernel/arch.
+build() {
+    :;
+}
+# }} dkms build
+
+# {{ dkms unbuild
+# @cmd Undoes the build for a module/version or module/version/kernel/arch combination from the tree.
+unbuild() {
+    :;
+}
+# }} dkms unbuild
+
+# {{ dkms install
+# @cmd Installs a built module/version combo onto the kernel it was built for.
+install() {
+    :;
+}
+# }} dkms install
+
+# {{ dkms uninstall
+# @cmd Uninstalls an installed module/module-version combo from the kernel/arch passed in the -k option, or the current kernel if the -k option was not passed.
+uninstall() {
+    :;
+}
+# }} dkms uninstall
+
+# {{ dkms match
+# @cmd Match installs modules onto the specified kernel by looking at the configuration of the specified templatekernel.
+match() {
+    :;
+}
+# }} dkms match
+
+# {{ dkms mktarball
+# @cmd Creates a tarball archive for the specified module/version of all files in the DKMS tree for that module/version combination.
+mktarball() {
+    :;
+}
+# }} dkms mktarball
+
+# {{ dkms ldtarball
+# @cmd This takes a tarball made from the mktarball command and loads it into your DKMS tree.
+ldtarball() {
+    :;
+}
+# }} dkms ldtarball
+
+# {{ dkms status
+# @cmd Returns the current status of modules, versions and kernels within the tree as well as whether they have been added, built or installed.
+status() {
+    :;
+}
+# }} dkms status
+
+# {{ dkms autoinstall
+# @cmd Attempt to install the latest revision of all modules that have been installed for other kernel revisions.
+autoinstall() {
+    :;
+}
+# }} dkms autoinstall
+
+# {{ dkms generate_mok
+# @cmd Command to be issued standalone to generate Secure Boot keys.
+generate_mok() {
+    :;
+}
+# }} dkms generate_mok
+
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 
 _choice_kernel_arch() {

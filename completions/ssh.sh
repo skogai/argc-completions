@@ -47,6 +47,7 @@
 # @flag -x                                      Disables X11 forwarding.
 # @flag -Y                                      Enables trusted X11 forwarding.
 # @flag -y                                      Send log information using the syslog(3) system module.
+# @flag -Z                                      List the public keys that would be attempted for authentication to the specified destination in preferred order and exit.
 # @arg destination[`_module_ssh_host`]
 # @arg args*
 

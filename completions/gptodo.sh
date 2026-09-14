@@ -103,10 +103,11 @@ dep::check() {
 
 # {{{ gptodo dep dag
 # @cmd Show the full workspace dependency graph.
-# @option -s --state <TEXT>    Filter by state (can repeat: --state active --state backlog).
-# @flag --power                Show unblocking power scores [N↑] (default: on)
-# @flag --no-power             Hide unblocking power scores
-# @flag --help                 Show this message and exit.
+# @option -s --state <TEXT>              Filter by state (can repeat: --state active --state backlog).
+# @flag --power                          Show unblocking power scores [N↑] (default: on)
+# @flag --no-power                       Hide unblocking power scores
+# @option -f --format <ascii|mermaid>    Output format: ascii (default) or mermaid (for webui / Markdown embedding)
+# @flag --help                           Show this message and exit.
 dep::dag() {
     :;
 }
@@ -131,6 +132,7 @@ dep::tree() {
 # @option --add*[depends|tags] <TEXT TEXT>       Add value to a list field
 # @option --remove*[depends|tags] <TEXT TEXT>    Remove value from a list field
 # @option --set-subtask*[subtask_text|state] <TEXT TEXT>  Set subtask state.
+# @flag --force                                  Bypass state-transition legality check.
 # @flag --help                                   Show this message and exit.
 # @arg task_ids*
 edit() {
@@ -146,6 +148,28 @@ effective() {
     :;
 }
 # }} gptodo effective
+
+# {{ gptodo expire
+# @cmd Auto-expire long-quiet tasks to unclutter the queue.
+# @option --dry-runpreview, don't modify  gptodo expire --json
+# @option --days <INTEGER>    Auto-expire tasks whose `created` date is older than this many days.
+# @option --state[backlog|todo|someday] <backlog|todo|someday>  Restrict auto-expire to specific state(s).
+# @flag --dry-run             Show which tasks would expire without modifying files.
+# @flag --json                Emit machine-readable JSON (stable contract for scripts).
+# @flag --help                Show this message and exit.
+expire() {
+    :;
+}
+# }} gptodo expire
+
+# {{ gptodo explain
+# @cmd Explain why a task is or is not ready to work on.
+# @flag --help    Show this message and exit.
+# @arg task_id
+explain() {
+    :;
+}
+# }} gptodo explain
 
 # {{ gptodo fetch
 # @cmd Fetch and cache external issue/PR states.
@@ -167,6 +191,8 @@ fetch() {
 # @option --journal-dir <TEXT>        Journal directory name (default: journal)
 # @option --tasks-dir <TEXT>          Tasks directory name (default: tasks)
 # @option --state-dir <TEXT>          State directory name (default: state)
+# @option --pool <TEXT>               Only include tasks in this pool (e.g. 'frontier', 'general')
+# @option --exclude-pool <TEXT>       Exclude tasks in this pool (e.g. '--exclude-pool frontier')
 # @flag --help                        Show this message and exit.
 generate-queue() {
     :;
@@ -199,6 +225,18 @@ kill() {
 }
 # }} gptodo kill
 
+# {{ gptodo lint
+# @cmd Lint task frontmatter for schema errors and...
+# @option --jsonmachine-readable  gptodo lint --strict
+# @flag --json      Emit findings as JSON
+# @flag --strict    Exit non-zero if any warnings are found (for CI use)
+# @flag --help      Show this message and exit.
+# @arg task_files*
+lint() {
+    :;
+}
+# }} gptodo lint
+
 # {{ gptodo list
 # @cmd List all tasks in a table format.
 # @option --sort[state|date|name|completion]    Sort by state, creation date, name, or completion percentage
@@ -206,6 +244,8 @@ kill() {
 # @option --context <TEXT>                      Filter by context tag (e.g., @coding, @research)
 # @flag --json                                  Output as JSON for machine consumption
 # @flag --jsonl                                 Output as JSONL (one task per line) -compact for LLM consumption
+# @option --pool <TEXT>                         Only show tasks in this pool.
+# @option --exclude-pool <TEXT>                 Exclude tasks in this pool (e.g. '--exclude-pool frontier')
 # @flag --help                                  Show this message and exit.
 list() {
     :;
@@ -228,6 +268,7 @@ lock() {
 
 # {{ gptodo locks
 # @cmd List all current task locks.
+# @flag --json
 # @flag --cleanup    Remove expired locks
 # @flag --json       Output as JSON
 # @flag --help       Show this message and exit.
@@ -238,7 +279,7 @@ locks() {
 
 # {{ gptodo loop
 # @cmd Process ready tasks in a loop.
-# @option --dry-runShow what would run  gptodo loop -p 3
+# @option --exclude-poolSkip frontier-pool tasks <frontier>
 # @option -n --max-tasks <INTEGER>                Maximum number of tasks to process (default: 5)
 # @option --type[general|explore|plan|execute]    Type of agent to spawn for each task
 # @option --backend <gptme|claude>                Which backend to use
@@ -246,6 +287,8 @@ locks() {
 # @option --timeout <INTEGER>                     Timeout per task in seconds
 # @flag --dry-run                                 Show what would be executed without running
 # @option -p --parallel <INTEGER>                 Number of parallel agents (1 = sequential)
+# @option --pool <TEXT>                           Only process tasks in this pool.
+# @option --exclude-pool <TEXT>                   Exclude tasks in this pool (e.g. '--exclude-pool frontier')
 # @flag --help                                    Show this message and exit.
 loop() {
     :;
@@ -254,9 +297,13 @@ loop() {
 
 # {{ gptodo next
 # @cmd Show the highest priority ready (unblocked) task.
-# @flag --json         Output as JSON for machine consumption
-# @flag --use-cache    Check URL-based requires against cached states (run 'fetch' first)
-# @flag --help         Show this message and exit.
+# @flag --json                          Output as JSON for machine consumption
+# @flag --use-cache                     Check URL-based requires against cached states (run 'fetch' first)
+# @option --pool <TEXT>                 Only consider tasks in this pool.
+# @option --exclude-pool <TEXT>         Exclude tasks in this pool (e.g. '--exclude-pool frontier')
+# @flag -n --limit                      INTEGER RANGE  Show the next N tasks as a simulated sequence, not just the top one.
+# @option --order <priority|unblock>    priority (default): greedy by the normal next-task ordering — literally 'what's next, then next'.
+# @flag --help                          Show this message and exit.
 next() {
     :;
 }
@@ -283,11 +330,13 @@ plan() {
 
 # {{ gptodo ready
 # @cmd List all ready (unblocked) tasks.
-# @option --state[backlog|active|ready_for_review|someday|both|actionable]  Filter by task state.
-# @flag --json         Output as JSON for machine consumption
-# @flag --jsonl        Output as JSONL (one task per line) -compact for LLM consumption
-# @flag --use-cache    Check URL-based requires against cached states (run 'fetch' first)
-# @flag --help         Show this message and exit.
+# @option --state[backlog|todo|active|ready_for_review|someday|both|actionable]  Filter by task state.
+# @flag --json                     Output as JSON for machine consumption
+# @flag --jsonl                    Output as JSONL (one task per line) -compact for LLM consumption
+# @flag --use-cache                Check URL-based requires against cached states (run 'fetch' first)
+# @option --pool <TEXT>            Only show tasks in this pool.
+# @option --exclude-pool <TEXT>    Exclude tasks in this pool (e.g. '--exclude-pool frontier')
+# @flag --help                     Show this message and exit.
 ready() {
     :;
 }
@@ -295,6 +344,7 @@ ready() {
 
 # {{ gptodo run
 # @cmd Run a task synchronously (foreground).
+# @option --type <explore>                        gptodo run my-task --backend claude --coordination
 # @option -p --prompt <TEXT>                      Custom prompt for the agent (default: derived from task)
 # @option --type[general|explore|plan|execute]    Type of agent behavior
 # @option --backend <gptme|claude>                Which backend to use
@@ -350,11 +400,12 @@ spawn() {
 
 # {{ gptodo stale
 # @cmd List stale tasks that haven't been modified recently.
-# @option --jsonMachine-readable output  gptodo stale --jsonl
 # @option --days <INTEGER>                       Number of days without modification to consider stale (default: 30)
 # @option --state[active|backlog|waiting|all]    Filter by task state (default: active)
 # @flag --json                                   Output as JSON for machine consumption
 # @flag --jsonl                                  Output as JSONL (one task per line) -compact for LLM consumption
+# @option --pool <TEXT>                          Only show tasks in this pool (e.g. 'frontier', 'general')
+# @option --exclude-pool <TEXT>                  Exclude tasks in this pool (e.g. '--exclude-pool frontier')
 # @flag --help                                   Show this message and exit.
 stale() {
     :;
@@ -364,14 +415,16 @@ stale() {
 # {{ gptodo status
 # @cmd Show status of tasks and other tracked items.
 # @option --type[tasks|tweets|email]
-# @flag --all              Check all directory types
-# @flag --compact          Only show new and active tasks
-# @flag --summary          Only show summary
-# @flag --issues           Only show items with issues
-# @flag --github           Include open GitHub issues not yet tracked as task files
-# @option --repo <TEXT>    GitHub repo for --github (default: auto-detect via gh CLI)
-# @flag --json             Emit machine-readable JSON instead of rendered output (stable contract for scripts)
-# @flag --help             Show this message and exit.
+# @flag --all                      Check all directory types
+# @option --compact[backlog|todo|active|ready_for_review]  Show only the active work funnel: backlog, todo, active, ready_for_review
+# @flag --summary                  Only show summary
+# @flag --issues                   Only show items with issues
+# @flag --github                   Include open GitHub issues not yet tracked as task files
+# @option --repo <TEXT>            GitHub repo for --github (default: auto-detect via gh CLI)
+# @flag --json                     Emit machine-readable JSON instead of rendered output (stable contract for scripts)
+# @option --pool <TEXT>            Only show tasks in this pool (e.g. 'frontier', 'general')
+# @option --exclude-pool <TEXT>    Exclude tasks in this pool (e.g. '--exclude-pool frontier')
+# @flag --help                     Show this message and exit.
 status() {
     :;
 }

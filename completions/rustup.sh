@@ -17,6 +17,7 @@
 # @flag --allow-downgrade                  Allow rustup to downgrade the toolchain to satisfy your component choice
 # @flag --force-non-host                   Install toolchains that require an emulator.
 # @flag --override                         Set the installed toolchain as the override for the current directory
+# @flag --default                          Set the installed toolchain as the default toolchain
 # @flag -h --help                          Print help
 # @arg toolchain*[`_choice_toolchain`]     Toolchain name, such as 'stable', 'nightly', or '1.8.0'.
 install() {
@@ -61,6 +62,7 @@ toolchain::list() {
 # @flag --allow-downgrade                  Allow rustup to downgrade the toolchain to satisfy your component choice
 # @flag --force-non-host                   Install toolchains that require an emulator.
 # @flag --override                         Set the installed toolchain as the override for the current directory
+# @flag --default                          Set the installed toolchain as the default toolchain
 # @flag -h --help                          Print help
 # @arg toolchain*[`_choice_channel`]       Toolchain name, such as 'stable', 'nightly', or '1.8.0'.
 toolchain::install() {
@@ -293,6 +295,7 @@ which() {
 # {{ rustup doc
 # @cmd Open the documentation for the current toolchain
 # @flag --path                                Only print the path to the documentation
+# @flag --serve                               Serve the documentation over a local HTTP server instead of opening it directly as a `file://` URL
 # @option --toolchain[`_choice_toolchain`]    Toolchain name, such as 'stable', 'nightly', or '1.8.0'.
 # @flag --alloc                               The Rust core allocation and collections library
 # @flag --book                                The Rust Programming Language book
@@ -348,7 +351,7 @@ self::update() {
 
 # {{{ rustup self uninstall
 # @cmd Uninstall rustup
-# @flag -y                  Disable confirmation prompt
+# @flag -y --yes            Disable confirmation prompt
 # @flag --no-modify-path    Do not clean up the `PATH` environment variable
 # @flag -h --help           Print help
 self::uninstall() {
@@ -373,9 +376,9 @@ set() {
 }
 
 # {{{ rustup set default-host
-# @cmd The triple used to identify toolchains when not specified
+# @cmd The tuple used to identify toolchains when not specified
 # @flag -h --help    Print help
-# @arg host_triple!
+# @arg host_tuple!
 set::default-host() {
     :;
 }
@@ -421,10 +424,8 @@ completions() {
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 
-_choice_channel() {
-    echo stable
-    echo beta
-    echo nightly
+_choice_target() {
+    rustup target list | gawk '{print $1}' | _argc_util_comp_parts -
 }
 
 _choice_toolchain() {
@@ -451,8 +452,10 @@ rustc-dev	This component contains the compiler as a library.
 EOF
 }
 
-_choice_target() {
-    rustup target list | gawk '{print $1}' | _argc_util_comp_parts -
+_choice_channel() {
+    echo stable
+    echo beta
+    echo nightly
 }
 
 _choice_installed_component() {

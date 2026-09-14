@@ -42,7 +42,7 @@
 # @option -interpolate <method>              pixel color interpolation method
 # @option -kerning <value>                   set the space between two letters
 # @option -label <string>                    assign a label to an image
-# @option -limit <type> <value>              pixel cache resource limit
+# @flag -limit                               type value  pixel cache resource limit
 # @option -loop <iterations>                 add Netscape loop extension to your GIF animation
 # @option -mask <filename>                   associate a mask with the image
 # @flag -matte                               store matte channel if the image has one
@@ -63,7 +63,7 @@
 # @option -scene <value>                     image scene number
 # @option -seed <value>                      seed a new sequence of pseudo-random numbers
 # @option -size <geometry>                   width and height of image
-# @option -statistic <type> <geometry>       replace each pixel with corresponding statistic from the neighborhood
+# @flag -statistic                           type geometry replace each pixel with corresponding statistic from the neighborhood
 # @option -stretch <type>                    render text with this font stretch
 # @option -stroke <color>                    graphic primitive stroke color
 # @option -strokewidth <value>               graphic primitive stroke width
@@ -85,7 +85,7 @@
 # @option -adaptive-blur <geometry>          adaptively blur pixels; decrease effect near edges
 # @option -adaptive-resize <geometry>        adaptively resize image with data dependent triangulation
 # @option -adaptive-sharpen <geometry>       adaptively sharpen pixels; increase effect near edges
-# @option -annotate <geometry> <text>        annotate the image with text
+# @flag -annotate                            geometry text annotate the image with text
 # @flag -auto-orient                         automatically orient image
 # @option -bilateral-blur <geometry>         non-linear, edge-preserving, and noise-reducing smoothing filter
 # @option -black-threshold <value>           force all pixels below the threshold into black
@@ -100,7 +100,7 @@
 # @option -colorize <value>                  colorize the image with the fill color
 # @flag -color-matrix                        matrix apply color correction to the image
 # @flag -contrast                            enhance or reduce the image contrast
-# @option -contrast-stretch <geometry>       improve contrast by `stretching' the intensity range
+# @option -contrast-stretch <geometry>       improve contrast by ‘stretching' the intensity range
 # @option -convolve <coefficients>           apply a convolution kernel to the image
 # @option -cycle <amount>                    cycle the image colormap
 # @flag -despeckle                           reduce the speckles within an image
@@ -109,12 +109,12 @@
 # @option -emboss <radius>                   emboss an image
 # @flag -enhance                             apply a digital filter to enhance a noisy image
 # @flag -equalize                            perform histogram equalization to an image
-# @option -evaluate <operator> <value>       evaluate an arithmetic, relational, or logical expression
+# @flag -evaluate                            operator value evaluate an arithmetic, relational, or logical expression
 # @option -extent <geometry>                 set the image size
 # @option -extract <geometry>                extract area from image
 # @flag -fft                                 implements the discrete Fourier transform (DFT)
 # @flag -flip                                flip image vertically
-# @option -floodfill <geometry> <color>      floodfill the image with color
+# @flag -floodfill                           geometry color floodfill the image with color
 # @flag -flop                                flop image horizontally
 # @option -frame <geometry>                  surround image with an ornamental border
 # @option -function <name>                   apply a function to the image
@@ -128,12 +128,12 @@
 # @option -lat <geometry>                    local adaptive thresholding
 # @option -layers <method>                   optimize or compare image layers
 # @option -level <value>                     adjust the level of image contrast
-# @option -linear-stretch <geometry>         improve contrast by `stretching with saturation' the intensity range
+# @option -linear-stretch <geometry>         improve contrast by ‘stretching with saturation' the intensity range
 # @option -median <geometry>                 apply a median filter to the image
 # @option -mode <geometry>                   make each pixel the 'predominant color' of the neighborhood
 # @option -modulate <value>                  vary the brightness, saturation, and hue
 # @flag -monochrome                          transform image to black and white
-# @option -morphology <method> <kernel>      apply a morphology method to the image
+# @flag -morphology                          method kernel apply a morphology method to the image
 # @option -motion-blur <geometry>            simulate motion blur
 # @flag -negate                              replace each pixel with its complementary color
 # @option -noise <geometry>                  add or reduce noise in an image
@@ -161,7 +161,7 @@
 # @option -segment <values>                  segment an image
 # @option -selective-blur <geometry>         selectively blur pixels within a contrast threshold
 # @option -sepia-tone <threshold>            simulate a sepia-toned photo
-# @option -set <property> <value>            set an image property
+# @flag -set                                 property value  set an image property
 # @option -shade <degrees>                   shade the image using a distant light source
 # @option -shadow <geometry>                 simulate an image shadow
 # @option -sharpen <geometry>                sharpen the image

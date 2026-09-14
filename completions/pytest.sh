@@ -105,6 +105,25 @@
 # @option --log-file-date-format <LOG_FILE_DATE_FORMAT>  Log date format used by the logging module
 # @option --log-auto-indent <LOG_AUTO_INDENT>    Auto-indent multiline messages passed to the logging module.
 # @option --log-disable <LOGGER_DISABLE>         Disable a logger by name.
+# @option --inline-snapshot <(disable,short-report,report,review,create,update,trim,fix)*>  update specific snapshot values:
+# @option -n --numprocesses <numprocesses>       Shortcut for '--dist=load --tx=NUM*popen'.
+# @option --maxprocesses <maxprocesses>          Limit the maximum number of workers to process the tests when using --numprocesses with 'auto' or 'logical'
+# @option --max-worker-restart <MAXWORKERRESTART>  Maximum number of workers that can be restarted when crashed (set to zero to disable this feature)
+# @option --dist <distmode>                      Set mode for distributing tests to exec environments.
+# @flag --loadscope-reorder                      Pytest-xdist will default reorder tests by number of tests per scope when used in conjunction with loadscope.
+# @flag --no-loadscope-reorder                   Pytest-xdist will default reorder tests by number of tests per scope when used in conjunction with loadscope.
+# @option --tx <xspec>                           Add a test execution environment.
+# @option --px <xspec>                           Add a proxy gateway to pass to test execution environments using `via`.
+# @flag -d                                       Load-balance tests.
+# @option --rsyncdir <DIR>                       Add directory for rsyncing to remote tx nodes
+# @option --rsyncignore <GLOB>                   Add expression for ignores when rsyncing to remote tx nodes
+# @option --testrunuid                           Provide an identifier shared amongst all workers as the value of the 'testrun_uid' fixture.
+# @option --maxschedchunk                        Maximum number of tests scheduled in one step for --dist=load.
+# @flag -f --looponfail                          Run tests in subprocess: wait for files to be modified, then re-run failing test set until all pass.
+# @option --asyncio-mode <MODE>                  'auto' - for automatically handling all async functions by the plugin 'strict' - for autoprocessing disabling (useful if different async frameworks should be tested together, e.g. both pytest-asyncio and pytest-trio are used in the same project)
+# @flag --asyncio-debug                          enable asyncio debug mode for the default event loop
+# @option --anyio-mode <ANYIO_MODE>              'auto'  - All async test functions will be handled by AnyIO pytest plugin 'strict' - Disabling autoprocessing(useful when anyio tests need to coexist with other async test plugins)
+# @flag --http-record                            Make real HTTP requests and record new snapshots when missing
 # @arg file_or_dir
 
 command eval "$(argc --argc-eval "$0" "$@")"

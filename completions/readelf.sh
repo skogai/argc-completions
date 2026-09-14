@@ -41,6 +41,7 @@
 # @flag -P --process-links                      Display the contents of non-debug sections in separate debuginfo files.
 # @option --dwarf-depth <N>                     Do not display DIEs at depth N or greater
 # @option --dwarf-start <N>                     Display DIEs starting at offset N
+# @option --debug-dir <DIR>                     Search DIR for debug info files
 # @option --ctf <number|name>                   Display CTF info from section <number|name>
 # @option --ctf-parent <name>                   Use CTF archive member <name> as the CTF parent
 # @option --ctf-symbols <number|name>           Use section <number|name> as the CTF external symtab

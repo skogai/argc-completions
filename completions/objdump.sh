@@ -28,6 +28,7 @@
 # @flag -H --help                                Print a summary of the options to objdump and exit.
 # @flag -i --info                                Display a list showing all architectures and object formats available for specification with -b or -m.
 # @option -j --section <name>                    Display information for section name.
+# @flag --map-global-vars                        Display global variable information.
 # @flag -L --process-links                       Display the contents of non-debug sections found in separate debuginfo files that are linked to the main file.
 # @flag -l --line-numbers                        Label the display (using debugging information) with the filename and source line numbers corresponding to the object code or relocs shown.
 # @option -m --architecture[`_choice_architecture`] <machine>  Specify the architecture to use when disassembling object files.
@@ -51,6 +52,7 @@
 # @option --dwarf-depth <n>                      Limit the dump of the ".debug_info" section to n children.
 # @option --dwarf-start <n>                      Print only DIEs beginning with the DIE numbered n.
 # @flag --dwarf-check                            Enable additional checks for consistency of Dwarf information.
+# @option --debug-dir <dir>                      Search dir when looking for separate debug info files.
 # @option --ctf <section>                        Display the contents of the specified CTF section.
 # @option --ctf-parent <member>                  If the CTF section contains ambiguously-defined types, it will consist of an archive of many CTF dictionaries, all inheriting from one dictionary containing unambiguous types.
 # @option --ctf-parent-section <section>         This option lets you pick a completely different section for the CTF parent dictionary containing unambiguous types than for the child dictionaries that contain the ambiguous remainder.

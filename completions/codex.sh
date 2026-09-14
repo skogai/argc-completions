@@ -13,6 +13,7 @@
 # @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
@@ -23,6 +24,21 @@
 # @flag -h --help                              Print help (see a summary with '-h')
 # @flag -V --version                           Print version
 # @arg prompt                                  Optional user prompt to start the session
+
+# {{ codex agents
+# @cmd Browse all agent sessions on the shared local app-server daemon
+# @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
+# @option --enable <FEATURE>                   Enable a feature (repeatable).
+# @option --remote-auth-token-env <ENV_VAR>    Name of the environment variable containing the bearer token to send to a remote app server websocket
+# @option -C --cd <DIR>                        Use this directory for new tasks on a remote server
+# @option --disable <FEATURE>                  Disable a feature (repeatable).
+# @flag --no-alt-screen                        Disable alternate screen mode
+# @flag -h --help                              Print help (see a summary with '-h')
+agents() {
+    :;
+}
+# }} codex agents
 
 # {{ codex exec
 # @cmd Run Codex non-interactively [aliases: e]
@@ -36,10 +52,12 @@
 # @option --local-provider <OSS_PROVIDER>     Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>    Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                      Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust       Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                       Tell the agent to use the specified directory as its working root
 # @option --add-dir <DIR>                     Additional directories that should be writable alongside the primary workspace
+# @option --thread-source <SOURCE>            Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                 Allow running Codex outside a Git repository
 # @flag --ephemeral                           Run without persisting session files to disk
 # @flag --ignore-user-config                  Do not load `$CODEX_HOME/config.toml`; auth still uses `CODEX_HOME`
@@ -67,6 +85,7 @@ exec() {
 # @option -m --model                         Model the agent should use
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust      Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option --thread-source <SOURCE>           Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                Allow running Codex outside a Git repository
 # @flag --ephemeral                          Run without persisting session files to disk
 # @flag --ignore-user-config                 Do not load `$CODEX_HOME/config.toml`; auth still uses `CODEX_HOME`
@@ -82,6 +101,32 @@ exec::resume() {
 }
 # }}} codex exec resume
 
+# {{{ codex exec fork
+# @cmd Fork a previous session by id into a new session
+# @option -c --config <key=value>            Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @option -i --image <FILE>                  Optional image(s) to attach to the prompt sent after forking
+# @option --enable <FEATURE>                 Enable a feature (repeatable).
+# @option --disable <FEATURE>                Disable a feature (repeatable).
+# @flag --strict-config                      Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option -m --model                         Model the agent should use
+# @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
+# @flag --dangerously-bypass-hook-trust      Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option --thread-source <SOURCE>           Source classification for newly created or forked threads
+# @flag --skip-git-repo-check                Allow running Codex outside a Git repository
+# @flag --ephemeral                          Run without persisting session files to disk
+# @flag --ignore-user-config                 Do not load `$CODEX_HOME/config.toml`; auth still uses `CODEX_HOME`
+# @flag --ignore-rules                       Do not load user or project execpolicy `.rules` files
+# @option --output-schema <FILE>             Path to a JSON Schema file describing the model's final response shape
+# @flag --json                               Print events to stdout as JSONL
+# @option -o --output-last-message <FILE>    Specifies file where the last message from the agent should be written
+# @flag -h --help                            Print help (see a summary with '-h')
+# @arg session_id!                           Conversation/session id (UUID) or thread name to fork
+# @arg prompt                                Optional prompt to send after forking.
+exec::fork() {
+    :;
+}
+# }}} codex exec fork
+
 # {{{ codex exec review
 # @cmd Run a code review against the current repository
 # @option -c --config <key=value>            Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
@@ -95,6 +140,7 @@ exec::resume() {
 # @option -m --model                         Model the agent should use
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust      Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option --thread-source <SOURCE>           Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                Allow running Codex outside a Git repository
 # @flag --ephemeral                          Run without persisting session files to disk
 # @flag --ignore-user-config                 Do not load `$CODEX_HOME/config.toml`; auth still uses `CODEX_HOME`
@@ -207,6 +253,7 @@ mcp::get() {
 # @option --bearer-token-env-var <ENV_VAR>    Optional environment variable to read for a bearer token.
 # @option --disable <FEATURE>                 Disable a feature (repeatable).
 # @option --oauth-client-id <CLIENT_ID>       Optional OAuth client identifier to use for this MCP server
+# @option --oauth-client-registration[auto|cimd|dcr] <AUTO|CIMD|DCR>  OAuth client-registration strategy for the immediate login only
 # @option --oauth-resource <RESOURCE>         Optional OAuth resource parameter to include during MCP login
 # @flag -h --help                             Print help (see a summary with '-h')
 # @arg name!                                  Name for the MCP server configuration
@@ -233,6 +280,7 @@ mcp::remove() {
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @option --scopes <SCOPE,SCOPE>     Comma-separated list of OAuth scopes to request
 # @option --enable <FEATURE>         Enable a feature (repeatable).
+# @option --oauth-client-registration[auto|cimd|dcr] <AUTO|CIMD|DCR>  OAuth client-registration strategy for this login only
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag -h --help                    Print help (see a summary with '-h')
 # @arg name!                         Name of the MCP server to authenticate with oauth
@@ -388,6 +436,7 @@ mcp-server() {
 # @option -c --config <key=value>                  Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @option --enable <FEATURE>                       Enable a feature (repeatable).
 # @option --disable <FEATURE>                      Disable a feature (repeatable).
+# @option --code-mode-host <URL>                   Connect to a remote code-mode host instead of starting a local host
 # @flag --strict-config                            Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option --listen <URL>                           Transport endpoint URL.
 # @flag --stdio                                    Use stdio as the transport (equivalent to `--listen stdio://`)
@@ -569,6 +618,18 @@ remote-control::stop() {
     :;
 }
 # }}} codex remote-control stop
+
+# {{{ codex remote-control pair
+# @cmd Create and print a short-lived manual pairing code
+# @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag --json                       Emit machine-readable JSON
+# @option --enable <FEATURE>         Enable a feature (repeatable).
+# @option --disable <FEATURE>        Disable a feature (repeatable).
+# @flag -h --help                    Print help (see a summary with '-h')
+remote-control::pair() {
+    :;
+}
+# }}} codex remote-control pair
 # }} codex remote-control
 
 # {{ codex completion
@@ -599,9 +660,9 @@ update() {
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @flag --json                       Emit a redacted machine-readable report
 # @option --enable <FEATURE>         Enable a feature (repeatable).
+# @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag --summary                    Only show grouped check rows and the final count summary
 # @flag --all                        Expand long lists in detailed human output
-# @option --disable <FEATURE>        Disable a feature (repeatable).
 # @flag --no-color                   Disable ANSI color in human output
 # @flag --ascii                      Use ASCII status labels and separators in human output
 # @flag -h --help                    Print help (see a summary with '-h')
@@ -612,15 +673,18 @@ doctor() {
 
 # {{ codex sandbox
 # @cmd Run commands within a Codex-provided sandbox
-# @option -c --config <key=value>            Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
-# @option -P --permissions-profile <NAME>    Named permissions profile to apply from the active configuration stack
-# @option --enable <FEATURE>                 Enable a feature (repeatable).
-# @option -p --profile <CONFIG_PROFILE>      Layer $CODEX_HOME/<name>.config.toml on top of the base user config
-# @option -C --cd <DIR>                      Working directory used for profile resolution and command execution
-# @option --disable <FEATURE>                Disable a feature (repeatable).
-# @flag --include-managed-config             Include managed requirements while resolving an explicit permissions profile
-# @flag -h --help                            Print help (see a summary with '-h')
-# @arg command*                              Full command args to run under the Linux sandbox
+# @option -c --config <key=value>           Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @option --sandbox-state-json <JSON>       JSON value from `codex/sandbox-state-meta` to apply directly
+# @option --enable <FEATURE>                Enable a feature (repeatable).
+# @option --sandbox-state-readable-root <SANDBOX_STATE_READABLE_ROOT>  Add a readable root to the supplied sandbox state.
+# @option --disable <FEATURE>               Disable a feature (repeatable).
+# @flag --sandbox-state-disable-network     Disable direct network access in the supplied sandbox state
+# @option -P --permission-profile <NAME>    Named permissions profile to apply from the active configuration stack
+# @option -p --profile <CONFIG_PROFILE>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -C --cd <DIR>                     Working directory used for profile resolution and command execution
+# @flag --include-managed-config            Include managed requirements while resolving an explicit permissions profile
+# @flag -h --help                           Print help (see a summary with '-h')
+# @arg command*                             Full command args to run under the Linux sandbox
 sandbox() {
     :;
 }
@@ -714,6 +778,7 @@ apply() {
 # @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
@@ -730,6 +795,35 @@ resume() {
 }
 # }} codex resume
 
+# {{ codex queue
+# @cmd Queue a message for an existing session
+# @option --thread                             Session UUID or exact session name
+# @option --enable <FEATURE>                   Enable a feature (repeatable).
+# @option --message <TEXT>                     Message text to queue
+# @option --disable <FEATURE>                  Disable a feature (repeatable).
+# @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
+# @option --remote-auth-token-env <ENV_VAR>    Name of the environment variable containing the bearer token to send to a remote app server websocket
+# @option -i --image* <FILE>                   Optional image(s) to attach to the initial prompt
+# @option -m --model                           Model the agent should use
+# @flag --oss                                  Use open-source provider
+# @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
+# @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
+# @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
+# @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
+# @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
+# @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
+# @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @flag -h --help                              Print help (see a summary with '-h')
+# @arg thread!
+# @arg text!
+queue() {
+    :;
+}
+# }} codex queue
+
 # {{ codex archive
 # @cmd Archive a saved session by id or session name
 # @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
@@ -742,6 +836,7 @@ resume() {
 # @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
@@ -767,6 +862,7 @@ archive() {
 # @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
@@ -781,6 +877,22 @@ delete() {
 }
 # }} codex delete
 
+# {{ codex migrate-rollouts
+# @cmd Inspect or migrate legacy local sessions to paginated thread history
+# @flag --apply                         Publish the migration.
+# @option -c --config <key=value>       Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @option --enable <FEATURE>            Enable a feature (repeatable).
+# @option --thread <THREAD_ID>          Restrict inspection or migration to one or more thread IDs
+# @option --disable <FEATURE>           Disable a feature (repeatable).
+# @option --max-mib-per-second <MIB>    Limit aggregate rollout read and write throughput, in MiB per second
+# @flag --json                          Emit the complete per-thread report as JSON
+# @flag --verbose                       Print one line for every inspected rollout
+# @flag -h --help                       Print help (see a summary with '-h')
+migrate-rollouts() {
+    :;
+}
+# }} codex migrate-rollouts
+
 # {{ codex unarchive
 # @cmd Unarchive a saved session by id or session name
 # @option --remote <ADDR>                      Connect the TUI to a remote app server endpoint.
@@ -793,6 +905,7 @@ delete() {
 # @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
@@ -822,6 +935,7 @@ unarchive() {
 # @option --local-provider <OSS_PROVIDER>      Specify which local provider to use (lmstudio or ollama).
 # @option -p --profile <CONFIG_PROFILE_V2>     Layer $CODEX_HOME/<name>.config.toml on top of the base user config
 # @option -s --sandbox[read-only|workspace-write|danger-full-access] <SANDBOX_MODE>  Select the sandbox policy to use when executing model-generated shell commands
+# @flag --approve-for-me                       Route approval requests through automatic review using the workspace-write sandbox
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
@@ -920,19 +1034,42 @@ cloud::diff() {
 
 # {{ codex exec-server
 # @cmd [EXPERIMENTAL] Run the standalone exec-server service
+# @option -c --config <key=value>          Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
+# @option --enable <FEATURE>               Enable a feature (repeatable).
+# @flag --strict-config                    Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option --concurrent-requests <COUNT>    Maximum number of requests to process concurrently on each connection
+# @option --disable <FEATURE>              Disable a feature (repeatable).
+# @option --listen <URL>                   Transport endpoint URL.
+# @option --remote <URL>                   Register this exec-server as a remote environment using the given base URL
+# @option --environment-id <ID>            Environment id to attach to when registering remotely
+# @option --name                           Human-readable environment name
+# @flag --use-agent-identity-auth          Use Agent Identity auth from CODEX_ACCESS_TOKEN for remote registration
+# @flag --exit-on-stdin-close              Exit when the parent-owned standard-input pipe closes
+# @flag -h --help                          Print help (see a summary with '-h')
+exec-server() {
+    :;
+}
+
+# {{{ codex exec-server forward
+# @cmd Register an existing WebSocket exec-server as a remote environment
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
-# @flag --strict-config              Error out when config.toml contains fields that are not recognized by this version of Codex
+# @option --connect <URL>            Destination exec-server WebSocket URL
 # @option --enable <FEATURE>         Enable a feature (repeatable).
-# @option --listen <URL>             Transport endpoint URL.
+# @flag --strict-config              Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @option --remote <URL>             Register this exec-server as a remote environment using the given base URL
 # @option --environment-id <ID>      Environment id to attach to when registering remotely
 # @option --name                     Human-readable environment name
 # @flag --use-agent-identity-auth    Use Agent Identity auth from CODEX_ACCESS_TOKEN for remote registration
+# @flag --exit-on-stdin-close        Exit when the parent-owned standard-input pipe closes
 # @flag -h --help                    Print help (see a summary with '-h')
-exec-server() {
+# @arg url!
+# @arg id!
+# @arg url!
+exec-server::forward() {
     :;
 }
+# }}} codex exec-server forward
 # }} codex exec-server
 
 # {{ codex features

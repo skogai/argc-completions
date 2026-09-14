@@ -261,6 +261,8 @@ tunnel::login() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -430,6 +432,8 @@ tunnel::vnet::update() {
 # @option --metrics <value>                     Listen address for metrics reporting.
 # @option --pidfile <file>                      Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>          DEPRECATED.
+# @option --proto-loglevel <value>              DEPRECATED.
 # @option --logfile <file>                      Save application log to this file for reporting issues.
 # @option --log-directory <dir>                 Save application log to this directory for reporting issues.
 # @option --trace-output <file>                 Name of trace output file, generated when cloudflared stops.
@@ -483,6 +487,8 @@ tunnel::run() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -515,6 +521,8 @@ tunnel::list() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -535,6 +543,8 @@ tunnel::ready() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -560,6 +570,8 @@ tunnel::info() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -584,6 +596,8 @@ tunnel::delete() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -606,6 +620,8 @@ tunnel::cleanup() {
 # @option --metrics <value>                 Listen address for metrics reporting.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.
@@ -628,6 +644,8 @@ tunnel::token() {
 # @flag --no-prechecks                      Skip connectivity pre-checks at startup.
 # @option --pidfile <file>                  Write the application's PID to this file after first successful connection.
 # @option --loglevel[debug|info|warn|error|fatal] <value>  Application logging level .
+# @option --transport-loglevel <value>      DEPRECATED.
+# @option --proto-loglevel <value>          DEPRECATED.
 # @option --logfile <file>                  Save application log to this file for reporting issues.
 # @option --log-directory <dir>             Save application log to this directory for reporting issues.
 # @option --trace-output <file>             Name of trace output file, generated when cloudflared stops.

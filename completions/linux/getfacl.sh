@@ -13,7 +13,7 @@
 # @flag -P --physical          physical walk, do not follow symbolic links
 # @flag -t --tabular           use tabular output format
 # @flag -n --numeric           print numeric user/group identifiers
-# @flag --one-file-system      skip files on different filesystems
+# @flag --one-file-system      don't descend into directories on other filesystems
 # @flag -p --absolute-names    don't strip leading '/' in pathnames
 # @flag -v --version           print version and exit
 # @flag -h --help              this help text

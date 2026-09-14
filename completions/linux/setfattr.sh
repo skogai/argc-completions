@@ -5,6 +5,7 @@
 # @option -v --value <value>    Specifies the new value of the extended attribute.
 # @option -x --remove <name>    Remove the named extended attribute entirely.
 # @flag -h --no-dereference     Do not follow symlinks.
+# @flag -P --physical           Do not traverse symbolic links in pathnames during a restore.
 # @option --restore <file>      Restores extended attributes from file.
 # @flag --raw                   Do not decode the attribute value.
 # @flag --version               Print the version of setfattr and exit.

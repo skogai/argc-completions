@@ -9,7 +9,7 @@
 # @flag -D --defaults                             print or change default useradd configuration
 # @option -e --expiredate <EXPIRE_DATE>           expiration date of the new account
 # @option -f --inactive                           password inactivity period of the new account
-# @flag -F --add-subids-for-system                add entries to sub[ud]id even when adding a system user
+# @flag -F --add-subids-for-system                add entries to sub[ug]id even when adding a system user
 # @option -g --gid[`_module_os_group`] <GROUP>    name or ID of the primary group of the new account
 # @option -G --groups                             list of supplementary groups of the new account
 # @flag -h --help                                 display this help message and exit

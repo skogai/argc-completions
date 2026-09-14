@@ -7,6 +7,7 @@
 # @flag --env-file          Path to an .env file to load - can be specified multiple times - values from earlier files are overridden by values in later files  [array]
 # @flag -h --help           Show help  [boolean]
 # @flag --install-skills    Install Cloudflare skills for detected AI coding agents before running the command  [boolean] [default: false]
+# @flag --profile           Use a specific auth profile  [string]
 # @flag -v --version        Show version number  [boolean]
 
 # {{ wrangler complete
@@ -17,6 +18,7 @@
 # @flag --env-file                        Path to an .env file to load - can be specified multiple times - values from earlier files are overridden by values in later files  [array]
 # @flag -h --help                         Show help  [boolean]
 # @flag --install-skills                  Install Cloudflare skills for detected AI coding agents before running the command  [boolean] [default: false]
+# @flag --profile                         Use a specific auth profile  [string]
 # @flag -v --version                      Show version number  [boolean]
 # @arg shell[bash|fish|powershell|zsh]    Shell type to generate completions for  [string]
 complete() {
@@ -32,6 +34,7 @@ complete() {
 # @flag --env-file          Path to an .env file to load - can be specified multiple times - values from earlier files are overridden by values in later files  [array]
 # @flag -h --help           Show help  [boolean]
 # @flag --install-skills    Install Cloudflare skills for detected AI coding agents before running the command  [boolean] [default: false]
+# @flag --profile           Use a specific auth profile  [string]
 # @flag -v --version        Show version number  [boolean]
 email() {
     :;

@@ -8,7 +8,6 @@
 # @flag -k --keep-tokens               change password only if expired
 # @option -i --inactive                set password inactive after expiration to INACTIVE
 # @flag -l --lock                      lock the password of the named account
-# @option -n --mindays <MIN_DAYS>      set minimum number of days before password change to MIN_DAYS
 # @flag -q --quiet                     quiet mode
 # @option -r --repository              change password in REPOSITORY repository
 # @option -R --root <CHROOT_DIR>       directory to chroot into

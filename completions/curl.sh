@@ -27,7 +27,7 @@
 # @flag --crlf                                     Convert LF to CRLF in upload
 # @option --crlfile <file>                         Certificate Revocation list
 # @option --curves <list>                          (EC) TLS key exchange algorithms to request
-# @option -d --data <data>                         HTTP POST data
+# @option -d --data <data>                         Post data
 # @option --data-ascii <data>                      HTTP POST ASCII data
 # @option --data-binary[`_choice_data_binary`] <data>  HTTP POST binary data
 # @option --data-raw <data>                        HTTP POST data, '@' allowed

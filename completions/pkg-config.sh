@@ -19,7 +19,6 @@
 # @flag --define-prefix                        override the prefix variable with one that is guessed based on the location of the .pc file
 # @flag --dont-define-prefix                   do not override the prefix variable under any circumstances
 # @option --prefix-variable <varname>          sets the name of the variable that pkgconf considers to be the package prefix
-# @option --relocate <path>                    relocates a path and exits (mostly for testsuite)
 # @flag --dont-relocate-paths                  disables path relocation support
 # @option --personality <triplet|filename>     sets the personality to 'triplet' or a file named 'filename'
 # @flag --dump-personality                     dumps details concerning selected personality
@@ -30,7 +29,7 @@
 # @flag --uninstalled                          check whether or not an uninstalled module will be used
 # @flag --no-uninstalled                       never use uninstalled modules when satisfying dependencies
 # @flag --no-provides                          do not use 'provides' rules to resolve dependencies
-# @flag --maximum-traverse-depth               maximum allowed depth for dependency graph
+# @flag --maximum-traverse-depth               maximum allowed depth for dependency graph (-1 for unlimited)
 # @flag --static                               be more aggressive when computing dependency graph (for static linking)
 # @flag --shared                               use a simplified dependency graph (usually default)
 # @flag --pure                                 optimize a static dependency graph as if it were a normal dependency graph
@@ -51,6 +50,7 @@
 # @flag --print-provides                       print provided dependencies to stdout
 # @flag --print-variables                      print all known variables in module to stdout
 # @flag --digraph                              print entire dependency graph in graphviz 'dot' format
+# @flag --print-digraph-query-nodes            also print query nodes in 'dot' format
 # @flag --solution                             print dependency graph solution in a simple format
 # @flag --keep-system-cflags                   keep -I/usr/include entries in cflags output
 # @flag --keep-system-libs                     keep -L/usr/lib entries in libs output
@@ -58,11 +58,14 @@
 # @flag --modversion                           print the specified module's version to stdout
 # @flag --internal-cflags                      do not filter 'internal' cflags from output
 # @flag --license                              print the specified module's license to stdout if known
+# @flag --link-abi                             print the link ABIs (e.g. c, c++) the module must be linked against
+# @flag --source                               print the specified module's source code location to stdout if known
 # @flag --exists-cflags                        add -DHAVE_FOO fragments to cflags for each found module
 # @flag --msvc-syntax                          print translatable fragments in MSVC syntax
 # @option --fragment-filter <types>            filter output fragments to the specified types
 # @option --env <prefix>                       print output as shell-compatible environmental variables
 # @flag --fragment-tree                        visualize printed CFLAGS/LIBS fragments as a tree
+# @flag --newlines                             use newlines for whitespace between fragments
 # @arg libraries*
 
 command eval "$(argc --argc-eval "$0" "$@")"

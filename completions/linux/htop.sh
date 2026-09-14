@@ -13,7 +13,7 @@
 # @option -p --pid*,[`_module_os_pid`] <PID[,PID,PID...]>  Show only the given PIDs
 # @flag --readonly                                 Disable all system and process changing features
 # @option -s --sort-key[`_choice_sort_key`] <COLUMN>  Sort by COLUMN in list view (try --sort-key=help for a list)
-# @flag -t --tree                                  Show the tree view (can be combined with -s)
+# @option -t --tree <MODE>                         Show the tree view (MODE: classic|soft|hard); can be combined with -s
 # @option -u --user[`_module_os_user`] <USERNAME>  Show only processes for a given user (or $USER)
 # @flag -U --no-unicode                            Do not use unicode but plain ASCII
 # @flag -V --version                               Print version info

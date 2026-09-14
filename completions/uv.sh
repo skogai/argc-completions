@@ -2,7 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -23,7 +23,7 @@
 # {{ uv auth
 # @cmd Manage authentication
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -50,7 +50,7 @@ auth() {
 # @option -t --token                     The token to use for the service
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  The keyring provider to use for storage of credentials [env: UV_KEYRING_PROVIDER=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -77,7 +77,7 @@ auth::login() {
 # @option -u --username                  The username to logout
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  The keyring provider to use for storage of credentials [env: UV_KEYRING_PROVIDER=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -104,7 +104,7 @@ auth::logout() {
 # @option -u --username                  The username to lookup
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  The keyring provider to use for reading credentials [env: UV_KEYRING_PROVIDER=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -129,7 +129,7 @@ auth::token() {
 # {{{ uv auth dir
 # @cmd Show the path to the uv credentials directory
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -145,7 +145,6 @@ auth::token() {
 # @option --config-file <CONFIG_FILE>    The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
 # @flag --no-config                      Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
 # @flag -h --help                        Display the concise help for this command
-# @arg service                           The domain or URL of the service to lookup
 auth::dir() {
     :;
 }
@@ -158,13 +157,13 @@ auth::dir() {
 # @flag --all-extras                               Include all optional dependencies
 # @option --no-extra <NO_EXTRA>                    Exclude the specified optional dependencies, if `--all-extras` is supplied
 # @flag --no-dev                                   Disable the development dependency group [env: UV_NO_DEV=]
+# @flag --only-dev                                 Only include the development dependency group
 # @option --group                                  Include dependencies from the specified dependency group
 # @option --no-group <NO_GROUP>                    Disable the specified dependency group [env: `UV_NO_GROUP`=]
 # @flag --no-default-groups                        Ignore the default dependency groups [env: UV_NO_DEFAULT_GROUPS=]
 # @option --only-group <ONLY_GROUP>                Only include dependencies from the specified dependency group
 # @flag --all-groups                               Include dependencies from all dependency groups
 # @flag -m --module                                Run a Python module
-# @flag --only-dev                                 Only include the development dependency group
 # @flag --no-editable                              Install any editable dependencies, including the project and any workspace members, as non-editable [env: UV_NO_EDITABLE=]
 # @option --no-editable-package <NO_EDITABLE_PACKAGE>  Install the specified editable packages as non-editable
 # @flag --exact                                    Perform an exact sync, removing extraneous packages
@@ -184,8 +183,8 @@ auth::dir() {
 # @option --package                                Run the command in a specific package in the workspace
 # @flag --no-project                               Avoid discovering the project or workspace [env: UV_NO_PROJECT=]
 # @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -197,6 +196,7 @@ auth::dir() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -215,7 +215,7 @@ auth::dir() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for the run environment.
@@ -262,7 +262,7 @@ run() {
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -309,8 +309,8 @@ init() {
 # @flag --no-install-workspace                     Do not install any workspace members, including the current project [env: UV_NO_INSTALL_WORKSPACE=]
 # @flag --no-install-local                         Do not install local path dependencies [env: UV_NO_INSTALL_LOCAL=]
 # @option --no-install-package <NO_INSTALL_PACKAGE>  Do not install the given package(s)
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -322,6 +322,7 @@ init() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -340,7 +341,7 @@ init() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for resolving and syncing.
@@ -376,8 +377,8 @@ add() {
 # @flag --frozen                                   Remove dependencies without re-locking the project [env: UV_FROZEN=]
 # @option --package                                Remove the dependencies from a specific package in the workspace
 # @option --script                                 Remove the dependency from the specified Python script, rather than from a project
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -389,6 +390,7 @@ add() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -407,7 +409,7 @@ add() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for resolving and syncing.
@@ -443,8 +445,8 @@ remove() {
 # @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
 # @flag --frozen                                   Update the version without re-locking the project [env: UV_FROZEN=]
 # @option --package                                Update the version of a specific package in the workspace
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -456,6 +458,7 @@ remove() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -474,7 +477,7 @@ remove() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for resolving and syncing.
@@ -528,8 +531,8 @@ version() {
 # @option --script                                 Sync the environment for a Python script, rather than the current project
 # @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @flag --check                                    Check if the Python environment is synchronized with the project
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -541,6 +544,7 @@ version() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -559,7 +563,7 @@ version() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use for the project environment.
@@ -589,8 +593,8 @@ sync() {
 # @flag --check-exists                             Assert that a `uv.lock` exists without checking if it is up-to-date [env: UV_FROZEN=]
 # @flag --dry-run                                  Perform a dry run, without writing the lockfile
 # @option --script                                 Lock the specified Python script, rather than the current project
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -602,6 +606,7 @@ sync() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -617,7 +622,7 @@ sync() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use during resolution.
@@ -672,8 +677,8 @@ lock() {
 # @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
 # @flag --frozen                                   Do not update the `uv.lock` before exporting [env: UV_FROZEN=]
 # @option --script                                 Export the dependencies for the specified PEP 723 Python script, rather than the current project
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -685,6 +690,7 @@ lock() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -700,7 +706,7 @@ lock() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use during resolution.
@@ -727,6 +733,7 @@ export() {
 # {{ uv tree
 # @cmd Display the project's dependency tree
 # @flag --universal                                Show a platform-independent dependency tree
+# @option --format[text|json]                      The format in which to display the dependency graph [default: text]
 # @option -d --depth                               Maximum display depth of the dependency tree [default: 255]
 # @option --prune                                  Prune the given package from the display of the dependency tree
 # @option --package                                Display only the specified packages
@@ -734,8 +741,8 @@ export() {
 # @flag --invert                                   Show the reverse dependencies for the given package.
 # @flag --outdated                                 Show the latest available version of each package in the tree
 # @flag --show-sizes                               Show compressed wheel sizes for packages in the tree
-# @flag --only-dev                                 Only include the development dependency group
 # @flag --no-dev                                   Disable the development dependency group [env: UV_NO_DEV=]
+# @flag --only-dev                                 Only include the development dependency group
 # @option --group                                  Include dependencies from the specified dependency group
 # @option --no-group <NO_GROUP>                    Disable the specified dependency group [env: `UV_NO_GROUP`=]
 # @flag --no-default-groups                        Ignore the default dependency groups [env: UV_NO_DEFAULT_GROUPS=]
@@ -754,8 +761,8 @@ export() {
 # @option --config-settings-package <CONFIG_SETTINGS_PACKAGE>  Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
 # @flag --no-build-isolation                       Disable isolation when building source distributions [env: UV_NO_BUILD_ISOLATION=]
 # @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -767,6 +774,7 @@ export() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -778,7 +786,7 @@ export() {
 # @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                      Disable automatic downloads of Python.
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                                Use quiet output
 # @flag -v --verbose*                              Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -804,7 +812,7 @@ tree() {
 # @option --exclude-newer <EXCLUDE_NEWER>    Limit candidate Ruff versions to those released prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @flag --no-project                         Avoid discovering a project or workspace [env: UV_NO_PROJECT=]
 # @flag -n --no-cache                        Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>            Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>            Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                     Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                  Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                Disable automatic downloads of Python.
@@ -828,6 +836,9 @@ format() {
 
 # {{ uv check
 # @cmd Run checks on the project
+# @flag --fix                                      Apply safe fixes to resolve type-checking errors
+# @flag --all-packages                             Check all packages in the workspace
+# @option --package                                Check specific packages in the workspace
 # @option --script                                 Run checks for the specified PEP 723 Python script, rather than the current project
 # @option --extra                                  Include optional dependencies from the specified extra name
 # @flag --all-extras                               Include all optional dependencies
@@ -842,12 +853,13 @@ format() {
 # @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
 # @flag --frozen                                   Sync without updating the `uv.lock` file [env: UV_FROZEN=]
 # @flag --no-sync                                  Avoid syncing the virtual environment [env: UV_NO_SYNC=]
+# @flag --no-install-project                       Do not install the current project [env: UV_NO_INSTALL_PROJECT=]
 # @flag --isolated                                 Run checks without mutating project state [env: UV_ISOLATED=]
 # @option -p --python                              The Python interpreter to use for the project environment [env: UV_PYTHON=]
 # @option --ty-version <TY_VERSION>                The version of ty to use for type checking
 # @flag --no-project                               Avoid discovering a project or workspace [env: UV_NO_PROJECT=]
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -859,6 +871,7 @@ format() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -877,7 +890,7 @@ format() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @flag --managed-python                           Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
@@ -911,13 +924,13 @@ check() {
 # @flag --locked                                   Assert that the `uv.lock` will remain unchanged [env: UV_LOCKED=]
 # @flag --frozen                                   Audit the requirements without locking the project [env: UV_FROZEN=]
 # @option --output-format[text|json|sarif] <OUTPUT_FORMAT>  Select the output format [default: text]
-# @option --script                                 Audit the specified PEP 723 Python script, rather than the current project
-# @option --python-version <PYTHON_VERSION>        The Python version to use when auditing
-# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform to use when auditing
 # @option --ignore                                 Ignore a vulnerability by ID
 # @option --ignore-until-fixed <IGNORE_UNTIL_FIXED>  Ignore a vulnerability by ID, but only while no fix is available
 # @option --service-format[osv] <SERVICE_FORMAT>   The service format to use for vulnerability lookups [default: osv]
 # @option --service-url <SERVICE_URL>              The URL to vulnerability service API endpoint
+# @option --script                                 Audit the specified PEP 723 Python script, rather than the current project
+# @option --python-version <PYTHON_VERSION>        The Python version to use when auditing
+# @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform to use when auditing
 # @flag --no-build                                 Don't build source distributions [env: UV_NO_BUILD=]
 # @option --no-build-package <NO_BUILD_PACKAGE>    Don't build source distributions for a specific package [env: `UV_NO_BUILD_PACKAGE`=]
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
@@ -926,8 +939,8 @@ check() {
 # @option --config-settings-package <CONFIG_SETTINGS_PACKAGE>  Settings to pass to the PEP 517 build backend for a specific package, specified as `PACKAGE:KEY=VALUE` pairs
 # @flag --no-build-isolation                       Disable isolation when building source distributions [env: UV_NO_BUILD_ISOLATION=]
 # @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -939,6 +952,7 @@ check() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -946,7 +960,7 @@ check() {
 # @option --no-sources-package <NO_SOURCES_PACKAGE>  Don't use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                           Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                      Disable automatic downloads of Python.
@@ -970,7 +984,7 @@ audit() {
 # {{ uv tool
 # @cmd Run and install commands provided by Python packages
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1004,9 +1018,9 @@ tool() {
 # @flag --no-env-file                              Avoid reading environment variables from a `.env` file [env: UV_NO_ENV_FILE=]
 # @flag --lfs                                      Whether to use Git LFS when adding a dependency from Git
 # @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
-# @option --torch-backend <TORCH_BACKEND>          The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --torch-backend <TORCH_BACKEND>          The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu132, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1018,6 +1032,7 @@ tool() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -1036,7 +1051,7 @@ tool() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use to build the run environment.
@@ -1075,9 +1090,9 @@ tool::run() {
 # @flag --force                                    Force installation of the tool
 # @flag --lfs                                      Whether to use Git LFS when adding a dependency from Git
 # @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
-# @option --torch-backend <TORCH_BACKEND>          The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --torch-backend <TORCH_BACKEND>          The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu132, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1089,6 +1104,7 @@ tool::run() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -1107,7 +1123,7 @@ tool::run() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use to build the tool environment.
@@ -1142,13 +1158,14 @@ tool::install() {
 # @flag --no-python-downloads                      Disable automatic downloads of Python.
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
 # @flag --no-sources                               Ignore the `tool.uv.sources` table when resolving dependencies.
 # @option --no-sources-package <NO_SOURCES_PACKAGE>  Don't use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1168,7 +1185,7 @@ tool::install() {
 # @flag --no-binary                                Don't install pre-built wheels [env: UV_NO_BINARY=]
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                                Use quiet output
 # @flag -v --verbose*                              Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1196,8 +1213,9 @@ tool::upgrade() {
 # @flag --show-python                        Whether to display the Python version associated with each tool
 # @flag --outdated                           List outdated tools
 # @option --exclude-newer <EXCLUDE_NEWER>    Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
+# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
 # @flag -n --no-cache                        Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>            Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>            Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                     Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                  Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag -q --quiet*                          Use quiet output
@@ -1217,11 +1235,42 @@ tool::list() {
 }
 # }}} uv tool list
 
+# {{{ uv tool audit
+# @cmd Audit installed tools and their dependencies
+# @flag --all                            Audit all installed tools
+# @option --output-format[text|json|sarif] <OUTPUT_FORMAT>  Select the output format [default: text]
+# @option --ignore                       Ignore a vulnerability by ID
+# @option --ignore-until-fixed <IGNORE_UNTIL_FIXED>  Ignore a vulnerability by ID, but only while no fix is available
+# @option --service-format[osv] <SERVICE_FORMAT>  The service format to use for vulnerability lookups [default: osv]
+# @option --service-url <SERVICE_URL>    The URL to vulnerability service API endpoint
+# @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
+# @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
+# @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
+# @flag --no-python-downloads            Disable automatic downloads of Python.
+# @flag -q --quiet*                      Use quiet output
+# @flag -v --verbose*                    Use verbose output
+# @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
+# @flag --system-certs                   Whether to load TLS certificates from the platform's native certificate store [env: UV_SYSTEM_CERTS=]
+# @flag --offline                        Disable network access [env: UV_OFFLINE=]
+# @option --allow-insecure-host <ALLOW_INSECURE_HOST>  Allow insecure connections to a host [env: UV_INSECURE_HOST=]
+# @flag --no-progress                    Hide all progress outputs [env: UV_NO_PROGRESS=]
+# @option --directory                    Change to the given directory prior to running the command [env: UV_WORKING_DIR=]
+# @option --project                      Discover a project in the given directory [env: UV_PROJECT=]
+# @option --config-file <CONFIG_FILE>    The path to a `uv.toml` file to use for configuration [env: UV_CONFIG_FILE=]
+# @flag --no-config                      Avoid discovering configuration files (`pyproject.toml`, `uv.toml`) [env: UV_NO_CONFIG=]
+# @flag -h --help                        Display the concise help for this command
+# @arg name+                             The names of the installed tools to audit
+tool::audit() {
+    :;
+}
+# }}} uv tool audit
+
 # {{{ uv tool uninstall
 # @cmd Uninstall a tool
 # @flag --all                            Uninstall all tools
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1246,7 +1295,7 @@ tool::uninstall() {
 # {{{ uv tool update-shell
 # @cmd Ensure that the tool executable directory is on the `PATH`
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1271,7 +1320,7 @@ tool::update-shell() {
 # @cmd Show the path to the uv tools directory
 # @flag --bin                            Show the directory into which `uv tool` will install executables.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1296,7 +1345,7 @@ tool::dir() {
 # {{ uv python
 # @cmd Manage Python versions and installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1327,7 +1376,7 @@ python() {
 # @option --output-format[text|json] <OUTPUT_FORMAT>  Select the output format [default: text]
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1363,7 +1412,7 @@ python::list() {
 # @flag --default                           Use as the default Python version
 # @flag --compile-bytecode                  Compile Python's standard library to bytecode after installation [env: UV_COMPILE_BYTECODE=]
 # @flag -n --no-cache                       Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                    Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                 Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads               Disable automatic downloads of Python.
@@ -1394,7 +1443,7 @@ python::install() {
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag --compile-bytecode                  Compile Python's standard library to bytecode after installation [env: UV_COMPILE_BYTECODE=]
 # @flag -n --no-cache                       Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                    Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                 Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads               Disable automatic downloads of Python.
@@ -1425,7 +1474,7 @@ python::upgrade() {
 # @flag --resolve-links                  Resolve symlinks in the output path
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1455,7 +1504,7 @@ python::find() {
 # @flag --rm                             Remove the Python version pin
 # @option --python-downloads-json-url <PYTHON_DOWNLOADS_JSON_URL>  URL pointing to JSON of custom Python installations
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1481,7 +1530,7 @@ python::pin() {
 # @cmd Show the uv Python installation directory
 # @flag --bin                            Show the directory into which `uv python` will install Python executables.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1507,7 +1556,7 @@ python::dir() {
 # @option -i --install-dir <INSTALL_DIR>    The directory where the Python was installed [env: UV_PYTHON_INSTALL_DIR=]
 # @flag --all                               Uninstall all managed Python versions
 # @flag -n --no-cache                       Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>           Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                    Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                 Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads               Disable automatic downloads of Python.
@@ -1532,7 +1581,7 @@ python::uninstall() {
 # {{{ uv python update-shell
 # @cmd Ensure that the Python executable directory is on the `PATH`
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1556,8 +1605,9 @@ python::update-shell() {
 
 # {{ uv pip
 # @cmd Manage Python packages with a pip-compatible interface
+# @option --cert <FILE>                  Path to a PEM-encoded CA certificate bundle
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -1586,6 +1636,7 @@ pip() {
 # @option --extra                                 Include optional dependencies from the specified extra name; may be provided more than once
 # @flag --all-extras                              Include all optional dependencies
 # @option --group                                 Install the specified dependency group from a `pyproject.toml`
+# @option --cert <FILE>                           Path to a PEM-encoded CA certificate bundle
 # @flag --no-deps                                 Ignore package dependencies, instead only add those packages explicitly listed on the command line to the resulting requirements file
 # @option -o --output-file <OUTPUT_FILE>          Write the compiled requirements to the given `requirements.txt` or `pylock.toml` file
 # @option --format[requirements.txt|pylock.toml]  The format in which the resolution should be output
@@ -1607,9 +1658,9 @@ pip() {
 # @flag --emit-find-links                         Include `--find-links` entries in the generated output file
 # @flag --emit-build-options                      Include `--no-binary` and `--only-binary` entries in the generated output file
 # @flag --emit-index-annotation                   Include comment annotations indicating the index used to resolve each package (e.g., `# from https://pypi.org/simple`)
-# @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
-# @option --index                                 The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>         The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu132, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
+# @option --index                                 The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>         The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>              (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>     (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>            Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1621,6 +1672,7 @@ pip() {
 # @option --upgrade-group <UPGRADE_GROUP>         Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>         Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -1632,7 +1684,7 @@ pip() {
 # @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @flag -n --no-cache                             Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                 Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>     Refresh cached data for a specific package
 # @option -p --python                             The Python interpreter to use during resolution.
@@ -1664,6 +1716,7 @@ pip::compile() {
 # @option --extra                                 Include optional dependencies from the specified extra name; may be provided more than once
 # @flag --all-extras                              Include all optional dependencies
 # @option --group                                 Install the specified dependency group from a `pylock.toml` or `pyproject.toml`
+# @option --cert <FILE>                           Path to a PEM-encoded CA certificate bundle
 # @flag --require-hashes                          Require a matching hash for each requirement [env: UV_REQUIRE_HASHES=]
 # @flag --no-verify-hashes                        Disable validation of hashes in the requirements file [env: UV_NO_VERIFY_HASHES=]
 # @flag --system                                  Install packages into the system Python environment [env: UV_SYSTEM_PYTHON=]
@@ -1680,9 +1733,9 @@ pip::compile() {
 # @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which requirements should be installed
 # @flag --strict                                  Validate the Python environment after completing the installation, to detect packages with missing dependencies or other issues
 # @flag --dry-run                                 Perform a dry run, i.e., don't actually install anything but resolve the dependencies and print the resulting plan
-# @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
-# @option --index                                 The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>         The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu132, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
+# @option --index                                 The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>         The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>              (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>     (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>            Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1701,7 +1754,7 @@ pip::compile() {
 # @flag --no-sources                              Ignore the `tool.uv.sources` table when resolving dependencies.
 # @option --no-sources-package <NO_SOURCES_PACKAGE>  Don't use sources from the `tool.uv.sources` table for the specified packages [env: `UV_NO_SOURCES_PACKAGE`=]
 # @flag -n --no-cache                             Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                 Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>     Refresh cached data for a specific package
 # @option -p --python                             The Python interpreter into which packages should be installed.
@@ -1737,6 +1790,7 @@ pip::sync() {
 # @option -b --build-constraints <BUILD_CONSTRAINTS>  Constrain build dependencies using the given requirements files when building source distributions [env: UV_BUILD_CONSTRAINT=]
 # @option --extra                                 Include optional dependencies from the specified extra name; may be provided more than once
 # @flag --all-extras                              Include all optional dependencies
+# @option --cert <FILE>                           Path to a PEM-encoded CA certificate bundle
 # @option --group                                 Install the specified dependency group from a `pylock.toml` or `pyproject.toml`
 # @flag --no-deps                                 Ignore package dependencies, instead only installing those packages explicitly listed on the command line or in the requirements files
 # @flag --require-hashes                          Require a matching hash for each requirement [env: UV_REQUIRE_HASHES=]
@@ -1754,10 +1808,10 @@ pip::sync() {
 # @flag --exact                                   Perform an exact sync, removing extraneous packages
 # @flag --strict                                  Validate the Python environment after completing the installation, to detect packages with missing dependencies or other issues
 # @flag --dry-run                                 Perform a dry run, i.e., don't actually install anything but resolve the dependencies and print the resulting plan
-# @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
+# @option --torch-backend <TORCH_BACKEND>         The backend to use when fetching packages in the PyTorch ecosystem (e.g., `cpu`, `cu126`, or `auto`) [env: UV_TORCH_BACKEND=] [possible values: auto, cpu, cu132, cu130, cu129, cu128, cu126, cu125, cu124, cu123, cu122, cu121, cu120, cu118, cu117, cu116, cu115, cu114, cu113, cu112, cu111, cu110, cu102, cu101, cu100, cu92, cu91, cu90, cu80, rocm7.2, rocm7.1, rocm7.0, rocm6.4, rocm6.3, rocm6.2.4, rocm6.2, rocm6.1, rocm6.0, rocm5.7, rocm5.6, rocm5.5, rocm5.4.2, rocm5.4, rocm5.3, rocm5.2, rocm5.1.1, rocm4.2, rocm4.1, rocm4.0.1, xpu]
 # @flag --user
-# @option --index                                 The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>         The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                 The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>         The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>              (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>     (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>            Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1769,6 +1823,7 @@ pip::sync() {
 # @option --upgrade-group <UPGRADE_GROUP>         Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>         Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -1783,7 +1838,7 @@ pip::sync() {
 # @flag --no-build-isolation                      Disable isolation when building source distributions [env: UV_NO_BUILD_ISOLATION=]
 # @option --no-build-isolation-package <NO_BUILD_ISOLATION_PACKAGE>  Disable isolation when building source distributions for a specific package
 # @flag -n --no-cache                             Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                 Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                 Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>     Refresh cached data for a specific package
 # @option -p --python                             The Python interpreter into which packages should be installed.
@@ -1818,12 +1873,13 @@ pip::install() {
 # @option -t --target                    Uninstall packages from the specified `--target` directory
 # @option --prefix                       Uninstall packages from the specified `--prefix` directory
 # @flag --dry-run                        Perform a dry run, i.e., don't actually uninstall anything but print the resulting plan
+# @option --cert <FILE>                  Path to a PEM-encoded CA certificate bundle
 # @option -p --python                    The Python interpreter from which packages should be uninstalled.
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1851,12 +1907,13 @@ pip::uninstall() {
 # @flag --system                         List packages in the system Python environment [env: UV_SYSTEM_PYTHON=]
 # @option -t --target                    List packages from the specified `--target` directory
 # @option --prefix                       List packages from the specified `--prefix` directory
+# @option --cert <FILE>                  Path to a PEM-encoded CA certificate bundle
 # @option -p --python                    The Python interpreter for which packages should be listed.
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1882,11 +1939,12 @@ pip::freeze() {
 # @option --format[columns|freeze|json]          Select the output format [default: columns]
 # @flag --outdated                               List outdated packages
 # @flag --strict                                 Validate the Python environment, to detect packages with missing dependencies and other issues
+# @option --cert <FILE>                          Path to a PEM-encoded CA certificate bundle
 # @flag --system                                 List packages in the system Python environment [env: UV_SYSTEM_PYTHON=]
 # @option -t --target                            List packages from the specified `--target` directory
 # @option --prefix                               List packages from the specified `--prefix` directory
-# @option --index                                The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>        The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>        The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>             (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>    (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>           Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1894,12 +1952,13 @@ pip::freeze() {
 # @option --index-strategy[first-index|unsafe-first-match|unsafe-best-match] <INDEX_STRATEGY>  The strategy to use when resolving against multiple index URLs [env: UV_INDEX_STRATEGY=]
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  Attempt to use `keyring` for authentication for index URLs [env: UV_KEYRING_PROVIDER=]
 # @option --exclude-newer <EXCLUDE_NEWER>        Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
+# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
 # @option -p --python                            The Python interpreter for which packages should be listed.
 # @flag --managed-python                         Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                      Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                    Disable automatic downloads of Python.
 # @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                              Use quiet output
 # @flag -v --verbose*                            Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1924,12 +1983,13 @@ pip::list() {
 # @flag --system                         Show a package in the system Python environment [env: UV_SYSTEM_PYTHON=]
 # @option -t --target                    Show a package from the specified `--target` directory
 # @option --prefix                       Show a package from the specified `--prefix` directory
+# @option --cert <FILE>                  Path to a PEM-encoded CA certificate bundle
 # @option -p --python                    The Python interpreter to find the package in.
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                      Use quiet output
 # @flag -v --verbose*                    Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1959,9 +2019,10 @@ pip::show() {
 # @flag --outdated                               Show the latest available version of each package in the tree
 # @flag --show-sizes                             Show compressed wheel sizes for packages in the tree
 # @flag --strict                                 Validate the Python environment, to detect packages with missing dependencies and other issues
+# @option --cert <FILE>                          Path to a PEM-encoded CA certificate bundle
 # @flag --system                                 List packages in the system Python environment [env: UV_SYSTEM_PYTHON=]
-# @option --index                                The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>        The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>        The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>             (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>    (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>           Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -1969,12 +2030,13 @@ pip::show() {
 # @option --index-strategy[first-index|unsafe-first-match|unsafe-best-match] <INDEX_STRATEGY>  The strategy to use when resolving against multiple index URLs [env: UV_INDEX_STRATEGY=]
 # @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  Attempt to use `keyring` for authentication for index URLs [env: UV_KEYRING_PROVIDER=]
 # @option --exclude-newer <EXCLUDE_NEWER>        Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
+# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
 # @option -p --python                            The Python interpreter for which packages should be listed.
 # @flag --managed-python                         Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                      Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                    Disable automatic downloads of Python.
 # @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                              Use quiet output
 # @flag -v --verbose*                            Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -1997,12 +2059,13 @@ pip::tree() {
 # @flag --system                               Check packages in the system Python environment [env: UV_SYSTEM_PYTHON=]
 # @option --python-version <PYTHON_VERSION>    The Python version against which packages should be checked
 # @option --python-platform[windows|linux|macos|x86_64-pc-windows-msvc|aarch64-pc-windows-msvc|i686-pc-windows-msvc|x86_64-unknown-linux-gnu|aarch64-apple-darwin|x86_64-apple-darwin|aarch64-unknown-linux-gnu|aarch64-unknown-linux-musl|x86_64-unknown-linux-musl|riscv64-unknown-linux|x86_64-manylinux2014|x86_64-manylinux_2_17|x86_64-manylinux_2_28|x86_64-manylinux_2_31|x86_64-manylinux_2_32|x86_64-manylinux_2_33|x86_64-manylinux_2_34|x86_64-manylinux_2_35|x86_64-manylinux_2_36|x86_64-manylinux_2_37|x86_64-manylinux_2_38|x86_64-manylinux_2_39|x86_64-manylinux_2_40|aarch64-manylinux2014|aarch64-manylinux_2_17|aarch64-manylinux_2_28|aarch64-manylinux_2_31|aarch64-manylinux_2_32|aarch64-manylinux_2_33|aarch64-manylinux_2_34|aarch64-manylinux_2_35|aarch64-manylinux_2_36|aarch64-manylinux_2_37|aarch64-manylinux_2_38|aarch64-manylinux_2_39|aarch64-manylinux_2_40|aarch64-linux-android|x86_64-linux-android|wasm32-pyodide2024|wasm32-pyodide2025|arm64-apple-ios|arm64-apple-ios-simulator|x86_64-apple-ios-simulator] <PYTHON_PLATFORM>  The platform for which packages should be checked
+# @option --cert <FILE>                        Path to a PEM-encoded CA certificate bundle
 # @option -p --python                          The Python interpreter for which packages should be checked.
 # @flag --managed-python                       Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                    Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                  Disable automatic downloads of Python.
 # @flag -n --no-cache                          Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>              Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>              Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                            Use quiet output
 # @flag -v --verbose*                          Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -2031,25 +2094,25 @@ pip::check() {
 # @option --prompt                               Provide an alternative prompt prefix for the virtual environment.
 # @flag --system-site-packages                   Give the virtual environment access to the system site packages directory
 # @flag --relocatable                            Make the virtual environment relocatable [env: UV_VENV_RELOCATABLE=]
-# @option --index-strategy[first-index|unsafe-first-match|unsafe-best-match] <INDEX_STRATEGY>  The strategy to use when resolving against multiple index URLs [env: UV_INDEX_STRATEGY=]
-# @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  Attempt to use `keyring` for authentication for index URLs [env: UV_KEYRING_PROVIDER=]
-# @option --exclude-newer <EXCLUDE_NEWER>        Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
-# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for a specific package to those that were uploaded prior to the given date
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @option -p --python                            The Python interpreter to use for the virtual environment.
 # @flag --managed-python                         Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                      Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                    Disable automatic downloads of Python.
-# @option --index                                The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>        The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>        The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>             (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>    (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>           Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
 # @flag --no-index                               Ignore the registry index (e.g., PyPI), instead relying on direct URL dependencies and those provided via `--find-links`
+# @option --index-strategy[first-index|unsafe-first-match|unsafe-best-match] <INDEX_STRATEGY>  The strategy to use when resolving against multiple index URLs [env: UV_INDEX_STRATEGY=]
+# @option --keyring-provider[disabled|subprocess] <KEYRING_PROVIDER>  Attempt to use `keyring` for authentication for index URLs [env: UV_KEYRING_PROVIDER=]
+# @option --exclude-newer <EXCLUDE_NEWER>        Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
+# @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
 # @flag --refresh                                Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>    Refresh cached data for a specific package
 # @flag -n --no-cache                            Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag -q --quiet*                              Use quiet output
 # @flag -v --verbose*                            Use verbose output
 # @option --color[auto|always|never] <COLOR_CHOICE>  Control the use of color in output
@@ -2086,8 +2149,8 @@ venv() {
 # @flag --managed-python                           Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python                        Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads                      Disable automatic downloads of Python.
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -2099,6 +2162,7 @@ venv() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -2114,7 +2178,7 @@ venv() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @flag -q --quiet*                                Use quiet output
@@ -2148,7 +2212,7 @@ build() {
 # @flag --dry-run                        Perform a dry run without uploading files
 # @flag --no-attestations                Do not upload attestations for the published files [env: UV_PUBLISH_NO_ATTESTATIONS=]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2173,7 +2237,7 @@ publish() {
 # {{ uv workspace
 # @cmd Inspect uv workspaces
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2200,8 +2264,10 @@ workspace() {
 # @flag --frozen                                   Assert that a `uv.lock` exists without checking if it is up-to-date [env: UV_FROZEN=]
 # @flag --dry-run                                  Perform a dry run, without writing the lockfile
 # @flag --sync                                     Sync the environment to include module ownership metadata in the output
-# @option --index                                  The URLs to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
-# @option --default-index <DEFAULT_INDEX>          The URL of the default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
+# @flag --exact                                    Perform an exact sync, removing extraneous packages
+# @flag --active                                   Sync dependencies to the active virtual environment
+# @option --index                                  The indexes to use when resolving dependencies, in addition to the default index [env: UV_INDEX]
+# @option --default-index <DEFAULT_INDEX>          The default package index (by default: <https://pypi.org/simple>) [env: UV_DEFAULT_INDEX]
 # @option -i --index-url <INDEX_URL>               (Deprecated: use `--default-index` instead) The URL of the Python package index (by default: <https://pypi.org/simple>) [env: UV_INDEX_URL]
 # @option --extra-index-url <EXTRA_INDEX_URL>      (Deprecated: use `--index` instead) Extra URLs of package indexes to use, in addition to `--index-url` [env: UV_EXTRA_INDEX_URL]
 # @option -f --find-links <FIND_LINKS>             Locations to search for candidate distributions, in addition to those found in the registry indexes [env: UV_FIND_LINKS]
@@ -2213,6 +2279,7 @@ workspace() {
 # @option --upgrade-group <UPGRADE_GROUP>          Allow upgrades for all packages in a dependency group, ignoring pinned versions in any existing output file
 # @option --resolution[highest|lowest|lowest-direct]  The strategy to use when selecting between the different compatible versions for a given package requirement [env: UV_RESOLUTION=]
 # @option --prerelease[disallow|allow|if-necessary|explicit|if-necessary-or-explicit]  The strategy to use when considering pre-release versions [env: UV_PRERELEASE=]
+# @option --prerelease-package <PRERELEASE_PACKAGE>  The strategy to use when considering pre-release versions for a specific package
 # @option --fork-strategy[fewest|requires-python] <FORK_STRATEGY>  The strategy to use when selecting multiple versions of a given package across Python versions and platforms [env: UV_FORK_STRATEGY=]
 # @option --exclude-newer <EXCLUDE_NEWER>          Limit candidate packages to those that were uploaded prior to the given date [env: UV_EXCLUDE_NEWER=]
 # @option --exclude-newer-package <EXCLUDE_NEWER_PACKAGE>  Limit candidate packages for specific packages to those that were uploaded prior to the given date
@@ -2228,7 +2295,7 @@ workspace() {
 # @option --no-binary-package <NO_BINARY_PACKAGE>  Don't install pre-built wheels for a specific package [env: `UV_NO_BINARY_PACKAGE`=]
 # @option --link-mode[clone|copy|hardlink|symlink] <LINK_MODE>  The method to use when installing packages from the global cache [env: UV_LINK_MODE=copy]
 # @flag -n --no-cache                              Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>                  Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --refresh                                  Refresh all cached data
 # @option --refresh-package <REFRESH_PACKAGE>      Refresh cached data for a specific package
 # @option -p --python                              The Python interpreter to use during resolution.
@@ -2256,7 +2323,7 @@ workspace::metadata() {
 # @cmd Display the path of a workspace member
 # @option --package                      Display the path to a specific package in the workspace
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2280,8 +2347,9 @@ workspace::dir() {
 # {{{ uv workspace list
 # @cmd List the members of a workspace
 # @flag --paths                          Show paths instead of names
+# @flag --scripts                        List all standalone scripts with inline metadata in the workspace
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2306,7 +2374,7 @@ workspace::list() {
 # {{ uv cache
 # @cmd Manage uv's cache
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2330,7 +2398,7 @@ cache() {
 # @cmd Clear the cache, removing all entries or those linked to specific packages
 # @flag --force                          Force removal of the cache, ignoring in-use checks
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2353,11 +2421,11 @@ cache::clean() {
 # }}} uv cache clean
 
 # {{{ uv cache prune
-# @cmd Prune all unreachable objects from the cache
+# @cmd Prune dangling cache entries and cached environments
 # @flag --ci                             Optimize the cache for persistence in a continuous integration environment, like GitHub Actions
 # @flag --force                          Force removal of the cache, ignoring in-use checks
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2381,7 +2449,7 @@ cache::prune() {
 # {{{ uv cache dir
 # @cmd Show the cache directory
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2404,9 +2472,10 @@ cache::dir() {
 
 # {{{ uv cache size
 # @cmd Show the cache size
-# @flag -H --human                       Display the cache size in human-readable format (e.g., `1.2 GiB` instead of raw bytes)
+# @option --output-format[auto|human|machine] <OUTPUT_FORMAT>  Select the output format [default: auto]
+# @flag -H --human                       Display the cache size in human-readable format (e.g., `1.2GiB` instead of raw bytes)
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2431,7 +2500,7 @@ cache::size() {
 # {{ uv self
 # @cmd Manage the uv executable
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2456,7 +2525,7 @@ self() {
 # @option --token                        A GitHub token for authentication.
 # @flag --dry-run                        Run without performing the update
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.
@@ -2483,7 +2552,7 @@ self::update() {
 # @flag --short                          Only print the version
 # @option --output-format[text|json] <OUTPUT_FORMAT>  [default: text]
 # @flag -n --no-cache                    Avoid reading from or writing to the cache, instead using a temporary directory for the duration of the operation [env: UV_NO_CACHE=]
-# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv]
+# @option --cache-dir <CACHE_DIR>        Path to the cache directory [env: UV_CACHE_DIR=/mnt/sda1/uv/]
 # @flag --managed-python                 Require use of uv-managed Python versions [env: UV_MANAGED_PYTHON=]
 # @flag --no-managed-python              Disable use of uv-managed Python versions [env: UV_NO_MANAGED_PYTHON=]
 # @flag --no-python-downloads            Disable automatic downloads of Python.

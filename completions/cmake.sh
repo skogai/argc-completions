@@ -12,13 +12,12 @@
 # @option --toolchain <file>                     Specify toolchain file [CMAKE_TOOLCHAIN_FILE].
 # @option --install-prefix <directory>           Specify install directory [CMAKE_INSTALL_PREFIX].
 # @option --project-file <project-file-name>     Specify an alternate project file name.
-# @flag -Wdev                                    Enable developer warnings.
-# @flag -Wno-dev                                 Suppress developer warnings.
-# @flag -Wdeprecated                             Enable deprecation warnings.
-# @flag -Wno-deprecated                          Suppress deprecation warnings.
-# @option -Werror[dev|deprecated] <value>        Make deprecated macro and function warnings errors.
-# @option -Wno-error[dev|deprecated] <value>     Make deprecated macro and function warnings not errors.
+# @option -W <category>                          Enable the specified category of warnings.
+# @option -Wno- <category>                       Suppress the specified category of warnings.
+# @option -Werror[dev|deprecated] <value>        Make the specified category of warnings errors.
+# @option -Wno-error[dev|deprecated] <value>     Make the specified category of warnings not errors.
 # @option --preset[`_choice_preset`] <preset>    Specify a configure preset.
+# @option --presets-file <file>                  Specify the path to a presets file.
 # @option --list-presets[`_choice_list_preset`] <type>  List available presets.
 # @option --workflow <options>                   Run a workflow preset.
 # @option -E[`_choice_cmd`] <cmd> <args+>        CMake command mode.
@@ -47,8 +46,6 @@
 # @option --trace-format[human|json-v1]          Set the output format of the trace.
 # @option --trace-source <file>                  Trace only this CMake file/module.
 # @option --trace-redirect <file>                Redirect trace output to a file instead of stderr.
-# @flag --warn-uninitialized                     Warn about uninitialized values.
-# @flag --no-warn-unused-cli                     Don't warn about command line options.
 # @flag --check-system-vars                      Find problems with variable usage in system files.
 # @option --compile-no-warning-as-error          Ignore COMPILE_WARNING_AS_ERROR property and CMAKE_COMPILE_WARNING_AS_ERROR variable.
 # @flag --link-no-warning-as-error               Ignore LINK_WARNING_AS_ERROR property and CMAKE_LINK_WARNING_AS_ERROR variable.
@@ -63,6 +60,9 @@
 # @option --help-command[`_choice_help_command`] <cmd> <[<file>]=>  Print help for one command and exit.
 # @option --help-command-list <file>             List commands with help available and exit.
 # @option --help-commands <file>                 Print cmake-commands manual and exit.
+# @option --help-diagnostic <diag> <file>        Print help for one diagnostic and exit.
+# @option --help-diagnostic-list <file>          List diagnostics with help available and exit.
+# @option --help-diagnostics <file>              Print cmake-diagnostics manual and exit.
 # @option --help-module[`_choice_help_module`] <mod> <file>  Print help for one module and exit.
 # @option --help-module-list <file>              List modules with help available and exit.
 # @option --help-modules <file>                  Print cmake-modules manual and exit.

@@ -10,14 +10,14 @@
 # @option --crate-name <NAME>                      Specify the name of the crate being built
 # @option --edition[2015|2018|2021|2024|future]    Specify which edition of the compiler to use when compiling code.
 # @option --emit <<TYPE>[=<FILE>]>                 Comma separated list of types of output for the compiler to emit.
-# @option --print <<INFO>[=<FILE>]>                Compiler information to print on stdout (or to a file) INFO may be one of <all-target-specs-json|backend-has-zstd|calling-conventions|cfg|check-cfg|code-models|crate-name|crate-root-lint-levels|deployment-target|file-names|host-tuple|link-args|native-static-libs|relocation-models|split-debuginfo|stack-protector-strategies|supported-crate-types|sysroot|target-cpus|target-features|target-libdir|target-list|target-spec-json|target-spec-json-schema|tls-models>.
+# @option --print <<INFO>[=<FILE>]>                Compiler information to print on stdout (or to a file) INFO may be one of <all-target-specs-json|backend-has-mnemonic|backend-has-zstd|calling-conventions|cfg|check-cfg|code-models|crate-name|crate-root-lint-levels|deployment-target|file-names|host-tuple|link-args|native-static-libs|relocation-models|split-debuginfo|stack-protector-strategies|supported-crate-types|sysroot|target-cpus|target-features|target-libdir|target-list|target-spec-json|target-spec-json-schema|tls-models>.
 # @flag -g                                         Equivalent to -C debuginfo=2
 # @flag -O                                         Equivalent to -C opt-level=3
 # @option -o <FILENAME>                            Write output to FILENAME
 # @option --out-dir <DIR>                          Write output to compiler-chosen filename in DIR
 # @option --explain <OPT>                          Provide a detailed explanation of an error message
 # @flag --test                                     Build a test harness
-# @option --target                                 Target triple for which the code is compiled
+# @option --target                                 Target tuple for which the code is compiled
 # @option -A --allow*,[`_choice_lint_option`] <LINT>  Set lint allowed
 # @option -W --warn*,[`_choice_lint_option`] <LINT>  Set lint warnings
 # @option --force-warn*,[`_choice_lint_option`] <LINT>  Set lint force-warn

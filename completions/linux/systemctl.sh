@@ -646,16 +646,16 @@ _choice_type() {
     _systemctl --type=help | tail -n +2
 }
 
-_choice_unit() {
-    _argc_util_parallel _choice_unit_only ::: _choice_unit_file
-}
-
 _choice_socket_unit() {
     _systemctl list-units -o json | yq '.[] | select(.unit == "*.socket") | .unit + "	" + .description'
 }
 
 _choice_timer_unit() {
     _systemctl list-units -o json | yq '.[] | select(.unit == "*.timer") | .unit + "	" + .description'
+}
+
+_choice_unit() {
+    _argc_util_parallel _choice_unit_only ::: _choice_unit_file
 }
 
 _choice_unit_pid() {

@@ -13,7 +13,7 @@
 # @option --cygpath                                Use binary at <CYGPATH> to convert between unix and Windows paths [env: JUST_CYGPATH=] [default: cygpath]
 # @flag --default-list                             List recipes when no arguments are provided [env: JUST_DEFAULT_LIST=]
 # @option --dotenv-command <COMMAND>               Run <COMMAND> and load its output as an environment file [env: JUST_DOTENV_COMMAND=]
-# @option --dotenv-filename <DOTENV_FILENAME>      Search for an environment file named <DOTENV-FILENAME> instead of `.env`
+# @option -F --dotenv-filename <DOTENV_FILENAME>   Search for an environment file named <DOTENV-FILENAME> instead of `.env`
 # @option -E --dotenv-path <DOTENV_PATH>           Load <DOTENV-PATH> as an environment file instead of searching for one
 # @flag -n --dry-run                               Print what just would do without doing it [env: JUST_DRY_RUN=]
 # @option --dump-format[json|just] <FORMAT>        Dump justfile as <FORMAT> [env: JUST_DUMP_FORMAT=] [default: just]
@@ -22,9 +22,10 @@
 # @flag -g --global-justfile                       Use global justfile
 # @option --group                                  Only list recipes in <GROUP> [env: JUST_GROUP=]
 # @flag --highlight                                Highlight echoed recipe lines in bold [env: JUST_HIGHLIGHT=]
-# @option --indentation                            Indent recipes bodies with <INDENTATION> [env: JUST_INDENTATION=] [default: "  "]
+# @option --indentation                            Indent recipes bodies with <INDENTATION> [env: JUST_INDENTATION=]
+# @option --jobs <N>                               Run at most <N> recipes simultaneously with the [parallel] attribute [env: JUST_JOBS=]
 # @option -f --justfile                            Use <JUSTFILE> as justfile or `-` to read from standard input [env: JUST_JUSTFILE=]
-# @option --justfile-name <NAME>                   Search for justfile named <NAME> [env: JUST_JUSTFILE_NAME=]
+# @option --justfile-name <NAME>                   Search for justfile named <NAME>, accepts multiple `,`-separated values and may be repeated [env: JUST_JUSTFILE_NAME=]
 # @option --list-heading <TEXT>                    Print <TEXT> before list [env: JUST_LIST_HEADING=] [default: "Available recipes:\n"]
 # @option --list-prefix <TEXT>                     Print <TEXT> before each list item [env: JUST_LIST_PREFIX=] [default: "  "]
 # @flag --list-submodules                          List recipes in submodules [env: JUST_LIST_SUBMODULES=]
@@ -52,7 +53,7 @@
 # @flag -V --version                               Print version
 # @flag --changelog                                Print changelog
 # @flag --choose                                   Select one or more recipes to run using a binary chooser.
-# @option --clean* <PATH>                          Clear recipe cache, optionally restricted to recipes whose path begins with <PATH>
+# @option --clean* <RECIPE_PATH>                   Clear recipe cache, optionally restricted to recipes whose path begins with <RECIPE_PATH>
 # @option -c --command*[`_module_os_command`]      Run an arbitrary command with the working directory, `.env`, overrides, and exports set
 # @option --completions[bash|elvish|fish|nushell|powershell|zsh] <SHELL>  Print shell completion script for <SHELL>
 # @flag --dump                                     Print justfile
@@ -64,9 +65,9 @@
 # @flag --json                                     Print justfile as JSON
 # @option -l --list* <MODULE>                      List available recipes in <MODULE> or root if omitted
 # @flag --man                                      Print man page
-# @option -s --show* <PATH>                        Show recipe at <PATH>
+# @option -s --show* <RECIPE_PATH>                 Show recipe at <RECIPE_PATH>
 # @flag --summary                                  List names of available recipes
-# @option --usage* <PATH>                          Print recipe usage information
+# @option --usage* <RECIPE_PATH>                   Print usage information for recipe at <RECIPE_PATH>
 # @flag --variables                                List names of variables
 # @arg arguments*[`_choice_recipe`]                Overrides and recipe(s) to run, defaulting to the first recipe in the justfile
 

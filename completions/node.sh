@@ -4,11 +4,15 @@
 # @flag --abort-on-uncaught-exception              aborting instead of exiting causes a core file to be generated for analysis
 # @flag --allow-addons                             allow use of addons when any permissions are set
 # @flag --allow-child-process                      allow use of child process when any permissions are set
+# @flag --allow-ffi                                allow use of FFI when any permissions are set
 # @option --allow-fs-read <value>                  allow permissions to read the filesystem
 # @option --allow-fs-write <value>                 allow permissions to write in the filesystem
 # @flag --allow-inspector                          allow use of inspector when any permissions are set
+# @flag --allow-net                                allow use of network when any permissions are set
+# @flag --allow-openssl-store                      allow use of OpenSSL STORE loaders when any permissions are set
 # @flag --allow-wasi                               allow wasi when any permissions are set
 # @flag --allow-worker                             allow worker threads when any permissions are set
+# @option --build-sea <value>                      Build a Node.js single executable application
 # @flag --build-snapshot                           Generate a snapshot blob when the process exits.
 # @option --build-snapshot-config <value>          Generate a snapshot blob when the process exits using aJSON configuration in the specified path.
 # @flag -c --check                                 syntax check script without executing
@@ -32,23 +36,27 @@
 # @option --env-file <value>                       set environment variables from supplied file
 # @option --env-file-if-exists <value>             set environment variables from supplied file
 # @option -e --eval <value>                        evaluate script
-# @flag --experimental-addon-modules               experimental import support for addons
-# @option --experimental-config-file <value>       set config file from supplied file
-# @flag --experimental-default-config-file         set config file from default config file
+# @flag --experimental-addon-modules               experimental import support for addons (currently set)
+# @option --experimental-default-config-file <value>  set config file path
+# @option --experimental-config-file <value>       set config file path
 # @flag --experimental-eventsource                 experimental EventSource API
+# @flag --experimental-ffi                         experimental node:ffi module
 # @flag --experimental-import-meta-resolve         experimental ES Module import.meta.resolve() parentURL support
+# @flag --experimental-import-text                 experimental support for importing source as text with import attributes
 # @flag --experimental-inspector-network-resource  experimental load network resources via the inspector
 # @option --loader <value>                         use the specified module as a custom loader
 # @option --experimental-loader <value>            use the specified module as a custom loader
 # @flag --experimental-network-inspection          experimental network inspection support
+# @option --experimental-package-map <value>       use the specified file for package map resolution
 # @flag --experimental-print-required-tla          Print pending top-level await.
 # @option --experimental-sea-config <value>        Generate a blob that can be embedded into the single executable application
 # @flag --experimental-storage-inspection          experimental storage inspection support
+# @flag --experimental-stream-iter                 experimental iterable streams API (node:stream/iter)
 # @flag --experimental-test-coverage               enable code coverage in the test runner
 # @flag --experimental-test-module-mocks           enable module mocking in the test runner
-# @flag --experimental-transform-types             enable transformation of TypeScript-onlysyntax into JavaScript code
+# @option --experimental-test-tag-filter <value>   run tests matching the given tag filter expression
+# @flag --experimental-vfs                         experimental node:vfs module
 # @flag --experimental-vm-modules                  experimental ES Module support in vm module
-# @flag --experimental-webstorage                  experimental Web Storage API
 # @flag --experimental-worker-inspection           experimental worker inspection support
 # @flag --expose-gc                                expose gc extension
 # @flag --force-context-aware                      disable loading non-context-aware addons
@@ -88,6 +96,8 @@
 # @flag --no-experimental-require-module           Legacy alias for --require-module
 # @flag --no-experimental-sqlite                   experimental node:sqlite module
 # @flag --no-experimental-websocket                experimental WebSocket API
+# @flag --webstorage                               experimental Web Storage API
+# @flag --no-experimental-webstorage               experimental Web Storage API
 # @flag --no-extra-info-on-fatal-exception         hide extra information on fatal exception that causes exit
 # @flag --no-force-async-hooks-checks              disable checks for async_hooks
 # @flag --no-global-search-paths                   disable global module search paths
@@ -103,6 +113,7 @@
 # @flag --openssl-shared-config                    enable OpenSSL shared configuration
 # @flag --pending-deprecation                      emit pending deprecation warnings
 # @flag --permission                               enable the permission system
+# @flag --permission-audit                         enable audit only for the permission system
 # @flag --preserve-symlinks                        preserve symbolic links when resolving
 # @flag --preserve-symlinks-main                   preserve symbolic links when resolving the main module
 # @flag -p --print*                                evaluate script and print result
@@ -130,6 +141,7 @@
 # @option --test-coverage-exclude <value>          exclude files from coverage report that match this glob pattern
 # @option --test-coverage-functions <value>        the function coverage minimum threshold
 # @option --test-coverage-include <value>          include files in coverage report that match this glob pattern
+# @flag --test-coverage-include-all                include source files that were never loaded in the coverage report
 # @option --test-coverage-lines <value>            the line coverage minimum threshold
 # @flag --test-force-exit                          force test runner to exit upon completion
 # @option --test-global-setup <value>              specifies the path to the global setup file
@@ -184,7 +196,7 @@
 # @option --watch-kill-signal <value>              kill signal to send to the process on watch mode restarts(default: SIGTERM)
 # @option --watch-path <value>                     path to watch
 # @flag --watch-preserve-output                    preserve outputs on watch mode restart
-# @flag --zero-fill-buffers                        automatically zero-fill all newly allocated Buffer and SlowBuffer instances
+# @flag --zero-fill-buffers                        automatically zero-fill all newly allocated Buffer instances
 # @arg file
 # @arg args*
 

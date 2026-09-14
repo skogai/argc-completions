@@ -26,14 +26,72 @@ edit() {
 
 # {{ zoxide import
 # @cmd Import entries from another application
-# @option --from[autojump|z]    Application to import from
-# @flag --merge                 Merge into existing database
-# @flag -h --help               Print help
-# @flag -V --version            Print version
-# @arg path!
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
 import() {
     :;
 }
+
+# {{{ zoxide import atuin
+# @cmd Import from atuin
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
+import::atuin() {
+    :;
+}
+# }}} zoxide import atuin
+
+# {{{ zoxide import autojump
+# @cmd Import from autojump
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
+import::autojump() {
+    :;
+}
+# }}} zoxide import autojump
+
+# {{{ zoxide import fasd
+# @cmd Import from fasd
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
+import::fasd() {
+    :;
+}
+# }}} zoxide import fasd
+
+# {{{ zoxide import z
+# @cmd Import from z
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
+import::z() {
+    :;
+}
+# }}} zoxide import z
+
+# {{{ zoxide import z.lua
+# @cmd Import from z.lua
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
+import::z.lua() {
+    :;
+}
+# }}} zoxide import z.lua
+
+# {{{ zoxide import zsh-z
+# @cmd Import from zsh-z
+# @flag --merge         Merge into existing database
+# @flag -h --help       Print help
+# @flag -V --version    Print version
+import::zsh-z() {
+    :;
+}
+# }}} zoxide import zsh-z
 # }} zoxide import
 
 # {{ zoxide init

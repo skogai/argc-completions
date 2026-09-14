@@ -10,7 +10,7 @@
 # @option -l --log <FILE>                  output logging to file
 # @flag -q --quiet                         quiet mode
 # @flag -r --readonly                      connect readonly
-# @flag -t --timing                        print timing information
+# @flag -t --timing                        print timing information --no-pkttyagent  suppress registration of pkttyagent
 # @flag -v                                 short version
 # @flag -V                                 long version --version[=TYPE]  version, TYPE is short or long (default short)
 
@@ -54,6 +54,7 @@ attach-device() {
 # @option --source-host-name <string>            host name for source of disk device
 # @option --source-host-transport <string>       host transport for source of disk device
 # @option --source-host-socket <string>          host socket for source of disk device
+# @option --throttle-groups <string>             comma separated list of throttle groups to be applied
 # @flag --persistent                             make live change persistent
 # @flag --config                                 affect next boot
 # @flag --live                                   affect running domain
@@ -97,6 +98,7 @@ attach-interface() {
 # @cmd autostart a domain
 # @option --domain[`_choice_domain`] <string>    domain name, id or uuid
 # @flag --disable                                disable autostarting
+# @flag --once                                   control next boot state
 # @arg domain![`_choice_domain`]
 autostart() {
     :;
@@ -107,6 +109,7 @@ autostart() {
 # @cmd Set or query a block device I/O tuning parameters.
 # @option --domain[`_choice_domain`] <string>      domain name, id or uuid
 # @option --device <string>                        block device
+# @option --group-name <string>                    group name to share I/O quota between multiple drives
 # @option --total-bytes-sec <number>               total throughput limit, as scaled integer (default bytes)
 # @option --read-bytes-sec <number>                read throughput limit, as scaled integer (default bytes)
 # @option --write-bytes-sec <number>               write throughput limit, as scaled integer (default bytes)
@@ -120,7 +123,6 @@ autostart() {
 # @option --read-iops-sec-max <number>             read I/O operations max
 # @option --write-iops-sec-max <number>            write I/O operations max
 # @option --size-iops-sec <number>                 I/O size in bytes
-# @option --group-name <string>                    group name to share I/O quota between multiple drives
 # @option --total-bytes-sec-max-length <number>    duration in seconds to allow total max bytes
 # @option --read-bytes-sec-max-length <number>     duration in seconds to allow read max bytes
 # @option --write-bytes-sec-max-length <number>    duration in seconds to allow write max bytes
@@ -136,6 +138,75 @@ blkdeviotune() {
     :;
 }
 # }} virsh blkdeviotune
+
+# {{ virsh domthrottlegroupset
+# @cmd Add or update a throttling group.
+# @option --domain[`_choice_domain`] <string>      domain name, id or uuid
+# @option --group-name <string>                    throttle group name
+# @option --total-bytes-sec <number>               total throughput limit, as scaled integer (default bytes)
+# @option --read-bytes-sec <number>                read throughput limit, as scaled integer (default bytes)
+# @option --write-bytes-sec <number>               write throughput limit, as scaled integer (default bytes)
+# @option --total-iops-sec <number>                total I/O operations limit per second
+# @option --read-iops-sec <number>                 read I/O operations limit per second
+# @option --write-iops-sec <number>                write I/O operations limit per second
+# @option --total-bytes-sec-max <number>           total max, as scaled integer (default bytes)
+# @option --read-bytes-sec-max <number>            read max, as scaled integer (default bytes)
+# @option --write-bytes-sec-max <number>           write max, as scaled integer (default bytes)
+# @option --total-iops-sec-max <number>            total I/O operations max
+# @option --read-iops-sec-max <number>             read I/O operations max
+# @option --write-iops-sec-max <number>            write I/O operations max
+# @option --size-iops-sec <number>                 I/O size in bytes
+# @option --total-bytes-sec-max-length <number>    duration in seconds to allow total max bytes
+# @option --read-bytes-sec-max-length <number>     duration in seconds to allow read max bytes
+# @option --write-bytes-sec-max-length <number>    duration in seconds to allow write max bytes
+# @option --total-iops-sec-max-length <number>     duration in seconds to allow total I/O operations max
+# @option --read-iops-sec-max-length <number>      duration in seconds to allow read I/O operations max
+# @option --write-iops-sec-max-length <number>     duration in seconds to allow write I/O operations max
+# @flag --config                                   affect next boot
+# @flag --live                                     affect running domain
+# @flag --current                                  affect current domain
+# @arg domain![`_choice_domain`]
+# @arg group-name!
+domthrottlegroupset() {
+    :;
+}
+# }} virsh domthrottlegroupset
+
+# {{ virsh domthrottlegroupdel
+# @cmd Delete a throttling group.
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --group-name <string>                  throttle group name
+# @flag --config                                 affect next boot
+# @flag --live                                   affect running domain
+# @flag --current                                affect current domain
+# @arg domain![`_choice_domain`]
+# @arg group-name!
+domthrottlegroupdel() {
+    :;
+}
+# }} virsh domthrottlegroupdel
+
+# {{ virsh domthrottlegroupinfo
+# @cmd Get a throttling group.
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --group-name <string>                  throttle group name
+# @flag --inactive                               get inactive rather than running configuration
+# @arg domain![`_choice_domain`]
+# @arg group-name!
+domthrottlegroupinfo() {
+    :;
+}
+# }} virsh domthrottlegroupinfo
+
+# {{ virsh domthrottlegrouplist
+# @cmd list all domain throttlegroups.
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @flag --inactive                               get inactive rather than running configuration
+# @arg domain![`_choice_domain`]
+domthrottlegrouplist() {
+    :;
+}
+# }} virsh domthrottlegrouplist
 
 # {{ virsh blkiotune
 # @cmd Get or set blkio parameters
@@ -203,6 +274,7 @@ blockcommit() {
 # @flag --transient-job                          the copy job is not persisted if VM is turned off
 # @flag --synchronous-writes                     the copy job forces guest writes to be synchronously written to the destination
 # @flag --print-xml                              print the XML used to start the copy job instead of starting the job
+# @flag --dest-is-zero                           the destination image is already zeroed; hypervisor may skip pre-zeroing
 # @arg domain![`_choice_domain`]
 # @arg path!
 blockcopy() {
@@ -253,6 +325,7 @@ blockpull() {
 # @option --path <path>                          Fully-qualified path of block device
 # @option --size <number>                        New size of the block device, as scaled integer (default KiB)
 # @flag --capacity                               resize to capacity of source (block device)
+# @flag --extend                                 ensure that the new size is larger than actual capacity (prevent shrink)
 # @arg domain![`_choice_domain`]
 # @arg path!
 # @arg size
@@ -316,7 +389,7 @@ cpu-stats() {
 # @flag --autodestroy          automatically destroy the guest when virsh disconnects
 # @option --pass-fds <file>    pass file descriptors N,M,... to the guest
 # @flag --validate             validate the XML against the schema
-# @flag --reset-nvram          re-initialize NVRAM from its pristine template
+# @flag --reset-nvram          re-initialize NVRAM/varstore from its pristine template
 # @arg file!
 create() {
     :;
@@ -416,7 +489,7 @@ detach-disk() {
 # @flag --current                                affect current domain
 # @flag --print-xml                              print XML document rather than detach the interface
 # @arg domain![`_choice_domain`]
-# @arg type!
+# @arg type
 detach-interface() {
     :;
 }
@@ -495,6 +568,21 @@ domid() {
     :;
 }
 # }} virsh domid
+
+# {{ virsh domifannounce
+# @cmd trigger domain to announce virtual interface to network
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --interface <string>                   interface device (MAC Address)
+# @option --initial <number>                     initial delay before first announcement (milliseconds)
+# @option --max <number>                         maximum delay between announcements (milliseconds)
+# @option --rounds <number>                      total number of announcements
+# @option --step <number>                        increment added to delay (milliseconds) after each announcement
+# @arg domain![`_choice_domain`]
+# @arg interface
+domifannounce() {
+    :;
+}
+# }} virsh domifannounce
 
 # {{ virsh domif-setlink
 # @cmd set link state of a virtual interface
@@ -755,6 +843,7 @@ iothreadadd() {
 # @option --poll-max-ns <number>                 set the maximum IOThread polling time in ns
 # @option --poll-grow <number>                   set the value to increase the IOThread polling time
 # @option --poll-shrink <number>                 set the value for reduction of the IOThread polling time
+# @option --poll-weight <number>                 set the adaptive polling weight factor
 # @option --thread-pool-min <number>             lower boundary for worker thread pool
 # @option --thread-pool-max <number>             upper boundary for worker thread pool
 # @flag --config                                 affect next boot
@@ -927,57 +1016,60 @@ metadata() {
 
 # {{ virsh migrate
 # @cmd migrate domain to another host
-# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
-# @option --desturi <path>                       connection URI of the destination host as seen from the client(normal migration) or source(p2p migration)
-# @flag --live                                   live migration
-# @flag --offline                                offline migration
-# @flag --p2p                                    peer-2-peer migration
-# @flag --direct                                 direct migration
-# @flag --tunnelled                              tunnelled migration
-# @flag --persistent                             persist VM on destination
-# @flag --undefinesource                         undefine VM on source
-# @flag --suspend                                do not restart the domain on the destination host
-# @flag --copy-storage-all                       migration with non-shared storage with full disk copy
-# @flag --copy-storage-inc                       migration with non-shared storage with incremental copy (same base image shared between source and destination)
-# @flag --copy-storage-synchronous-writes        force guest disk writes to be synchronously written to the destination to improve storage migration convergence
-# @flag --change-protection                      prevent any configuration changes to domain until migration ends
-# @flag --unsafe                                 force migration even if it may be unsafe
-# @flag --verbose                                display the progress of migration
-# @flag --compressed                             compress repeated pages during live migration
-# @flag --auto-converge                          force convergence during live migration
-# @flag --rdma-pin-all                           pin all memory before starting RDMA live migration
-# @flag --abort-on-error                         abort on soft errors during migration
-# @flag --postcopy                               enable post-copy migration; switch to it using migrate-postcopy command
-# @flag --postcopy-after-precopy                 automatically switch to post-copy migration after one pass of pre-copy
-# @flag --postcopy-resume                        resume failed post-copy migration
-# @flag --zerocopy                               use zero-copy mechanism for migrating memory pages
-# @option --migrateuri <string>                  migration URI, usually can be omitted
-# @option --graphicsuri <string>                 graphics URI to be used for seamless graphics migration
-# @option --listen-address <path>                listen address that destination should bind to for incoming migration
-# @option --dname <string>                       rename to new name during migration (if supported)
-# @option --timeout <number>                     run action specified by --timeout-* option (suspend by default) if live migration exceeds timeout (in seconds)
-# @flag --timeout-suspend                        suspend the guest after timeout
-# @flag --timeout-postcopy                       switch to post-copy after timeout
-# @option --xml <file>                           filename containing updated XML for the target
-# @option --migrate-disks <string>               comma separated list of disks to be migrated
-# @option --disks-port <number>                  port to use by target server for incoming disks migration
-# @option --disks-uri <string>                   URI to use for disks migration (overrides --disks-port)
-# @option --comp-methods <string>                comma separated list of compression methods to be used
-# @option --comp-mt-level <number>               compress level for multithread compression
-# @option --comp-mt-threads <number>             number of compression threads for multithread compression
-# @option --comp-mt-dthreads <number>            number of decompression threads for multithread compression
-# @option --comp-xbzrle-cache <number>           page cache size for xbzrle compression
-# @option --auto-converge-initial <number>       initial CPU throttling rate for auto-convergence
-# @option --auto-converge-increment <number>     CPU throttling rate increment for auto-convergence
-# @option --persistent-xml <file>                filename containing updated persistent XML for the target
-# @flag --tls                                    use TLS for migration
-# @option --postcopy-bandwidth <number>          post-copy migration bandwidth limit in MiB/s
-# @flag --parallel                               enable parallel migration
-# @option --parallel-connections <number>        number of connections for parallel migration
-# @option --bandwidth <number>                   migration bandwidth limit in MiB/s
-# @option --tls-destination <path>               override the destination host name used for TLS verification
-# @option --comp-zlib-level <number>             compress level for zlib compression
-# @option --comp-zstd-level <number>             compress level for zstd compression
+# @option --domain[`_choice_domain`] <string>     domain name, id or uuid
+# @option --desturi <path>                        connection URI of the destination host as seen from the client(normal migration) or source(p2p migration)
+# @flag --live                                    live migration
+# @flag --offline                                 offline migration
+# @flag --p2p                                     peer-2-peer migration
+# @flag --direct                                  direct migration
+# @flag --tunnelled                               tunnelled migration
+# @flag --persistent                              persist VM on destination
+# @flag --undefinesource                          undefine VM on source
+# @flag --suspend                                 do not restart the domain on the destination host
+# @flag --copy-storage-all                        migration with non-shared storage with full disk copy
+# @flag --copy-storage-inc                        migration with non-shared storage with incremental copy (same base image shared between source and destination)
+# @flag --copy-storage-synchronous-writes         force guest disk writes to be synchronously written to the destination to improve storage migration convergence
+# @flag --change-protection                       prevent any configuration changes to domain until migration ends
+# @flag --unsafe                                  force migration even if it may be unsafe
+# @flag --verbose                                 display the progress of migration
+# @flag --compressed                              compress repeated pages during live migration
+# @flag --auto-converge                           force convergence during live migration
+# @flag --rdma-pin-all                            pin all memory before starting RDMA live migration
+# @flag --abort-on-error                          abort on soft errors during migration
+# @flag --postcopy                                enable post-copy migration; switch to it using migrate-postcopy command
+# @flag --postcopy-after-precopy                  automatically switch to post-copy migration after one pass of pre-copy
+# @flag --postcopy-resume                         resume failed post-copy migration
+# @flag --zerocopy                                use zero-copy mechanism for migrating memory pages
+# @option --migrateuri <string>                   migration URI, usually can be omitted
+# @option --graphicsuri <string>                  graphics URI to be used for seamless graphics migration
+# @option --listen-address <path>                 listen address that destination should bind to for incoming migration
+# @option --dname <string>                        rename to new name during migration (if supported)
+# @option --timeout <number>                      run action specified by --timeout-* option (suspend by default) if live migration exceeds timeout (in seconds)
+# @flag --timeout-suspend                         suspend the guest after timeout
+# @flag --timeout-postcopy                        switch to post-copy after timeout
+# @option --xml <file>                            filename containing updated XML for the target
+# @option --migrate-disks <string>                comma separated list of disks to be migrated
+# @option --migrate-disks-detect-zeroes <string>  comma separated list of disks to be migrated with zero detection enabled
+# @option --migrate-disks-target-zero <string>    comma separated list of disks to be migrated with assumption that target image is zeroed
+# @option --disks-port <number>                   port to use by target server for incoming disks migration
+# @option --disks-uri <string>                    URI to use for disks migration (overrides --disks-port)
+# @option --comp-methods <string>                 comma separated list of compression methods to be used
+# @option --comp-mt-level <number>                compress level for multithread compression
+# @option --comp-mt-threads <number>              number of compression threads for multithread compression
+# @option --comp-mt-dthreads <number>             number of decompression threads for multithread compression
+# @option --comp-xbzrle-cache <number>            page cache size for xbzrle compression
+# @option --auto-converge-initial <number>        initial CPU throttling rate for auto-convergence
+# @option --auto-converge-increment <number>      CPU throttling rate increment for auto-convergence
+# @option --persistent-xml <file>                 filename containing updated persistent XML for the target
+# @flag --tls                                     use TLS for migration
+# @option --postcopy-bandwidth <number>           post-copy migration bandwidth limit in MiB/s
+# @flag --parallel                                enable parallel migration
+# @option --parallel-connections <number>         number of connections for parallel migration
+# @option --bandwidth <number>                    migration bandwidth limit in MiB/s
+# @option --tls-destination <path>                override the destination host name used for TLS verification
+# @option --comp-zlib-level <number>              compress level for zlib compression
+# @option --comp-zstd-level <number>              compress level for zstd compression
+# @option --available-switchover-bandwidth <number>  bandwidth (in MiB/s) available for the final phase of migration
 # @arg domain![`_choice_domain`]
 # @arg desturi!
 migrate() {
@@ -1116,12 +1208,13 @@ reset() {
 
 # {{ virsh restore
 # @cmd restore a domain from a saved state in a file
-# @option --file <file>    the state to restore
-# @flag --bypass-cache     avoid file system cache when restoring
-# @option --xml <file>     filename containing updated XML for the target
-# @flag --running          restore domain into running state
-# @flag --paused           restore domain into paused state
-# @flag --reset-nvram      re-initialize NVRAM from its pristine template
+# @option --file <file>                   the state to restore
+# @flag --bypass-cache                    avoid file system cache when restoring
+# @option --parallel-channels <number>    number of IO channels to use for parallel restore
+# @option --xml <file>                    filename containing updated XML for the target
+# @flag --running                         restore domain into running state
+# @flag --paused                          restore domain into paused state
+# @flag --reset-nvram                     re-initialize NVRAM/varstore from its pristine template
 # @arg file!
 restore() {
     :;
@@ -1142,6 +1235,8 @@ resume() {
 # @option --domain[`_choice_domain`] <string>    domain name, id or uuid
 # @option --file <file>                          where to save the data
 # @flag --bypass-cache                           avoid file system cache when saving
+# @option --parallel-channels <number>           number of IO channels to use for parallel save
+# @option --image-format <file>                  format of the save image file
 # @option --xml <file>                           filename containing updated XML for the target
 # @flag --running                                set domain to be running on restore
 # @flag --paused                                 set domain to be paused on restore
@@ -1299,6 +1394,7 @@ setmem() {
 # @flag --current                                affect current domain
 # @flag --guest                                  modify cpu state in the guest
 # @flag --hotpluggable                           make added vcpus hot(un)pluggable
+# @flag --async                                  return after firing vcpu unplug request(s)
 # @arg domain![`_choice_domain`]
 # @arg count!
 setvcpus() {
@@ -1326,7 +1422,7 @@ shutdown() {
 # @flag --bypass-cache                           avoid file system cache when loading
 # @flag --force-boot                             force fresh boot by discarding any managed save
 # @option --pass-fds <file>                      pass file descriptors N,M,... to the guest
-# @flag --reset-nvram                            re-initialize NVRAM from its pristine template
+# @flag --reset-nvram                            re-initialize NVRAM/varstore from its pristine template
 # @arg domain![`_choice_domain`]
 start() {
     :;
@@ -1361,8 +1457,8 @@ ttyconsole() {
 # @flag --wipe-storage                           wipe data on the removed volumes
 # @flag --snapshots-metadata                     remove all domain snapshot metadata (vm must be inactive)
 # @flag --checkpoints-metadata                   remove all domain checkpoint metadata (vm must be inactive)
-# @flag --nvram                                  remove nvram file
-# @flag --keep-nvram                             keep nvram file
+# @flag --nvram                                  remove NVRAM/varstore file
+# @flag --keep-nvram                             keep NVRAM/varstore file
 # @flag --tpm                                    remove TPM state
 # @flag --keep-tpm                               keep TPM state
 # @arg domain![`_choice_domain`]
@@ -1482,6 +1578,7 @@ guestvcpus() {
 # @option --vcpulist <string>                    ids of vcpus to manipulate
 # @flag --enable                                 enable cpus specified by cpumap
 # @flag --disable                                disable cpus specified by cpumap
+# @flag --async                                  return after firing vcpu unplug request
 # @flag --config                                 affect next boot
 # @flag --live                                   affect running domain
 # @flag --current                                affect current domain
@@ -1515,6 +1612,8 @@ domblkthreshold() {
 # @flag --filesystem                             report filesystem information
 # @flag --disk                                   report disk information
 # @flag --interface                              report interface information
+# @flag --load                                   report load averages information
+# @flag --devices                                report devices information
 # @arg domain![`_choice_domain`]
 guestinfo() {
     :;
@@ -1777,6 +1876,18 @@ event() {
 }
 # }} virsh event
 
+# {{ virsh await
+# @cmd await a domain event
+# @option --domain[`_choice_domain`] <string>    domain name, id or uuid
+# @option --condition <string>                   which condition to wait until
+# @option --timeout <number>                     timeout seconds
+# @arg domain![`_choice_domain`]
+# @arg string!
+await() {
+    :;
+}
+# }} virsh await
+
 # {{ virsh allocpages
 # @cmd Manipulate pages pool size
 # @option --pagesize <number>     page size (in kibibytes)
@@ -1833,12 +1944,15 @@ cpu-models() {
 
 # {{ virsh domcapabilities
 # @cmd domain capabilities
-# @option --virttype <string>     virtualization type (/domain/@type)
-# @option --emulatorbin <path>    path to emulator binary (/domain/devices/emulator)
-# @option --arch <string>         domain architecture (/domain/os/type/@arch)
-# @option --machine <string>      machine type (/domain/os/type/@machine)
-# @option --xpath <path>          xpath expression to filter the XML document
-# @flag --wrap                    wrap xpath results in an common root element
+# @option --virttype <string>            virtualization type (/domain/@type)
+# @option --emulatorbin <path>           path to emulator binary (/domain/devices/emulator)
+# @option --arch <string>                domain architecture (/domain/os/type/@arch)
+# @option --machine <string>             machine type (/domain/os/type/@machine)
+# @option --xpath <path>                 xpath expression to filter the XML document
+# @flag --wrap                           wrap xpath results in an common root element
+# @flag --disable-deprecated-features    report host CPU model with deprecated features disabled
+# @flag --expand-cpu-features            expand 'host-model' CPU to also show features enabled by the CPU model
+# @flag --supported-cpu-features         include all supported CPU features in 'host-model' mode, not only those enabled by default
 domcapabilities() {
     :;
 }
@@ -1879,6 +1993,7 @@ hostname() {
 # @option --machine <string>     machine type (/domain/os/type/@machine)
 # @flag --features               Show features that are part of the CPU model type
 # @flag --migratable             Do not include features that block migration
+# @flag --ignore-host            when computing baseline from several CPUs, do not take hypervisor capabilities into account and work with input data only
 # @option --model <string>       Shortcut for calling the command with a single CPU model and no additional features
 hypervisor-cpu-baseline() {
     :;
@@ -1899,6 +2014,18 @@ hypervisor-cpu-compare() {
     :;
 }
 # }} virsh hypervisor-cpu-compare
+
+# {{ virsh hypervisor-cpu-models
+# @cmd Hypervisor reported CPU models
+# @option --virttype <string>    virtualization type (/domain/@type)
+# @option --emulator <path>      path to emulator binary (/domain/devices/emulator)
+# @option --arch <string>        CPU architecture (/domain/os/type/@arch)
+# @option --machine <string>     machine type (/domain/os/type/@machine)
+# @flag --all                    include all CPU models known to the hypervisor for the architecture
+hypervisor-cpu-models() {
+    :;
+}
+# }} virsh hypervisor-cpu-models
 
 # {{ virsh maxvcpus
 # @cmd connection vcpu maximum
@@ -2937,7 +3064,7 @@ snapshot-parent() {
 # @flag --running                                after reverting, change state to running
 # @flag --paused                                 after reverting, change state to paused
 # @flag --force                                  try harder on risky reverts
-# @flag --reset-nvram                            re-initialize NVRAM from its pristine template
+# @flag --reset-nvram                            re-initialize NVRAM/varstore from its pristine template
 # @arg domain![`_choice_domain`]
 # @arg snapshotname
 snapshot-revert() {
@@ -2951,6 +3078,7 @@ snapshot-revert() {
 # @option --backupxml <string>                   domain backup XML
 # @option --checkpointxml <string>               domain checkpoint XML
 # @flag --reuse-external                         reuse files provided by caller
+# @flag --preserve-domain-on-shutdown            avoid shutdown of the domain while the backup is running
 # @arg domain![`_choice_domain`]
 # @arg backupxml
 backup-begin() {

@@ -17,7 +17,7 @@
 # @flag -x --line-regexp                           When enabled, ripgrep will only show matches surrounded by line boundaries.
 # @option -m --max-count <NUM>                     Limit the number of matching lines per file searched to NUM.
 # @flag --mmap                                     When enabled, ripgrep will search using memory maps when possible.
-# @flag -U --multiline                             This flag enable searching across multiple lines.
+# @flag -U --multiline                             This flag enables searching across multiple lines.
 # @flag --multiline-dotall                         This flag enables "dot all" mode in all regex patterns.
 # @flag --no-unicode                               This flag disables Unicode mode for all patterns given to ripgrep.
 # @flag --null-data                                Enabling this flag causes ripgrep to use NUL as a line terminator instead of the default of \n.

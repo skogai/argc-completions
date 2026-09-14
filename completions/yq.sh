@@ -12,6 +12,7 @@
 # @flag --header-preprocess                  Slurp any header comments and separators before processing expression.
 # @flag -h --help                            help for yq
 # @option -I --indent <int>                  sets indent level for output (default 2)
+# @flag --ini-preserve-quotes                preserve surrounding quotes on INI values during round-trip
 # @flag -i --inplace                         update the file in place of first file given.
 # @option -p --input-format[auto|a|yaml|y|kyaml|ky|json|j|props|p|csv|c|tsv|t|xml|x|base64|uri|toml|hcl|h|lua|l|ini|i] <string>  parse format for input.
 # @flag --lua-globals                        output keys as top-level global variables
@@ -70,6 +71,7 @@ completion() {
 # @option -f --front-matter <string>         (extract|process) first input as yaml front-matter.
 # @flag --header-preprocess                  Slurp any header comments and separators before processing expression.
 # @option -I --indent <int>                  sets indent level for output (default 2)
+# @flag --ini-preserve-quotes                preserve surrounding quotes on INI values during round-trip
 # @flag -i --inplace                         update the file in place of first file given.
 # @option -p --input-format[auto|a|yaml|y|kyaml|ky|json|j|props|p|csv|c|tsv|t|xml|x|base64|uri|toml|hcl|h|lua|l|ini|i] <string>  parse format for input.
 # @flag --lua-globals                        output keys as top-level global variables
@@ -124,6 +126,7 @@ eval_() {
 # @option -f --front-matter <string>         (extract|process) first input as yaml front-matter.
 # @flag --header-preprocess                  Slurp any header comments and separators before processing expression.
 # @option -I --indent <int>                  sets indent level for output (default 2)
+# @flag --ini-preserve-quotes                preserve surrounding quotes on INI values during round-trip
 # @flag -i --inplace                         update the file in place of first file given.
 # @option -p --input-format[auto|a|yaml|y|kyaml|ky|json|j|props|p|csv|c|tsv|t|xml|x|base64|uri|toml|hcl|h|lua|l|ini|i] <string>  parse format for input.
 # @flag --lua-globals                        output keys as top-level global variables

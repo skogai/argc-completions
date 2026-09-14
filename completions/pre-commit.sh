@@ -36,6 +36,19 @@ gc() {
 }
 # }} pre-commit gc
 
+# {{ pre-commit hazmat
+# @cmd Composable tools for rare use in hook `entry`.
+# @flag -h --help                       show this help message and exit
+# @option --color[auto|always|never]    Whether to use color in output.
+# @arg enum[cd|ignore-exit-code|n1]
+# @arg cd                               cd to a subdir and run the command
+# @arg ignore-exit-code                 run the command but ignore the exit code
+# @arg n1                               run the command once per filename
+hazmat() {
+    :;
+}
+# }} pre-commit hazmat
+
 # {{ pre-commit init-templatedir
 # @cmd Install hook script in a directory intended for use with `git config init.templateDir`.
 # @flag -h --help                       show this help message and exit
@@ -92,6 +105,7 @@ migrate-config() {
 # @flag -a --all-files                            Run on all the files in the repo.
 # @option --files*                                Specific filenames to run hooks on.
 # @flag --show-diff-on-failure                    When hooks fail, run `git diff` directly afterward.
+# @flag --fail-fast                               Stop after the first failing hook.
 # @option --hook-stage[commit-msg|post-checkout|post-commit|post-merge|post-rewrite|pre-commit|pre-merge-commit|pre-push|pre-rebase|prepare-commit-msg|manual]  The stage during which the hook is fired.
 # @option --remote-branch[`_module_git_remote_branch`] <REMOTE_BRANCH>  Remote branch ref used by `git push`.
 # @option --local-branch[`_module_git_local_branch`] <LOCAL_BRANCH>  Local branch ref used by `git push`.
@@ -137,6 +151,7 @@ sample-config() {
 # @flag -a --all-files                            Run on all the files in the repo.
 # @option --files*                                Specific filenames to run hooks on.
 # @flag --show-diff-on-failure                    When hooks fail, run `git diff` directly afterward.
+# @flag --fail-fast                               Stop after the first failing hook.
 # @option --hook-stage[commit-msg|post-checkout|post-commit|post-merge|post-rewrite|pre-commit|pre-merge-commit|pre-push|pre-rebase|prepare-commit-msg|manual]  The stage during which the hook is fired.
 # @option --remote-branch <REMOTE_BRANCH>         Remote branch ref used by `git push`.
 # @option --local-branch <LOCAL_BRANCH>           Local branch ref used by `git push`.

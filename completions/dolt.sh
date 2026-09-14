@@ -8,6 +8,7 @@
 # @option --port <port>
 # @flag --no-tls
 # @option --data-dir <data-dir>
+# @option -C --directory <dir>
 # @option --doltcfg-dir <doltcfg-dir>
 # @option --privilege-file <privilege-file>
 # @option --branch-control-file <branch-control-file>

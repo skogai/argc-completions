@@ -3,7 +3,7 @@
 
 # @meta combine-shorts
 # @flag -b --background                         Background immediately.
-# @option -c --script <script>                  Use this script instead of the default /nix/store/fi5grp4d3ha4f2wqzbbvnjmwnwgrrpk5-dhcpcd-10.0.8/libexec/dhcpcd-run-hooks.
+# @option -c --script <script>                  Use this script instead of the default /usr/lib/dhcpcd/dhcpcd-run-hooks.
 # @option -D --duid <ll | lt | uuid | value>    Use a DHCP Unique Identifier.
 # @flag -d --debug                              Echo debug messages to the stderr and syslog.
 # @flag -E --lastlease                          If dhcpcd cannot obtain a lease, then try to use the last lease acquired for the interface.
@@ -22,7 +22,7 @@
 # @option -m --metric <metric>                  Metrics are used to prefer an interface over another one, lowest wins.
 # @option -n --rebind <interface>               Notifies dhcpcd to reload its configuration and rebind the specified interface.
 # @option -N --renew <interface>                Notifies dhcpcd to renew existing addresses on the specified interface.
-# @option -o --option <option>                  Request the DHCP option variable for use in /nix/store/fi5grp4d3ha4f2wqzbbvnjmwnwgrrpk5-dhcpcd-10.0.8/libexec/dhcpcd-run-hooks.
+# @option -o --option <option>                  Request the DHCP option variable for use in /usr/lib/dhcpcd/dhcpcd-run-hooks.
 # @flag -p --persistent                         dhcpcd de-configures the interface when it exits unless this option is enabled.
 # @option -r --request <address>                Request the address in the DHCP DISCOVER message.
 # @option -s --inform <address[/cidr[/broadcast_address]]>  Behaves like -r, --request as above, but sends a DHCP INFORM instead of DISCOVER/REQUEST.
@@ -51,7 +51,7 @@
 # @flag -P --printpidfile                       Print the pidfile dhcpcd will use based on command-line arguments to stdout.
 # @option -Q --require <option>                 Requires the option to be present in all DHCP messages, otherwise the message is ignored.
 # @flag -q --quiet                              Quiet dhcpcd on the command line, only warnings and errors will be displayed.
-# @flag -T --test                               On receipt of DHCP messages just call /nix/store/fi5grp4d3ha4f2wqzbbvnjmwnwgrrpk5-dhcpcd-10.0.8/libexec/dhcpcd-run-hooks with the reason of TEST which echos the DHCP variables found in the message to the console.
+# @flag -T --test                               On receipt of DHCP messages just call /usr/lib/dhcpcd/dhcpcd-run-hooks with the reason of TEST which echos the DHCP variables found in the message to the console.
 # @option -U --dumplease <interface>            Dumps the current lease for the interface to stdout.
 # @flag -V --variables                          Display a list of option codes, the associated variable and encoding for use in dhcpcd-run-hooks(8).
 # @option -W --whitelist <address[/cidr]>       Only accept packets from address[/cidr].

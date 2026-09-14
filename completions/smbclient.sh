@@ -10,12 +10,12 @@
 # @option -b --send-buffer <buffersize>            When sending or receiving files, smbclient uses an internal buffer sized by the maximum number of allowed requests to the connected server.
 # @flag -B --browse                                Browse SMB servers using DNS.
 # @option -t --timeout <timeout-seconds>           This allows the user to tune the default timeout used for each SMB request.
-# @option -T --tar <tar> <options>                 smbclient may be used to create tar(1) compatible backups of all the files on an SMB/CIFS share.
-# @option -D --directory <initial> <directory>     Change to initial directory before starting.
-# @option -c --command <command> <string>          command string is a semicolon-separated list of commands to be executed instead of prompting from stdin.
+# @flag -T --tar                                   tar options smbclient may be used to create tar(1) compatible backups of all the files on an SMB/CIFS share.
+# @flag -D --directory                             initial directory Change to initial directory before starting.
+# @flag -c --command                               command string command string is a semicolon-separated list of commands to be executed instead of prompting from stdin.
 # @flag -? --help                                  Print a summary of command line options.
 # @flag --usage                                    Display brief usage message.
-# @option -d --debuglevel                          level is an integer from 0 to 10.
+# @option -d --debuglevel <level>                  level is an integer from 0 to 10.
 # @flag --debug-stdout                             This will redirect debug output to STDOUT.
 # @option --configfile <configuration file>        The file specified contains the configuration details required by the client.
 # @option --option <<name>=<value>>                Set the smb.conf(5) option "<name>" to value "<value>" from the command line.

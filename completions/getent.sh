@@ -4,6 +4,7 @@
 # @flag -A --no-addrconfig         do not filter out unsupported IPv4/IPv6 addresses (with ahosts*)
 # @flag -i --no-idn                disable IDN encoding
 # @option -s --service <CONFIG>    Service configuration to be used
+# @flag -v --verbose               print getaddrinfo error details
 # @flag -? --help                  Give this help list
 # @flag --usage                    Give a short usage message
 # @flag -V --version               Print program version

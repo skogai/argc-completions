@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag --help    Show this message and exit.
+# @flag --version    Show the version and exit.
+# @flag --help       Show this message and exit.
 
 # {{ gptmail agent
 # @cmd Inter-agent SSH messaging (filesystem...
@@ -13,6 +14,7 @@ agent() {
 # {{{ gptmail agent broadcast
 # @cmd Send a message to every agent in the registry except self.
 # @option --mailbox <TEXT>    Mailbox to send from.
+# @flag --no-reply            Mark the broadcast as informational; recipients owe no reply.
 # @flag --help                Show this message and exit.
 # @arg subject
 # @arg content
@@ -38,13 +40,29 @@ agent::list() {
 # @option --mailbox <TEXT>    Mailbox to inspect.
 # @flag --all-mailboxes       Scan default plus every named mailbox.
 # @option --for <TEXT>        Show messages pending for a recipient.
+# @option --as <IDENTITY>     Check pending as this identity instead of AGENT_NAME/$USER.
 # @flag --fleet               Fan out across all registered agents.
 # @flag --json                Emit machine-readable JSON.
+# @flag --include-stale       Also list unreplied messages that aged out of the reply window.
 # @flag --help                Show this message and exit.
 agent::pending() {
     :;
 }
 # }}} gptmail agent pending
+
+# {{{ gptmail agent pull
+# @cmd Pull messages from all SSH-reachable agents' outboxes...
+# @option --as <IDENTITY>       Pull as this identity instead of AGENT_NAME/$USER.
+# @option --mailbox <TEXT>      Mailbox to fetch into.
+# @flag --all-mailboxes         Pull across default plus every named mailbox.
+# @option --notify-cmd <CMD>    Command to invoke when new messages arrive.
+# @flag --json                  Emit machine-readable JSON.
+# @flag --dry-run               Show what would be fetched without writing files.
+# @flag --help                  Show this message and exit.
+agent::pull() {
+    :;
+}
+# }}} gptmail agent pull
 
 # {{{ gptmail agent read
 # @cmd Read a message (marks it read), optionally with its thread.
@@ -71,6 +89,7 @@ agent::reply() {
 # {{{ gptmail agent send
 # @cmd Send a message to another agent.
 # @option --mailbox <TEXT>    Mailbox to send from.
+# @flag --no-reply            Mark the message as informational; the recipient owes no reply.
 # @flag --help                Show this message and exit.
 # @arg to
 # @arg subject

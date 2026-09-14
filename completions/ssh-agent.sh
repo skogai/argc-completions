@@ -14,5 +14,6 @@
 # @option -t <life>                 Set a default value for the maximum lifetime of identities added to the agent.
 # @flag -U                          Instructs ssh-agent not to clean up stale agent sockets under $HOME/.ssh/agent/.
 # @flag -u                          Instructs ssh-agent to only clean up stale agent sockets under $HOME/.ssh/agent/ and then exit immediately.
+# @flag -V                          Display the version number and exit.
 
 command eval "$(argc --argc-eval "$0" "$@")"

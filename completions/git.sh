@@ -488,6 +488,7 @@ grep() {
 # @flag --full-diff                             Without this flag, git log -p <path>... shows commits that touch the specified paths, and diffs about the same specified paths.
 # @flag --log-size                              Include a line log size <number> in the output for each commit, where <number> is the length of that commit’s message in bytes.
 # @option -L <<start>,<end>:<file>>             Trace the evolution of the line range given by <start>,<end>, or by the function name regex <funcname>, within the <file>.
+# @option --max-count-oldest <number>           Limit the output to the last <number> commits that would be shown.
 # @option --skip <number>                       Skip <number> commits before starting to show the commit output.
 # @option --since <date>                        Show commits more recent than <date>.
 # @option --after <date>                        Show commits more recent than <date>.
@@ -565,6 +566,7 @@ grep() {
 # @flag --left-right                            Mark which side of a symmetric difference a commit is reachable from.
 # @flag --graph                                 Draw a text-based graphical representation of the commit history on the left hand side of the output.
 # @option --show-linear-break <barrier>         When --graph is not used, all history branches are flattened which can make it hard to see that the two consecutive commits do not belong to a linear branch.
+# @option --graph-lane-limit <n>                When --graph is used, limit the number of graph lanes to be shown.
 # @flag -p                                      Generate patch (see the section called “GENERATING PATCH TEXT WITH -P”).
 # @flag -u                                      Generate patch (see the section called “GENERATING PATCH TEXT WITH -P”).
 # @flag --patch                                 Generate patch (see the section called “GENERATING PATCH TEXT WITH -P”).
@@ -1028,7 +1030,7 @@ reset() {
 # @flag --no-guess                          If <branch> is not found but there does exist a tracking branch in exactly one remote (call it <remote>) with a matching name, treat as equivalent to
 # @flag -f --force                          An alias for --discard-changes.
 # @flag --discard-changes                   Proceed even if the index or the working tree differs from HEAD.
-# @flag -m --merge                          If you have local modifications to one or more files that are different between the current branch and the branch to which you are switching, the command refuses to switch branches in order to preserve your modifications in context.
+# @flag -m --merge                          If you have local modifications to one or more files that are different between the current branch and the branch to which you are switching, the command normally refuses to switch branches in order to preserve your modifications in context.
 # @option --conflict <style>                The same as --merge option above, but changes the way the conflicting hunks are presented, overriding the merge.conflictStyle configuration variable.
 # @flag -q --quiet                          Quiet, suppress feedback messages.
 # @flag --progress                          Progress status is reported on the standard error stream by default when it is attached to a terminal, unless --quiet is specified.
@@ -1047,8 +1049,8 @@ switch() {
 
 # {{ git fetch
 # @cmd Download objects and refs from another repository
-# @flag --all                                    Fetch all remotes, except for the ones that has the remote.<name>.skipFetchAll configuration variable set.
-# @flag --no-all                                 Fetch all remotes, except for the ones that has the remote.<name>.skipFetchAll configuration variable set.
+# @flag --all                                    Fetch all remotes, except for the ones that have the remote.<name>.skipFetchAll configuration variable set.
+# @flag --no-all                                 Fetch all remotes, except for the ones that have the remote.<name>.skipFetchAll configuration variable set.
 # @flag -a --append                              Append ref names and object names of fetched refs to the existing contents of .git/FETCH_HEAD.
 # @flag --atomic                                 Use an atomic transaction to update local refs.
 # @option --depth <depth>                        Limit fetching to the specified number of commits from the tip of each remote branch history.
@@ -1057,8 +1059,10 @@ switch() {
 # @option --shallow-exclude <ref>                Deepen or shorten the history of a shallow repository to exclude commits reachable from a specified remote branch or tag.
 # @flag --unshallow                              If the source repository is complete, convert a shallow repository to a complete one, removing all the limitations imposed by shallow repositories.
 # @flag --update-shallow                         By default when fetching from a shallow repository, git fetch refuses refs that require updating .git/shallow.
+# @option --negotiation-restrict <<commit>|<glob>>  By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile.
 # @option --negotiation-tip <<commit>|<glob>>    By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile.
-# @flag --negotiate-only                         Do not fetch anything from the server, and instead print the ancestors of the provided --negotiation-tip= arguments, which we have in common with the server.
+# @option --negotiation-include <<commit>|<glob>>  Ensure that the commits at the given tips are always sent as "have" lines during fetch negotiation, regardless of what the negotiation algorithm selects.
+# @flag --negotiate-only                         Do not fetch anything from the server, and instead print the ancestors of the provided --negotiation-restrict= arguments, which we have in common with the server.
 # @flag --dry-run                                Show what would be done, without making any changes.
 # @flag --porcelain                              Print the output to standard output in an easy-to-parse format for scripts.
 # @option --filter <filter-spec>                 Use the partial clone feature and request that the server sends a subset of reachable objects according to a given object filter.
@@ -1145,8 +1149,8 @@ fetch() {
 # @flag --allow-unrelated-histories              By default, git merge command refuses to merge histories that do not share a common ancestor.
 # @option -r --rebase[true|merges|false|interactive]  true rebase the current branch on top of the upstream branch after fetching.
 # @flag --no-rebase                              This is shorthand for --rebase=false.
-# @flag --all                                    Fetch all remotes, except for the ones that has the remote.<name>.skipFetchAll configuration variable set.
-# @flag --no-all                                 Fetch all remotes, except for the ones that has the remote.<name>.skipFetchAll configuration variable set.
+# @flag --all                                    Fetch all remotes, except for the ones that have the remote.<name>.skipFetchAll configuration variable set.
+# @flag --no-all                                 Fetch all remotes, except for the ones that have the remote.<name>.skipFetchAll configuration variable set.
 # @flag -a --append                              Append ref names and object names of fetched refs to the existing contents of .git/FETCH_HEAD.
 # @flag --atomic                                 Use an atomic transaction to update local refs.
 # @option --depth <depth>                        Limit fetching to the specified number of commits from the tip of each remote branch history.
@@ -1155,8 +1159,10 @@ fetch() {
 # @option --shallow-exclude <ref>                Deepen or shorten the history of a shallow repository to exclude commits reachable from a specified remote branch or tag.
 # @flag --unshallow                              If the source repository is complete, convert a shallow repository to a complete one, removing all the limitations imposed by shallow repositories.
 # @flag --update-shallow                         By default when fetching from a shallow repository, git fetch refuses refs that require updating .git/shallow.
+# @option --negotiation-restrict <<commit>|<glob>>  By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile.
 # @option --negotiation-tip <<commit>|<glob>>    By default, Git will report, to the server, commits reachable from all local refs to find common commits in an attempt to reduce the size of the to-be-received packfile.
-# @flag --negotiate-only                         Do not fetch anything from the server, and instead print the ancestors of the provided --negotiation-tip= arguments, which we have in common with the server.
+# @option --negotiation-include <<commit>|<glob>>  Ensure that the commits at the given tips are always sent as "have" lines during fetch negotiation, regardless of what the negotiation algorithm selects.
+# @flag --negotiate-only                         Do not fetch anything from the server, and instead print the ancestors of the provided --negotiation-restrict= arguments, which we have in common with the server.
 # @flag --dry-run                                Show what would be done, without making any changes.
 # @flag --porcelain                              Print the output to standard output in an easy-to-parse format for scripts.
 # @option --filter <filter-spec>                 Use the partial clone feature and request that the server sends a subset of reachable objects according to a given object filter.
@@ -1262,9 +1268,9 @@ push() {
 # @flag --committer-date-is-author-date      By default the command records the date from the e-mail message as the commit author date, and uses the time of commit creation as the committer date.
 # @flag --ignore-date                        By default the command records the date from the e-mail message as the commit author date, and uses the time of commit creation as the committer date.
 # @flag --skip                               Skip the current patch.
-# @option -S <keyid>                         GPG-sign commits.
-# @option --gpg-sign <keyid>                 GPG-sign commits.
-# @option --no-gpg-sign <keyid>              GPG-sign commits.
+# @option -S <key-id>                        GPG-sign commits.
+# @option --gpg-sign <key-id>                GPG-sign commits.
+# @option --no-gpg-sign <key-id>             GPG-sign commits.
 # @flag -r                                   After a patch failure (e.g. attempting to apply conflicting patch), the user has applied it by hand and the index file stores the result of the application.
 # @flag --continue                           After a patch failure (e.g. attempting to apply conflicting patch), the user has applied it by hand and the index file stores the result of the application.
 # @flag --resolved                           After a patch failure (e.g. attempting to apply conflicting patch), the user has applied it by hand and the index file stores the result of the application.
@@ -1304,8 +1310,8 @@ am() {
 # @flag --no-add                          When applying a patch, ignore additions made by the patch.
 # @flag --allow-binary-replacement        Historically we did not allow binary patch application without an explicit permission from the user, and this flag was the way to do so.
 # @flag --binary                          Historically we did not allow binary patch application without an explicit permission from the user, and this flag was the way to do so.
-# @option --exclude <path-pattern>        Don’t apply changes to files matching the given path pattern.
-# @option --include <path-pattern>        Apply changes to files matching the given path pattern.
+# @option --exclude <path-pattern>        Don’t apply changes to files matching <path-pattern>.
+# @option --include <path-pattern>        Apply changes to files matching the <path-pattern>.
 # @flag --ignore-space-change             When applying a patch, ignore changes in whitespace in context lines if necessary.
 # @flag --ignore-whitespace               When applying a patch, ignore changes in whitespace in context lines if necessary.
 # @option --whitespace <action>           When applying a patch, detect a new or modified line that has whitespace errors.
@@ -1314,7 +1320,7 @@ am() {
 # @flag -q --quiet                        Suppress stderr output.
 # @flag --recount                         Do not trust the line counts in the hunk headers, but infer them by inspecting the patch (e.g. after editing the patch without adjusting the hunk headers appropriately).
 # @option --directory <root>              Prepend <root> to all filenames.
-# @flag --unsafe-paths                    By default, a patch that affects outside the working area (either a Git controlled working tree, or the current working directory when "git apply" is used as a replacement of GNU patch) is rejected as a mistake (or a mischief).
+# @flag --unsafe-paths                    By default, a patch that affects outside the working area (either a Git controlled working tree, or the current working directory when git apply is used as a replacement of GNU patch) is rejected as a mistake (or a mischief).
 # @flag --allow-empty                     Don’t return an error for patches containing no diff.
 # @arg patch*
 apply() {
@@ -1935,8 +1941,8 @@ describe() {
 # @flag -d --dir-diff           Copy the modified files to a temporary location and perform a directory diff on them.
 # @flag -y --no-prompt          Do not prompt before launching a diff tool.
 # @flag --prompt                Prompt before each invocation of the diff tool.
-# @option --rotate-to <file>    Start showing the diff for the given path, the paths before it will move to the end and output.
-# @option --skip-to <file>      Start showing the diff for the given path, skipping all the paths before it.
+# @option --rotate-to <file>    Start showing the diff for <file>, the paths before it will move to the end and output.
+# @option --skip-to <file>      Start showing the diff for <file>, skipping all the paths before it.
 # @option -t --tool <tool>      Use the diff tool specified by <tool>.
 # @flag --tool-help             Print a list of diff tools that may be used with --tool.
 # @flag --symlinks              git difftool's default behavior is to create symlinks to the working tree when run in --dir-diff mode and the right-hand side of the comparison yields the same content as the file in the working tree.
@@ -2033,7 +2039,7 @@ difftool() {
 # @flag --always                                Include patches for commits that do not introduce any change, which are omitted by default.
 # @option --cover-from-description <mode>       Controls which parts of the cover letter will be automatically populated using the branch’s description.
 # @option --description-file <file>             Use the contents of <file> instead of the branch’s description for generating the cover letter.
-# @option --subject-prefix <subject-prefix>     Instead of the standard [PATCH] prefix in the subject line, instead use [<subject-prefix>].
+# @option --subject-prefix <subject-prefix>     Use [<subject-prefix>] instead of the standard [PATCH] prefix in the subject line.
 # @option --filename-max-length <n>             Instead of the standard 64 bytes, chomp the generated output filenames at around <n> bytes (too short a value will be silently raised to a reasonable length).
 # @option --rfc <rfc>                           Prepends the string <rfc> (defaults to "RFC") to the subject prefix.
 # @option -v --reroll-count <n>                 Mark the series as the <n>-th iteration of the topic.
@@ -2671,7 +2677,7 @@ remote::set-url() {
 # @flag -k --keep-unreachable                 When used with -ad, any unreachable objects from existing packs will be appended to the end of the packfile instead of being removed.
 # @flag -i --delta-islands                    Pass the --delta-islands option to git-pack-objects, see git-pack-objects(1).
 # @option -g --geometric <factor>             Arrange resulting pack structure so that each successive pack contains at least <factor> times the number of objects as the next-largest pack.
-# @flag -m --write-midx                       Write a multi-pack index (see git-multi-pack-index(1)) containing the non-redundant packs.
+# @option -m --write-midx <mode>              Write a multi-pack index (see git-multi-pack-index(1)) containing the non-redundant packs.
 # @option --name-hash-version <n>             Provide this argument to the underlying git pack-objects process.
 # @flag --path-walk                           Pass the --path-walk option to the underlying git pack-objects process.
 repack() {
@@ -2742,6 +2748,7 @@ revert() {
 # @option --date <format>                         Show dates formatted according to the given date string.
 # @option --group <type>                          Group commits based on <type>.
 # @option -w <<width>[,<indent1>[,<indent2>]]>    Linewrap the output by wrapping each line at width.
+# @option --max-count-oldest <number>             Limit the output to the last <number> commits that would be shown.
 # @option --skip <number>                         Skip <number> commits before starting to show the commit output.
 # @option --since <date>                          Show commits more recent than <date>.
 # @option --after <date>                          Show commits more recent than <date>.
@@ -3352,6 +3359,14 @@ _choice_unstaged_file() {
 }' | _argc_util_comp_parts /
 }
 
+_choice_restore_file() {
+    if [[ -n "$argc_staged" ]]; then
+        _choice_staged_file
+    else
+        _choice_changed_file
+    fi
+}
+
 _choice_diff() {
     _choice_reset
 }
@@ -3426,14 +3441,6 @@ _choice_config_key() {
 
 _choice_ref() {
     _argc_util_parallel _choice_local_branch ::: _choice_remote_branch ::: _choice_tag
-}
-
-_choice_restore_file() {
-    if [[ -n "$argc_staged" ]]; then
-        _choice_staged_file
-    else
-        _choice_changed_file
-    fi
 }
 
 _choice_stash() {

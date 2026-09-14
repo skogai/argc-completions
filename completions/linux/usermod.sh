@@ -25,6 +25,7 @@
 # @option -V --del-subuids <FIRST-LAST>           remove range of subordinate uids
 # @option -w --add-subgids <FIRST-LAST>           add range of subordinate gids
 # @option -W --del-subgids <FIRST-LAST>           remove range of subordinate gids
+# @flag -S --add-subids                           add entries to sub[ug]id based on system defaults
 # @arg login[`_module_os_user`]
 
 _module_os_group() {

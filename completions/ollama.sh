@@ -45,9 +45,6 @@ show() {
 # {{ ollama run
 # @cmd Run a model
 # @option --dimensions <int>           Truncate output embeddings to specified dimension (embedding models only)
-# @flag --experimental                 Enable experimental agent loop with tools
-# @flag --experimental-websearch       Enable web search tool in experimental mode
-# @flag --experimental-yolo            Skip all tool approval prompts (use with caution)
 # @option --format <string>            Response format (e.g. json)
 # @flag -h --help                      help for run
 # @flag --hidethinking                 Hide thinking output (if provided)
@@ -57,11 +54,6 @@ show() {
 # @option --think <string[="true"]>    Enable thinking mode: true/false or high/medium/low for supported models
 # @flag --truncate                     For embedding models: truncate inputs exceeding context length (default: true).
 # @flag --verbose                      Show timings for response
-# @option --width <int>                Image width
-# @option --height <int>               Image height
-# @option --steps <int>                Denoising steps
-# @option --seed <int>                 Random seed
-# @option --negative <str>             Negative prompt
 # @arg model[`_choice_model`]
 # @arg prompt
 run() {
@@ -169,12 +161,12 @@ launch::claude() {
 }
 # }}} ollama launch claude
 
-# {{{ ollama launch codex-app
-# @cmd Codex App (aliases: codex-desktop, codex-gui)
-launch::codex-app() {
+# {{{ ollama launch chatgpt
+# @cmd ChatGPT (aliases: codex-app, codex-desktop, codex-gui)
+launch::chatgpt() {
     :;
 }
-# }}} ollama launch codex-app
+# }}} ollama launch chatgpt
 
 # {{{ ollama launch hermes
 # @cmd Hermes Agent
@@ -232,12 +224,26 @@ launch::droid() {
 }
 # }}} ollama launch droid
 
+# {{{ ollama launch dsh
+# @cmd DeepSeek Harness (alias: deepseek-harness)
+launch::dsh() {
+    :;
+}
+# }}} ollama launch dsh
+
 # {{{ ollama launch kimi
 # @cmd Kimi Code CLI
 launch::kimi() {
     :;
 }
 # }}} ollama launch kimi
+
+# {{{ ollama launch muse
+# @cmd Muse Code (aliases: muse-code)
+launch::muse() {
+    :;
+}
+# }}} ollama launch muse
 
 # {{{ ollama launch pi
 # @cmd Pi

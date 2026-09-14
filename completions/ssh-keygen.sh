@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -A                                      Generate host keys of all default key types (rsa, ecdsa, and ed25519) if they do not already exist.
+# @flag -A                                      Generate host keys of all default key types (rsa, ecdsa, mldsa44-ed25519 and ed25519) if they do not already exist.
 # @option -a <rounds>                           When saving a private key, this option specifies the number of KDF (key derivation function, currently bcrypt_pbkdf(3)) rounds used.
 # @flag -B                                      Show the bubblebabble digest of specified private or public key file.
 # @option -b[`_choice_b`] <bits>                Specifies the number of bits in the key to create.

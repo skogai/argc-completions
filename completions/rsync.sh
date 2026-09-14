@@ -11,8 +11,12 @@
 # @flag -a --archive                   archive mode is -rlptgoD (no -A,-X,-U,-N,-H)
 # @flag --no-OPTION                    turn off an implied OPTION (e.g. --no-D)
 # @flag -r --recursive                 recurse into directories
+# @flag --inc-recursive                enable incremental recursion
+# @flag --i-r                          enable incremental recursion
+# @flag --no-inc-recursive             disable incremental recursion
+# @flag --no-i-r                       same as --no-inc-recursive
 # @flag -R --relative                  use relative path names
-# @flag --no-implied-dirs              don't send implied dirs with --relative
+# @flag --no-implied-dirs              don't send implied directories with --relative
 # @flag -b --backup                    make backups (see --suffix & --backup-dir)
 # @option --backup-dir <DIR>           make backups into hierarchy based in DIR
 # @option --suffix                     backup suffix (default ~ w/o --backup-dir)
@@ -22,15 +26,17 @@
 # @flag --append-verify                --append w/old data in file checksum
 # @flag -d --dirs                      transfer directories without recursing
 # @flag --old-dirs                     works like --dirs when talking to old rsync
-# @flag --old-d                        works like --dirs when talking to old rsync
+# @flag --old-d                        same as --old-dirs
 # @flag --mkpath                       create destination's missing path components
 # @flag -l --links                     copy symlinks as symlinks
-# @flag -L --copy-links                transform symlink into referent file/dir
+# @flag -L --copy-links                transform symlink into referent file/directory
 # @flag --copy-unsafe-links            only "unsafe" symlinks are transformed
 # @flag --safe-links                   ignore symlinks that point outside the tree
+# @flag --insecure-links               follow attacker-owned symlinks in operator paths
+# @option --confine-root <DIR>         refuse operator paths resolving outside DIR
 # @flag --munge-links                  munge symlinks to make them safe & unusable
-# @flag -k --copy-dirlinks             transform symlink to dir into referent dir
-# @flag -K --keep-dirlinks             treat symlinked dir on receiver as dir
+# @flag -k --copy-dirlinks             transform symlink to directory into referent directory
+# @flag -K --keep-dirlinks             treat symlinked directory on receiver as directory
 # @flag -H --hard-links                preserve hard links
 # @flag -p --perms                     preserve permissions
 # @flag -E --executability             preserve executability
@@ -43,6 +49,7 @@
 # @flag --copy-devices                 copy device contents as a regular file
 # @flag --write-devices                write to devices as files (implies --inplace)
 # @flag --specials                     preserve special files
+# @flag --drop-D                       receiver refuses to create devices/specials
 # @flag -D                             same as --devices --specials
 # @flag -t --times                     preserve modification times
 # @flag -U --atimes                    preserve access (use) times
@@ -56,25 +63,28 @@
 # @flag --preallocate                  allocate dest files before writing them
 # @flag -n --dry-run                   perform a trial run with no changes made
 # @flag -W --whole-file                copy files whole (w/o delta-xfer algorithm)
+# @flag --no-whole-file                use the delta-xfer algorithm
+# @flag --no-W                         use the delta-xfer algorithm
 # @option --checksum-choice[`_choice_checksum`] <STR>  choose the checksum algorithm (aka --cc)
 # @flag -x --one-file-system           don't cross filesystem boundaries
 # @option -B --block-size <SIZE>       force a fixed checksum block-size
 # @option -e --rsh <COMMAND>           specify the remote shell to use
 # @option --rsync-path <PROGRAM>       specify the rsync to run on remote machine
 # @flag --existing                     skip creating new files on receiver
+# @flag --ignore-non-existing          skip creating new files on receiver
 # @flag --ignore-existing              skip updating files that exist on receiver
-# @flag --remove-source-files          sender removes synchronized files (non-dir)
+# @flag --remove-source-files          sender removes synchronized files (non-directory)
 # @flag --del                          an alias for --delete-during
-# @flag --delete                       delete extraneous files from dest dirs
+# @flag --delete                       delete extraneous files from dest directories
 # @flag --delete-before                receiver deletes before xfer, not during
 # @flag --delete-during                receiver deletes during the transfer
 # @flag --delete-delay                 find deletions during, delete after
 # @flag --delete-after                 receiver deletes after transfer, not during
-# @flag --delete-excluded              also delete excluded files from dest dirs
-# @flag --ignore-missing-args          ignore missing source args without error
-# @flag --delete-missing-args          delete missing source args from destination
+# @flag --delete-excluded              also delete excluded files from dest directories
+# @flag --ignore-missing-args          ignore missing source arguments without error
+# @flag --delete-missing-args          delete missing source arguments from destination
 # @flag --ignore-errors                delete even if there are I/O errors
-# @flag --force                        force deletion of dirs even if not empty
+# @flag --force                        force deletion of directories even if not empty
 # @option --max-delete <NUM>           don't delete more than NUM files
 # @option --max-size <SIZE>            don't transfer any file larger than SIZE
 # @option --min-size <SIZE>            don't transfer any file smaller than SIZE
@@ -111,8 +121,8 @@
 # @option --include-from <FILE>        read include patterns from FILE
 # @option --files-from <FILE>          read list of source-file names from FILE
 # @flag -0 --from0                     all *-from/filter files are delimited by 0s
-# @flag --old-args                     disable the modern arg-protection idiom
-# @flag -s --secluded-args             use the protocol to safely send the args
+# @flag --old-args                     disable the modern argument-protection idiom
+# @flag -s --secluded-args             use the protocol to safely send the arguments
 # @flag --trust-sender                 trust the remote sender's file list
 # @option --copy-as <USER[:GROUP]>     specify user & optional group for the copy
 # @option --address                    bind address for outgoing socket to daemon

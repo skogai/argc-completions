@@ -12,7 +12,9 @@
 # @option -o --output <FILE>                       Write output to FILE instead of stdout.
 # @option --data-dir <DIRECTORY>                   Specify the user data directory to search for pandoc data files.
 # @option -d --defaults <FILE>                     Specify a set of default option settings.
-# @flag --bash-completion                          Generate a bash completion script.
+# @option --completion <SHELL>                     Generate a shell completion script for the given shell, one of bash, zsh, or fish.
+# @flag --bash-completion                          Deprecated.
+# @option --sandbox[true|false]                    Run pandoc in a sandbox, limiting IO operations in readers and writers to reading the files specified on the command line.
 # @flag --verbose                                  Give verbose debugging output.
 # @flag --quiet                                    Suppress warning messages.
 # @option --fail-if-warnings[true|false]           Exit with error status if there are any warnings.
@@ -26,7 +28,7 @@
 # @flag -h --help                                  Show usage message.
 # @option --shift-heading-level-by <NUMBER>        Shift heading levels by a positive or negative integer.
 # @option --base-header-level <NUMBER>             Deprecated.
-# @option --indented-code-classes <CLASSES>        Specify classes to use for indented code blocks–for example, perl,numberLines or haskell.
+# @option --indented-code-classes <CLASSES>        Specify classes to use for indented code blocks——for example, perl,numberLines or haskell.
 # @option --default-image-extension <EXTENSION>    Specify a default extension to use when image paths/URLs have no extension.
 # @option --file-scope[true|false]                 Parse each file individually before combining for multifile documents.
 # @option -F --filter <PROGRAM>                    Specify an executable to be used as a filter transforming the pandoc AST after the input is parsed and before the output is written.
@@ -36,13 +38,14 @@
 # @option -p --preserve-tabs[true|false]           Preserve tabs instead of converting them to spaces.
 # @option --tab-stop <NUMBER>                      Specify the number of spaces per tab (default is 4).
 # @option --track-changes[accept|reject|all]       Specifies what to do with insertions, deletions, and comments produced by the MS Word “Track Changes” feature.
-# @option --extract-media <DIR>                    Extract images and other media contained in or linked from the source document to the path DIR, creating it if necessary, and adjust the images references in the document so they point to the extracted files.
+# @option --extract-media <DIR|FILE.zip>           Extract images and other media contained in or linked from the source document to the path DIR, creating it if necessary, and adjust the images references in the document so they point to the extracted files.
 # @option --abbreviations <FILE>                   Specifies a custom abbreviations file, with abbreviations one to a line.
+# @option --typst-input <KEY[=VAL]>                Set a parameter value that will be made available to the typst parser in sys.inputs, like --input in the typst CLI.
 # @option --trace[true|false]                      Print diagnostic output tracing parser progress to stderr.
 # @flag -s --standalone                            Produce output with an appropriate header and footer (e.g. a standalone HTML, LaTeX, TEI, or RTF file, not a fragment).
 # @option --template <FILE|URL>                    Use the specified file as a custom template for the generated document.
-# @option -V --variable <KEY[:VAL]>                Set the template variable KEY to the value VAL when rendering the document in standalone mode.
-# @option --sandbox[true|false]                    Run pandoc in a sandbox, limiting IO operations in readers and writers to reading the files specified on the command line.
+# @option -V --variable <KEY[=VAL]>                Set the template variable KEY to the string value VAL when rendering the document in standalone mode.
+# @option --variable-json <KEY[=JSON]>             Set the template variable KEY to the value specified by a JSON string (this may be a boolean, a string, a list, or a mapping; a number will be treated as a string).
 # @option -D --print-default-template <FORMAT>     Print the system default template for an output FORMAT.
 # @option --print-default-data-file <FILE>         Print a system default data file.
 # @option --eol[crlf|lf|native]                    Manually specify line endings: crlf (Windows), lf (macOS/Linux/UNIX), or native (line endings appropriate to the OS on which pandoc is being run).
@@ -52,10 +55,15 @@
 # @option --toc[true|false] <true|false>           Include an automatically generated table of contents (or, in the case of latex, context, docx, odt, opendocument, rst, or ms, an instruction to create one) in the output document.
 # @option --table-of-contents[true|false] <true|false>  Include an automatically generated table of contents (or, in the case of latex, context, docx, odt, opendocument, rst, or ms, an instruction to create one) in the output document.
 # @option --toc-depth <NUMBER>                     Specify the number of section levels to include in the table of contents.
+# @option --lof[true|false] <true|false>           Include an automatically generated list of figures (or, in some formats, an instruction to create one) in the output document.
+# @option --list-of-figures[true|false] <true|false>  Include an automatically generated list of figures (or, in some formats, an instruction to create one) in the output document.
+# @option --lot[true|false] <true|false>           Include an automatically generated list of tables (or, in some formats, an instruction to create one) in the output document.
+# @option --list-of-tables[true|false] <true|false>  Include an automatically generated list of tables (or, in some formats, an instruction to create one) in the output document.
 # @option --strip-comments[true|false]             Strip out HTML comments in the Markdown or Textile source, rather than passing them on to Markdown, Textile or HTML output as raw HTML.
-# @flag --no-highlight                             Disables syntax highlighting for code blocks and inlines, even when a language attribute is given.
-# @option --highlight-style[`_choice_highlight_style`] <STYLE|FILE>  Specifies the coloring style to be used in highlighted source code.
-# @option --print-highlight-style[`_choice_highlight_style`] <STYLE|FILE>  Prints a JSON version of a highlighting style, which can be modified, saved with a .theme extension, and used with --highlight-style.
+# @option --syntax-highlighting <default|none|idiomatic|STYLE|FILE>  The method to use for code syntax highlighting.
+# @flag --no-highlight                             Deprecated, use --syntax-highlighting=none instead.
+# @option --highlight-style[`_choice_highlight_style`] <STYLE|FILE>  Deprecated, use --syntax-highlighting=STYLE|FILE instead.
+# @option --print-highlight-style[`_choice_highlight_style`] <STYLE|FILE>  Prints a JSON version of a highlighting style, which can be modified, saved with a .theme extension, and used with --syntax-highlighting.
 # @option --syntax-definition <FILE>               Instructs pandoc to load a KDE XML syntax definition file, which will be used for syntax highlighting of appropriately marked code blocks.
 # @option -H --include-in-header <FILE|URL>        Include contents of FILE, verbatim, at the end of the header.
 # @option -B --include-before-body <FILE|URL>      Include contents of FILE, verbatim, at the beginning of the document body (e.g. after the <body> tag in HTML, or the \begin{document} command in LaTeX).
@@ -65,18 +73,21 @@
 # @option --no-check-certificate[true|false]       Disable the certificate verification to allow access to unsecure HTTP resources (for example when the certificate is no longer valid or self signed).
 # @option --self-contained[true|false]             Deprecated synonym for --embed-resources --standalone.
 # @option --embed-resources[true|false]            Produce a standalone HTML file with no external dependencies, using data: URIs to incorporate the contents of linked scripts, stylesheets, images, and videos.
+# @option --link-images[true|false]                Include links to images instead of embedding the images in ODT.
 # @option --html-q-tags[true|false]                Use <q> tags for quotes in HTML.
 # @option --ascii[true|false]                      Use only ASCII characters in output.
 # @option --reference-links[true|false]            Use reference-style links, rather than inline links, in writing Markdown or reStructuredText.
 # @option --reference-location[block|section|document]  Specify whether footnotes (and references, if reference-links is set) are placed at the end of the current (top-level) block, the current section, or the document.
+# @option --figure-caption-position <above|below>  Specify whether figure captions go above or below figures (default is below).
+# @option --table-caption-position <above|below>   Specify whether table captions go above or below tables (default is above).
 # @option --markdown-headings <setext|atx>         Specify whether to use ATX-style (#-prefixed) or Setext-style (underlined) headings for level 1 and 2 headings in Markdown output.
 # @option --list-tables[true|false]                Render tables as list tables in RST output.
 # @option --top-level-division[default|section|chapter|part]  Treat top-level headings as the given division type in LaTeX, ConTeXt, DocBook, and TEI output.
-# @flag -N --number-sections                       Number section headings in LaTeX, ConTeXt, HTML, Docx, ms, or EPUB output.
-# @option --number-offset <NUMBER[,NUMBER,...]>    Offset for section headings in HTML output (ignored in other output formats).
-# @option --listings[true|false]                   Use the listings package for LaTeX code blocks.
+# @option -N --number-sections <true|false>        Number section headings in LaTeX, ConTeXt, HTML, Docx, ms, or EPUB output.
+# @option --number-offset <NUMBER[,NUMBER,...]>    Offsets for section heading numbers.
+# @option --listings[true|false]                   *Deprecated, use --syntax-highlighting=idiomatic or --syntax-highlighting=default instead.
 # @option -i --incremental[true|false]             Make list items in slide shows display incrementally (one by one).
-# @option --slide-level <NUMBER>                   Specifies that headings with the specified level create slides (for beamer, s5, slidy, slideous, dzslides).
+# @option --slide-level <NUMBER>                   Specifies that headings with the specified level create slides (for beamer, revealjs, pptx, s5, slidy, slideous, dzslides).
 # @option --section-divs[true|false]               Wrap sections in <section> tags (or <div> tags for html4), and attach identifiers to the enclosing <section> (or <div>) rather than the heading itself (see Heading identifiers, below).
 # @option --email-obfuscation[none|javascript|references]  Specify a method for obfuscating mailto: links in HTML documents.
 # @option --id-prefix <STRING>                     Specify a prefix to be added to all identifiers and internal links in HTML and DocBook output, and to footnote numbers in Markdown and Haddock output.
@@ -100,11 +111,12 @@
 # @option --citation-abbreviations <FILE>          Set the citation-abbreviations field in the document’s metadata to FILE, overriding any value set in the metadata.
 # @flag --natbib                                   Use natbib for citations in LaTeX output.
 # @flag --biblatex                                 Use biblatex for citations in LaTeX output.
-# @option --mathjax <URL>                          Use MathJax to display embedded TeX math in HTML output.
-# @flag --mathml                                   Convert TeX math to MathML (in epub3, docbook4, docbook5, jats, html4 and html5).
-# @option --webtex <URL>                           Convert TeX formulas to <img> tags that link to an external script that converts formulas to images.
-# @option --katex <URL>                            Use KaTeX to display embedded TeX math in HTML output.
-# @flag --gladtex                                  Enclose TeX math in <eq> tags in HTML output.
+# @option --math-method <METHOD[:URL]>             Specify the method used to display TeX math.
+# @option --mathjax <URL>                          Deprecated.
+# @flag --mathml                                   Deprecated.
+# @option --webtex <URL>                           Deprecated.
+# @option --katex <URL>                            Deprecated.
+# @flag --gladtex                                  Deprecated.
 # @option --dump-args[true|false]                  Print information about command-line arguments to stdout, then exit.
 # @option --ignore-args[true|false]                Ignore command-line arguments (for use in wrapper scripts).
 # @arg paths*

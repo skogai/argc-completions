@@ -37,7 +37,7 @@
 # @flag -l --list                                Don't display images.
 # @flag -U --loadable                            Don't display images.
 # @flag --max-dimension                          width x height Only show images with width <= width and height <= height.
-# @option -M --menu-font <font>                  Use font (truetype, with size, like "yudit/12") as menu font.
+# @option -M --menu-font <font>                  Use font (truetype, with size, like "NotoSans-Medium/12") as menu font.
 # @flag --min-dimension                          width x height Only show images with width >= width and height >= height.
 # @flag -m --montage                             Enable montage mode.
 # @flag -w --multiwindow                         Disable slideshow mode.

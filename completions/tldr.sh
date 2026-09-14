@@ -1,31 +1,27 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -v --version                Display version
-# @flag -l --list                   List all commands for the chosen platform in the cache
-# @flag -a --list-all               List all commands in the cache
-# @flag -1 --single-column          List single command per line (use with options -l or -a)
-# @flag -r --random                 Show a random command
-# @flag -e --random-example         Show a random example
-# @option -f --render <file>        Render a specific markdown [file]
-# @flag -m --markdown               Output in markdown format
-# @option -p --platform[android|darwin|freebsd|linux|macos|netbsd|openbsd|osx|sunos|win32|windows] <type>  Override the current platform
-# @flag --android                   Override the platform with android
-# @flag --darwin                    Override the platform with darwin
-# @flag --freebsd                   Override the platform with freebsd
-# @flag --linux                     Override the platform with linux
-# @flag --macos                     Override the platform with macos
-# @flag --netbsd                    Override the platform with netbsd
-# @flag --openbsd                   Override the platform with openbsd
-# @flag --osx                       Override the platform with osx
-# @flag --sunos                     Override the platform with sunos
-# @flag --win32                     Override the platform with win32
-# @flag --windows                   Override the platform with windows
-# @option -t --theme[simple|base16|ocean] <theme>  Color theme
-# @option -s --search <keywords>    Search pages using keywords
-# @flag -u --update                 Update the local cache
-# @flag -c --clear-cache            Clear the local cache
-# @flag -h --help                   Show this help message
+# @flag -l --list                              List all commands in the cache
+# @flag --edit-page                            Edit custom page with `EDITOR`
+# @flag --edit-patch                           Edit custom patch with `EDITOR`
+# @option -f --render <FILE>                   Render a specific markdown file
+# @option -p --platform[linux|macos|sunos|windows|android|freebsd|netbsd|openbsd|common]  Override the operating system, can be specified multiple times in order of preference
+# @option -L --language                        Override the language
+# @flag -u --update                            Update the local cache
+# @flag --no-auto-update                       If auto update is configured, disable it for this run
+# @flag -c --clear-cache                       Clear the local cache
+# @option --config-path <FILE>                 Override config file location
+# @option --override-config <OVERRIDE>         Override config values after reading config file (example: `updates.auto_update = true`)
+# @flag --pager                                Use a pager to page output
+# @flag -r --raw                               Display the raw markdown instead of rendering it
+# @flag -q --quiet                             Suppress informational messages
+# @flag --show-paths                           Show file and directory paths used by tealdeer
+# @flag --seed-config                          Create a basic config
+# @option --color[always|auto|never] <WHEN>    Control whether to use color
+# @flag --short-options                        Display the short variants of placeholders
+# @flag --long-options                         Display the long variants of placeholders
+# @flag -v --version                           Print the version
+# @flag -h --help                              Print help
 # @arg cmd[`_choice_cmd`]
 
 _choice_cmd() {

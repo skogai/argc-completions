@@ -18,8 +18,8 @@ collection() {
 # @cmd Download collections and their dependencies as a tarball for an offline install.
 # @flag -h --help                               show this help message and exit
 # @option -s --server <API_SERVER>              The Galaxy API server URL
-# @option --token <API_KEY>                     The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>                   The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                     The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>                   The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                       Ignore SSL certificate validation errors.
 # @option --timeout                             The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                            Causes Ansible to print more debug messages.
@@ -39,8 +39,8 @@ collection::download() {
 # @cmd Initialize new collection with the base structure of a collection.
 # @flag -h --help                         show this help message and exit
 # @option -s --server <API_SERVER>        The Galaxy API server URL
-# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                 Ignore SSL certificate validation errors.
 # @option --timeout                       The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                      Causes Ansible to print more debug messages.
@@ -58,8 +58,8 @@ collection::init() {
 # @cmd Build an Ansible collection artifact that can be published to Ansible Galaxy.
 # @flag -h --help                          show this help message and exit
 # @option -s --server <API_SERVER>         The Galaxy API server URL
-# @option --token <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                  Ignore SSL certificate validation errors.
 # @option --timeout                        The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                       Causes Ansible to print more debug messages.
@@ -75,8 +75,8 @@ collection::build() {
 # @cmd Publish a collection artifact to Ansible Galaxy.
 # @flag -h --help                              show this help message and exit
 # @option -s --server <API_SERVER>             The Galaxy API server URL
-# @option --token <API_KEY>                    The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>                  The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                    The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>                  The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                      Ignore SSL certificate validation errors.
 # @option --timeout                            The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                           Causes Ansible to print more debug messages.
@@ -92,8 +92,8 @@ collection::publish() {
 # @cmd Install collection(s) from file(s), URL(s) or Ansible Galaxy
 # @flag -h --help                     show this help message and exit
 # @option -s --server <API_SERVER>    The Galaxy API server URL
-# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs             Ignore SSL certificate validation errors.
 # @option --timeout                   The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                  Causes Ansible to print more debug messages.
@@ -124,8 +124,8 @@ collection::install() {
 # @cmd Show the name and version of each collection installed in the collections_path.
 # @flag -h --help                          show this help message and exit
 # @option -s --server <API_SERVER>         The Galaxy API server URL
-# @option --token <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                  Ignore SSL certificate validation errors.
 # @option --timeout                        The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                       Causes Ansible to print more debug messages.
@@ -141,8 +141,8 @@ collection::list() {
 # @cmd Compare checksums with the collection(s) found on the server and the installed copy.
 # @flag -h --help                     show this help message and exit
 # @option -s --server <API_SERVER>    The Galaxy API server URL
-# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs             Ignore SSL certificate validation errors.
 # @option --timeout                   The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                  Causes Ansible to print more debug messages.
@@ -174,8 +174,8 @@ role() {
 # @cmd Initialize new role with the base structure of a role.
 # @flag -h --help                            show this help message and exit
 # @option -s --server <API_SERVER>           The Galaxy API server URL
-# @option --token <API_KEY>                  The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                  The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                    Ignore SSL certificate validation errors.
 # @option --timeout                          The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                         Causes Ansible to print more debug messages.
@@ -195,8 +195,8 @@ role::init() {
 # @cmd Delete roles from roles_path.
 # @flag -h --help                         show this help message and exit
 # @option -s --server <API_SERVER>        The Galaxy API server URL
-# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                 Ignore SSL certificate validation errors.
 # @option --timeout                       The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                      Causes Ansible to print more debug messages.
@@ -211,8 +211,8 @@ role::remove() {
 # @cmd Removes the role from Galaxy.
 # @flag -h --help                     show this help message and exit
 # @option -s --server <API_SERVER>    The Galaxy API server URL
-# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs             Ignore SSL certificate validation errors.
 # @option --timeout                   The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                  Causes Ansible to print more debug messages.
@@ -227,8 +227,8 @@ role::delete() {
 # @cmd Show the name and version of each role installed in the roles_path.
 # @flag -h --help                         show this help message and exit
 # @option -s --server <API_SERVER>        The Galaxy API server URL
-# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                 Ignore SSL certificate validation errors.
 # @option --timeout                       The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                      Causes Ansible to print more debug messages.
@@ -243,8 +243,8 @@ role::list() {
 # @cmd Search the Galaxy database by tags, platforms, author and multiple keywords.
 # @flag -h --help                        show this help message and exit
 # @option -s --server <API_SERVER>       The Galaxy API server URL
-# @option --token <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>            The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>            The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                Ignore SSL certificate validation errors.
 # @option --timeout                      The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                     Causes Ansible to print more debug messages.
@@ -261,8 +261,8 @@ role::search() {
 # @cmd Import a role into a galaxy server
 # @flag -h --help                     show this help message and exit
 # @option -s --server <API_SERVER>    The Galaxy API server URL
-# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>           The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>         The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs             Ignore SSL certificate validation errors.
 # @option --timeout                   The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                  Causes Ansible to print more debug messages.
@@ -281,8 +281,8 @@ role::import() {
 # @cmd Manage the integration between Galaxy and the given source.
 # @flag -h --help                         show this help message and exit
 # @option -s --server <API_SERVER>        The Galaxy API server URL
-# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>               The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>             The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                 Ignore SSL certificate validation errors.
 # @option --timeout                       The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                      Causes Ansible to print more debug messages.
@@ -302,8 +302,8 @@ role::setup() {
 # @cmd View more details about a specific role.
 # @flag -h --help                                 show this help message and exit
 # @option -s --server <API_SERVER>                The Galaxy API server URL
-# @option --token <API_KEY>                       The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>                     The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                       The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>                     The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                         Ignore SSL certificate validation errors.
 # @option --timeout                               The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                              Causes Ansible to print more debug messages.
@@ -319,8 +319,8 @@ role::info() {
 # @cmd Install role(s) from file(s), URL(s) or Ansible Galaxy
 # @flag -h --help                          show this help message and exit
 # @option -s --server <API_SERVER>         The Galaxy API server URL
-# @option --token <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
-# @option --api-key <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/me/preferences.
+# @option --token <API_KEY>                The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
+# @option --api-key <API_KEY>              The Ansible Galaxy API key which can be found at https://galaxy.ansible.com/ui/token.
 # @flag -c --ignore-certs                  Ignore SSL certificate validation errors.
 # @option --timeout                        The time to wait for operations against the galaxy server, defaults to 60s.
 # @flag -v --verbose                       Causes Ansible to print more debug messages.

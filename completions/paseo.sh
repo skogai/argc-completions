@@ -7,6 +7,7 @@
 # @flag -q --quiet                minimal output (IDs only)
 # @flag --no-headers              omit table headers
 # @flag --no-color                disable colored output
+# @option --host <host>           Daemon host target: host:port, tcp://host:port, or ssh://user@host (default: local socket/pipe, then localhost:6767)
 # @flag -h --help                 display help for command
 
 # {{ paseo ls
@@ -16,7 +17,7 @@
 # @option --label <key=value>    Filter by label (can be used multiple times) (default: [])
 # @option --thinking <id>        Filter by thinking option ID
 # @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>          Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                display help for command
 ls() {
     :;
@@ -25,25 +26,31 @@ ls() {
 
 # {{ paseo run
 # @cmd Create and start an agent with a task
-# @flag -d --detach                    Run in background (detached)
-# @option --title <title>              Assign a title to the agent
-# @option --provider <provider>        Agent provider, or provider/model (e.g. codex or codex/gpt-5.4)
-# @option --model <model>              Model to use (e.g., claude-sonnet-4-20250514, claude-3-5-haiku-20241022)
-# @option --thinking <id>              Thinking option ID to use for this run
-# @option --mode <mode>                Provider-specific mode (e.g., plan, default, bypass)
-# @option --worktree <name>            Create agent in a new git worktree
-# @option --base <branch>              Base branch for worktree (default: current branch)
-# @option --workspace <id>             Run in an existing workspace (default: a new workspace is created per run; falls back to $PASEO_WORKSPACE_ID)
-# @option --image <path>               Attach image(s) to the initial prompt (can be used multiple times) (default: [])
-# @option --cwd <path>                 Working directory (default: current)
-# @option --env <key=value>            Set environment variable(s) for the agent process (can be used multiple times) (default: [])
-# @option --label <key=value>          Add label(s) to the agent (can be used multiple times) (default: [])
-# @option --wait-timeout <duration>    Maximum time to wait for agent to finish (e.g., 30s, 5m, 1h).
-# @option --output-schema <schema>     Output JSON matching the provided schema file path or inline JSON schema
-# @flag --json                         Output in JSON format
-# @option --host <host>                Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                      display help for command
-# @arg prompt                          The task/prompt for the agent
+# @flag -d --background                       Run in background
+# @option --title <title>                     Assign a title to the agent
+# @option --provider <provider>               Agent provider, or provider/model (e.g. codex or codex/gpt-5.4)
+# @option --model <model>                     Model to use (e.g., claude-sonnet-4-20250514, claude-3-5-haiku-20241022)
+# @option --thinking <id>                     Thinking option ID to use for this run
+# @option --mode <mode>                       Provider-specific mode (e.g., plan, default, bypass)
+# @option --new-workspace <local|worktree>    Create a separate local or worktree workspace
+# @option --worktree-mode <mode>              Worktree mode: branch-off, checkout-branch, or checkout-pr
+# @option --worktree-slug <slug>              Managed worktree path slug
+# @option --new-branch <name>                 New branch name for branch-off mode
+# @option --base <ref>                        Base ref for branch-off mode
+# @option --branch <name>                     Existing branch for checkout-branch mode
+# @option --pr-number <n>                     Pull request or change request number for checkout-pr mode
+# @option --forge <forge>                     Forge for checkout-pr mode
+# @option --workspace <id>                    Run in an existing workspace (defaults to the caller workspace when agent-scoped)
+# @option --image <path>                      Attach image(s) to the initial prompt (can be used multiple times) (default: [])
+# @option --cwd <path>                        Working directory (default: current)
+# @option --env <key=value>                   Set environment variable(s) for the agent process (can be used multiple times) (default: [])
+# @option --label <key=value>                 Add label(s) to the agent (can be used multiple times) (default: [])
+# @option --wait-timeout <duration>           Maximum time to wait for agent to finish (e.g., 30s, 5m, 1h).
+# @option --output-schema <schema>            Output JSON matching the provided schema file path or inline JSON schema
+# @flag --json                                Output in JSON format
+# @option --host <host>                       Daemon host target: host:port,
+# @flag -h --help                             display help for command
+# @arg prompt                                 The task/prompt for the agent
 run() {
     :;
 }
@@ -55,7 +62,7 @@ run() {
 # @option --cwd <path>             Working directory for providers that require it
 # @option --label <key=value>      Add label(s) to the agent (can be used multiple times) (default: [])
 # @flag --json                     Output in JSON format
-# @option --host <host>            Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>            Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                  display help for command
 # @arg id                          Provider session/thread ID to import
 import() {
@@ -63,9 +70,22 @@ import() {
 }
 # }} paseo import
 
+# {{ paseo clone
+# @cmd Clone a GitHub repo and register it as a Paseo workspace
+# @option --dir <path>                        Parent directory to clone into (for example: ~/workspace)
+# @flag --json                                Output in JSON format
+# @option --host <host>                       Daemon host target: host:port, tcp://host:port, or
+# @option --protocol[https|ssh] <protocol>    Protocol for owner/repo shorthand repositories
+# @flag -h --help                             display help for command
+# @arg repo                                   GitHub repo in owner/repo format or a full git remote URL
+clone() {
+    :;
+}
+# }} paseo clone
+
 # {{ paseo attach
 # @cmd Attach to a running agent's output stream
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix)
 attach() {
@@ -79,7 +99,7 @@ attach() {
 # @option --tail <n>        Show last n entries
 # @option --filter[tools|text|errors|permissions] <type>  Filter by event type
 # @option --since <time>    Show logs since timestamp
-# @option --host <host>     Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>     Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help           display help for command
 # @arg id                   Agent ID (or prefix)
 logs() {
@@ -92,7 +112,7 @@ logs() {
 # @flag --all              Stop all agents
 # @option --cwd <path>     Stop all agents in directory
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix) - optional if --all or --cwd specified
 stop() {
@@ -105,7 +125,7 @@ stop() {
 # @flag --all              Delete all agents
 # @option --cwd <path>     Delete all agents in directory
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix) - optional if --all or --cwd specified
 delete() {
@@ -120,7 +140,7 @@ delete() {
 # @option --image <path>          Attach image(s) to the message (default: [])
 # @flag --no-wait                 Return immediately without waiting for completion
 # @flag --json                    Output in JSON format
-# @option --host <host>           Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>           Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                 display help for command
 # @arg id                         Agent ID (or prefix)
 # @arg prompt                     The message to send
@@ -132,7 +152,7 @@ send() {
 # {{ paseo inspect
 # @cmd Show detailed information about an agent
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix)
 inspect() {
@@ -144,7 +164,7 @@ inspect() {
 # @cmd Wait for an agent to become idle
 # @option --timeout <seconds>    Maximum wait time (default: no limit)
 # @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>          Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                display help for command
 # @arg id                        Agent ID (or prefix)
 wait() {
@@ -156,7 +176,7 @@ wait() {
 # @cmd Archive an agent (soft-delete)
 # @flag --force            Force archive running agent (interrupts active run first)
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID, prefix, or name
 archive() {
@@ -169,6 +189,7 @@ archive() {
 # @option --listen <listen>      Listen target (host:port, port, or unix socket path)
 # @option --port <port>          Port to listen on (default: 6767)
 # @option --home <path>          Paseo home directory (default: ~/.paseo)
+# @flag --relay                  Enable relay connection without prompting
 # @flag --no-relay               Disable relay connection
 # @flag --no-mcp                 Disable the Agent MCP HTTP endpoint
 # @option --hostnames <hosts>    Daemon hostnames (comma-separated, e.g. "myhost,.example.com" or "true" for any)
@@ -186,10 +207,13 @@ onboard() {
 # @option --port <port>          Port to listen on (default: 6767)
 # @option --home <path>          Paseo home directory (default: ~/.paseo)
 # @flag --foreground             Run in foreground (don't daemonize)
+# @flag --relay                  Enable relay connection
 # @flag --no-relay               Disable relay connection
 # @flag --relay-use-tls          Use wss:// for the relay connection and pairing offers
 # @flag --no-mcp                 Disable the Agent MCP HTTP endpoint
 # @flag --no-inject-mcp          Disable auto-injecting the Paseo MCP into created agents
+# @flag --web-ui                 Enable the bundled daemon web UI
+# @flag --no-web-ui              Disable the bundled daemon web UI
 # @option --hostnames <hosts>    Daemon hostnames (comma-separated, e.g. "myhost,.example.com" or "true" for any)
 # @flag -h --help                display help for command
 start() {
@@ -217,6 +241,16 @@ status() {
 }
 # }} paseo status
 
+# {{ paseo reload
+# @cmd Reload daemon config (alias for "paseo daemon reload")
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+reload() {
+    :;
+}
+# }} paseo reload
+
 # {{ paseo restart
 # @cmd Restart local daemon (alias for "paseo daemon restart")
 # @flag --json                   Output in JSON format
@@ -225,6 +259,7 @@ status() {
 # @flag --force                  Send SIGKILL if graceful stop times out
 # @option --listen <listen>      Listen target for restarted daemon (host:port, port, or unix socket)
 # @option --port <port>          Port for restarted daemon listen target
+# @flag --relay                  Enable relay on restarted daemon
 # @flag --no-relay               Disable relay on restarted daemon
 # @flag --no-mcp                 Disable Agent MCP on restarted daemon
 # @option --hostnames <hosts>    Daemon hostnames (comma-separated, e.g. "myhost,.example.com" or "true" for any)
@@ -248,7 +283,7 @@ agent() {
 # @option --label <key=value>    Filter by label (can be used multiple times) (default: [])
 # @option --thinking <id>        Filter by thinking option ID
 # @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>          Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                display help for command
 agent::ls() {
     :;
@@ -257,25 +292,31 @@ agent::ls() {
 
 # {{{ paseo agent run
 # @cmd Create and start an agent with a task
-# @flag -d --detach                    Run in background (detached)
-# @option --title <title>              Assign a title to the agent
-# @option --provider <provider>        Agent provider, or provider/model (e.g. codex or codex/gpt-5.4)
-# @option --model <model>              Model to use (e.g., claude-sonnet-4-20250514, claude-3-5-haiku-20241022)
-# @option --thinking <id>              Thinking option ID to use for this run
-# @option --mode <mode>                Provider-specific mode (e.g., plan, default, bypass)
-# @option --worktree <name>            Create agent in a new git worktree
-# @option --base <branch>              Base branch for worktree (default: current branch)
-# @option --workspace <id>             Run in an existing workspace (default: a new workspace is created per run; falls back to $PASEO_WORKSPACE_ID)
-# @option --image <path>               Attach image(s) to the initial prompt (can be used multiple times) (default: [])
-# @option --cwd <path>                 Working directory (default: current)
-# @option --env <key=value>            Set environment variable(s) for the agent process (can be used multiple times) (default: [])
-# @option --label <key=value>          Add label(s) to the agent (can be used multiple times) (default: [])
-# @option --wait-timeout <duration>    Maximum time to wait for agent to finish (e.g., 30s, 5m, 1h).
-# @option --output-schema <schema>     Output JSON matching the provided schema file path or inline JSON schema
-# @flag --json                         Output in JSON format
-# @option --host <host>                Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                      display help for command
-# @arg prompt                          The task/prompt for the agent
+# @flag -d --background                       Run in background
+# @option --title <title>                     Assign a title to the agent
+# @option --provider <provider>               Agent provider, or provider/model (e.g. codex or codex/gpt-5.4)
+# @option --model <model>                     Model to use (e.g., claude-sonnet-4-20250514, claude-3-5-haiku-20241022)
+# @option --thinking <id>                     Thinking option ID to use for this run
+# @option --mode <mode>                       Provider-specific mode (e.g., plan, default, bypass)
+# @option --new-workspace <local|worktree>    Create a separate local or worktree workspace
+# @option --worktree-mode <mode>              Worktree mode: branch-off, checkout-branch, or checkout-pr
+# @option --worktree-slug <slug>              Managed worktree path slug
+# @option --new-branch <name>                 New branch name for branch-off mode
+# @option --base <ref>                        Base ref for branch-off mode
+# @option --branch <name>                     Existing branch for checkout-branch mode
+# @option --pr-number <n>                     Pull request or change request number for checkout-pr mode
+# @option --forge <forge>                     Forge for checkout-pr mode
+# @option --workspace <id>                    Run in an existing workspace (defaults to the caller workspace when agent-scoped)
+# @option --image <path>                      Attach image(s) to the initial prompt (can be used multiple times) (default: [])
+# @option --cwd <path>                        Working directory (default: current)
+# @option --env <key=value>                   Set environment variable(s) for the agent process (can be used multiple times) (default: [])
+# @option --label <key=value>                 Add label(s) to the agent (can be used multiple times) (default: [])
+# @option --wait-timeout <duration>           Maximum time to wait for agent to finish (e.g., 30s, 5m, 1h).
+# @option --output-schema <schema>            Output JSON matching the provided schema file path or inline JSON schema
+# @flag --json                                Output in JSON format
+# @option --host <host>                       Daemon host target: host:port,
+# @flag -h --help                             display help for command
+# @arg prompt                                 The task/prompt for the agent
 agent::run() {
     :;
 }
@@ -287,7 +328,7 @@ agent::run() {
 # @option --cwd <path>             Working directory for providers that require it
 # @option --label <key=value>      Add label(s) to the agent (can be used multiple times) (default: [])
 # @flag --json                     Output in JSON format
-# @option --host <host>            Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>            Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                  display help for command
 # @arg id                          Provider session/thread ID to import
 agent::import() {
@@ -297,7 +338,7 @@ agent::import() {
 
 # {{{ paseo agent attach
 # @cmd Attach to a running agent's output stream
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix)
 agent::attach() {
@@ -311,7 +352,7 @@ agent::attach() {
 # @option --tail <n>        Show last n entries
 # @option --filter[tools|text|errors|permissions] <type>  Filter by event type
 # @option --since <time>    Show logs since timestamp
-# @option --host <host>     Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>     Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help           display help for command
 # @arg id                   Agent ID (or prefix)
 agent::logs() {
@@ -319,12 +360,24 @@ agent::logs() {
 }
 # }}} paseo agent logs
 
+# {{{ paseo agent open
+# @cmd Open an existing agent in Paseo Desktop
+# @option --server <server-id>    Server ID (defaults to the local daemon)
+# @flag --json                    Output in JSON format
+# @option --host <host>           Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help                 display help for command
+# @arg agent-id                   Existing agent ID
+agent::open() {
+    :;
+}
+# }}} paseo agent open
+
 # {{{ paseo agent stop
 # @cmd Interrupt an agent if it is running (no-op for idle agents)
 # @flag --all              Stop all agents
 # @option --cwd <path>     Stop all agents in directory
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix) - optional if --all or --cwd specified
 agent::stop() {
@@ -337,7 +390,7 @@ agent::stop() {
 # @flag --all              Delete all agents
 # @option --cwd <path>     Delete all agents in directory
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix) - optional if --all or --cwd specified
 agent::delete() {
@@ -352,7 +405,7 @@ agent::delete() {
 # @option --image <path>          Attach image(s) to the message (default: [])
 # @flag --no-wait                 Return immediately without waiting for completion
 # @flag --json                    Output in JSON format
-# @option --host <host>           Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>           Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                 display help for command
 # @arg id                         Agent ID (or prefix)
 # @arg prompt                     The message to send
@@ -364,7 +417,7 @@ agent::send() {
 # {{{ paseo agent inspect
 # @cmd Show detailed information about an agent
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix)
 agent::inspect() {
@@ -376,7 +429,7 @@ agent::inspect() {
 # @cmd Wait for an agent to become idle
 # @option --timeout <seconds>    Maximum wait time (default: no limit)
 # @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>          Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                display help for command
 # @arg id                        Agent ID (or prefix)
 agent::wait() {
@@ -388,7 +441,7 @@ agent::wait() {
 # @cmd Change an agent's operational mode
 # @flag --list             List available modes for this agent
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID (or prefix)
 # @arg mode                Mode to set (required unless --list)
@@ -401,7 +454,7 @@ agent::mode() {
 # @cmd Archive an agent (soft-delete)
 # @flag --force            Force archive running agent (interrupts active run first)
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID, prefix, or name
 agent::archive() {
@@ -412,7 +465,7 @@ agent::archive() {
 # {{{ paseo agent reload
 # @cmd Reload an agent (restarts the underlying process)
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Agent ID, prefix, or name
 agent::reload() {
@@ -420,12 +473,24 @@ agent::reload() {
 }
 # }}} paseo agent reload
 
+# {{{ paseo agent detach
+# @cmd Make a subagent independent without stopping or moving it
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id                  Agent ID, prefix, or name
+agent::detach() {
+    :;
+}
+# }}} paseo agent detach
+
 # {{{ paseo agent update
-# @cmd Update an agent's metadata
+# @cmd Update an agent's settings or metadata
 # @option --name <name>      Update the agent's display name
+# @option --thinking <id>    Update the agent's thinking option ID
 # @option --label <label>    Add/set label(s) on the agent (can be used multiple times or comma-separated) (default: [])
 # @flag --json               Output in JSON format
-# @option --host <host>      Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>      Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help            display help for command
 # @arg id                    Agent ID (or prefix)
 agent::update() {
@@ -447,10 +512,13 @@ daemon() {
 # @option --port <port>          Port to listen on (default: 6767)
 # @option --home <path>          Paseo home directory (default: ~/.paseo)
 # @flag --foreground             Run in foreground (don't daemonize)
+# @flag --relay                  Enable relay connection
 # @flag --no-relay               Disable relay connection
 # @flag --relay-use-tls          Use wss:// for the relay connection and pairing offers
 # @flag --no-mcp                 Disable the Agent MCP HTTP endpoint
 # @flag --no-inject-mcp          Disable auto-injecting the Paseo MCP into created agents
+# @flag --web-ui                 Enable the bundled daemon web UI
+# @flag --no-web-ui              Disable the bundled daemon web UI
 # @option --hostnames <hosts>    Daemon hostnames (comma-separated, e.g. "myhost,.example.com" or "true" for any)
 # @flag -h --help                display help for command
 daemon::start() {
@@ -462,11 +530,22 @@ daemon::start() {
 # @cmd Print the daemon pairing QR code and link
 # @flag --json             Output in JSON format
 # @option --home <path>    Paseo home directory (default: ~/.paseo)
+# @flag --relay            Enable relay without prompting
 # @flag -h --help          display help for command
 daemon::pair() {
     :;
 }
 # }}} paseo daemon pair
+
+# {{{ paseo daemon reload
+# @cmd Reload config.json without restarting the daemon
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+daemon::reload() {
+    :;
+}
+# }}} paseo daemon reload
 
 # {{{ paseo daemon status
 # @cmd Show local daemon status
@@ -499,9 +578,12 @@ daemon::stop() {
 # @flag --force                  Send SIGKILL if graceful stop times out
 # @option --listen <listen>      Listen target for restarted daemon (host:port, port, or unix socket)
 # @option --port <port>          Port for restarted daemon listen target
+# @flag --relay                  Enable relay on restarted daemon
 # @flag --no-relay               Disable relay on restarted daemon
 # @flag --no-mcp                 Disable Agent MCP on restarted daemon
 # @flag --no-inject-mcp          Disable auto-injecting the Paseo MCP into created agents
+# @flag --web-ui                 Enable the bundled daemon web UI on restarted daemon
+# @flag --no-web-ui              Disable the bundled daemon web UI on restarted daemon
 # @option --hostnames <hosts>    Daemon hostnames (comma-separated, e.g. "myhost,.example.com" or "true" for any)
 # @flag -h --help                display help for command
 daemon::restart() {
@@ -520,96 +602,154 @@ daemon::set-password() {
 # }}} paseo daemon set-password
 # }} paseo daemon
 
-# {{ paseo chat
-# @cmd Manage chat rooms for agent coordination
+# {{ paseo hub
+# @cmd Manage Paseo Hub
 # @flag -h --help    display help for command
-chat() {
+hub() {
     :;
 }
 
-# {{{ paseo chat create
-# @cmd Create a chat room
-# @option --purpose <text>    Room purpose/description
-# @flag --json                Output in JSON format
-# @option --host <host>       Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help             display help for command
-# @arg name                   Room name (must be unique)
-chat::create() {
+# {{{ paseo hub login
+# @cmd Log in to a Paseo Hub for CLI access
+# @flag --json       Output in JSON format
+# @flag -h --help    display help for command
+# @arg origin        Paseo Hub origin
+hub::login() {
     :;
 }
-# }}} paseo chat create
+# }}} paseo hub login
 
-# {{{ paseo chat ls
-# @cmd List chat rooms
+# {{{ paseo hub init
+# @cmd Create and optionally deploy a safe starter Hub trigger
+# @flag -h --help    display help for command
+hub::init() {
+    :;
+}
+# }}} paseo hub init
+
+# {{{ paseo hub connect
+# @cmd Enroll this daemon with a Paseo Hub
+# @option --api-key <secret>            Organization API key
+# @option --permission* <permission>    Grant daemon permission during connection
+# @flag --json                          Output in JSON format
+# @option --host <host>                 Daemon host target: host:port, tcp://host:port, or ssh://user@host (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                       display help for command
+# @arg origin                           Paseo Hub origin
+hub::connect() {
+    :;
+}
+# }}} paseo hub connect
+
+# {{{ paseo hub status
+# @cmd
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
-chat::ls() {
+hub::status() {
     :;
 }
-# }}} paseo chat ls
+# }}} paseo hub status
 
-# {{{ paseo chat inspect
-# @cmd Inspect a chat room
+# {{{ paseo hub disconnect
+# @cmd
+# @flag --force            Remove local authority without notifying the Hub
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
-# @arg name-or-id          Room name or ID
-chat::inspect() {
+hub::disconnect() {
     :;
 }
-# }}} paseo chat inspect
+# }}} paseo hub disconnect
 
-# {{{ paseo chat delete
-# @cmd Delete a chat room
+# {{{ paseo hub permissions
+# @cmd Manage this Hub's daemon permissions
+# @flag -h --help    display help for command
+hub::permissions() {
+    :;
+}
+
+# {{{{ paseo hub permissions list
+# @cmd
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
-# @arg name-or-id          Room name or ID
-chat::delete() {
+hub::permissions::list() {
     :;
 }
-# }}} paseo chat delete
+# }}}} paseo hub permissions list
 
-# {{{ paseo chat post
-# @cmd Post a chat message
-# @option --reply-to <msg-id>    Reply to a specific message ID
+# {{{{ paseo hub permissions grant
+# @cmd
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg permission          Daemon permission
+hub::permissions::grant() {
+    :;
+}
+# }}}} paseo hub permissions grant
+
+# {{{{ paseo hub permissions revoke
+# @cmd
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg permission          Daemon permission
+hub::permissions::revoke() {
+    :;
+}
+# }}}} paseo hub permissions revoke
+# }}} paseo hub permissions
+
+# {{{ paseo hub projects
+# @cmd List projects for the authenticated Hub organization
+# @option --hub <origin>        Paseo Hub origin
+# @option --api-key <secret>    Organization API key
+# @flag --json                  Output in JSON format
+# @flag -h --help               display help for command
+hub::projects() {
+    :;
+}
+# }}} paseo hub projects
+
+# {{{ paseo hub export
+# @cmd Export active Hub triggers as one YAML file per trigger
+# @option --hub <origin>        Paseo Hub origin
+# @option --api-key <secret>    Organization API key
+# @flag --force                 Replace trigger files with different contents
+# @flag --json                  Output in JSON format
+# @flag -h --help               display help for command
+# @arg directory                Destination directory (default: ".paseo/triggers")
+hub::export() {
+    :;
+}
+# }}} paseo hub export
+
+# {{{ paseo hub deploy
+# @cmd Deploy .paseo organization triggers or a legacy project bundle
+# @option -p --project <slug>    Deploy a legacy bundle to this project slug
+# @option --hub <origin>         Paseo Hub origin
+# @option --api-key <secret>     Organization API key
+# @flag --dry-run                Validate without installing or activating
 # @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
 # @flag -h --help                display help for command
-# @arg name-or-id                Room name or ID
-# @arg message                   Message body
-chat::post() {
+hub::deploy() {
     :;
 }
-# }}} paseo chat post
+# }}} paseo hub deploy
 
-# {{{ paseo chat read
-# @cmd Read chat messages
-# @option --limit <n>                        Maximum number of messages to return
-# @option --since <duration-or-timestamp>    Filter by relative duration or ISO timestamp
-# @option --agent <agent-id>                 Filter by author agent ID
-# @flag --json                               Output in JSON format
-# @option --host <host>                      Daemon host target: host:port or
-# @flag -h --help                            display help for command
-# @arg name-or-id                            Room name or ID
-chat::read() {
+# {{{ paseo hub logout
+# @cmd Remove the active stored Hub CLI login
+# @flag --disconnect-daemon    Also disconnect a daemon related to the same Hub
+# @flag --force                Remove daemon authority without notifying the Hub
+# @flag --json                 Output in JSON format
+# @option --host <host>        Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help              display help for command
+hub::logout() {
     :;
 }
-# }}} paseo chat read
-
-# {{{ paseo chat wait
-# @cmd Wait for new chat messages
-# @option --timeout <duration>    Maximum wait time
-# @flag --json                    Output in JSON format
-# @option --host <host>           Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                 display help for command
-# @arg name-or-id                 Room name or ID
-chat::wait() {
-    :;
-}
-# }}} paseo chat wait
-# }} paseo chat
+# }}} paseo hub logout
+# }} paseo hub
 
 # {{ paseo terminal
 # @cmd Manage workspace terminals
@@ -620,11 +760,12 @@ terminal() {
 
 # {{{ paseo terminal ls
 # @cmd List terminals
-# @flag --all              List terminals across all workspaces
-# @option --cwd <path>     Workspace directory
-# @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help          display help for command
+# @flag --all                 List terminals across all workspaces
+# @option --workspace <id>    Workspace ID
+# @option --cwd <path>        Working directory
+# @flag --json                Output in JSON format
+# @option --host <host>       Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help             display help for command
 terminal::ls() {
     :;
 }
@@ -632,11 +773,12 @@ terminal::ls() {
 
 # {{{ paseo terminal create
 # @cmd Create a terminal
-# @option --cwd <path>     Workspace directory
-# @option --name <name>    Terminal name
-# @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help          display help for command
+# @option --workspace <id>    Workspace ID
+# @option --cwd <path>        Working directory
+# @option --name <name>       Terminal name
+# @flag --json                Output in JSON format
+# @option --host <host>       Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help             display help for command
 terminal::create() {
     :;
 }
@@ -645,7 +787,7 @@ terminal::create() {
 # {{{ paseo terminal kill
 # @cmd Kill a terminal
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg terminal-id         Terminal ID, ID prefix, or name
 terminal::kill() {
@@ -660,7 +802,7 @@ terminal::kill() {
 # @flag -S --scrollback    Capture from the beginning of scrollback
 # @flag --ansi             Preserve ANSI escape codes
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg terminal-id         Terminal ID, ID prefix, or name
 terminal::capture() {
@@ -672,7 +814,7 @@ terminal::capture() {
 # @cmd Send keys to a terminal
 # @flag -l --literal       Send raw keys without interpreting special tokens
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg terminal-id         Terminal ID, ID prefix, or name
 # @arg keys*               Keys to send
@@ -682,80 +824,51 @@ terminal::send-keys() {
 # }}} paseo terminal send-keys
 # }} paseo terminal
 
-# {{ paseo loop
-# @cmd Run iterative worker loops
+# {{ paseo script
+# @cmd Manage configured workspace scripts
 # @flag -h --help    display help for command
-loop() {
+script() {
     :;
 }
 
-# {{{ paseo loop run
-# @cmd Start a loop
-# @option --provider <provider>            Default provider for worker and verifier agents
-# @option --model <model>                  Default model for worker and verifier agents
-# @option --mode <mode>                    Provider-specific mode for the worker agent (e.g. claude bypassPermissions, opencode build)
-# @option --verify-provider <provider>     Provider for the verifier agent
-# @option --verify-model <model>           Model for the verifier agent
-# @option --verify-mode <mode>             Provider-specific mode for the verifier agent
-# @option --verify <prompt>                Verifier agent prompt
-# @option --verify-check <command>         Shell command that must exit 0 (repeatable) (default: [])
-# @flag --archive                          Archive worker and verifier agents after each iteration
-# @option --name <name>                    Optional loop name
-# @option --sleep[30s|5m] <duration>       Delay between iterations
-# @option --max-iterations <n>             Maximum number of iterations
-# @option --max-time[1h|30m] <duration>    Maximum total runtime
-# @flag --json                             Output in JSON format
-# @option --host <host>                    Daemon host target: host:port or
-# @flag -h --help                          display help for command
-# @arg prompt                              Prompt for each fresh worker iteration
-loop::run() {
+# {{{ paseo script ls
+# @cmd List configured workspace scripts
+# @option --cwd <path>                  Workspace directory (default: current directory)
+# @option --workspace <workspace-id>    Workspace ID (required when a directory has multiple workspaces)
+# @flag --json                          Output in JSON format
+# @option --host <host>                 Daemon host target: host:port, tcp://host:port, or ssh://user@host (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                       display help for command
+script::ls() {
     :;
 }
-# }}} paseo loop run
+# }}} paseo script ls
 
-# {{{ paseo loop ls
-# @cmd List loops
-# @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help          display help for command
-loop::ls() {
+# {{{ paseo script start
+# @cmd Start a configured workspace script
+# @option --cwd <path>                  Workspace directory (default: current directory)
+# @option --workspace <workspace-id>    Workspace ID (required when a directory has multiple workspaces)
+# @flag --json                          Output in JSON format
+# @option --host <host>                 Daemon host target: host:port, tcp://host:port, or ssh://user@host (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                       display help for command
+# @arg name!
+script::start() {
     :;
 }
-# }}} paseo loop ls
+# }}} paseo script start
 
-# {{{ paseo loop inspect
-# @cmd Show loop details and iteration history
-# @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help          display help for command
-# @arg id                  Loop ID
-loop::inspect() {
+# {{{ paseo script stop
+# @cmd Stop a running workspace script
+# @option --cwd <path>                  Workspace directory (default: current directory)
+# @option --workspace <workspace-id>    Workspace ID (required when a directory has multiple workspaces)
+# @flag --json                          Output in JSON format
+# @option --host <host>                 Daemon host target: host:port, tcp://host:port, or ssh://user@host (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                       display help for command
+# @arg name!
+script::stop() {
     :;
 }
-# }}} paseo loop inspect
-
-# {{{ paseo loop logs
-# @cmd Stream loop logs
-# @option --poll-interval <ms>    Polling interval in milliseconds (default: "1000")
-# @option --host <host>           Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                 display help for command
-# @arg id                         Loop ID
-loop::logs() {
-    :;
-}
-# }}} paseo loop logs
-
-# {{{ paseo loop stop
-# @cmd Stop a running loop
-# @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help          display help for command
-# @arg id                  Loop ID
-loop::stop() {
-    :;
-}
-# }}} paseo loop stop
-# }} paseo loop
+# }}} paseo script stop
+# }} paseo script
 
 # {{ paseo schedule
 # @cmd Manage recurring schedules
@@ -766,22 +879,21 @@ schedule() {
 
 # {{{ paseo schedule create
 # @cmd Create a schedule
-# @option --every[5m|1h] <duration>            Fixed interval cadence
-# @option --cron <expr>                        Cron cadence expression
-# @option --timezone <iana>                    IANA time zone for cron cadence (default: UTC)
-# @option --name <name>                        Optional schedule name
-# @option --target[self|new-agent|agent-id]    Run target
-# @option --provider <provider>                Agent provider, or provider/model (e.g. codex or codex/gpt-5.4)
-# @option --mode <mode>                        Provider-specific mode (e.g. claude bypassPermissions, opencode build)
-# @option --cwd <path>                         Working directory (default: current; required with --host)
-# @flag --run-now                              Fire one immediate run on creation (only with --cron)
-# @flag --no-run-now                           Wait the full interval before the first run (only with --every)
-# @option --max-runs <n>                       Maximum number of runs
-# @option --expires-in <duration>              Time to live for the schedule
-# @flag --json                                 Output in JSON format
-# @option --host <host>                        Daemon host target: host:port or
-# @flag -h --help                              display help for command
-# @arg prompt                                  Prompt to run on the schedule
+# @option --every[5m|1h] <duration>    Cron-compatible cadence preset
+# @option --cron <expr>                Cron cadence expression
+# @option --timezone <iana>            IANA time zone for cron cadence (default: UTC)
+# @option --name <name>                Optional schedule name
+# @option --provider <provider>        Agent provider, or provider/model (e.g. codex or codex/gpt-5.4)
+# @option --mode <mode>                Provider-specific mode (e.g. claude bypassPermissions, opencode build)
+# @option --thinking <id>              Thinking option ID for new-agent runs
+# @option --cwd <path>                 Working directory (default: current; required with --host)
+# @flag --run-now                      Fire one immediate run on creation
+# @option --max-runs <n>               Maximum number of runs
+# @option --expires-in <duration>      Time to live for the schedule
+# @flag --json                         Output in JSON format
+# @option --host <host>                Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help                      display help for command
+# @arg prompt                          Prompt to run on the schedule
 schedule::create() {
     :;
 }
@@ -790,7 +902,7 @@ schedule::create() {
 # {{{ paseo schedule ls
 # @cmd List schedules
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 schedule::ls() {
     :;
@@ -800,7 +912,7 @@ schedule::ls() {
 # {{{ paseo schedule inspect
 # @cmd Inspect a schedule
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Schedule ID
 schedule::inspect() {
@@ -811,7 +923,7 @@ schedule::inspect() {
 # {{{ paseo schedule logs
 # @cmd Show recent schedule run logs
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Schedule ID
 schedule::logs() {
@@ -822,7 +934,7 @@ schedule::logs() {
 # {{{ paseo schedule pause
 # @cmd Pause a schedule
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Schedule ID
 schedule::pause() {
@@ -833,7 +945,7 @@ schedule::pause() {
 # {{{ paseo schedule resume
 # @cmd Resume a paused schedule
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Schedule ID
 schedule::resume() {
@@ -844,7 +956,7 @@ schedule::resume() {
 # {{{ paseo schedule delete
 # @cmd Delete a schedule
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Schedule ID
 schedule::delete() {
@@ -855,7 +967,7 @@ schedule::delete() {
 # {{{ paseo schedule run-once
 # @cmd Manually trigger a single run of a schedule without affecting cadence
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 # @arg id                  Schedule ID
 schedule::run-once() {
@@ -865,7 +977,7 @@ schedule::run-once() {
 
 # {{{ paseo schedule update
 # @cmd Update an existing schedule in place
-# @option --every[5m|1h] <duration>    Switch to fixed interval cadence
+# @option --every[5m|1h] <duration>    Cron-compatible cadence preset
 # @option --cron <expr>                Switch to cron cadence expression
 # @option --timezone <iana>            IANA time zone for cron cadence (requires --cron)
 # @option --name <name>                Rename the schedule (empty string clears the name)
@@ -879,7 +991,7 @@ schedule::run-once() {
 # @option --expires-in <duration>      Set or change time to live for the schedule
 # @flag --no-expires-in                Clear the expiration
 # @flag --json                         Output in JSON format
-# @option --host <host>                Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>                Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                      display help for command
 # @arg id                              Schedule ID
 schedule::update() {
@@ -887,6 +999,54 @@ schedule::update() {
 }
 # }}} paseo schedule update
 # }} paseo schedule
+
+# {{ paseo heartbeat
+# @cmd Manage this agent's heartbeats
+# @flag -h --help    display help for command
+heartbeat() {
+    :;
+}
+
+# {{{ paseo heartbeat create
+# @cmd Create a recurring prompt for this agent
+# @option --cron <expr>              Five-field cron cadence
+# @option --timezone <iana>          IANA time zone
+# @option --name <name>              Heartbeat name
+# @option --max-runs <n>             Maximum number of runs
+# @option --expires-in <duration>    Time to live
+# @flag --json                       Output in JSON format
+# @option --host <host>              Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help                    display help for command
+# @arg prompt                        Prompt to send
+heartbeat::create() {
+    :;
+}
+# }}} paseo heartbeat create
+
+# {{{ paseo heartbeat update
+# @cmd Change a heartbeat cron cadence
+# @option --cron <expr>        Five-field cron cadence
+# @option --timezone <iana>    IANA time zone
+# @flag --json                 Output in JSON format
+# @option --host <host>        Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help              display help for command
+# @arg id                      Heartbeat ID
+heartbeat::update() {
+    :;
+}
+# }}} paseo heartbeat update
+
+# {{{ paseo heartbeat delete
+# @cmd Delete a heartbeat
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id                  Heartbeat ID
+heartbeat::delete() {
+    :;
+}
+# }}} paseo heartbeat delete
+# }} paseo heartbeat
 
 # {{ paseo permit
 # @cmd Manage permission requests
@@ -898,7 +1058,7 @@ permit() {
 # {{{ paseo permit ls
 # @cmd List all pending permissions
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 permit::ls() {
     :;
@@ -910,7 +1070,7 @@ permit::ls() {
 # @flag --all               Allow all pending permissions for this agent
 # @option --input <json>    Modified input parameters (JSON)
 # @flag --json              Output in JSON format
-# @option --host <host>     Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>     Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help           display help for command
 # @arg agent                Agent ID (or prefix)
 # @arg req_id               Permission request ID (optional if --all)
@@ -925,7 +1085,7 @@ permit::allow() {
 # @option --message <msg>    Denial reason message
 # @flag --interrupt          Stop agent after denial
 # @flag --json               Output in JSON format
-# @option --host <host>      Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>      Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help            display help for command
 # @arg agent                 Agent ID (or prefix)
 # @arg req_id                Permission request ID (optional if --all)
@@ -945,7 +1105,7 @@ provider() {
 # {{{ paseo provider ls
 # @cmd List available providers and status
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
 provider::ls() {
     :;
@@ -956,14 +1116,122 @@ provider::ls() {
 # @cmd List models for a provider
 # @flag --thinking                        Include thinking option IDs for each model
 # @flag --json                            Output in JSON format
-# @option --host <host>                   Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>                   Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help                         display help for command
 # @arg provider[claude|codex|opencode]    Provider name
 provider::models() {
     :;
 }
 # }}} paseo provider models
+
+# {{{ paseo provider diagnostic
+# @cmd Show provider installation, environment, and availability diagnostics
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg provider            Provider name
+provider::diagnostic() {
+    :;
+}
+# }}} paseo provider diagnostic
 # }} paseo provider
+
+# {{ paseo plugin
+# @cmd Manage trusted, unsandboxed plugins
+# @flag -h --help    display help for command
+plugin() {
+    :;
+}
+
+# {{{ paseo plugin init
+# @cmd Create a typecheckable local plugin
+# @option --id <id>    Manifest plugin ID (defaults to the directory name)
+# @flag --json         Output in JSON format
+# @flag -h --help      display help for command
+# @arg directory!
+plugin::init() {
+    :;
+}
+# }}} paseo plugin init
+
+# {{{ paseo plugin ls
+# @cmd List configured plugins
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id
+plugin::ls() {
+    :;
+}
+# }}} paseo plugin ls
+
+# {{{ paseo plugin logs
+# @cmd Show recent plugin output or Git repository
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id!
+plugin::logs() {
+    :;
+}
+# }}} paseo plugin logs
+
+# {{{ paseo plugin update
+# @cmd Fetch and install Git-managed plugin updates
+# @flag --all              Update every Git-managed plugin
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id
+plugin::update() {
+    :;
+}
+# }}} paseo plugin update
+
+# {{{ paseo plugin reload
+# @cmd reload a plugin
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id!
+plugin::reload() {
+    :;
+}
+# }}} paseo plugin reload
+
+# {{{ paseo plugin enable
+# @cmd enable a plugin
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id!
+plugin::enable() {
+    :;
+}
+# }}} paseo plugin enable
+
+# {{{ paseo plugin disable
+# @cmd disable a plugin
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id!
+plugin::disable() {
+    :;
+}
+# }}} paseo plugin disable
+
+# {{{ paseo plugin remove
+# @cmd Remove plugin configuration
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg id!
+plugin::remove() {
+    :;
+}
+# }}} paseo plugin remove
+# }} paseo plugin
 
 # {{ paseo speech
 # @cmd Speech commands
@@ -973,49 +1241,131 @@ speech() {
 }
 # }} paseo speech
 
-# {{ paseo worktree
-# @cmd Manage Paseo-managed git worktrees
+# {{ paseo project
+# @cmd Manage projects
 # @flag -h --help    display help for command
-worktree() {
+project() {
     :;
 }
 
-# {{{ paseo worktree ls
-# @cmd List Paseo-managed git worktrees
+# {{{ paseo project create
+# @cmd Register a project directory
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
-worktree::ls() {
+# @arg path                Project directory (default: current directory)
+project::create() {
     :;
 }
-# }}} paseo worktree ls
+# }}} paseo project create
 
-# {{{ paseo worktree create
-# @cmd Create a Paseo-managed git worktree
-# @option --mode <mode>          Creation mode: branch-off, checkout-branch, or checkout-pr
-# @option --new-branch <name>    New branch name (--mode branch-off)
-# @option --base <ref>           Base ref for new branch (--mode branch-off, defaults to repo default)
-# @option --branch <name>        Existing branch to check out (--mode checkout-branch)
-# @option --pr-number <n>        Pull request number (--mode checkout-pr)
-# @option --cwd <path>           Repository directory (default: current)
-# @flag --json                   Output in JSON format
-# @option --host <host>          Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
-# @flag -h --help                display help for command
-worktree::create() {
-    :;
-}
-# }}} paseo worktree create
-
-# {{{ paseo worktree archive
-# @cmd Archive a worktree (removes worktree and associated branch)
+# {{{ paseo project ls
+# @cmd List projects
 # @flag --json             Output in JSON format
-# @option --host <host>    Daemon host target: host:port or tcp://host:port?ssl=true&password=secret (default: local socket/pipe, then localhost:6767)
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
 # @flag -h --help          display help for command
-# @arg name                Worktree name or branch name
-worktree::archive() {
+project::ls() {
     :;
 }
-# }}} paseo worktree archive
-# }} paseo worktree
+# }}} paseo project ls
+
+# {{{ paseo project rename
+# @cmd Set a project's user-visible name
+# @flag --reset            Clear the custom name and use the directory name
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg project-id          Project id
+# @arg name                New project name
+project::rename() {
+    :;
+}
+# }}} paseo project rename
+
+# {{{ paseo project delete
+# @cmd Delete a project and its workspaces
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg project-id          Project id
+project::delete() {
+    :;
+}
+# }}} paseo project delete
+# }} paseo project
+
+# {{ paseo workspace
+# @cmd Manage workspaces
+# @flag -h --help    display help for command
+workspace() {
+    :;
+}
+
+# {{{ paseo workspace setup
+# @cmd Allow and run setup for a workspace
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg workspace-id        Workspace id
+workspace::setup() {
+    :;
+}
+# }}} paseo workspace setup
+
+# {{{ paseo workspace create
+# @cmd Create a workspace
+# @option --isolation <local|worktree>    Workspace isolation
+# @option --path <path>                   Local directory or source checkout (default: current)
+# @option --project <id>                  Existing project id
+# @option --title <title>                 Workspace title
+# @option --mode <mode>                   Worktree mode: branch-off, checkout-branch, or checkout-pr (default: branch-off)
+# @option --worktree-slug <slug>          Managed worktree path slug
+# @option --new-branch <name>             New branch name (--mode branch-off)
+# @option --base <ref>                    Base ref (--mode branch-off)
+# @option --branch <name>                 Existing branch (--mode checkout-branch)
+# @option --pr-number <n>                 Pull request or change request number (--mode checkout-pr)
+# @option --forge <forge>                 Forge for --mode checkout-pr (default: source checkout)
+# @flag --json                            Output in JSON format
+# @option --host <host>                   Daemon host target: host:port, tcp://host:port, or ssh://user@host (default: local socket/pipe, then localhost:6767)
+# @flag -h --help                         display help for command
+workspace::create() {
+    :;
+}
+# }}} paseo workspace create
+
+# {{{ paseo workspace ls
+# @cmd List active workspaces
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+workspace::ls() {
+    :;
+}
+# }}} paseo workspace ls
+
+# {{{ paseo workspace rename
+# @cmd Set a workspace's user-visible title
+# @flag --reset            Clear the title and revert to the branch or directory name
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg workspace-id        Workspace id
+# @arg title               New workspace title
+workspace::rename() {
+    :;
+}
+# }}} paseo workspace rename
+
+# {{{ paseo workspace archive
+# @cmd Archive a workspace and everything it owns
+# @flag --json             Output in JSON format
+# @option --host <host>    Daemon host target: host:port, tcp://host:port, or
+# @flag -h --help          display help for command
+# @arg workspace-id        Workspace id
+workspace::archive() {
+    :;
+}
+# }}} paseo workspace archive
+# }} paseo workspace
 
 command eval "$(argc --argc-eval "$0" "$@")"

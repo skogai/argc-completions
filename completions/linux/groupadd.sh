@@ -7,7 +7,7 @@
 # @option -K --key <KEY=VALUE>        override /etc/login.defs defaults
 # @flag -o --non-unique               allow to create groups with duplicate (non-unique) GID
 # @option -p --password               use this encrypted password for the new group
-# @flag -r --system                   create a system account
+# @flag -r --system                   create a system group
 # @option -R --root <CHROOT_DIR>      directory to chroot into
 # @option -P --prefix <PREFIX_DIR>    directory prefix
 # @option -U --users                  comma-separated list of users to add as members of this group

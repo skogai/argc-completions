@@ -6,7 +6,7 @@
 # @option -C --backupdir <dir>         Directory for saving unique backup files
 # @flag -D --boldtext                  Use bold instead of reverse video text
 # @flag -E --tabstospaces              Convert typed tabs to spaces
-# @flag -F --multibuffer               Read a file into a new buffer by default
+# @flag -F --newbuffer                 Read a file into a new buffer by default
 # @flag -G --locking                   Use (vim-style) lock files
 # @flag -H --historylog                Save & reload old search/replace strings
 # @flag -I --ignorercfiles             Don't look at nanorc files

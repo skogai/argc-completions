@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @cmd
 cliff() {
     :;
 }
