@@ -62,7 +62,7 @@
 # @option --loader*[js|jsx|ts|tsx|json|toml|text|file|wasm|napi] <STR>  Parse files with .ext:loader, e.g. --loader .js:jsx.
 # @option --allow <strings>                        Allow extra privileged entitlement (e.g., "network.host", "security.insecure")
 # @option --input-format[auto|a|yaml|y|props|p|xml|x|tsv|t|csv|c|toml] <string>  parse format for input.
-# @option --argjson <a> <v>                        set variable $a to JSON value <v>;
+# @flag --argjson                                  a v  set variable $a to JSON value <v>;
 # @option --git-protocol[ssh|https] <string>       The protocol to use for git operations:
 # @option --graph:node_limit <integer>
 # @option -r --reload* <CACHE_BLOCKLIST>           Reload source code cache (recompile TypeScript)
@@ -74,8 +74,8 @@
 # @option --top-level-division[default|section|chapter|part]  Treat top-level headings as the given division type in LaTeX, ConTeXt, DocBook, and TEI output.
 # @flag --unknown
 # @option --trace-ascii <file>                     Like --trace, but without hex output
-# @option --prepend <KEY> <VALUE>                  Add one configuration value to the beginning of a list key.
-# @option --add <KEY> <VALUE>                      Add one configuration value to the beginning of a list key.
+# @flag --prepend                                  KEY VALUE Add one configuration value to the beginning of a list key.
+# @flag --add                                      KEY VALUE Add one configuration value to the beginning of a list key.
 # @option --which <PATH+>                          Given some file's PATH, print which conda package the file came from.
 # @flag -backup                                    keep a backup of the modified files
 # @flag -keep                                      keep a backup of the modified files
@@ -382,15 +382,8 @@ list-units() {
 }
 # }} __test list-units
 
-# {{ __test set-property
-# @cmd Sets one or more properties of a unit
-set-property() {
-    :;
-}
-# }} __test set-property
-
 # {{ __test mount-image
-# @cmd Mount an image from the host into a
+# @cmd UNIT PATH [PATH [OPTS]] Mount an image from the host into a
 mount-image() {
     :;
 }
