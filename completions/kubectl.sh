@@ -4,6 +4,7 @@
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -13,12 +14,14 @@
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -34,6 +37,7 @@
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -43,12 +47,14 @@
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -64,11 +70,11 @@
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files to use to create the resource
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --raw <value>                           Raw URI to POST to the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --validate[strict|true|warn|ignore|false] <strict>  Must be one of: strict (or true), warn, ignore (or false).
@@ -82,6 +88,7 @@ create() {
 # @option --as <value>                             Username to impersonate for the operation.
 # @option --as-group* <value>                      Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                         UID to impersonate for the operation.
+# @option --as-user-extra* <value>                 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                        Default cache directory
 # @option --certificate-authority <path>           Path to a cert file for the certificate authority
 # @option --client-certificate <path>              Path to a client certificate file for TLS
@@ -91,12 +98,14 @@ create() {
 # @flag --disable-compression                      If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                 If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                      Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                         Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>               Maximum number of seconds between log flushes
 # @flag --match-server-version                     Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                       Password for basic authentication to the API server
 # @option --profile <none>                         Name of profile to capture.
 # @option --profile-output <profile.pprof>         Name of the file to write the profile to
+# @option --proxy-url <value>                      Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                    The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                      The address and port of the Kubernetes API server
 # @option --tls-server-name <value>                Server name to use for server certificate validation.
@@ -111,7 +120,7 @@ create() {
 # @option --dry-run[none|never|silent] <none>      Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>         Name of the manager used to track field ownership.
 # @option --non-resource-url* <value>              A partial url that user should have access to.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --resource* <value>                      Resource that the rule applies to
 # @option --resource-name* <value>                 Resource in the white list that the rule applies to, repeat this flag for multiple items
 # @flag --save-config                              If true, the configuration of current object will be saved in its annotation.
@@ -130,6 +139,7 @@ create::clusterrole() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -139,12 +149,14 @@ create::clusterrole() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -158,7 +170,7 @@ create::clusterrole() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --group* <value>                        Groups to bind to the clusterrole.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @option --serviceaccount* <value>               Service accounts to bind to the clusterrole, in the format <namespace>:<name>.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -177,6 +189,7 @@ create::clusterrolebinding() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -186,12 +199,14 @@ create::clusterrolebinding() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -208,7 +223,7 @@ create::clusterrolebinding() {
 # @option --from-env-file* <value>                Specify the path to a file to read lines of key=val pairs to create a configmap.
 # @option --from-file* <value>                    Key file can be specified using its file path, in which case file basename will be used as configmap key, or optionally with a key and file path, in which case the given key will be used.
 # @option --from-literal* <value>                 Specify a key and literal value to insert in configmap (i.e.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -225,6 +240,7 @@ create::configmap() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -234,12 +250,14 @@ create::configmap() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -253,7 +271,7 @@ create::configmap() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --image <value>                         Image name to run.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --restart[OnFailure|Never] <value>      job's restart policy.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @option --schedule <value>                      A schedule in the Cron format the job should be run with.
@@ -274,6 +292,7 @@ create::cronjob() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -283,12 +302,14 @@ create::cronjob() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -302,7 +323,7 @@ create::cronjob() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --image* <value>                        Image names to run.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --port <-1>                             The containerPort that this deployment exposes.
 # @option -r --replicas <1>                       Number of replicas to create.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
@@ -323,6 +344,7 @@ create::deployment() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -332,12 +354,14 @@ create::deployment() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -353,7 +377,7 @@ create::deployment() {
 # @option --default-backend <value>               Default service for backend, in format of svcname:port
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --rule* <value>                         Rule in format host/path=service:port[,tls=secretname].
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -370,6 +394,7 @@ create::ingress() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -379,12 +404,14 @@ create::ingress() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -397,9 +424,9 @@ create::ingress() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option --from <value>                          The name of the resource to create a Job from (only cronjob is supported).
+# @option --from <value>                          The name of the resource to create a Job from (only CronJob is supported).
 # @option --image <value>                         Image name to run.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -418,6 +445,7 @@ create::job() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -427,12 +455,14 @@ create::job() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -445,7 +475,7 @@ create::job() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -462,6 +492,7 @@ create::namespace() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -471,12 +502,14 @@ create::namespace() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -491,7 +524,7 @@ create::namespace() {
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --max-unavailable <value>               The maximum number or percentage of unavailable pods this budget requires.
 # @option --min-available <value>                 The minimum number or percentage of available pods this budget requires.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @option --selector <value>                      A label selector to use for this budget.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -509,6 +542,7 @@ create::poddisruptionbudget() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -518,12 +552,14 @@ create::poddisruptionbudget() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -538,7 +574,7 @@ create::poddisruptionbudget() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @flag --global-default                          global-default specifies whether this PriorityClass should be considered as the default priority.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --preemption-policy <PreemptLowerPriority>  preemption-policy is the policy for preempting pods with lower priority.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -557,6 +593,7 @@ create::priorityclass() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -566,12 +603,14 @@ create::priorityclass() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -585,7 +624,7 @@ create::priorityclass() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --hard <value>                          A comma-delimited set of resource=quantity pairs that define a hard limit.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @option --scopes <value>                        A comma-delimited set of quota scopes that must all match each object tracked by the quota.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -602,6 +641,7 @@ create::quota() {
 # @option --as <value>                             Username to impersonate for the operation.
 # @option --as-group* <value>                      Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                         UID to impersonate for the operation.
+# @option --as-user-extra* <value>                 User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                        Default cache directory
 # @option --certificate-authority <path>           Path to a cert file for the certificate authority
 # @option --client-certificate <path>              Path to a client certificate file for TLS
@@ -611,12 +651,14 @@ create::quota() {
 # @flag --disable-compression                      If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                 If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                      Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                         Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>               Maximum number of seconds between log flushes
 # @flag --match-server-version                     Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                       Password for basic authentication to the API server
 # @option --profile <none>                         Name of profile to capture.
 # @option --profile-output <profile.pprof>         Name of the file to write the profile to
+# @option --proxy-url <value>                      Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                    The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                      The address and port of the Kubernetes API server
 # @option --tls-server-name <value>                Server name to use for server certificate validation.
@@ -629,7 +671,7 @@ create::quota() {
 # @flag --allow-missing-template-keys              If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>      Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>         Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --resource* <value>                      Resource that the rule applies to
 # @option --resource-name* <value>                 Resource in the white list that the rule applies to, repeat this flag for multiple items
 # @flag --save-config                              If true, the configuration of current object will be saved in its annotation.
@@ -648,6 +690,7 @@ create::role() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -657,12 +700,14 @@ create::role() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -676,7 +721,7 @@ create::role() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --group* <value>                        Groups to bind to the role.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --role <value>                          Role this RoleBinding should reference
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @option --serviceaccount*[`_choice_serviceaccount`] <value>  Service accounts to bind to the role, in the format <namespace>:<name>.
@@ -695,6 +740,7 @@ create::rolebinding() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -704,12 +750,14 @@ create::rolebinding() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -729,6 +777,7 @@ create::secret() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -738,12 +787,14 @@ create::secret() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -761,8 +812,8 @@ create::secret() {
 # @option --docker-username <value>               Username for Docker registry authentication
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option --from-file <file>                      Key files can be specified using their file path, in which case a default name will be given to them, or optionally with a name and file path, in which case the given name will be used.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option --from-file <file>                      Key files can be specified using their file path, in which case a default name of .dockerconfigjson will be given to them, or optionally with a name and file path, in which case the given name will be used.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -778,6 +829,7 @@ create::secret::docker-registry() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -787,12 +839,14 @@ create::secret::docker-registry() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -809,7 +863,7 @@ create::secret::docker-registry() {
 # @option --from-env-file <file>                  Specify the path to a file to read lines of key=val pairs to create a secret.
 # @option --from-file <file>                      Key files can be specified using their file path, in which case a default name will be given to them, or optionally with a name and file path, in which case the given name will be used.
 # @option --from-literal* <value>                 Specify a key and literal value to insert in secret (i.e.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -826,6 +880,7 @@ create::secret::generic() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -835,12 +890,14 @@ create::secret::generic() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -856,7 +913,7 @@ create::secret::generic() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --key <file>                            Path to private key associated with given certificate.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -874,6 +931,7 @@ create::secret::tls() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -883,12 +941,14 @@ create::secret::tls() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -907,6 +967,7 @@ create::service() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -916,12 +977,14 @@ create::service() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -935,7 +998,7 @@ create::service() {
 # @option --clusterip <value>                     Assign your own ClusterIP or set to 'None' for a 'headless' service (no loadbalancing).
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --tcp* <value>                          Port pairs can be specified as '<port>:<targetPort>'.
@@ -952,6 +1015,7 @@ create::service::clusterip() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -961,12 +1025,14 @@ create::service::clusterip() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -980,7 +1046,7 @@ create::service::clusterip() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --external-name <value>                 External name of service
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --tcp* <value>                          Port pairs can be specified as '<port>:<targetPort>'.
@@ -998,6 +1064,7 @@ create::service::externalname() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1007,12 +1074,14 @@ create::service::externalname() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1025,7 +1094,7 @@ create::service::externalname() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --tcp* <value>                          Port pairs can be specified as '<port>:<targetPort>'.
@@ -1042,6 +1111,7 @@ create::service::loadbalancer() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1051,12 +1121,14 @@ create::service::loadbalancer() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1070,7 +1142,7 @@ create::service::loadbalancer() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
 # @option --node-port <0>                         Port used to expose the service on each node in a cluster.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --tcp* <value>                          Port pairs can be specified as '<port>:<targetPort>'.
@@ -1089,6 +1161,7 @@ create::service::nodeport() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1098,12 +1171,14 @@ create::service::nodeport() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1116,7 +1191,7 @@ create::service::nodeport() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-create>        Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -1132,6 +1207,7 @@ create::serviceaccount() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1141,12 +1217,14 @@ create::serviceaccount() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1162,7 +1240,7 @@ create::serviceaccount() {
 # @option --bound-object-name <value>             Name of an object to bind the token to.
 # @option --bound-object-uid <value>              UID of an object to bind the token to.
 # @option --duration <0s>                         Requested lifetime of the issued token.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg service_account_name
@@ -1177,6 +1255,7 @@ create::token() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1186,12 +1265,14 @@ create::token() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1211,7 +1292,7 @@ create::token() {
 # @option -l --labels <value>                     Labels to apply to the service created by this call.
 # @option --load-balancer-ip <value>              IP to assign to the LoadBalancer.
 # @option --name <value>                          The name for the newly created object.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --override-type[json|merge|strategic] <merge>  The method used to override the generated object: json, merge, or strategic.
 # @option --overrides <value>                     An inline JSON override for the generated object.
 # @option --port <value>                          The port that the service should serve on.
@@ -1236,6 +1317,7 @@ expose() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1245,12 +1327,14 @@ expose() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1263,29 +1347,37 @@ expose() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --annotations* <value>                  Annotations to apply to the pod.
 # @flag --attach                                  If true, wait for the Pod to start running, and then attach to the Pod as if 'kubectl attach ...' were called.
+# @option --cascade <background>                  Must be "background", "orphan", or "foreground".
 # @flag --command                                 If true and extra arguments are present, use them as the 'command' field in the container, rather than the 'args' field which is the default.
+# @option --detach-keys <ctrl-p,ctrl-q>           Override the key sequence for detaching a container.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --env* <value>                          Environment variables to set in the container.
 # @flag --expose                                  If true, create a ClusterIP service associated with the pod.
 # @option --field-manager <kubectl-run>           Name of the manager used to track field ownership.
+# @flag --force                                   If true, immediately remove resources from API and bypass graceful deletion.
+# @option --grace-period <-1>                     Period of time in seconds given to the resource to terminate gracefully.
 # @option --image[`_module_oci_docker_image`] <value>  The image for the container to run.
 # @option --image-pull-policy <value>             The image pull policy for the container.
+# @option -k --kustomize <dir>                    Process a kustomization directory.
 # @option -l --labels <value>                     Comma separated labels to apply to the pod.
 # @flag --leave-stdin-open                        If the pod is started in interactive mode or with stdin, leave stdin open after the first attach completes.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --override-type[json|merge|strategic] <merge>  The method used to override the generated object: json, merge, or strategic.
 # @option --overrides <value>                     An inline JSON override for the generated object.
 # @option --pod-running-timeout <1m0s>            The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 # @option --port <value>                          The port that this container exposes.
 # @flag --privileged                              If true, run the container in privileged mode.
 # @flag -q --quiet                                If true, suppress prompt messages.
+# @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --restart[Always|OnFailure|Never] <Always>  The restart policy for this Pod.
 # @flag --rm                                      If true, delete the pod after it exits.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @flag -i --stdin                                Keep stdin open on the container in the pod, even if nothing is attached.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
+# @option --timeout <0s>                          The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 # @flag -t --tty                                  Allocate a TTY for the container in the pod.
+# @flag --wait                                    If true, wait for resources to be gone before returning.
 # @arg command[`_module_os_command`]
 # @arg args~[`_choice_args`]
 run() {
@@ -1298,6 +1390,7 @@ run() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1307,12 +1400,14 @@ run() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1331,6 +1426,7 @@ set() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1340,12 +1436,14 @@ set() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1367,12 +1465,12 @@ set() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag --list                                    If true, display the environment and any changes in the standard format.
 # @flag --local                                   If true, set env will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --overwrite                               If true, allow environment to be overwritten, otherwise reject updates that overwrite existing environment.
 # @option --prefix <value>                        Prefix to append to variable names
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --resolve                                 If true, show secret or configmap references when listing variables
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1387,6 +1485,7 @@ set::env() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1396,12 +1495,14 @@ set::env() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1418,9 +1519,9 @@ set::env() {
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag --local                                   If true, set image will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg type-name[`_choice_resource_type_or_resource`]
@@ -1435,6 +1536,7 @@ set::image() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1444,12 +1546,14 @@ set::image() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1468,10 +1572,10 @@ set::image() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option --limits <value>                        The resource requirement requests for this container.
 # @flag --local                                   If true, set resources will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --requests <value>                      The resource requirement requests for this container.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 set::resources() {
@@ -1484,6 +1588,7 @@ set::resources() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1493,12 +1598,14 @@ set::resources() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1514,7 +1621,7 @@ set::resources() {
 # @option --field-manager <kubectl-set>           Name of the manager used to track field ownership.
 # @option -f --filename <file>                    identifying the resource.
 # @flag --local                                   If true, annotation will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --resource-version <value>              If non-empty, the selectors update will only succeed if this is the current resource-version for the object.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -1533,6 +1640,7 @@ set::selector() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1542,12 +1650,14 @@ set::selector() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1564,7 +1674,7 @@ set::selector() {
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag --local                                   If true, set serviceaccount will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -1580,6 +1690,7 @@ set::serviceaccount() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1589,12 +1700,14 @@ set::serviceaccount() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1611,9 +1724,9 @@ set::serviceaccount() {
 # @option --group* <value>                        Groups to bind to the role
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag --local                                   If true, set subject will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --serviceaccount* <value>               Service accounts to bind to the role
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -1629,6 +1742,7 @@ set::subject() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1638,12 +1752,14 @@ set::subject() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1653,9 +1769,10 @@ set::subject() {
 # @option -v --v <0>                              number for the log level verbosity
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
-# @option --api-version <value>                   Use given api-version (group/version) of the resource.
-# @option --output[plaintext|plaintext-openapiv2] <plaintext>  Format in which to render the schema.
-# @flag --recursive                               When true, print the name of all the fields recursively.
+# @option --api-version <value>                   Get different explanations for particular API version (API group/version)
+# @option --max-depth <0>                         Maximum recursion depth when printing nested fields with --recursive.
+# @option -o --output[plaintext|plaintext-openapiv2] <plaintext>  Format in which to render the schema
+# @flag -R --recursive                            Print the fields of fields.
 # @arg type
 explain() {
     :;
@@ -1667,6 +1784,7 @@ explain() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1676,12 +1794,14 @@ explain() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1696,15 +1816,15 @@ explain() {
 # @option --chunk-size <500>                      Return large lists in chunks rather than all at once.
 # @option --field-selector <value>                Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2).
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
-# @flag --ignore-not-found                        If the requested object does not exist the command will return exit code 0.
+# @flag --ignore-not-found                        If set to true, suppresses NotFound error for specific objects that do not exist.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -L --label-columns* <value>             Accepts a comma separated list of labels that are going to be presented as columns.
 # @flag --no-headers                              When using the default or custom-column output format, don't print headers (default print headers).
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file|custom-columns|custom-columns-file|wide] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file|custom-columns|custom-columns-file|wide] <value>  Output format.
 # @flag --output-watch-events                     Output watch event objects when --watch or --watch-only is used.
 # @option --raw <value>                           Raw URI to request from the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --server-print                            If true, have the server return the appropriate table output.
 # @flag --show-kind                               If present, list the resource type for the requested object(s).
 # @flag --show-labels                             When printing, show all labels as the last column (default hide labels column)
@@ -1726,6 +1846,7 @@ get() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1735,12 +1856,14 @@ get() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1754,7 +1877,7 @@ get() {
 # @option --field-manager <kubectl-edit>          Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files to use to edit the resource
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --output-patch                            Output the patch if the resource is edited.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
@@ -1775,6 +1898,7 @@ edit() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1784,12 +1908,14 @@ edit() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1814,7 +1940,7 @@ edit() {
 # @option -o --output <value>                     Output mode.
 # @option --raw <value>                           Raw URI to DELETE to the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --timeout <0s>                          The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 # @flag --wait                                    If true, wait for resources to be gone before returning.
 # @arg type-name[`_choice_all_type`]
@@ -1829,6 +1955,7 @@ delete() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1838,12 +1965,14 @@ delete() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1862,6 +1991,7 @@ rollout() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1871,12 +2001,14 @@ rollout() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1889,10 +2021,10 @@ rollout() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --revision <0>                          See the details, including podTemplate of the revision specified
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1906,6 +2038,7 @@ rollout::history() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1915,12 +2048,14 @@ rollout::history() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1934,9 +2069,9 @@ rollout::history() {
 # @option --field-manager <kubectl-rollout>       Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1950,6 +2085,7 @@ rollout::pause() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -1959,12 +2095,14 @@ rollout::pause() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -1978,9 +2116,9 @@ rollout::pause() {
 # @option --field-manager <kubectl-rollout>       Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -1994,6 +2132,7 @@ rollout::restart() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2003,12 +2142,14 @@ rollout::restart() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2022,9 +2163,9 @@ rollout::restart() {
 # @option --field-manager <kubectl-rollout>       Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -2038,6 +2179,7 @@ rollout::resume() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2047,12 +2189,14 @@ rollout::resume() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2066,7 +2210,7 @@ rollout::resume() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --revision <0>                          Pin to a specific revision for showing its status.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --timeout <0s>                          The length of time to wait before ending watch, zero means never.
 # @flag -w --watch                                Watch the status of the rollout until it's done.
 # @arg resource-name[`_choice_resource_type_and_name`]
@@ -2080,6 +2224,7 @@ rollout::status() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2089,12 +2234,14 @@ rollout::status() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2108,9 +2255,9 @@ rollout::status() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to get from a server.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --to-revision <0>                       The revision to rollback to.
@@ -2126,6 +2273,7 @@ rollout::undo() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2135,12 +2283,14 @@ rollout::undo() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2156,11 +2306,11 @@ rollout::undo() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to set a new size
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --replicas <0>                          The new desired number of replicas.
 # @option --resource-version <value>              Precondition for resource version.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --timeout <0s>                          The length of time to wait before giving up on a scale operation, zero means don't wait.
@@ -2175,6 +2325,7 @@ scale() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2184,12 +2335,14 @@ scale() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2200,15 +2353,16 @@ scale() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
-# @option --cpu-percent <-1>                      The target average CPU utilization (represented as a percent of requested CPU) over all the pods.
+# @option --cpu <value>                           Target CPU utilization over all the pods.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-autoscale>     Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to autoscale.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option --max <-1>                              The upper limit for the number of pods that can be set by the autoscaler.
+# @option --memory <value>                        Target memory utilization over all the pods.
 # @option --min <-1>                              The lower limit for the number of pods that can be set by the autoscaler.
 # @option --name <value>                          The name for the newly created object.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -2224,6 +2378,7 @@ autoscale() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2233,12 +2388,14 @@ autoscale() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2257,6 +2414,7 @@ certificate() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2266,12 +2424,14 @@ certificate() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2285,7 +2445,7 @@ certificate() {
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to update
 # @flag --force                                   Update the CSR even if it is already approved.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -2299,6 +2459,7 @@ certificate::approve() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2308,12 +2469,14 @@ certificate::approve() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2327,7 +2490,7 @@ certificate::approve() {
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to update
 # @flag --force                                   Update the CSR even if it is already denied.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -2342,6 +2505,7 @@ certificate::deny() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2351,12 +2515,14 @@ certificate::deny() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2375,6 +2541,7 @@ cluster-info() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2384,12 +2551,14 @@ cluster-info() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2402,7 +2571,7 @@ cluster-info() {
 # @flag -A --all-namespaces                       If true, dump all namespaces.
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --namespaces* <value>                   A comma separated list of namespaces to dump.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <json>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <json>  Output format.
 # @option --output-directory <value>              Where to output the files.
 # @option --pod-running-timeout <20s>             The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -2418,6 +2587,7 @@ cluster-info::dump() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2427,12 +2597,14 @@ cluster-info::dump() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2452,6 +2624,7 @@ top() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2461,12 +2634,14 @@ top() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2477,8 +2652,9 @@ top() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @flag --no-headers                              If present, print output without headers
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-capacity                           Print node resources based on Capacity instead of Allocatable(default) of the nodes.
+# @flag --show-swap                               Print node resources related to swap memory.
 # @option --sort-by <value>                       If non-empty, sort nodes list using specified field.
 # @flag --use-protocol-buffers                    Enables using protocol-buffers to access Metrics API.
 # @arg name[`_choice_node`]
@@ -2493,6 +2669,7 @@ top::node() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2502,12 +2679,14 @@ top::node() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2521,7 +2700,8 @@ top::node() {
 # @flag --containers                              If present, print usage of containers within a pod.
 # @option --field-selector <value>                Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2).
 # @flag --no-headers                              If present, print output without headers.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
+# @flag --show-swap                               Print pod resources related to swap memory.
 # @option --sort-by <value>                       If non-empty, sort pods list using specified field.
 # @flag --sum                                     Print the sum of the resource usage
 # @flag --use-protocol-buffers                    Enables using protocol-buffers to access Metrics API.
@@ -2537,6 +2717,7 @@ top::pod() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2546,12 +2727,14 @@ top::pod() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2562,7 +2745,7 @@ top::pod() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @arg name[`_choice_node`]
 cordon() {
     :;
@@ -2574,6 +2757,7 @@ cordon() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2583,12 +2767,14 @@ cordon() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2599,7 +2785,7 @@ cordon() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @arg name[`_choice_node`]
 uncordon() {
     :;
@@ -2611,6 +2797,7 @@ uncordon() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2620,12 +2807,14 @@ uncordon() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2643,7 +2832,7 @@ uncordon() {
 # @option --grace-period <-1>                     Period of time in seconds given to each pod to terminate gracefully.
 # @flag --ignore-daemonsets                       Ignore DaemonSet-managed pods.
 # @option --pod-selector <value>                  Label selector to filter pods on the node
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --skip-wait-for-delete-timeout <0>      If pod DeletionTimestamp older than N seconds, skip waiting for the pod.
 # @option --timeout <0s>                          The length of time to wait before giving up, zero means infinite
 # @arg name[`_choice_node`]
@@ -2657,6 +2846,7 @@ drain() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2666,12 +2856,14 @@ drain() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2685,9 +2877,9 @@ drain() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-taint>         Name of the manager used to track field ownership.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --overwrite                               If true, allow taints to be overwritten, otherwise reject taint updates that overwrite existing taints.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --validate[strict|true|warn|ignore|false] <strict>  Must be one of: strict (or true), warn, ignore (or false).
@@ -2704,6 +2896,7 @@ taint() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2713,12 +2906,14 @@ taint() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2733,7 +2928,7 @@ taint() {
 # @option -f --filename <file>                    Filename, directory, or URL to files containing the resource to describe
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-events                             If true, display events related to the described object.
 # @arg type-name[`_choice_all_type`]
 # @arg resource[`_choice_resource`]
@@ -2747,6 +2942,7 @@ describe() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2756,12 +2952,14 @@ describe() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2772,6 +2970,7 @@ describe() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @flag --all-containers                          Get all containers' logs in the pod(s).
+# @flag --all-pods                                Get logs from all pod(s).
 # @option -c --container[`_choice_filtered_container`] <value>  Print the logs of this container
 # @flag -f --follow                               Specify if the logs should be streamed.
 # @flag --ignore-errors                           If watching / following pod logs, allow for any errors that occur to be non-fatal
@@ -2781,7 +2980,7 @@ describe() {
 # @option --pod-running-timeout <20s>             The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 # @flag --prefix                                  Prefix each log line with the log source (pod name and container name)
 # @flag -p --previous                             If true, print the logs for the previous instance of the container in a pod if it exists.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @option --since <0s>                            Only return logs newer than a relative duration like 5s, 2m, or 3h.
 # @option --since-time <value>                    Only return logs after a specific date (RFC3339).
 # @option --tail <-1>                             Lines of recent log file to display.
@@ -2797,6 +2996,7 @@ logs() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2806,12 +3006,14 @@ logs() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2822,6 +3024,7 @@ logs() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @option -c --container[`_choice_filtered_container`] <value>  Container name.
+# @option --detach-keys <ctrl-p,ctrl-q>           Override the key sequence for detaching a container
 # @option --pod-running-timeout <1m0s>            The length of time (like 5s, 2m, or 3h, higher than zero) to wait until at least one pod is running
 # @flag -q --quiet                                Only print output from the remote session
 # @flag -i --stdin                                Pass stdin to the container
@@ -2837,6 +3040,7 @@ attach() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2846,12 +3050,14 @@ attach() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2879,6 +3085,7 @@ exec() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2888,12 +3095,14 @@ exec() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2917,6 +3126,7 @@ port-forward() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2926,12 +3136,14 @@ port-forward() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -2964,6 +3176,7 @@ proxy() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -2973,12 +3186,14 @@ proxy() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3003,6 +3218,7 @@ cp() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3012,12 +3228,14 @@ cp() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3036,6 +3254,7 @@ auth() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3045,12 +3264,14 @@ auth() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3077,6 +3298,7 @@ auth::can-i() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3086,12 +3308,14 @@ auth::can-i() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3105,7 +3329,7 @@ auth::can-i() {
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to reconcile.
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --remove-extra-permissions                If true, removes extra permissions added to roles
 # @flag --remove-extra-subjects                   If true, removes extra subjects added to rolebindings
@@ -3122,6 +3346,7 @@ auth::reconcile() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3131,12 +3356,14 @@ auth::reconcile() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3147,7 +3374,7 @@ auth::reconcile() {
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 auth::whoami() {
@@ -3161,6 +3388,7 @@ auth::whoami() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3170,11 +3398,13 @@ auth::whoami() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3188,11 +3418,18 @@ auth::whoami() {
 # @flag --attach                                  If true, wait for the container to start running, and then attach as if 'kubectl attach ...' were called.
 # @option -c --container[`_choice_filtered_container`] <value>  Container name to use for debug container.
 # @option --copy-to <value>                       Create a copy of the target Pod with this name.
+# @option --custom <value>                        Path to a JSON or YAML file containing a partial container spec to customize built-in debug profiles.
 # @option --env* <value>                          Environment variables to set in the container.
 # @option -f --filename <file>                    identifying the resource to debug
 # @option --image[`_module_oci_docker_image`] <value>  Container image to use for debug container.
 # @option --image-pull-policy <value>             The image pull policy for the container.
-# @option --profile[legacy|general|baseline|netadmin|restricted] <legacy>  Options are "legacy", "general", "baseline", "netadmin", "restricted" or "sysadmin".
+# @flag --keep-annotations                        If true, keep the original pod annotations.(This flag only works when used with '--copy-to')
+# @flag --keep-init-containers                    Run the init containers for the pod.
+# @flag --keep-labels                             If true, keep the original pod labels.(This flag only works when used with '--copy-to')
+# @flag --keep-liveness                           If true, keep the original pod liveness probes.(This flag only works when used with '--copy-to')
+# @flag --keep-readiness                          If true, keep the original pod readiness probes.(This flag only works when used with '--copy-to')
+# @flag --keep-startup                            If true, keep the original startup probes.(This flag only works when used with '--copy-to')
+# @option --profile[legacy|general|baseline|netadmin|restricted] <general>  Options are "general", "baseline", "restricted", "netadmin" or "sysadmin".
 # @flag -q --quiet                                If true, suppress informational messages.
 # @flag --replace                                 When used with '--copy-to', delete the original Pod.
 # @flag --same-node                               When used with '--copy-to', schedule the copy of target Pod on the same node.
@@ -3213,6 +3450,7 @@ debug() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3222,12 +3460,14 @@ debug() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3242,7 +3482,7 @@ debug() {
 # @option --chunk-size <500>                      Return large lists in chunks rather than all at once.
 # @option --for <value>                           Filter events to only those pertaining to the specified resource.
 # @flag --no-headers                              When using the default output format, don't print headers.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --types* <value>                        Output only events of given types.
@@ -3257,6 +3497,7 @@ events() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3266,12 +3507,14 @@ events() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3289,9 +3532,10 @@ events() {
 # @flag --prune                                   Include resources that would be deleted by pruning.
 # @option --prune-allowlist* <value>              Overwrite the default allowlist with <group/version/kind> for --prune
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --server-side                             If true, apply runs in the server instead of the client.
 # @flag --show-managed-fields                     If true, include managed fields in the diff.
+# @flag --show-secrets                            If true, do not mask secret values in the diff.
 # @arg filename
 diff() {
     :;
@@ -3303,6 +3547,7 @@ diff() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3312,12 +3557,14 @@ diff() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3332,20 +3579,21 @@ diff() {
 # @option --cascade <background>                  Must be "background", "orphan", or "foreground".
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-client-side-apply>  Name of the manager used to track field ownership.
-# @option -f --filename <file>                    The files that contain the configurations to apply.
+# @option -f --filename <file>                    The files, directories or URLs that contain the configurations to apply.
 # @flag --force                                   If true, immediately remove resources from API and bypass graceful deletion.
 # @flag --force-conflicts                         If true, server-side apply will force the changes against conflicts.
 # @option --grace-period <-1>                     Period of time in seconds given to the resource to terminate gracefully.
 # @option -k --kustomize <dir>                    Process a kustomization directory.
 # @flag --openapi-patch                           If true, use openapi to calculate diff when the openapi presents and the resource can be found in the openapi spec.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --overwrite                               Automatically resolve conflicts between the modified and live configuration by using values from the modified configuration
 # @flag --prune                                   Automatically delete resource objects, that do not appear in the configs and are created by either apply or create --save-config.
 # @option --prune-allowlist* <value>              Overwrite the default allowlist with <group/version/kind> for --prune
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --server-side                             If true, apply runs in the server instead of the client.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
+# @option --subresource <value>                   If specified, apply will operate on the subresource of the requested object.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @option --timeout <0s>                          The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object
 # @option --validate[strict|true|warn|ignore|false] <strict>  Must be one of: strict (or true), warn, ignore (or false).
@@ -3359,6 +3607,7 @@ apply() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3368,12 +3617,14 @@ apply() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3387,7 +3638,7 @@ apply() {
 # @option --field-manager <kubectl-client-side-apply>  Name of the manager used to track field ownership.
 # @option -f --filename <file>                    Filename, directory, or URL to files to use to edit the resource
 # @option -k --kustomize <dir>                    Process the kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -3404,6 +3655,7 @@ apply::edit-last-applied() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3413,12 +3665,14 @@ apply::edit-last-applied() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3432,7 +3686,7 @@ apply::edit-last-applied() {
 # @flag --create-annotation                       Will create 'last-applied-configuration' annotations if current objects doesn't have one
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option -f --filename <file>                    Filename, directory, or URL to files that contains the last-applied-configuration annotations
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 apply::set-last-applied() {
@@ -3445,6 +3699,7 @@ apply::set-last-applied() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3454,12 +3709,14 @@ apply::set-last-applied() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3474,7 +3731,7 @@ apply::set-last-applied() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @option -o --output[yaml|json] <yaml>           Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @arg type-name[`_choice_resource_type_or_resource`]
 apply::view-last-applied() {
     :;
@@ -3487,6 +3744,7 @@ apply::view-last-applied() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3496,12 +3754,14 @@ apply::view-last-applied() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3517,7 +3777,7 @@ apply::view-last-applied() {
 # @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to update
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag --local                                   If true, patch will operate on the content of the file, not the server-side resource.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option -p --patch <value>                      The patch to be applied to the resource JSON file.
 # @option --patch-file <value>                    A file containing a patch to be applied to the resource.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
@@ -3537,6 +3797,7 @@ patch() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3546,12 +3807,14 @@ patch() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3565,11 +3828,11 @@ patch() {
 # @option --cascade <background>                  Must be "background", "orphan", or "foreground".
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-replace>       Name of the manager used to track field ownership.
-# @option -f --filename <file>                    The files that contain the configurations to replace.
+# @option -f --filename <file>                    The files, directories or URLs that contain the configurations to replace.
 # @flag --force                                   If true, immediately remove resources from API and bypass graceful deletion.
 # @option --grace-period <-1>                     Period of time in seconds given to the resource to terminate gracefully.
 # @option -k --kustomize <dir>                    Process a kustomization directory.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @option --raw <value>                           Raw URI to PUT to the server.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @flag --save-config                             If true, the configuration of current object will be saved in its annotation.
@@ -3585,10 +3848,11 @@ replace() {
 # }} kubectl replace
 
 # {{ kubectl wait
-# @cmd Experimental: Wait for a specific condition on one or many resources
+# @cmd Wait for a specific condition on one or many resources
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3598,12 +3862,14 @@ replace() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3618,9 +3884,9 @@ replace() {
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --field-selector <value>                Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2).
 # @option -f --filename <file>                    identifying the resource.
-# @option --for <value>                           The condition to wait on: [delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]].
+# @option --for* <value>                          The condition to wait on: [create|delete|condition=condition-name[=condition-value]|jsonpath='{JSONPath expression}'=[JSONPath value]].
 # @flag --local                                   If true, annotation will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
@@ -3638,6 +3904,7 @@ wait() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3647,12 +3914,14 @@ wait() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3666,7 +3935,10 @@ wait() {
 # @flag --enable-alpha-plugins                    enable kustomize plugins
 # @flag --enable-helm                             Enable use of the Helm chart inflator generator.
 # @option -e --env* <value>                       a list of environment variables to be used by functions
+# @option --helm-api-versions* <value>            Kubernetes api versions used by Helm for Capabilities.APIVersions
 # @option --helm-command <helm>                   helm command (path to executable)
+# @flag --helm-debug                              Enable debug output from the Helm chart inflator generator.
+# @option --helm-kube-version <value>             Kubernetes version used by Helm for Capabilities.KubeVersion
 # @option --load-restrictor <LoadRestrictionsRootOnly>  if set to 'LoadRestrictionsNone', local kustomizations may load files from outside their root.
 # @option --mount* <value>                        a list of storage options read from the filesystem
 # @flag --network                                 enable network access for functions that declare it
@@ -3683,6 +3955,7 @@ kustomize() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3692,12 +3965,14 @@ kustomize() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3717,11 +3992,11 @@ kustomize() {
 # @option -k --kustomize <dir>                    Process the kustomization directory.
 # @flag --list                                    If true, display the labels for a given resource.
 # @flag --local                                   If true, label will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --overwrite                               If true, allow labels to be overwritten, otherwise reject label updates that overwrite existing labels.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --resource-version <value>              If non-empty, the labels update will only succeed if this is the current resource-version for the object.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l key1=value1,key2=value2,key3 in (value3)).
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg type-name[`_choice_all_type`]
@@ -3737,6 +4012,7 @@ label() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3746,12 +4022,14 @@ label() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3761,21 +4039,21 @@ label() {
 # @option -v --v <0>                              number for the log level verbosity
 # @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
 # @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
-# @flag --all                                     Select all resources, in the namespace of the specified resource types.
-# @flag -A --all-namespaces                       If true, check the specified action in all namespaces.
+# @flag --all                                     Select all resources in the namespace of the specified resource types
+# @flag -A --all-namespaces                       If present, list the requested object(s) across all namespaces.
 # @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
 # @option --dry-run[none|never|silent] <none>     Must be "none", "server", or "client".
 # @option --field-manager <kubectl-annotate>      Name of the manager used to track field ownership.
 # @option --field-selector <value>                Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector key1=value1,key2=value2).
-# @option -f --filename <file>                    Filename, directory, or URL to files identifying the resource to update the annotation
-# @option -k --kustomize <dir>                    Process the kustomization directory.
+# @option -f --filename <file>                    identifying the resource.
+# @option -k --kustomize <dir>                    Process a kustomization directory.
 # @flag --list                                    If true, display the annotations for a given resource.
 # @flag --local                                   If true, annotation will NOT contact api-server but run locally.
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <value>  Output format.
 # @flag --overwrite                               If true, allow annotations to be overwritten, otherwise reject annotation updates that overwrite existing annotations.
 # @flag -R --recursive                            Process the directory used in -f, --filename recursively.
 # @option --resource-version <value>              If non-empty, the annotation update will only succeed if this is the current resource-version for the object.
-# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).
+# @option -l --selector <value>                   Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2)
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
 # @arg type-name[`_choice_all_type`]
@@ -3791,6 +4069,7 @@ annotate() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3800,12 +4079,14 @@ annotate() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3826,6 +4107,7 @@ completion() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3835,12 +4117,14 @@ completion() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3855,7 +4139,8 @@ completion() {
 # @option --categories* <value>                   Limit to resources that belong to the specified categories.
 # @flag --namespaced                              If false, non-namespaced resources will be returned, otherwise returning namespaced resources by default.
 # @flag --no-headers                              When using the default or custom-column output format, don't print headers (default print headers).
-# @option -o --output[wide|name] <value>          Output format.
+# @option -o --output[json|yaml|kyaml|name|wide] <value>  Output format.
+# @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --sort-by <value>                       If non-empty, sort list of resources using specified field.
 # @option --verbs* <value>                        Limit to resources that support the specified verbs.
 api-resources() {
@@ -3868,6 +4153,7 @@ api-resources() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3877,12 +4163,14 @@ api-resources() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3902,6 +4190,7 @@ api-versions() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3911,12 +4200,14 @@ api-versions() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3935,6 +4226,7 @@ config() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3944,12 +4236,14 @@ config() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -3969,6 +4263,7 @@ config::current-context() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -3978,12 +4273,14 @@ config::current-context() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4004,6 +4301,7 @@ config::delete-cluster() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4013,12 +4311,14 @@ config::delete-cluster() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4039,6 +4339,7 @@ config::delete-context() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4048,12 +4349,14 @@ config::delete-context() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4074,6 +4377,7 @@ config::delete-user() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4083,12 +4387,14 @@ config::delete-user() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4108,6 +4414,7 @@ config::get-clusters() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4117,12 +4424,14 @@ config::get-clusters() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4144,6 +4453,7 @@ config::get-contexts() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4153,12 +4463,14 @@ config::get-contexts() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4178,6 +4490,7 @@ config::get-users() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4187,12 +4500,14 @@ config::get-users() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4214,6 +4529,7 @@ config::rename-context() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4223,12 +4539,14 @@ config::rename-context() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4251,6 +4569,7 @@ config::set() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4260,12 +4579,14 @@ config::set() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4288,6 +4609,7 @@ config::set-cluster() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4297,12 +4619,14 @@ config::set-cluster() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4324,6 +4648,7 @@ config::set-context() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4333,11 +4658,13 @@ config::set-context() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4368,6 +4695,7 @@ config::set-credentials() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4377,12 +4705,14 @@ config::set-credentials() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4404,6 +4734,7 @@ config::unset() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4413,12 +4744,14 @@ config::unset() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4439,6 +4772,7 @@ config::use-context() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4448,12 +4782,14 @@ config::use-context() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4467,7 +4803,7 @@ config::use-context() {
 # @flag --flatten                                 Flatten the resulting kubeconfig file into self-contained output (useful for creating portable kubeconfig files)
 # @flag --merge                                   Merge the full hierarchy of kubeconfig files
 # @flag --minify                                  Remove all information not used by current-context from the output
-# @option -o --output[json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <yaml>  Output format.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <yaml>  Output format.
 # @flag --raw                                     Display raw byte data and sensitive data
 # @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
 # @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
@@ -4477,11 +4813,12 @@ config::view() {
 # }}} kubectl config view
 # }} kubectl config
 
-# {{ kubectl plugin
-# @cmd Provides utilities for interacting with plugins
+# {{ kubectl kuberc
+# @cmd Manage kuberc configuration files
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4491,12 +4828,142 @@ config::view() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
+# @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
+# @option -s --server <value>                     The address and port of the Kubernetes API server
+# @option --tls-server-name <value>               Server name to use for server certificate validation.
+# @option --token <value>                         Bearer token for authentication to the API server
+# @option --user[`_choice_user`] <value>          The name of the kubeconfig user to use
+# @option --username <value>                      Username for basic authentication to the API server
+# @option -v --v <0>                              number for the log level verbosity
+# @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
+# @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
+kuberc() {
+    :;
+}
+
+# {{{ kubectl kuberc set
+# @cmd Set values in the kuberc configuration
+# @option --as <value>                            Username to impersonate for the operation.
+# @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+# @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+# @option --cache-dir <dir>                       Default cache directory
+# @option --certificate-authority <path>          Path to a cert file for the certificate authority
+# @option --client-certificate <path>             Path to a client certificate file for TLS
+# @option --client-key <path>                     Path to a client key file for TLS
+# @option --cluster[`_choice_cluster`] <value>    The name of the kubeconfig cluster to use
+# @option --context[`_choice_context`] <value>    The name of the kubeconfig context to use
+# @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
+# @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
+# @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
+# @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
+# @flag --match-server-version                    Require server version to match client version
+# @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
+# @option --password <value>                      Password for basic authentication to the API server
+# @option --profile <none>                        Name of profile to capture.
+# @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
+# @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
+# @option -s --server <value>                     The address and port of the Kubernetes API server
+# @option --tls-server-name <value>               Server name to use for server certificate validation.
+# @option --token <value>                         Bearer token for authentication to the API server
+# @option --user[`_choice_user`] <value>          The name of the kubeconfig user to use
+# @option --username <value>                      Username for basic authentication to the API server
+# @option -v --v <0>                              number for the log level verbosity
+# @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
+# @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
+# @option --allowlist-entry* <value>              Allowlist entry the form field=value (can be specified multiple times)
+# @option --appendarg* <value>                    Argument to append to the command (can be specified multiple times, for aliases only)
+# @option --command <value>                       Command to configure (e.g., 'get', 'create', 'set env')
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
+# @option --name <value>                          Alias name (required for --section=aliases)
+# @option --option* <value>                       Flag option in the form flag=value (can be specified multiple times)
+# @flag --overwrite                               Allow overwriting existing entries
+# @option --policy <value>                        Plugin policy to use for exec credential plugins, must be one of 'AllowAll', 'DenyAll' or 'Allowlist'
+# @option --prependarg* <value>                   Argument to prepend to the command (can be specified multiple times, for aliases only)
+# @option --section <value>                       Section to modify: 'defaults', 'aliases', or 'credentialplugin'
+# @arg enum[defaults|aliases]
+# @arg command
+kuberc::set() {
+    :;
+}
+# }}} kubectl kuberc set
+
+# {{{ kubectl kuberc view
+# @cmd Display the current kuberc configuration
+# @option --as <value>                            Username to impersonate for the operation.
+# @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+# @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+# @option --cache-dir <dir>                       Default cache directory
+# @option --certificate-authority <path>          Path to a cert file for the certificate authority
+# @option --client-certificate <path>             Path to a client certificate file for TLS
+# @option --client-key <path>                     Path to a client key file for TLS
+# @option --cluster[`_choice_cluster`] <value>    The name of the kubeconfig cluster to use
+# @option --context[`_choice_context`] <value>    The name of the kubeconfig context to use
+# @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
+# @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
+# @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
+# @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
+# @flag --match-server-version                    Require server version to match client version
+# @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
+# @option --password <value>                      Password for basic authentication to the API server
+# @option --profile <none>                        Name of profile to capture.
+# @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
+# @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
+# @option -s --server <value>                     The address and port of the Kubernetes API server
+# @option --tls-server-name <value>               Server name to use for server certificate validation.
+# @option --token <value>                         Bearer token for authentication to the API server
+# @option --user[`_choice_user`] <value>          The name of the kubeconfig user to use
+# @option --username <value>                      Username for basic authentication to the API server
+# @option -v --v <0>                              number for the log level verbosity
+# @option --vmodule*, <value>                     comma-separated list of pattern=N settings for file-filtered logging (only works for the default text log format)
+# @flag --warnings-as-errors                      Treat warnings received from the server as errors and exit with a non-zero exit code
+# @flag --allow-missing-template-keys             If true, ignore any errors in templates when a field or map key is missing in the template.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
+# @option -o --output[json|yaml|kyaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] <yaml>  Output format.
+# @flag --show-managed-fields                     If true, keep the managedFields when printing objects in JSON or YAML format.
+# @option --template <file>                       Template string or path to template file to use when -o=go-template, -o=go-template-file.
+kuberc::view() {
+    :;
+}
+# }}} kubectl kuberc view
+# }} kubectl kuberc
+
+# {{ kubectl plugin
+# @cmd Provides utilities for interacting with plugins
+# @option --as <value>                            Username to impersonate for the operation.
+# @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+# @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
+# @option --cache-dir <dir>                       Default cache directory
+# @option --certificate-authority <path>          Path to a cert file for the certificate authority
+# @option --client-certificate <path>             Path to a client certificate file for TLS
+# @option --client-key <path>                     Path to a client key file for TLS
+# @option --cluster[`_choice_cluster`] <value>    The name of the kubeconfig cluster to use
+# @option --context[`_choice_context`] <value>    The name of the kubeconfig context to use
+# @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
+# @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
+# @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
+# @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
+# @flag --match-server-version                    Require server version to match client version
+# @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
+# @option --password <value>                      Password for basic authentication to the API server
+# @option --profile <none>                        Name of profile to capture.
+# @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4515,6 +4982,7 @@ plugin() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4524,12 +4992,14 @@ plugin() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.
@@ -4551,6 +5021,7 @@ plugin::list() {
 # @option --as <value>                            Username to impersonate for the operation.
 # @option --as-group* <value>                     Group to impersonate for the operation, this flag can be repeated to specify multiple groups.
 # @option --as-uid <value>                        UID to impersonate for the operation.
+# @option --as-user-extra* <value>                User extras to impersonate for the operation, this flag can be repeated to specify multiple values for the same key.
 # @option --cache-dir <dir>                       Default cache directory
 # @option --certificate-authority <path>          Path to a cert file for the certificate authority
 # @option --client-certificate <path>             Path to a client certificate file for TLS
@@ -4560,12 +5031,14 @@ plugin::list() {
 # @flag --disable-compression                     If true, opt-out of response compression for all requests to the server
 # @flag --insecure-skip-tls-verify                If true, the server's certificate will not be checked for validity.
 # @option --kubeconfig <path>                     Path to the kubeconfig file to use for CLI requests.
+# @option --kuberc <value>                        Path to the kuberc file to use for preferences.
 # @option --log-flush-frequency <5s>              Maximum number of seconds between log flushes
 # @flag --match-server-version                    Require server version to match client version
 # @option -n --namespace[`_choice_namespace`] <value>  If present, the namespace scope for this CLI request
 # @option --password <value>                      Password for basic authentication to the API server
 # @option --profile <none>                        Name of profile to capture.
 # @option --profile-output <profile.pprof>        Name of the file to write the profile to
+# @option --proxy-url <value>                     Proxy URL to use for requests to the API server
 # @option --request-timeout <0>                   The length of time to wait before giving up on a single server request.
 # @option -s --server <value>                     The address and port of the Kubernetes API server
 # @option --tls-server-name <value>               Server name to use for server certificate validation.

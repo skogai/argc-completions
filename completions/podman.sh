@@ -292,33 +292,561 @@ commit() {
 
 # {{ podman compose
 # @cmd Run compose workloads via an external provider such as docker-compose or podman-compose
-# @flag -h --help                             show this help message and exit
-# @flag -v --version                          show version
-# @option --in-pod <in_pod>                   Specify pod usage: 'true'  - create/use a pod named pod_<project name> 'false'  - do not use a pod '<name>' - create/use a custom pod with the given name
-# @option --pod-args <pod_args>               custom arguments to be passed to `podman pod`
-# @option --env-file <env_file>               Specify an alternate environment file
-# @option -f --file <file>                    Specify an compose file (default: docker-compose.yml) or '-' to read from stdin.
-# @option --profile <profile>                 Specify a profile to enable
-# @option -p --project-name <PROJECT_NAME>    Specify an alternate project name (default: directory name)
-# @option --podman-path <PODMAN_PATH>         Specify an alternate path to podman (default: use location in $PATH variable)
-# @option --podman-args <args>                custom global arguments to be passed to `podman`
-# @option --podman-pull-args <args>           custom arguments to be passed to `podman pull`
-# @option --podman-push-args <args>           custom arguments to be passed to `podman push`
-# @option --podman-build-args <args>          custom arguments to be passed to `podman build`
-# @option --podman-inspect-args <args>        custom arguments to be passed to `podman inspect`
-# @option --podman-run-args <args>            custom arguments to be passed to `podman run`
-# @option --podman-start-args <args>          custom arguments to be passed to `podman start`
-# @option --podman-stop-args <args>           custom arguments to be passed to `podman stop`
-# @option --podman-rm-args <args>             custom arguments to be passed to `podman rm`
-# @option --podman-volume-args <args>         custom arguments to be passed to `podman volume`
-# @flag --no-ansi                             Do not print ANSI control characters
-# @flag --no-cleanup                          Do not stop and remove existing pod & containers
-# @flag --dry-run                             No action; perform a simulation of commands
-# @option --parallel
-# @flag --verbose                             Print debugging output
+# @flag --all-resources                         Include all resources, even those not used by services
+# @option --ansi[never|always|auto] <string>    Control when to print ANSI control characters (default "auto")
+# @flag --compatibility                         Run compose in backward compatibility mode
+# @flag --dry-run                               Execute command in dry run mode
+# @option --env-file* <file>                    Specify an alternate environment file
+# @option -f --file* <file>                     Compose configuration files
+# @option --parallel <int>                      Control max parallelism, -1 for unlimited (default -1)
+# @option --profile* <file>                     Specify a profile to enable
+# @option --progress[auto|tty|plain|json|quiet] <string>  Set type of progress output
+# @option --project-directory <path>            Specify an alternate working directory (default: the path of the, first specified, Compose file)
+# @option -p --project-name <string>            Project name
 compose() {
     :;
 }
+
+# {{{ podman compose bridge
+# @cmd Convert compose files into another model
+# @flag --dry-run    Execute command in dry run mode
+compose::bridge() {
+    :;
+}
+
+# {{{{ podman compose bridge transformations
+# @cmd Manage transformation images
+# @flag --dry-run    Execute command in dry run mode
+compose::bridge::transformations() {
+    :;
+}
+
+# {{{{{ podman compose bridge transformations create
+# @cmd Create a new transformation
+# @flag --dry-run               Execute command in dry run mode
+# @option -f --from <string>    Existing transformation to copy (default: docker/compose-bridge-kubernetes)
+# @arg path
+compose::bridge::transformations::create() {
+    :;
+}
+# }}}}} podman compose bridge transformations create
+
+# {{{{{ podman compose bridge transformations list
+# @cmd List available transformations
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format the output.
+# @flag -q --quiet             Only display transformer names
+compose::bridge::transformations::list() {
+    :;
+}
+# }}}}} podman compose bridge transformations list
+# }}}} podman compose bridge transformations
+
+# {{{{ podman compose bridge convert
+# @cmd Convert compose files to Kubernetes manifests, Helm charts, or another model
+# @flag --dry-run                          Execute command in dry run mode
+# @option -o --output <dir>                The output directory for the Kubernetes resources (default "out")
+# @option --templates <dir>                Directory containing transformation templates
+# @option -t --transformation* <string>    Transformation to apply to compose model (default: docker/compose-bridge-kubernetes)
+compose::bridge::convert() {
+    :;
+}
+# }}}} podman compose bridge convert
+# }}} podman compose bridge
+
+# {{{ podman compose attach
+# @cmd Attach local standard input, output, and error streams to a service's running container
+# @option --detach-keys <string>    Override the key sequence for detaching from a container.
+# @flag --dry-run                   Execute command in dry run mode
+# @option --index <int>             index of the container if service has multiple replicas.
+# @flag --no-stdin                  Do not attach STDIN
+# @flag --sig-proxy                 Proxy all received signals to the process (default true)
+# @arg service
+compose::attach() {
+    :;
+}
+# }}} podman compose attach
+
+# {{{ podman compose build
+# @cmd Build or rebuild services
+# @option --build-arg* <string>    Set build-time variables for services
+# @option --builder <string>       Set builder to use
+# @flag --check                    Check build configuration
+# @flag --dry-run                  Execute command in dry run mode
+# @option -m --memory <bytes>      Set memory limit for the build container.
+# @flag --no-cache                 Do not use cache when building the image
+# @flag --print                    Print equivalent bake file
+# @option --provenance <string>    Add a provenance attestation
+# @flag --pull                     Always attempt to pull a newer version of the image
+# @flag --push                     Push service images
+# @flag -q --quiet                 Suppress the build output
+# @option --sbom <string>          Add a SBOM attestation
+# @option --ssh <string>           Set SSH authentications used when building service images.
+# @flag --with-dependencies        Also build dependencies (transitively)
+# @arg service*
+compose::build() {
+    :;
+}
+# }}} podman compose build
+
+# {{{ podman compose commit
+# @cmd Create a new image from a service container's changes
+# @option -a --author <string>     Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+# @option -c --change <list>       Apply Dockerfile instruction to the created image
+# @flag --dry-run                  Execute command in dry run mode
+# @option --index <int>            index of the container if service has multiple replicas.
+# @option -m --message <string>    Commit message
+# @flag -p --pause                 Pause container during commit (default true)
+# @arg service
+# @arg repository-tag <REPOSITORY[:TAG]>
+compose::commit() {
+    :;
+}
+# }}} podman compose commit
+
+# {{{ podman compose config
+# @cmd Parse, resolve and render compose file in canonical format
+# @flag --dry-run                  Execute command in dry run mode
+# @flag --environment              Print environment used for interpolation.
+# @option --format <string>        Format the output.
+# @option --hash <string>          Print the service config hash, one per line.
+# @flag --images                   Print the image names, one per line.
+# @flag --lock-image-digests       Produces an override file with image digests
+# @flag --models                   Print the model names, one per line.
+# @flag --networks                 Print the network names, one per line.
+# @flag --no-consistency           Don't check model consistency - warning: may produce invalid Compose output
+# @flag --no-env-resolution        Don't resolve service env files
+# @flag --no-interpolate           Don't interpolate environment variables
+# @flag --no-normalize             Don't normalize compose model
+# @flag --no-path-resolution       Don't resolve file paths
+# @option -o --output <file>       Save to file (default to stdout)
+# @flag --profiles                 Print the profile names, one per line.
+# @flag -q --quiet                 Only validate the configuration, don't print anything
+# @flag --resolve-image-digests    Pin image tags to digests
+# @flag --services                 Print the service names, one per line.
+# @flag --variables                Print model variables and default values.
+# @flag --volumes                  Print the volume names, one per line.
+# @arg service*
+compose::config() {
+    :;
+}
+# }}} podman compose config
+
+# {{{ podman compose cp
+# @cmd Copy files/folders between a service container and the local filesystem
+# @flag --all               Include containers created by the run command
+# @flag -a --archive        Archive mode (copy all uid/gid information)
+# @flag --dry-run           Execute command in dry run mode
+# @flag -L --follow-link    Always follow symbol link in SRC_PATH
+# @option --index <int>     Index of the container if service has multiple replicas
+# @arg service-src_path <SERVICE:SRC_PATH>
+# @arg dest_path <DEST_PATH|->
+compose::cp() {
+    :;
+}
+# }}} podman compose cp
+
+# {{{ podman compose create
+# @cmd Creates containers for a service
+# @flag --build              Build images before starting containers
+# @flag --dry-run            Execute command in dry run mode
+# @flag --force-recreate     Recreate containers even if their configuration and image haven't changed
+# @flag --no-build           Don't build an image, even if it's policy
+# @flag --no-recreate        If containers already exist, don't recreate them.
+# @option --pull[always|missing|never|build] <string>  Pull image before running (default "policy")
+# @flag --quiet-pull         Pull without printing progress information
+# @flag --remove-orphans     Remove containers for services not defined in the Compose file
+# @option --scale <scale>    Scale SERVICE to NUM instances.
+# @flag -y --yes             Assume "yes" as answer to all prompts and run non-interactively
+# @arg service*
+compose::create() {
+    :;
+}
+# }}} podman compose create
+
+# {{{ podman compose down
+# @cmd Stop and remove containers, networks
+# @flag --dry-run                      Execute command in dry run mode
+# @flag --remove-orphans               Remove containers for services not defined in the Compose file
+# @option --rmi[local|all] <string>    Remove images used by services.
+# @option -t --timeout <int>           Specify a shutdown timeout in seconds
+# @flag -v --volumes                   Remove named volumes declared in the "volumes" section of the Compose file and anonymous volumes attached to containers
+# @arg services*
+compose::down() {
+    :;
+}
+# }}} podman compose down
+
+# {{{ podman compose events
+# @cmd Receive real time events from containers
+# @flag --dry-run             Execute command in dry run mode
+# @flag --json                Output events as a stream of json objects
+# @option --since <string>    Show all events created since timestamp
+# @option --until <string>    Stream events until this timestamp
+# @arg service*
+compose::events() {
+    :;
+}
+# }}} podman compose events
+
+# {{{ podman compose exec
+# @cmd Execute a command in a running container
+# @flag -d --detach             Detached mode: Run command in the background
+# @flag --dry-run               Execute command in dry run mode
+# @option -e --env* <string>    Set environment variables
+# @option --index <int>         Index of the container if service has multiple replicas
+# @flag -T --no-tty             Disable pseudo-TTY allocation.
+# @flag --privileged            Give extended privileges to the process
+# @option -u --user <string>    Run the command as this user
+# @option -w --workdir <dir>    Path to workdir directory for this command
+# @arg service
+# @arg command
+# @arg args*
+compose::exec() {
+    :;
+}
+# }}} podman compose exec
+
+# {{{ podman compose export
+# @cmd Export a service container's filesystem as a tar archive
+# @flag --dry-run               Execute command in dry run mode
+# @option --index <int>         index of the container if service has multiple replicas.
+# @option -o --output <file>    Write to a file, instead of STDOUT
+# @arg service
+compose::export() {
+    :;
+}
+# }}} podman compose export
+
+# {{{ podman compose images
+# @cmd List images used by the created containers
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format the output.
+# @flag -q --quiet             Only display IDs
+# @arg service*
+compose::images() {
+    :;
+}
+# }}} podman compose images
+
+# {{{ podman compose kill
+# @cmd Force stop service containers
+# @flag --dry-run                 Execute command in dry run mode
+# @flag --remove-orphans          Remove containers for services not defined in the Compose file
+# @option -s --signal <string>    SIGNAL to send to the container (default "SIGKILL")
+# @arg service*
+compose::kill() {
+    :;
+}
+# }}} podman compose kill
+
+# {{{ podman compose logs
+# @cmd View output from containers
+# @flag --dry-run               Execute command in dry run mode
+# @flag -f --follow             Follow log output
+# @option --index <int>         index of the container if service has multiple replicas
+# @flag --no-color              Produce monochrome output
+# @flag --no-log-prefix         Don't print prefix in logs
+# @option --since <string>      Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+# @option -n --tail <string>    Number of lines to show from the end of the logs for each container (default "all")
+# @flag -t --timestamps         Show timestamps
+# @option --until <string>      Show logs before a timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+# @arg service*
+compose::logs() {
+    :;
+}
+# }}} podman compose logs
+
+# {{{ podman compose ls
+# @cmd List running compose projects
+# @flag -a --all               Show all stopped Compose projects
+# @flag --dry-run              Execute command in dry run mode
+# @option --filter <filter>    Filter output based on conditions provided
+# @option --format <string>    Format the output.
+# @flag -q --quiet             Only display project names
+compose::ls() {
+    :;
+}
+# }}} podman compose ls
+
+# {{{ podman compose pause
+# @cmd Pause services
+# @flag --dry-run    Execute command in dry run mode
+# @arg service*
+compose::pause() {
+    :;
+}
+# }}} podman compose pause
+
+# {{{ podman compose port
+# @cmd Print the public port for a port binding
+# @flag --dry-run                Execute command in dry run mode
+# @option --index <int>          Index of the container if service has multiple replicas
+# @option --protocol <string>    tcp or udp (default "tcp")
+# @arg service
+# @arg private_port
+compose::port() {
+    :;
+}
+# }}} podman compose port
+
+# {{{ podman compose ps
+# @cmd List containers
+# @flag -a --all               Show all stopped containers (including those created by the run command)
+# @flag --dry-run              Execute command in dry run mode
+# @option --filter <string>    Filter services by a property (supported filters: status)
+# @option --format <string>    Format output using a custom template:
+# @flag --no-trunc             Don't truncate output
+# @flag --orphans              Include orphaned services (not declared by project) (default true)
+# @flag -q --quiet             Only display IDs
+# @flag --services             Display services
+# @option --status*[paused|restarting|removing|running|dead|created|exited] <string>  Filter services by status.
+# @arg service*
+compose::ps() {
+    :;
+}
+# }}} podman compose ps
+
+# {{{ podman compose publish
+# @cmd Publish compose application
+# @flag --app                       Published compose application (includes referenced images)
+# @flag --dry-run                   Execute command in dry run mode
+# @option --oci-version <string>    OCI image/artifact specification version (automatically determined by default)
+# @flag --resolve-image-digests     Pin image tags to digests
+# @flag --with-env                  Include environment variables in the published OCI artifact
+# @flag -y --yes                    Assume "yes" as answer to all prompts
+# @arg repository-tag <REPOSITORY[:TAG]>
+compose::publish() {
+    :;
+}
+# }}} podman compose publish
+
+# {{{ podman compose pull
+# @cmd Pull service images
+# @flag --dry-run                              Execute command in dry run mode
+# @flag --ignore-buildable                     Ignore images that can be built
+# @flag --ignore-pull-failures                 Pull what it can and ignores images with pull failures
+# @flag --include-deps                         Also pull services declared as dependencies
+# @option --policy[missing|always] <string>    Apply pull policy
+# @flag -q --quiet                             Pull without printing progress information
+# @arg service*
+compose::pull() {
+    :;
+}
+# }}} podman compose pull
+
+# {{{ podman compose push
+# @cmd Push service images
+# @flag --dry-run                 Execute command in dry run mode
+# @flag --ignore-push-failures    Push what it can and ignores images with push failures
+# @flag --include-deps            Also push images of services declared as dependencies
+# @flag -q --quiet                Push without printing progress information
+# @arg service*
+compose::push() {
+    :;
+}
+# }}} podman compose push
+
+# {{{ podman compose restart
+# @cmd Restart service containers
+# @flag --dry-run               Execute command in dry run mode
+# @flag --no-deps               Don't restart dependent services
+# @option -t --timeout <int>    Specify a shutdown timeout in seconds
+# @arg service*
+compose::restart() {
+    :;
+}
+# }}} podman compose restart
+
+# {{{ podman compose rm
+# @cmd Removes stopped service containers
+# @flag --dry-run       Execute command in dry run mode
+# @flag -f --force      Don't ask to confirm removal
+# @flag -s --stop       Stop the containers, if required, before removing
+# @flag -v --volumes    Remove any anonymous volumes attached to containers
+# @arg service*
+compose::rm() {
+    :;
+}
+# }}} podman compose rm
+
+# {{{ podman compose run
+# @cmd Run a one-off command on a service
+# @flag --build                                    Build image before starting container
+# @option --cap-add <list>                         Add Linux capabilities
+# @option --cap-drop <list>                        Drop Linux capabilities
+# @flag -d --detach                                Run container in background and print container ID
+# @flag --dry-run                                  Execute command in dry run mode
+# @option --entrypoint <string>                    Override the entrypoint of the image
+# @option -e --env* <string>                       Set environment variables
+# @option --env-from-file* <file>                  Set environment variables from file
+# @flag -i --interactive                           Keep STDIN open even if not attached (default true)
+# @option -l --label* <string>                     Add or override a label
+# @option --name <string>                          Assign a name to the container
+# @flag --no-deps                                  Don't start linked services
+# @flag -T --no-tty                                Disable pseudo-TTY allocation (default: auto-detected) (default true)
+# @option -p --publish* <string>                   Publish a container's port(s) to the host
+# @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
+# @flag -q --quiet                                 Don't print anything to STDOUT
+# @flag --quiet-build                              Suppress progress output from the build process
+# @flag --quiet-pull                               Pull without printing progress information
+# @flag --remove-orphans                           Remove containers for services not defined in the Compose file
+# @flag --rm                                       Automatically remove the container when it exits
+# @flag -P --service-ports                         Run command with all service's ports enabled and mapped to the host
+# @flag --use-aliases                              Use the service's network useAliases in the network(s) the container connects to
+# @option -u --user <string>                       Run as specified username or uid
+# @option -v --volume* <string>                    Bind mount a volume
+# @option -w --workdir <dir>                       Working directory inside the container
+# @arg service
+# @arg command
+# @arg args*
+compose::run() {
+    :;
+}
+# }}} podman compose run
+
+# {{{ podman compose scale
+# @cmd Scale services
+# @flag --dry-run    Execute command in dry run mode
+# @flag --no-deps    Don't start linked services
+# @arg service-replicas* <SERVICE=REPLICAS>
+compose::scale() {
+    :;
+}
+# }}} podman compose scale
+
+# {{{ podman compose start
+# @cmd Start services
+# @flag --dry-run                 Execute command in dry run mode
+# @flag --wait                    Wait for services to be running|healthy.
+# @option --wait-timeout <int>    Maximum duration in seconds to wait for the project to be running|healthy
+# @arg service*
+compose::start() {
+    :;
+}
+# }}} podman compose start
+
+# {{{ podman compose stats
+# @cmd Display a live stream of container(s) resource usage statistics
+# @flag -a --all               Show all containers (default shows just running)
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format output using a custom template:
+# @flag --no-stream            Disable streaming stats and only pull the first result
+# @flag --no-trunc             Do not truncate output
+# @arg service
+compose::stats() {
+    :;
+}
+# }}} podman compose stats
+
+# {{{ podman compose stop
+# @cmd Stop services
+# @flag --dry-run               Execute command in dry run mode
+# @option -t --timeout <int>    Specify a shutdown timeout in seconds
+# @arg service*
+compose::stop() {
+    :;
+}
+# }}} podman compose stop
+
+# {{{ podman compose top
+# @cmd Display the running processes
+# @flag --dry-run    Execute command in dry run mode
+# @arg services*
+compose::top() {
+    :;
+}
+# }}} podman compose top
+
+# {{{ podman compose unpause
+# @cmd Unpause services
+# @flag --dry-run    Execute command in dry run mode
+# @arg service*
+compose::unpause() {
+    :;
+}
+# }}} podman compose unpause
+
+# {{{ podman compose up
+# @cmd Create and start containers
+# @flag --abort-on-container-exit                  Stops all containers if any container was stopped.
+# @flag --abort-on-container-failure               Stops all containers if any container exited with failure.
+# @flag --always-recreate-deps                     Recreate dependent containers.
+# @option --attach* <string>                       Restrict attaching to the specified services.
+# @flag --attach-dependencies                      Automatically attach to log output of dependent services
+# @flag --build                                    Build images before starting containers
+# @flag -d --detach                                Detached mode: Run containers in the background
+# @flag --dry-run                                  Execute command in dry run mode
+# @option --exit-code-from <string>                Return the exit code of the selected service container.
+# @flag --force-recreate                           Recreate containers even if their configuration and image haven't changed
+# @flag --menu                                     Enable interactive shortcuts when running attached.
+# @option --no-attach* <string>                    Do not attach (stream logs) to the specified services
+# @flag --no-build                                 Don't build an image, even if it's policy
+# @flag --no-color                                 Produce monochrome output
+# @flag --no-deps                                  Don't start linked services
+# @flag --no-log-prefix                            Don't print prefix in logs
+# @flag --no-recreate                              If containers already exist, don't recreate them.
+# @flag --no-start                                 Don't start the services after creating them
+# @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
+# @flag --quiet-build                              Suppress the build output
+# @flag --quiet-pull                               Pull without printing progress information
+# @flag --remove-orphans                           Remove containers for services not defined in the Compose file
+# @flag -V --renew-anon-volumes                    Recreate anonymous volumes instead of retrieving data from the previous containers
+# @option --scale <scale>                          Scale SERVICE to NUM instances.
+# @option -t --timeout <int>                       Use this timeout in seconds for container shutdown when attached or when containers are already running
+# @flag --timestamps                               Show timestamps
+# @flag --wait                                     Wait for services to be running|healthy.
+# @option --wait-timeout <int>                     Maximum duration in seconds to wait for the project to be running|healthy
+# @flag -w --watch                                 Watch source code and rebuild/refresh containers when files are updated.
+# @flag -y --yes                                   Assume "yes" as answer to all prompts and run non-interactively
+# @arg service*
+compose::up() {
+    :;
+}
+# }}} podman compose up
+
+# {{{ podman compose version
+# @cmd Show the Docker Compose version information
+# @flag --dry-run                 Execute command in dry run mode
+# @option -f --format <string>    Format the output.
+# @flag --short                   Shows only Compose's version number
+compose::version() {
+    :;
+}
+# }}} podman compose version
+
+# {{{ podman compose volumes
+# @cmd List volumes
+# @flag --dry-run              Execute command in dry run mode
+# @option --format <string>    Format output using a custom template:
+# @flag -q --quiet             Only display volume names
+# @arg service*
+compose::volumes() {
+    :;
+}
+# }}} podman compose volumes
+
+# {{{ podman compose wait
+# @cmd Block until containers of all (or specified) services stop.
+# @flag --down-project    Drops project when the first container stops
+# @flag --dry-run         Execute command in dry run mode
+# @arg service*
+compose::wait() {
+    :;
+}
+# }}} podman compose wait
+
+# {{{ podman compose watch
+# @cmd Watch build context for service and rebuild/refresh containers when files are updated
+# @flag --dry-run    Execute command in dry run mode
+# @flag --no-up      Do not build & start services before watching
+# @flag --prune      Prune dangling images on rebuild (default true)
+# @flag --quiet      hide build output
+# @arg service*
+compose::watch() {
+    :;
+}
+# }}} podman compose watch
 # }} podman compose
 
 # {{ podman container

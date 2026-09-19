@@ -389,8 +389,8 @@ rm() {
 # @flag -i --interactive                           Keep STDIN open even if not attached (default true)
 # @option -l --label* <string>                     Add or override a label
 # @option --name <string>                          Assign a name to the container
-# @flag -T --no-TTY                                Disable pseudo-TTY allocation (default: auto-detected) (default true)
 # @flag --no-deps                                  Don't start linked services
+# @flag -T --no-tty                                Disable pseudo-TTY allocation (default: auto-detected) (default true)
 # @option -p --publish* <string>                   Publish a container's port(s) to the host
 # @option --pull[always|missing|never] <string>    Pull image before running (default "policy")
 # @flag -q --quiet                                 Don't print anything to STDOUT

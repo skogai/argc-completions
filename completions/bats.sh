@@ -2,6 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag --abort                                   Stop execution of suite on first failed test
+# @flag --allow-empty-suite                       Exit with code 0 (instead of the default code 1) when no tests are found.
 # @flag -c --count                                Count test cases without running any tests
 # @option --code-quote-style <style>              A two character string of code quote delimiters or 'custom' which requires setting $BATS_BEGIN_CODE_QUOTE and $BATS_END_CODE_QUOTE.
 # @flag --line-reference-format                   Controls how file/line references e.g. in stack traces are printed: - comma_line (default): a.bats, line 1
@@ -15,6 +16,7 @@
 # @option -j --jobs <jobs>                        Number of parallel jobs (requires GNU parallel or shenwei356/rush)
 # @flag --parallel-binary-name                    Name of parallel binary
 # @flag --no-tempdir-cleanup                      Preserve test output temporary directory
+# @flag --errexit                                 Enable errexit (set -e) for commands run in `run`
 # @flag --no-parallelize-across-files             Serialize test file execution instead of running them in parallel (requires --jobs >1)
 # @flag --no-parallelize-within-files             Serialize test execution within files instead of running them in parallel (requires --jobs >1)
 # @option --report-formatter <type>               Switch between reporters (same options as --formatter)

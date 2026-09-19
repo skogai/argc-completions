@@ -34,11 +34,12 @@
 # @option -display                              set the display variable for X exec'ed programs
 # @option -display_charset <MIMEname>           charset for the terminal output
 # @flag -dont_wrap_pre                          inhibit wrapping of text in <pre> when -dump'ing and -crawl'ing, mark wrapped lines in interactive session (off)
-# @flag -dump                                   dump the first file to stdout and exit
+# @flag -dump                                   dump each parameter (file or URL) to stdout and exit
 # @option -editor[`_module_os_command`]         enable edit mode with specified editor
 # @flag -emacskeys                              enable emacs-like key movement (off)
 # @flag -enable_scrollback                      toggles compatibility with comm programs' scrollback keys (may be incompatible with some curses packages) (off)
 # @option -error_file <FILE>                    write the HTTP status code here
+# @flag -fail_on_alert                          exit with error code if any alert is written (off)
 # @flag -force_empty_hrefless_a                 force HREF-less 'A' elements to be empty (close them as soon as they are seen) (off)
 # @flag -force_html                             forces the first document to be interpreted as HTML (off)
 # @flag -force_secure                           toggles forcing of the secure flag for SSL cookies (off)

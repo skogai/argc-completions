@@ -202,7 +202,7 @@ agent::endpoints() {
 # }} code-insiders agent
 
 # {{ code-insiders tunnel
-# @cmd Make
+# @cmd Make the current machine accessible from vscode.dev or other machines through a secure tunnel.
 # @option --install-extension <INSTALL_EXTENSION>  Requests that extensions be preloaded and installed on connecting servers
 # @option --server-data-dir <SERVER_DATA_DIR>    Specifies the directory that server data is kept in
 # @option --extensions-dir <EXTENSIONS_DIR>      Set the root path for extensions

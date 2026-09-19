@@ -90,4 +90,53 @@ config() {
 }
 # }} pi config
 
+# {{ pi read
+# @cmd - Read file contents
+read() {
+    :;
+}
+# }} pi read
+
+# {{ pi bash
+# @cmd - Execute bash commands
+bash() {
+    :;
+}
+# }} pi bash
+
+# {{ pi edit
+# @cmd - Edit files with find/replace
+edit() {
+    :;
+}
+# }} pi edit
+
+# {{ pi write
+# @cmd - Write files (creates/overwrites)
+write() {
+    :;
+}
+# }} pi write
+
+# {{ pi grep
+# @cmd - Search file contents (read-only, off by default)
+grep() {
+    :;
+}
+# }} pi grep
+
+# {{ pi find
+# @cmd - Find files by glob pattern (read-only, off by default)
+find() {
+    :;
+}
+# }} pi find
+
+# {{ pi ls
+# @cmd - List directory contents (read-only, off by default)
+ls() {
+    :;
+}
+# }} pi ls
+
 command eval "$(argc --argc-eval "$0" "$@")"

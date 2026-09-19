@@ -17,6 +17,7 @@
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @option -a --ask-for-approval <APPROVAL_POLICY>  Configure when the model requires human approval before executing a command
 # @flag --search                               Enable live web search.
@@ -56,6 +57,7 @@ agents() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust       Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                       Tell the agent to use the specified directory as its working root
+# @flag --worktree                            Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                     Additional directories that should be writable alongside the primary workspace
 # @option --thread-source <SOURCE>            Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                 Allow running Codex outside a Git repository
@@ -85,6 +87,7 @@ exec() {
 # @option -m --model                         Model the agent should use
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust      Run enabled hooks without requiring persisted hook trust for this invocation.
+# @flag --worktree                           Run the session in a new managed Git worktree
 # @option --thread-source <SOURCE>           Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                Allow running Codex outside a Git repository
 # @flag --ephemeral                          Run without persisting session files to disk
@@ -111,6 +114,7 @@ exec::resume() {
 # @option -m --model                         Model the agent should use
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust      Run enabled hooks without requiring persisted hook trust for this invocation.
+# @flag --worktree                           Run the session in a new managed Git worktree
 # @option --thread-source <SOURCE>           Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                Allow running Codex outside a Git repository
 # @flag --ephemeral                          Run without persisting session files to disk
@@ -140,6 +144,7 @@ exec::fork() {
 # @option -m --model                         Model the agent should use
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust      Run enabled hooks without requiring persisted hook trust for this invocation.
+# @flag --worktree                           Run the session in a new managed Git worktree
 # @option --thread-source <SOURCE>           Source classification for newly created or forked threads
 # @flag --skip-git-repo-check                Allow running Codex outside a Git repository
 # @flag --ephemeral                          Run without persisting session files to disk
@@ -313,9 +318,9 @@ plugin() {
 }
 
 # {{{ codex plugin add
-# @cmd Install a plugin from a configured marketplace snapshot
+# @cmd Install a plugin from a configured or remote marketplace
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
-# @option -m --marketplace           Configured marketplace name to use when PLUGIN does not include @MARKETPLACE
+# @option -m --marketplace           Marketplace name to use when PLUGIN does not include @MARKETPLACE
 # @option --enable <FEATURE>         Enable a feature (repeatable).
 # @flag --json                       Output install result as JSON
 # @option --disable <FEATURE>        Disable a feature (repeatable).
@@ -327,9 +332,9 @@ plugin::add() {
 # }}} codex plugin add
 
 # {{{ codex plugin list
-# @cmd List plugins available from configured marketplace snapshots
+# @cmd List plugins available from configured and remote marketplaces
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
-# @option -m --marketplace           Only list plugins from this configured marketplace name
+# @option -m --marketplace           Only list plugins from this marketplace name
 # @option --enable <FEATURE>         Enable a feature (repeatable).
 # @flag --json                       Output plugin list as JSON
 # @flag --available                  Include uninstalled marketplace plugins in the JSON output
@@ -405,7 +410,7 @@ plugin::marketplace::remove() {
 # }}} codex plugin marketplace
 
 # {{{ codex plugin remove
-# @cmd Remove an installed plugin from local config and cache
+# @cmd Uninstall a plugin and remove its local cache
 # @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
 # @option -m --marketplace           Marketplace name to use when PLUGIN does not include @MARKETPLACE
 # @option --enable <FEATURE>         Enable a feature (repeatable).
@@ -418,18 +423,6 @@ plugin::remove() {
 }
 # }}} codex plugin remove
 # }} codex plugin
-
-# {{ codex mcp-server
-# @cmd Start Codex as an MCP server (stdio)
-# @option -c --config <key=value>    Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
-# @flag --strict-config              Error out when config.toml contains fields that are not recognized by this version of Codex
-# @option --enable <FEATURE>         Enable a feature (repeatable).
-# @option --disable <FEATURE>        Disable a feature (repeatable).
-# @flag -h --help                    Print help (see a summary with '-h')
-mcp-server() {
-    :;
-}
-# }} codex mcp-server
 
 # {{ codex app-server
 # @cmd [experimental] Run the app server or related tooling
@@ -782,6 +775,7 @@ apply() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @option -a --ask-for-approval <APPROVAL_POLICY>  Configure when the model requires human approval before executing a command
 # @flag --search                               Enable live web search.
@@ -813,6 +807,7 @@ resume() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
@@ -840,6 +835,7 @@ queue() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
@@ -866,6 +862,7 @@ archive() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
@@ -909,6 +906,7 @@ migrate-rollouts() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @flag --strict-config                        Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option -c --config <key=value>              Override a configuration value that would otherwise be loaded from `~/.codex/config.toml`.
@@ -939,6 +937,7 @@ unarchive() {
 # @flag --dangerously-bypass-approvals-and-sandbox  Skip all confirmation prompts and execute commands without sandboxing.
 # @flag --dangerously-bypass-hook-trust        Run enabled hooks without requiring persisted hook trust for this invocation.
 # @option -C --cd <DIR>                        Tell the agent to use the specified directory as its working root
+# @flag --worktree                             Run the session in a new managed Git worktree
 # @option --add-dir <DIR>                      Additional directories that should be writable alongside the primary workspace
 # @option -a --ask-for-approval <APPROVAL_POLICY>  Configure when the model requires human approval before executing a command
 # @flag --search                               Enable live web search.
@@ -1041,9 +1040,14 @@ cloud::diff() {
 # @option --disable <FEATURE>              Disable a feature (repeatable).
 # @option --listen <URL>                   Transport endpoint URL.
 # @option --remote <URL>                   Register this exec-server as a remote environment using the given base URL
+# @option --remote-transport[noise|direct] <REMOTE_TRANSPORT>  Transport used for the remote executor connection
 # @option --environment-id <ID>            Environment id to attach to when registering remotely
 # @option --name                           Human-readable environment name
 # @flag --use-agent-identity-auth          Use Agent Identity auth from CODEX_ACCESS_TOKEN for remote registration
+# @flag --aws-sigv4                        Sign Direct registration and WebSocket handshake requests with AWS SigV4
+# @option --aws-profile <PROFILE>          AWS profile used for SigV4 authentication
+# @option --aws-region <REGION>            AWS signing region.
+# @option --aws-service <SERVICE>          AWS signing service
 # @flag --exit-on-stdin-close              Exit when the parent-owned standard-input pipe closes
 # @flag -h --help                          Print help (see a summary with '-h')
 exec-server() {
@@ -1058,9 +1062,14 @@ exec-server() {
 # @flag --strict-config              Error out when config.toml contains fields that are not recognized by this version of Codex
 # @option --disable <FEATURE>        Disable a feature (repeatable).
 # @option --remote <URL>             Register this exec-server as a remote environment using the given base URL
+# @option --remote-transport[noise|direct] <REMOTE_TRANSPORT>  Transport used for the remote executor connection
 # @option --environment-id <ID>      Environment id to attach to when registering remotely
 # @option --name                     Human-readable environment name
 # @flag --use-agent-identity-auth    Use Agent Identity auth from CODEX_ACCESS_TOKEN for remote registration
+# @flag --aws-sigv4                  Sign Direct registration and WebSocket handshake requests with AWS SigV4
+# @option --aws-profile <PROFILE>    AWS profile used for SigV4 authentication
+# @option --aws-region <REGION>      AWS signing region.
+# @option --aws-service <SERVICE>    AWS signing service
 # @flag --exit-on-stdin-close        Exit when the parent-owned standard-input pipe closes
 # @flag -h --help                    Print help (see a summary with '-h')
 # @arg url!

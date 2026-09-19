@@ -16,11 +16,11 @@ serve() {
 
 # {{ ollama create
 # @cmd Create a model
-# @option --draft-quantize <string>    Quantize draft model to this level
-# @flag --experimental                 Enable experimental safetensors model creation
+# @option --draft-quantize <string>    Quantize safetensors draft model to this level
 # @option -f --file <file>             Name of the Modelfile (default "Modelfile")
+# @flag --force                        Continue local creation when MLX validation fails
 # @flag -h --help                      help for create
-# @option -q --quantize <string>       Quantize model to this level (e.g. q4_K_M)
+# @option -q --quantize <string>       Quantize safetensors model to this level (e.g. nvfp4)
 # @arg model[`_choice_model`]
 create() {
     :;

@@ -31,7 +31,7 @@
 # @option --changed-before <date|dur>              Filter results based on the file modification time.
 # @option -o --owner <user:group>                  Filter files by their user and/or group.
 # @option --format <fmt>                           Print results according to template
-# @option -x --exec* <args>                        Execute a command for each search result in parallel (use
+# @option -x --exec* <args>                        Execute a command for each search result in parallel (use --threads=1 for sequential command execution).
 # @option -X --exec-batch* <args>                  Execute the given command once, with all search results as arguments.
 # @option --batch-size <size>                      Maximum number of arguments to pass to the command given with -X.
 # @option --ignore-file <path>                     Add a custom ignore-file in '.gitignore' format.
