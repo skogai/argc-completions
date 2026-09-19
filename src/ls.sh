@@ -1,6 +1,12 @@
+_patch_help() {
+    $@ --help | \
+    sed -e 's/\x1b\]8;;[^\x1b]*\x1b\\//g' | \
+    _patch_help_strip_ansi
+}
+
 _patch_table() { 
     _patch_table_add_metadata combine-shorts | \
-    _patch_table_dedup_options '--indicator-style' | \
+    sed -e 's/^option # -p, --indicator-style=slash #/option # -p #/' | \
     _patch_table_edit_options \
         '--color;[`_choice_color`]' \
         '--format;[`_choice_format`]' \

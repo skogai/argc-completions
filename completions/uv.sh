@@ -2262,7 +2262,6 @@ workspace() {
 # @option --script                                 View metadata for the specified PEP 723 Python script, rather than the current workspace
 # @flag --locked                                   Check if the lockfile is up-to-date [env: UV_LOCKED=]
 # @flag --frozen                                   Assert that a `uv.lock` exists without checking if it is up-to-date [env: UV_FROZEN=]
-# @flag --dry-run                                  Perform a dry run, without writing the lockfile
 # @flag --sync                                     Sync the environment to include module ownership metadata in the output
 # @flag --exact                                    Perform an exact sync, removing extraneous packages
 # @flag --active                                   Sync dependencies to the active virtual environment
