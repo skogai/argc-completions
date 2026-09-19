@@ -7,12 +7,12 @@
 # @option --explain <CODE>                     Provide a detailed explanation of a rustc error message
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
+# @option --color[auto|always|never] <WHEN>    Coloring
 # @option -C <DIRECTORY>                       Change to DIRECTORY before doing anything (nightly-only)
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @arg cmd![`_choice_cmd`]
@@ -21,11 +21,11 @@
 # @cmd Compile the current package
 # @alias b
 # @flag --future-incompat-report                 Outputs a future incompatibility report at the end of the build
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to build (see `cargo help pkgid`)
@@ -37,9 +37,9 @@
 # @option --bin[`_choice_bin`] <NAME>            Build only the specified binary
 # @flag --examples                               Build all examples
 # @option --example[`_choice_example`] <NAME>    Build only the specified example
-# @flag --tests                                  Build all test targets
+# @flag --tests                                  Build all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Build only the specified test target
-# @flag --benches                                Build all bench targets
+# @flag --benches                                Build all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Build only the specified bench target
 # @flag --all-targets                            Build all targets
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -51,11 +51,10 @@
 # @flag --keep-going                             Do not abort the build as soon as there is an error
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --out-dir <PATH>                       Copy final artifacts to this directory (unstable)
-# @flag --build-plan                             Output the build plan in JSON (unstable)
+# @option --artifact-dir <PATH>                  Copy final artifacts to this directory (unstable)
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -69,11 +68,11 @@ build() {
 # @cmd Analyze the current package and report errors, but don't build object files
 # @alias c
 # @flag --future-incompat-report                 Outputs a future incompatibility report at the end of the build
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package(s) to check
@@ -85,9 +84,9 @@ build() {
 # @option --bin[`_choice_bin`] <NAME>            Check only the specified binary
 # @flag --examples                               Check all examples
 # @option --example[`_choice_example`] <NAME>    Check only the specified example
-# @flag --tests                                  Check all test targets
+# @flag --tests                                  Check all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Check only the specified test target
-# @flag --benches                                Check all bench targets
+# @flag --benches                                Check all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Check only the specified bench target
 # @flag --all-targets                            Check all targets
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -100,8 +99,8 @@ build() {
 # @option --target[`_choice_target`] <TRIPLE>    Check for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -117,16 +116,17 @@ check() {
 # @flag -n --dry-run                             Display what would be deleted without deleting anything
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to clean artifacts for
+# @flag --workspace                              Clean artifacts of the workspace members
 # @flag -r --release                             Whether or not to clean release artifacts
 # @option --profile <PROFILE-NAME>               Clean artifacts of the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Target triple to clean output for
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -141,11 +141,12 @@ clean() {
 # @flag --open                                   Opens the docs in a browser after the operation
 # @flag --no-deps                                Don't build documentation for dependencies
 # @flag --document-private-items                 Document private items
-# @option --message-format <FMT>                 Error format
+# @option --output-format[html|json] <FMT>       The output type to write (unstable)
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to document
@@ -167,8 +168,8 @@ clean() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -188,8 +189,8 @@ doc() {
 # @option --registry                               Registry to use
 # @flag -v --verbose*                              Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                                 Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>        Coloring: auto, always, never
-# @option --config <KEY=VALUE>                     Override a configuration value
+# @option --color[auto|always|never] <WHEN>        Coloring
+# @option --config <KEY=VALUE|PATH>                Override a configuration value
 # @option -Z <FLAG>                                Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                  Print help
 # @flag --locked                                   Assert that `Cargo.lock` will remain unchanged
@@ -211,8 +212,8 @@ new() {
 # @option --registry                               Registry to use
 # @flag -v --verbose*                              Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                                 Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>        Coloring: auto, always, never
-# @option --config <KEY=VALUE>                     Override a configuration value
+# @option --color[auto|always|never] <WHEN>        Coloring
+# @option --config <KEY=VALUE|PATH>                Override a configuration value
 # @option -Z <FLAG>                                Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                  Print help
 # @flag --locked                                   Assert that `Cargo.lock` will remain unchanged
@@ -237,17 +238,18 @@ init() {
 # @flag -n --dry-run                           Don't actually write the manifest
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help (see a summary with '-h')
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --ignore-rust-version                  Ignore `rust-version` specification in packages
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
 # @option -p --package[`_choice_package`] <SPEC>  Package to modify
 # @option --path                               Filesystem path to local crate to add
+# @option --base                               The path base to use when adding from a local crate (unstable).
 # @option --git <URI>                          Git repository location
 # @option --branch                             Git branch to download the crate from
 # @option --tag                                Git tag to download the crate from
@@ -267,15 +269,15 @@ add() {
 # @flag -n --dry-run                           Don't actually write the manifest
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --dev                                  Remove from dev-dependencies
 # @flag --build                                Remove from build-dependencies
 # @option --target[`_choice_target`]           Remove from target-dependencies
 # @option -p --package[`_choice_package`] <SPEC>  Package to remove from
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -288,11 +290,11 @@ remove() {
 # {{ cargo run
 # @cmd Run a binary or example of the local package
 # @alias r
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package with the target to run
@@ -308,8 +310,8 @@ remove() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -326,11 +328,11 @@ run() {
 # @flag --no-run                                 Compile, but don't run tests
 # @flag --no-fail-fast                           Run all tests regardless of failure
 # @flag --future-incompat-report                 Outputs a future incompatibility report at the end of the build
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -q --quiet                               Display one character per test instead of one line
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to run tests for
@@ -342,9 +344,9 @@ run() {
 # @option --bin[`_choice_bin`] <NAME>            Test only the specified binary
 # @flag --examples                               Test all examples
 # @option --example[`_choice_example`] <NAME>    Test only the specified example
-# @flag --tests                                  Test all test targets
+# @flag --tests                                  Test all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Test only the specified test target
-# @flag --benches                                Test all bench targets
+# @flag --benches                                Test all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Test only the specified bench target
 # @flag --all-targets                            Test all targets (does not include doctests)
 # @flag --doc                                    Test only this library's documentation
@@ -357,8 +359,8 @@ run() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -374,11 +376,11 @@ test() {
 # @cmd Run the benchmarks
 # @flag --no-run                                 Compile, but don't run benchmarks
 # @flag --no-fail-fast                           Run all benchmarks regardless of failure
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to run benchmarks for
@@ -390,9 +392,9 @@ test() {
 # @option --bin[`_choice_bin`] <NAME>            Benchmark only the specified binary
 # @flag --examples                               Benchmark all examples
 # @option --example[`_choice_example`] <NAME>    Benchmark only the specified example
-# @flag --tests                                  Benchmark all test targets
+# @flag --tests                                  Benchmark all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Benchmark only the specified test target
-# @flag --benches                                Benchmark all bench targets
+# @flag --benches                                Benchmark all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Benchmark only the specified bench target
 # @flag --all-targets                            Benchmark all targets
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -403,8 +405,8 @@ test() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -421,15 +423,16 @@ bench() {
 # @flag -n --dry-run                           Don't actually write the lockfile
 # @flag --recursive                            Force updating all dependencies of [SPEC]... as well
 # @option --precise                            Update [SPEC] to exactly PRECISE
+# @flag -b --breaking                          Update [SPEC] to latest SemVer-breaking version (unstable)
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag -w --workspace                         Only update the workspace packages
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @flag --ignore-rust-version                  Ignore `rust-version` specification in packages (unstable)
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --ignore-rust-version                  Ignore `rust-version` specification in packages
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -446,8 +449,8 @@ update() {
 # @option --registry                           Registry to search packages in
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -464,16 +467,17 @@ search() {
 # @flag -n --dry-run                             Perform all checks without uploading
 # @option --index                                Registry index URL to upload the package to
 # @option --registry                             Registry to upload the package to
-# @option --token                                Token to use when uploading
 # @flag --no-verify                              Don't verify the contents by building them
 # @flag --allow-dirty                            Allow dirty working directories to be packaged
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
-# @option -p --package[`_choice_package`] <SPEC>  Package to publish
+# @option -p --package[`_choice_package`] <SPEC>  Package(s) to publish
+# @flag --workspace                              Publish all packages in the workspace
+# @option --exclude <SPEC>                       Don't publish specified packages
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
 # @flag --all-features                           Activate all available features
 # @flag --no-default-features                    Do not activate the `default` feature
@@ -481,7 +485,7 @@ search() {
 # @flag --keep-going                             Do not abort the build as soon as there is an error
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -502,14 +506,15 @@ publish() {
 # @option --path                                 Filesystem path to local crate to install from
 # @option --root <DIR>                           Directory to install packages into
 # @flag -f --force                               Force overwriting existing crates or binaries
+# @flag -n --dry-run                             Perform all checks without installing (unstable)
 # @flag --no-track                               Do not save tracking information
 # @flag --list                                   List all installed packages and their versions
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag --debug                                  Build in debug mode (with the 'dev' profile) instead of release mode
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
@@ -528,7 +533,7 @@ publish() {
 # @option --profile <PROFILE-NAME>               Install artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
+# @flag --timings                                Output a build timing report at the end of the build
 # @arg crate[`_choice_remote_crate`]
 install() {
     :;
@@ -540,8 +545,8 @@ install() {
 # @option --root <DIR>                         Directory to uninstall packages from
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to uninstall
@@ -561,13 +566,13 @@ uninstall() {
 # @flag --edition-idioms                         Fix warnings to migrate to the idioms of an edition
 # @flag --broken-code                            Fix code even if it already has compiler errors
 # @flag --allow-no-vcs                           Fix code even if a VCS was not detected
-# @flag --allow-dirty                            Fix code even if the working directory is dirty
+# @flag --allow-dirty                            Fix code even if the working directory is dirty or has staged changes
 # @flag --allow-staged                           Fix code even if the working directory has staged changes
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @option -p --package[`_choice_package`] <SPEC>  Package(s) to fix
 # @flag --workspace                              Fix all packages in the workspace
@@ -578,9 +583,9 @@ uninstall() {
 # @option --bin[`_choice_bin`] <NAME>            Fix only the specified binary
 # @flag --examples                               Fix all examples
 # @option --example[`_choice_example`] <NAME>    Fix only the specified example
-# @flag --tests                                  Fix all test targets
+# @flag --tests                                  Fix all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Fix only the specified test target
-# @flag --benches                                Fix all bench targets
+# @flag --benches                                Fix all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Fix only the specified bench target
 # @flag --all-targets                            Fix all targets (default)
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -592,8 +597,8 @@ uninstall() {
 # @option --profile <PROFILE-NAME>               Build artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Fix for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -613,8 +618,8 @@ clippy() {
 # @cmd Inspect configuration values
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -631,8 +636,8 @@ config() {
 # @option --merged[yes|no] <merged>            Whether or not to merge config values [default: yes]
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -649,12 +654,12 @@ config::get() {
 # @cmd Fetch dependencies of a package from the network
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option --target[`_choice_target`] <TRIPLE>    Fetch dependencies for the target triple
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -669,13 +674,13 @@ fetch() {
 # @flag --edition-idioms                         Fix warnings to migrate to the idioms of an edition
 # @flag --broken-code                            Fix code even if it already has compiler errors
 # @flag --allow-no-vcs                           Fix code even if a VCS was not detected
-# @flag --allow-dirty                            Fix code even if the working directory is dirty
+# @flag --allow-dirty                            Fix code even if the working directory is dirty or has staged changes
 # @flag --allow-staged                           Fix code even if the working directory has staged changes
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package(s) to fix
@@ -687,9 +692,9 @@ fetch() {
 # @option --bin[`_choice_bin`] <NAME>            Fix only the specified binary
 # @flag --examples                               Fix all examples
 # @option --example[`_choice_example`] <NAME>    Fix only the specified example
-# @flag --tests                                  Fix all test targets
+# @flag --tests                                  Fix all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Fix only the specified test target
-# @flag --benches                                Fix all bench targets
+# @flag --benches                                Fix all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Fix only the specified bench target
 # @flag --all-targets                            Fix all targets (default)
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -701,8 +706,8 @@ fetch() {
 # @option --profile <PROFILE-NAME>               Build artifacts with the specified profile
 # @option --target[`_choice_target`] <TRIPLE>    Fix for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -731,17 +736,18 @@ fmt() {
 
 # {{ cargo generate-lockfile
 # @cmd Generate the lockfile for a package
-# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
-# @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
-# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
-# @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
-# @flag --ignore-rust-version                  Ignore `rust-version` specification in packages (unstable)
-# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
-# @flag --offline                              Run without accessing the network
-# @flag --frozen                               Equivalent to specifying both --locked and --offline
+# @flag -v --verbose*                              Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                                 Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>        Coloring
+# @option --config <KEY=VALUE|PATH>                Override a configuration value
+# @option -Z <FLAG>                                Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                                  Print help
+# @option -m --manifest-path <PATH>                Path to Cargo.toml
+# @flag --ignore-rust-version                      Ignore `rust-version` specification in packages
+# @option --publish-time <yyyy-mm-ddThh:mm:ssZ>    Latest publish time allowed for registry packages (unstable)
+# @flag --locked                                   Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                                  Run without accessing the network
+# @flag --frozen                                   Equivalent to specifying both --locked and --offline
 generate-lockfile() {
     :;
 }
@@ -760,11 +766,11 @@ git-checkout() {
 # @option --message-format[json|plain] <FMT>    Output representation
 # @flag -v --verbose*                           Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                              Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>     Coloring: auto, always, never
-# @option --config <KEY=VALUE>                  Override a configuration value
+# @option --color[auto|always|never] <WHEN>     Coloring
+# @option --config <KEY=VALUE|PATH>             Override a configuration value
 # @option -Z <FLAG>                             Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                               Print help
-# @option --manifest-path <PATH>                Path to Cargo.toml
+# @option -m --manifest-path <PATH>             Path to Cargo.toml
 # @flag --locked                                Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                               Run without accessing the network
 # @flag --frozen                                Equivalent to specifying both --locked and --offline
@@ -778,14 +784,13 @@ locate-project() {
 # @option --registry                           Registry to use
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
-# @arg token
 # @arg args*                                   Additional arguments for the credential provider
 login() {
     :;
@@ -797,8 +802,8 @@ login() {
 # @option --registry                           Registry to use
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -816,14 +821,14 @@ logout() {
 # @option --format-version[1] <VERSION>         Format version
 # @flag -v --verbose*                           Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                              Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>     Coloring: auto, always, never
-# @option --config <KEY=VALUE>                  Override a configuration value
+# @option --color[auto|always|never] <WHEN>     Coloring
+# @option --config <KEY=VALUE|PATH>             Override a configuration value
 # @option -Z <FLAG>                             Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                               Print help
 # @option -F --features*,[`_choice_feature`]    Space or comma separated list of features to activate
 # @flag --all-features                          Activate all available features
 # @flag --no-default-features                   Do not activate the `default` feature
-# @option --manifest-path <PATH>                Path to Cargo.toml
+# @option -m --manifest-path <PATH>             Path to Cargo.toml
 # @flag --locked                                Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                               Run without accessing the network
 # @flag --frozen                                Equivalent to specifying both --locked and --offline
@@ -842,8 +847,8 @@ metadata() {
 # @option --token                              API token to use when authenticating
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -857,14 +862,18 @@ owner() {
 
 # {{ cargo package
 # @cmd Assemble the local package into a distributable tarball
+# @option --index                                Registry index URL to prepare the package for
+# @option --registry                             Registry to prepare the package for
 # @flag -l --list                                Print files included in a package without making one
 # @flag --no-verify                              Don't verify the contents by building them
 # @flag --no-metadata                            Ignore warnings about a lack of human-usable metadata
 # @flag --allow-dirty                            Allow dirty working directories to be packaged
+# @flag --exclude-lockfile                       Don't include the lock file when packaging
+# @option --message-format[human|json] <FMT>     Output representation (unstable)
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package(s) to assemble
@@ -877,7 +886,7 @@ owner() {
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @option -j --jobs <N>                          Number of parallel jobs, defaults to ♯ of CPUs.
 # @flag --keep-going                             Do not abort the build as soon as there is an error
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -890,12 +899,12 @@ package() {
 # @cmd Print a fully qualified package specification
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @option -p --package[`_choice_package`] <SPEC>  Argument to get the package ID specifier for
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -909,11 +918,11 @@ pkgid() {
 # @cmd Print a JSON representation of a Cargo.toml manifest.
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -926,8 +935,8 @@ read-manifest() {
 # @cmd Generate and display various kinds of reports
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -942,8 +951,8 @@ report() {
 # @option --id <id>                            identifier of the report generated by a Cargo command invocation
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to display a report for
@@ -954,6 +963,61 @@ report::future-incompatibilities() {
     :;
 }
 # }}} cargo report future-incompatibilities
+
+# {{{ cargo report timings
+# @cmd Reports the build timings of previous sessions (unstable)
+# @flag --open                                 Opens the timing report in a browser
+# @option --id                                 Session ID to report on
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::timings() {
+    :;
+}
+# }}} cargo report timings
+
+# {{{ cargo report sessions
+# @cmd Reports the previous sessions (unstable)
+# @option --limit <N>                          Limit the number of results [default: 10]
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::sessions() {
+    :;
+}
+# }}} cargo report sessions
+
+# {{{ cargo report rebuilds
+# @cmd Reports rebuild reasons from previous sessions (unstable)
+# @option --id                                 Session ID to report on
+# @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
+# @flag -q --quiet                             Do not print cargo log messages
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
+# @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
+# @flag -h --help                              Print help
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
+# @flag --locked                               Assert that `Cargo.lock` will remain unchanged
+# @flag --offline                              Run without accessing the network
+# @flag --frozen                               Equivalent to specifying both --locked and --offline
+report::rebuilds() {
+    :;
+}
+# }}} cargo report rebuilds
 # }} cargo report
 
 # {{ cargo rustc
@@ -961,11 +1025,11 @@ report::future-incompatibilities() {
 # @option --print <INFO>                         Output compiler information without compiling
 # @option --crate-type                           Comma separated list of types of crates for the compiler to emit
 # @flag --future-incompat-report                 Outputs a future incompatibility report at the end of the build
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to build
@@ -974,9 +1038,9 @@ report::future-incompatibilities() {
 # @option --bin[`_choice_bin`] <NAME>            Build only the specified binary
 # @flag --examples                               Build all examples
 # @option --example[`_choice_example`] <NAME>    Build only the specified example
-# @flag --tests                                  Build all test targets
+# @flag --tests                                  Build all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Build only the specified test target
-# @flag --benches                                Build all bench targets
+# @flag --benches                                Build all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Build only the specified bench target
 # @flag --all-targets                            Build all targets
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -989,8 +1053,8 @@ report::future-incompatibilities() {
 # @option --target[`_choice_target`] <TRIPLE>    Target triple which compiles will be for
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -1004,12 +1068,12 @@ rustc() {
 # {{ cargo rustdoc
 # @cmd Build a package's documentation, using specified custom flags.
 # @flag --open                                   Opens the docs in a browser after the operation
-# @option --message-format <FMT>                 Error format
+# @option --message-format[human|short|json|json-diagnostic-short|json-diagnostic-rendered-ansi|json-render-diagnostics] <FMT>  Error format
 # @option --output-format[html|json] <FMT>       The output type to write (unstable)
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to document
@@ -1018,9 +1082,9 @@ rustc() {
 # @option --bin[`_choice_bin`] <NAME>            Build only the specified binary
 # @flag --examples                               Build all examples
 # @option --example[`_choice_example`] <NAME>    Build only the specified example
-# @flag --tests                                  Build all test targets
+# @flag --tests                                  Build all targets that have `test = true` set
 # @option --test[`_choice_test`] <NAME>          Build only the specified test target
-# @flag --benches                                Build all bench targets
+# @flag --benches                                Build all targets that have `bench = true` set
 # @option --bench[`_choice_bench`] <NAME>        Build only the specified bench target
 # @flag --all-targets                            Build all targets
 # @option -F --features*,[`_choice_feature`]     Space or comma separated list of features to activate
@@ -1033,8 +1097,8 @@ rustc() {
 # @option --target[`_choice_target`] <TRIPLE>    Build for the target triple
 # @option --target-dir <DIRECTORY>               Directory for all generated artifacts
 # @flag --unit-graph                             Output build graph in JSON (unstable)
-# @option --timings[html|json] <FMTS>            Timing output formats (unstable) (comma separated): html, json
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @flag --timings                                Output a build timing report at the end of the build
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --ignore-rust-version                    Ignore `rust-version` specification in packages
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
@@ -1047,7 +1111,7 @@ rustdoc() {
 
 # {{ cargo tree
 # @cmd Display a tree visualization of a dependency graph
-# @option -e --edges[features|normal|build|dev|all|no-normal|no-build|no-dev|no-proc-macro] <KINDS>  The kinds of dependencies to display
+# @option -e --edges[all|normal|build|dev|features|public|no-normal|no-build|no-dev|no-proc-macro] <KINDS>  The kinds of dependencies to display
 # @option -i --invert <SPEC>                     Invert the tree direction and focus on the given package
 # @option --prune <SPEC>                         Prune the given package from the display of the dependency tree
 # @option --depth                                Maximum display depth of the dependency tree
@@ -1058,8 +1122,8 @@ rustdoc() {
 # @option -f --format                            Format string used for printing dependencies [default: {p}]
 # @flag -v --verbose*                            Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                               Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>      Coloring: auto, always, never
-# @option --config <KEY=VALUE>                   Override a configuration value
+# @option --color[auto|always|never] <WHEN>      Coloring
+# @option --config <KEY=VALUE|PATH>              Override a configuration value
 # @option -Z <FLAG>                              Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                                Print help
 # @option -p --package[`_choice_package`] <SPEC>  Package to be used as the root of the tree
@@ -1069,7 +1133,7 @@ rustdoc() {
 # @flag --all-features                           Activate all available features
 # @flag --no-default-features                    Do not activate the `default` feature
 # @option --target[`_choice_target`] <TRIPLE>    Filter dependencies matching the given target-triple (default host platform).
-# @option --manifest-path <PATH>                 Path to Cargo.toml
+# @option -m --manifest-path <PATH>              Path to Cargo.toml
 # @flag --locked                                 Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                                Run without accessing the network
 # @flag --frozen                                 Equivalent to specifying both --locked and --offline
@@ -1086,11 +1150,11 @@ tree() {
 # @flag --versioned-dirs                       Always include version in subdir name
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -1104,11 +1168,11 @@ vendor() {
 # @cmd Check correctness of crate manifest
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
-# @option --manifest-path <PATH>               Path to Cargo.toml
+# @option -m --manifest-path <PATH>            Path to Cargo.toml
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
 # @flag --offline                              Run without accessing the network
 # @flag --frozen                               Equivalent to specifying both --locked and --offline
@@ -1121,8 +1185,8 @@ verify-project() {
 # @cmd Show version information
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged
@@ -1142,8 +1206,8 @@ version() {
 # @option --token                              API token to use when authenticating
 # @flag -v --verbose*                          Use verbose output (-vv very verbose/build.rs output)
 # @flag -q --quiet                             Do not print cargo log messages
-# @option --color[auto|always|never] <WHEN>    Coloring: auto, always, never
-# @option --config <KEY=VALUE>                 Override a configuration value
+# @option --color[auto|always|never] <WHEN>    Coloring
+# @option --config <KEY=VALUE|PATH>            Override a configuration value
 # @option -Z <FLAG>                            Unstable (nightly-only) flags to Cargo, see 'cargo -Z help' for details
 # @flag -h --help                              Print help
 # @flag --locked                               Assert that `Cargo.lock` will remain unchanged

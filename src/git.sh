@@ -303,37 +303,6 @@ _patch_table() {
     elif [[ "$*" == "git add" ]]; then
         _patch_table_edit_arguments 'pathspec;[`_choice_unstaged_file`]'
 
-    elif [[ "$*" == "git diff" ]]; then
-        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_diff`]'
-
-    elif [[ "$*" == "git log" ]]; then
-        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_log`]'
-
-    elif [[ "$*" == "git show" ]]; then
-        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_show`]'
-
-    elif [[ "$*" == "git merge" ]]; then
-        _patch_table_edit_arguments 'commit;[`_choice_branch`]'
-
-    elif [[ "$*" == "git rebase" ]]; then
-        _patch_table_edit_arguments ';;' '<base>;[`_choice_branch`]' '<new>;[`_choice_branch`]'
-
-    elif [[ "$*" == "git reset" ]]; then
-        _patch_table_edit_arguments ';;' '[commit]...;[`_choice_reset`]'
-
-    elif [[ "$*" == "git switch" ]]; then
-        _patch_table_edit_arguments 'branch;[`_choice_branch`]'
-
-    elif [[ "$*" == "git fetch" ]]; then
-        _patch_table_edit_arguments ';;' '<remote>;[`_choice_remote`]' '<refspec>...;[`_choice_branch`]'
-
-    elif [[ "$*" == "git pull" ]]; then
-        _patch_table_edit_arguments ';;' '<remote>;[`_choice_remote`]' '<refspec>...;[`_choice_branch`]'
-
-    elif [[ "$*" == "git push" ]]; then
-        _patch_table_dedup_options '--force-with-lease' | \
-        _patch_table_edit_arguments ';;' '<remote>;[`_choice_remote`]' '<refspec>...;[`_choice_push`]'
-
     elif [[ "$*" == "git branch" ]]; then
         _patch_table_edit_arguments ';;' '<branch>;[`_choice_branch`]'
 
@@ -349,34 +318,6 @@ _patch_table() {
     elif [[ "$*" == "git clean" ]]; then
         _patch_table_edit_arguments 'path;[`_choice_unstaged_file`]'
 
-    elif [[ "$*" == "git config" ]]; then
-        _patch_table_edit_arguments ';;' 'key;[`_choice_config_key`]'
-
-    elif [[ "$*" == "git describe" ]]; then
-        _patch_table_edit_arguments 'commit-ish;[`_choice_ref`]'
-
-    elif [[ "$*" == "git difftool" ]]; then
-        _patch_table_edit_options '--extcmd;[`_module_os_command`]'
-
-    elif [[ "$*" == "git range-diff" ]]; then
-        _patch_table_edit_arguments ';;' '<base>;[`_choice_branch`]' '<new>;[`_choice_branch`]'
-
-    elif [[ "$*" == "git remote"* ]]; then
-        _patch_table_edit_arguments 'name;[`_choice_remote`]' 'old;[`_choice_remote`]' 'new;[`_choice_remote`]'
-
-    elif [[ "$*" == "git restore" ]]; then
-        _patch_table_edit_arguments 'pathspec;[`_choice_restore_file`]'
-
-    elif [[ "$*" == "git shortlog" ]]; then
-        _patch_table_dedup_options '--committer' | \
-        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_log`]'
-
-    elif [[ "$*" == "git stash"* ]]; then
-        _patch_table_edit_arguments 'stash;[`_choice_stash`]'
-
-    elif [[ "$*" == "git tag" ]]; then
-        _patch_table_edit_arguments ';;' '<tagname>;[`_choice_tag`]'
-
     elif [[ "$*" == "git cliff" ]]; then
         _patch_table_edit_options \
             '--tag;[`_choice_tag`]' \
@@ -384,8 +325,29 @@ _patch_table() {
         _patch_table_edit_arguments \
             'range;[`_choice_range`]' \
 
+    elif [[ "$*" == "git config" ]]; then
+        _patch_table_edit_arguments ';;' 'key;[`_choice_config_key`]'
+
+    elif [[ "$*" == "git describe" ]]; then
+        _patch_table_edit_arguments 'commit-ish;[`_choice_ref`]'
+
+    elif [[ "$*" == "git diff" ]]; then
+        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_diff`]'
+
+    elif [[ "$*" == "git difftool" ]]; then
+        _patch_table_edit_options '--extcmd;[`_module_os_command`]'
+
+    elif [[ "$*" == "git fetch" ]]; then
+        _patch_table_edit_arguments ';;' '<remote>;[`_choice_remote`]' '<refspec>...;[`_choice_branch`]'
+
     elif [[ "$*" == "git lfs" ]]; then
         _patch_table_edit_arguments ';;' 'words;~[`_module_bridge_corba`]'
+
+    elif [[ "$*" == "git log" ]]; then
+        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_log`]'
+
+    elif [[ "$*" == "git merge" ]]; then
+        _patch_table_edit_arguments 'commit;[`_choice_branch`]'
 
     elif [[ "$*" == "git open" ]]; then
         _patch_table_edit_options \
@@ -396,8 +358,37 @@ _patch_table() {
             'remote;[`_choice_remote`]' \
             'branch;[`_choice_local_branch`]' \
 
+    elif [[ "$*" == "git pull" ]]; then
+        _patch_table_edit_arguments ';;' '<remote>;[`_choice_remote`]' '<refspec>...;[`_choice_branch`]'
+
+    elif [[ "$*" == "git push" ]]; then
+        _patch_table_dedup_options '--force-with-lease' | \
+        _patch_table_edit_arguments ';;' '<remote>;[`_choice_remote`]' '<refspec>...;[`_choice_push`]'
+
     elif [[ "$*" == "git quick-stats" ]]; then
         _patch_table_edit_arguments ';;'
+
+    elif [[ "$*" == "git range-diff" ]]; then
+        _patch_table_edit_arguments ';;' '<base>;[`_choice_branch`]' '<new>;[`_choice_branch`]'
+
+    elif [[ "$*" == "git rebase" ]]; then
+        _patch_table_edit_arguments ';;' '<base>;[`_choice_branch`]' '<new>;[`_choice_branch`]'
+
+    elif [[ "$*" == "git remote"* ]]; then
+        _patch_table_edit_arguments 'name;[`_choice_remote`]' 'old;[`_choice_remote`]' 'new;[`_choice_remote`]'
+
+    elif [[ "$*" == "git reset" ]]; then
+        _patch_table_edit_arguments ';;' '[commit]...;[`_choice_reset`]'
+
+    elif [[ "$*" == "git restore" ]]; then
+        _patch_table_edit_arguments 'pathspec;[`_choice_restore_file`]'
+
+    elif [[ "$*" == "git shortlog" ]]; then
+        _patch_table_dedup_options '--committer' | \
+        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_log`]'
+
+    elif [[ "$*" == "git show" ]]; then
+        _patch_table_edit_arguments ';;' '[commit-path]...;[`_choice_show`]'
 
     elif [[ "$*" == "git sizer" ]]; then
         _patch_table_dedup_options \
@@ -418,6 +409,15 @@ _patch_table() {
             '-u(<num>)' \
             '-w(<value>)' \
 
+    elif [[ "$*" == "git stash"* ]]; then
+        _patch_table_edit_arguments 'stash;[`_choice_stash`]'
+
+    elif [[ "$*" == "git switch" ]]; then
+        _patch_table_edit_arguments 'branch;[`_choice_branch`]'
+
+    elif [[ "$*" == "git tag" ]]; then
+        _patch_table_edit_arguments ';;' '<tagname>;[`_choice_tag`]'
+
     else
         cat
     fi
@@ -433,6 +433,14 @@ _choice_unstaged_file() {
         print substr($0, 4)
     }
 }' | _argc_util_comp_parts /
+}
+
+_choice_restore_file() {
+    if [[ -n "$argc_staged" ]]; then
+        _choice_staged_file
+    else
+        _choice_changed_file
+    fi
 }
 
 _choice_diff() {
@@ -509,14 +517,6 @@ _choice_config_key() {
 
 _choice_ref() {
     _argc_util_parallel _choice_local_branch ::: _choice_remote_branch ::: _choice_tag
-}
-
-_choice_restore_file() {
-    if [[ -n "$argc_staged" ]]; then
-        _choice_staged_file
-    else
-        _choice_changed_file
-    fi
 }
 
 _choice_stash() {

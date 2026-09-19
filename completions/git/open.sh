@@ -1,13 +1,18 @@
 #!/usr/bin/env bash
 # Automatic generated, DON'T MODIFY IT.
 
-# @flag -c --commit              open current commit
-# @flag -i --issue               open issues page
-# @option -s --suffix <value>    append this suffix
-# @flag -f --file*               append this file
-# @flag -p --print               just print the url
 # @arg remote[`_choice_remote`]
 # @arg branch[`_choice_local_branch`]
+open() {
+    :;
+}
+
+# {{{ git open repo
+# @cmd
+open::repo() {
+    :;
+}
+# }}} git open repo
 
 . "$ARGC_COMPLETIONS_ROOT/utils/_argc_utils.sh"
 

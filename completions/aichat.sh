@@ -5,21 +5,27 @@
 # @option --prompt                           Use the system prompt
 # @option -r --role[`_choice_role`]          Select a role
 # @option -s --session[`_choice_session`]    Start or join a session
-# @flag --save-session                       Forces the session to be saved
+# @flag --empty-session                      Ensure the session is empty
+# @flag --save-session                       Ensure the new conversation is saved to the session
 # @option -a --agent[`_choice_agent`]        Start a agent
-# @option -R --rag[`_choice_rag`]            Start a RAG
+# @option --agent-variable <NAME> <VALUE>    Set agent variables
+# @option --rag[`_choice_rag`]               Start a RAG
+# @flag --rebuild-rag                        Rebuild the RAG to sync document changes
+# @option --macro                            Execute a macro
 # @option --serve <ADDRESS>                  Serve the LLM API and WebAPP
 # @flag -e --execute                         Execute commands in natural language
 # @flag -c --code                            Output code only
-# @option -f --file                          Include files with the message
+# @option -f --file                          Include files, directories, or URLs
 # @flag -S --no-stream                       Turn off stream mode
 # @flag --dry-run                            Display the message without sending it
 # @flag --info                               Display information
+# @flag --sync-models                        Sync models updates
 # @flag --list-models                        List all available chat models
 # @flag --list-roles                         List all roles
 # @flag --list-sessions                      List all sessions
 # @flag --list-agents                        List all agents
 # @flag --list-rags                          List all RAGs
+# @flag --list-macros                        List all macros
 # @flag -h --help                            Print help
 # @flag -V --version                         Print version
 # @arg text*                                 Input text
