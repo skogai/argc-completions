@@ -10,7 +10,7 @@
 # @option --priority[low|medium|high]    Task priority
 # @option --tags <TEXT>                  Comma-separated tags
 # @option --assigned-to <TEXT>           Who the task is assigned to
-# @option --state[backlog|todo|active|ready_for_review|waiting|someday|done|cancelled|new|paused]  Initial task state
+# @option --state[backlog|todo|active|ready_for_review|waiting|draft|someday|done|cancelled|new|paused]  Initial task state
 # @option --type <action|project>        Task type (action=single-step, project=multi-step)
 # @flag --help                           Show this message and exit.
 # @arg title
@@ -30,6 +30,18 @@ agents() {
     :;
 }
 # }} gptodo agents
+
+# {{ gptodo browse
+# @cmd Interactively browse task contents.
+# @flag --all                 Include all task states (default: open tasks only)
+# @option --project <TEXT>    Filter by project name
+# @option --state <TEXT>      Filter by specific task state
+# @flag --no-fzf              Force pager output (skip fzf even if available)
+# @flag --help                Show this message and exit.
+browse() {
+    :;
+}
+# }} gptodo browse
 
 # {{ gptodo check
 # @cmd Check task integrity and relationships.
@@ -151,7 +163,6 @@ effective() {
 
 # {{ gptodo expire
 # @cmd Auto-expire long-quiet tasks to unclutter the queue.
-# @option --dry-runpreview, don't modify  gptodo expire --json
 # @option --days <INTEGER>    Auto-expire tasks whose `created` date is older than this many days.
 # @option --state[backlog|todo|someday] <backlog|todo|someday>  Restrict auto-expire to specific state(s).
 # @flag --dry-run             Show which tasks would expire without modifying files.
@@ -268,7 +279,6 @@ lock() {
 
 # {{ gptodo locks
 # @cmd List all current task locks.
-# @flag --json
 # @flag --cleanup    Remove expired locks
 # @flag --json       Output as JSON
 # @flag --help       Show this message and exit.
@@ -330,12 +340,13 @@ plan() {
 
 # {{ gptodo ready
 # @cmd List all ready (unblocked) tasks.
-# @option --state[backlog|todo|active|ready_for_review|someday|both|actionable]  Filter by task state.
+# @option --state[backlog|todo|active|ready_for_review|someday|draft|both|actionable]  Filter by task state.
 # @flag --json                     Output as JSON for machine consumption
 # @flag --jsonl                    Output as JSONL (one task per line) -compact for LLM consumption
 # @flag --use-cache                Check URL-based requires against cached states (run 'fetch' first)
 # @option --pool <TEXT>            Only show tasks in this pool.
 # @option --exclude-pool <TEXT>    Exclude tasks in this pool (e.g. '--exclude-pool frontier')
+# @flag --skip-claimed             Skip tasks already claimed by another coordination session.
 # @flag --help                     Show this message and exit.
 ready() {
     :;
@@ -344,7 +355,6 @@ ready() {
 
 # {{ gptodo run
 # @cmd Run a task synchronously (foreground).
-# @option --type <explore>                        gptodo run my-task --backend claude --coordination
 # @option -p --prompt <TEXT>                      Custom prompt for the agent (default: derived from task)
 # @option --type[general|explore|plan|execute]    Type of agent behavior
 # @option --backend <gptme|claude>                Which backend to use
@@ -362,7 +372,7 @@ run() {
 
 # {{ gptodo sessions
 # @cmd List all sub-agent sessions.
-# @option -s --status[running|completed|failed|killed]  Filter by status
+# @option -s --status[running|completed|failed|auth_failed|killed]  Filter by status
 # @flag --json    Output as JSON
 # @flag --help    Show this message and exit.
 sessions() {
@@ -372,7 +382,9 @@ sessions() {
 
 # {{ gptodo show
 # @cmd Show detailed information about a task.
-# @flag --help    Show this message and exit.
+# @flag --render    Render markdown content
+# @flag --raw       Render markdown content
+# @flag --help      Show this message and exit.
 # @arg task_id
 show() {
     :;
