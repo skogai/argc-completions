@@ -70,6 +70,21 @@ batch() {
 }
 # }} gptme-util batch
 
+# {{ gptme-util capabilities
+# @cmd Export a session-resolved snapshot of tools, skills,...
+# @option --format[text|json|html]    Output format (default: text)
+# @option --workspace <PATH>          Workspace whose gptme.toml to resolve (default: cwd)
+# @option --from-json <PATH>          Render an existing snapshot instead of collecting live
+# @flag --all                         Include discovered-but-not-loaded tools in text output
+# @flag --include-instructions        Opt in to redacted tool instructions in JSON
+# @flag --connect-mcp                 Connect to configured MCP servers and live-enumerate their tools (off by default; the default path never connects)
+# @option -o --output <PATH>
+# @flag --help                        Show this message and exit.
+capabilities() {
+    :;
+}
+# }} gptme-util capabilities
+
 # {{ gptme-util chats
 # @cmd Commands for managing chat logs and queued follow-ups.
 # @flag --help    Show this message and exit.
@@ -355,14 +370,48 @@ context::search-conversations() {
 
 # {{{ gptme-util context tree
 # @cmd Print workspace directory tree (respects...
-# @option --path                   Workspace root
-# @option --max-depth <INTEGER>    Tree depth
-# @flag --help                     Show this message and exit.
+# @option --path       Workspace root
+# @flag --max-depth    INTEGER RANGE  Tree depth  [x>=0]
+# @flag --help         Show this message and exit.
 context::tree() {
     :;
 }
 # }}} gptme-util context tree
 # }} gptme-util context
+
+# {{ gptme-util dataset
+# @cmd Build fine-tuning datasets from gptme session trajectories.
+# @flag --help    Show this message and exit.
+dataset() {
+    :;
+}
+
+# {{{ gptme-util dataset export
+# @cmd Export TaskEnvironment records as JSONL.
+# @option -r --repo <DIRECTORY>     Git repository to mine for session-attributed commits.
+# @option --logs-dir <DIRECTORY>    Override gptme logs directory.
+# @option -n --limit <INTEGER>      Maximum number of sessions to scan.
+# @option -o --output <TEXT>        Output file path (default: stdout, use '-' for stdout).
+# @flag --min-commits               INTEGER RANGE  Minimum solution commits required to include an environment.
+# @flag --include-test              Include test/eval conversation IDs (excluded by default).
+# @flag --help                      Show this message and exit.
+dataset::export() {
+    :;
+}
+# }}} gptme-util dataset export
+
+# {{{ gptme-util dataset stats
+# @cmd Print corpus statistics: how many sessions are convertible into...
+# @option -r --repo <DIRECTORY>     Git repository to mine for session-attributed commits.
+# @option --logs-dir <DIRECTORY>    Override gptme logs directory.
+# @option -n --limit <INTEGER>      Maximum number of sessions to scan.
+# @flag --json                      Output as JSON.
+# @flag --help                      Show this message and exit.
+dataset::stats() {
+    :;
+}
+# }}} gptme-util dataset stats
+# }} gptme-util dataset
 
 # {{ gptme-util explain
 # @cmd Explain a gptme concept, offline.
@@ -420,6 +469,60 @@ hooks::uninstall() {
 }
 # }}} gptme-util hooks uninstall
 # }} gptme-util hooks
+
+# {{ gptme-util knowledge
+# @cmd Cross-session knowledge base: save and retrieve...
+# @flag --help    Show this message and exit.
+knowledge() {
+    :;
+}
+
+# {{{ gptme-util knowledge delete
+# @cmd Delete a knowledge entry by ID (or ID prefix).
+# @flag --help    Show this message and exit.
+# @arg entry_id
+knowledge::delete() {
+    :;
+}
+# }}} gptme-util knowledge delete
+
+# {{{ gptme-util knowledge list
+# @cmd List knowledge entries, newest first.
+# @option -t --tag <TEXT>    Filter by tag (repeatable).
+# @flag --limit              INTEGER RANGE  Maximum entries.
+# @flag --json               Output as JSON.
+# @flag --help               Show this message and exit.
+knowledge::list() {
+    :;
+}
+# }}} gptme-util knowledge list
+
+# {{{ gptme-util knowledge save
+# @cmd Save a knowledge entry (PRIMARY / SECONDARY) to the knowledge...
+# @option --type <decision>
+# @option -t --tag <TEXT>    Tag to attach (repeatable: -t git -t pytest).
+# @option -T --type[problem_resolution|decision|fact|how_to|note] <TEXT>  Entry type: problem_resolution (default), decision, fact, how_to, note.
+# @flag --json               Print saved entry as JSON.
+# @flag --help               Show this message and exit.
+# @arg primary
+# @arg secondary
+knowledge::save() {
+    :;
+}
+# }}} gptme-util knowledge save
+
+# {{{ gptme-util knowledge search
+# @cmd Search the knowledge base for QUERY.
+# @flag --top-k              INTEGER RANGE  Number of results.
+# @option -t --tag <TEXT>    Filter by tag (repeatable).
+# @flag --json               Output as JSON.
+# @flag --help               Show this message and exit.
+# @arg query
+knowledge::search() {
+    :;
+}
+# }}} gptme-util knowledge search
+# }} gptme-util knowledge
 
 # {{ gptme-util llm
 # @cmd LLM-related utilities.
@@ -501,6 +604,159 @@ mcp::test() {
 # }}} gptme-util mcp test
 # }} gptme-util mcp
 
+# {{ gptme-util memory
+# @cmd Cross-harness memory store: CC-compatible entries,...
+# @flag --help    Show this message and exit.
+memory() {
+    :;
+}
+
+# {{{ gptme-util memory audit
+# @cmd Check strict YAML parsing and supersession links.
+# @option --scope <TEXT>    Root to audit (default: write root).
+# @flag --quiet             Print nothing when the audit passes.
+# @flag --help              Show this message and exit.
+memory::audit() {
+    :;
+}
+# }}} gptme-util memory audit
+
+# {{{ gptme-util memory export
+# @cmd Export memory entries in a harness-specific...
+# @option --view <cc|codex>    Output format: 'cc' = MEMORY.md index (for CC always-on auto-load or context injection); 'codex' = AGENTS.md memory-section snippet.
+# @option --scope <TEXT>       Root to export from (default: write root for cc, all for codex).
+# @flag --budget               INTEGER RANGE  Byte cap for the export (same as 'index --budget'); applies to both views.
+# @flag --help                 Show this message and exit.
+memory::export() {
+    :;
+}
+# }}} gptme-util memory export
+
+# {{{ gptme-util memory index
+# @cmd Generate the always-on index (living entries...
+# @option --scope <TEXT>    Root whose index to generate (default: the write root).
+# @flag --write             Write MEMORY.md instead of printing it.
+# @flag --check             Exit 1 when MEMORY.md differs from the regenerated index.
+# @flag --budget            INTEGER RANGE  Cap the index at this many bytes.
+# @flag --help              Show this message and exit.
+memory::index() {
+    :;
+}
+# }}} gptme-util memory index
+
+# {{{ gptme-util memory list
+# @cmd List entries across all roots (nearest root...
+# @option --type <TEXT>    Only entries of this type.
+# @option --scope[project|cc|agent|user|explicit] <TEXT>  Only entries from this root.
+# @option --status[living|superseded|historical] <TEXT>  Only entries with this status.
+# @flag --json             Output as JSON.
+# @flag --help             Show this message and exit.
+memory::list() {
+    :;
+}
+# }}} gptme-util memory list
+
+# {{{ gptme-util memory match
+# @cmd Inject living memories whose keywords match...
+# @option --prompt <TEXT>                  Text, or '-' for a hook payload/plain text on stdin.
+# @flag --pre-tool                         Use PreToolUse output for plain text input.
+# @flag -k --limit                         INTEGER RANGE  [default: 5; x>=1]
+# @option --format[text|json|hook-json]    [default: text]
+# @flag --body-chars                       INTEGER RANGE  [default: 1200; x>=1]
+# @flag --help                             Show this message and exit.
+# @arg query
+memory::match() {
+    :;
+}
+# }}} gptme-util memory match
+
+# {{{ gptme-util memory migrate-knowledge-jsonl
+# @cmd Migrate a knowledge JSONL store to memory...
+# @option --scope <TEXT>      Root to write migrated entries to (default: write root).
+# @flag --dry-run             Show what would be migrated without writing anything.
+# @flag --skip-existing       Skip entries whose slugified name already exists in the store.
+# @flag --no-skip-existing    Skip entries whose slugified name already exists in the store.
+# @flag --help                Show this message and exit.
+# @arg jsonl_path
+memory::migrate-knowledge-jsonl() {
+    :;
+}
+# }}} gptme-util memory migrate-knowledge-jsonl
+
+# {{{ gptme-util memory recall
+# @cmd Recall relevant entries from every layered...
+# @option --prompt <TEXT>                  Prompt text, or '-' to read a Claude Code hook payload/plain text from stdin.
+# @flag -k --limit                         INTEGER RANGE  Maximum number of entries to return.
+# @option --backend[auto|tfidf|overlap]    Retrieval backend; auto falls back to token overlap.
+# @option --format[text|json|hook-json]    Output format.
+# @flag --body-chars                       INTEGER RANGE  Maximum body characters to inject per text result.
+# @flag --help                             Show this message and exit.
+# @arg query
+memory::recall() {
+    :;
+}
+# }}} gptme-util memory recall
+
+# {{{ gptme-util memory roots
+# @cmd Show the resolved memory roots, nearest layer...
+# @flag --json    Output as JSON.
+# @flag --help    Show this message and exit.
+memory::roots() {
+    :;
+}
+# }}} gptme-util memory roots
+
+# {{{ gptme-util memory save
+# @cmd Save an entry.
+# @option --type <TEXT>         Entry type (preserve existing; new entries default to general).
+# @option --scope <TEXT>        Root to write to (default: project when present, else cc).
+# @option --title <TEXT>        Index link text (defaults to the name).
+# @option --metadata <TEXT>     JSON object merged into entry metadata (e.g. provenance).
+# @option --keyword <TEXT>      Trigger phrase (repeatable); replaces keywords when supplied, otherwise preserves them.
+# @option --body-file <FILE>    Read the body from this file instead of stdin.
+# @flag --json                  Print the saved entry as JSON.
+# @flag --help                  Show this message and exit.
+# @arg name
+# @arg description
+memory::save() {
+    :;
+}
+# }}} gptme-util memory save
+
+# {{{ gptme-util memory search
+# @cmd Search entries by text pattern (name,...
+# @option --type <TEXT>    Only entries of this type.
+# @option --scope[project|cc|agent|user|explicit] <TEXT>  Only entries from this root.
+# @flag --json             Output as JSON.
+# @flag --help             Show this message and exit.
+# @arg pattern
+memory::search() {
+    :;
+}
+# }}} gptme-util memory search
+
+# {{{ gptme-util memory show
+# @cmd Print one entry by name.
+# @flag --json    Output as JSON (frontmatter fields + body).
+# @flag --help    Show this message and exit.
+# @arg name
+memory::show() {
+    :;
+}
+# }}} gptme-util memory show
+
+# {{{ gptme-util memory supersede
+# @cmd Mark OLD_NAME superseded by NEW_NAME and link...
+# @option --scope <TEXT>    Root containing both entries (default: write root).
+# @flag --help              Show this message and exit.
+# @arg old_name
+# @arg new_name
+memory::supersede() {
+    :;
+}
+# }}} gptme-util memory supersede
+# }} gptme-util memory
+
 # {{ gptme-util models
 # @cmd Model-related utilities.
 # @flag --help    Show this message and exit.
@@ -533,6 +789,15 @@ models::list() {
     :;
 }
 # }}} gptme-util models list
+
+# {{{ gptme-util models recommended
+# @cmd Show the recommended default model per provider.
+# @option --format[table|rst|markdown|json]    Output format (rst renders a grid table for the docs build).
+# @flag --help                                 Show this message and exit.
+models::recommended() {
+    :;
+}
+# }}} gptme-util models recommended
 
 # {{{ gptme-util models test
 # @cmd Test connectivity to a model by making a minimal API call.
@@ -611,8 +876,11 @@ providers::add() {
 # }}} gptme-util providers add
 
 # {{{ gptme-util providers list
-# @cmd List configured custom OpenAI-compatible providers.
-# @flag --help    Show this message and exit.
+# @cmd List configured and auto-discovered local OpenAI-compatible...
+# @flag --discover       Probe well-known local OpenAI-compatible endpoints (Ollama :11434, LM Studio :1234).
+# @flag --no-discover    Probe well-known local OpenAI-compatible endpoints (Ollama :11434, LM Studio :1234).
+# @flag --json           Output as JSON.
+# @flag --help           Show this message and exit.
 providers::list() {
     :;
 }
