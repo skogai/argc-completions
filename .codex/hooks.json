@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // .tool_response.filePath'); case \"$f\" in */src/*.sh) cmd=$(basename \"$f\" .sh); cd /mnt/sda1/src/argc-completions && argc format \"$cmd\" 2>/dev/null || true ;; esac",
+            "timeout": 15,
+            "statusMessage": "Formatting src script..."
+          }
+        ]
+      }
+    ]
+  }
+}
