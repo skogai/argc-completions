@@ -670,6 +670,7 @@
 - [shuf](http://gnu.org/software/coreutils): generate random permutations [completion](completions/shuf.sh)
 - [silicon](https://github.com/Aloxaf/silicon): Create beautiful image of your source code. [src](src/silicon.sh) [completion](completions/silicon.sh)
 - [sk](https://github.com/lotabout/skim): Fuzzy Finder in rust! [src](src/sk.sh) [completion](completions/sk.sh)
+- [skogai](#): skogai command line (path, env) [src](src/skogai.sh) [completion](completions/skogai.sh)
 - [slabtop](https://gitlab.com/procps-ng/procps): display kernel slab cache information in real time [src](src/slabtop.sh) [completion](completions/slabtop.sh)
 - [slides](https://github.com/maaslalani/slides): Terminal based presentation tool [completion](completions/slides.sh)
 - [slrn](https://slrn.info): An easy to use NNTP / spool based newsreader. [src](src/slrn.sh) [completion](completions/slrn.sh)
