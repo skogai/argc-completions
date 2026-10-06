@@ -2,10 +2,6 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -h --help    show this help message and exit
-# @arg link          link repo config into place, as listed in a manifest
-# @arg init          copy the shared defaults from dash-skogai into a store
-# @arg update        move a store to another dash-skogai commit; dry run unless --apply
-# @arg install       copy managed files from the store to their install paths; dry run unless --apply
 
 # {{ skogai path
 # @cmd print the resolved path for an area, without a trailing slash
@@ -26,6 +22,49 @@ env() {
     :;
 }
 # }} skogai env
+
+# {{ skogai link
+# @cmd link repo config into place, as listed in a manifest
+# @flag -h --help          show this help message and exit
+# @option --manifest       manifest file (default: links.txt)
+# @arg enum[link|check]    link (default) creates missing links; check only reports
+link() {
+    :;
+}
+# }} skogai link
+
+# {{ skogai init
+# @cmd copy the shared defaults from dash-skogai into a store
+# @flag -h --help     show this help message and exit
+# @option --store     store directory (default: ./.skogai)
+# @option --source    git URL or local path of dash-skogai
+# @option --ref       commit to read (default: the default branch)
+init() {
+    :;
+}
+# }} skogai init
+
+# {{ skogai update
+# @cmd move a store to another dash-skogai commit, dry run unless --apply
+# @flag -h --help     show this help message and exit
+# @option --store     store directory (default: ./.skogai)
+# @option --source    git URL or local path of dash-skogai
+# @option --ref       commit to read (default: the default branch)
+# @flag --apply       write the changes
+update() {
+    :;
+}
+# }} skogai update
+
+# {{ skogai install
+# @cmd copy managed files from the store to their install paths, dry run unless --apply
+# @flag -h --help    show this help message and exit
+# @option --store    store directory (default: ./.skogai)
+# @flag --apply      write the changes
+install() {
+    :;
+}
+# }} skogai install
 
 _choice_area() {
     echo -e "cache\tXDG cache dir"

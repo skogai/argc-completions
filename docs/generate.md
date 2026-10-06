@@ -6,6 +6,8 @@ The core of `generate` is `./scripts/generate.sh`.
 
 However, the help of some commands is not standardized, or some options or positional parameters in the command require dynamic data, you may need to add scripts to assist `generate.sh` to complete the job.
 
+To avoid needing those scripts, write help output in the format described in [help-format.md](help-format.md).
+
 You may check out the [src](https://github.com/sigoden/argc-completions/tree/main/src) for examples.
 
 ## processing flow
