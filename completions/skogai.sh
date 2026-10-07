@@ -2,6 +2,7 @@
 # Automatic generated, DON'T MODIFY IT.
 
 # @flag -h --help    show this help message and exit
+# @arg path-env-link-init-update-install-config* <path,env,link,init,update,install,config>
 
 # {{ skogai path
 # @cmd print the resolved path for an area, without a trailing slash
@@ -69,6 +70,7 @@ install() {
 # {{ skogai config
 # @cmd read the layered config
 # @flag -h --help    show this help message and exit
+# @arg get*
 config() {
     :;
 }

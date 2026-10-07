@@ -1,90 +1,76 @@
 # Help format
 
-This is the help output format that `generate.sh` can read without a `_patch_help` or `_patch_table` hook. A command whose `--help` follows these rules can get a completion generated with no hand-written patches. Commands that don't follow them need patches, and each patch is one more thing to keep in sync when the command changes.
+This is the help output `generate.sh` reads without a `_patch_help` or `_patch_table` hook. If a command's `--help` follows these rules, its completion is generated with no hand-written patch. Commands that don't follow them need a patch, and each patch is one more thing to keep in sync when the command changes.
 
-The rules are written for commands we control, such as `skogai`. Argparse output (Python) follows them almost exactly. Clap (Rust) output mostly does.
+## Proven example: zoxide
+
+`src/zoxide.sh` does not exist. The completion for `zoxide` and its subcommands is generated entirely from `zoxide --help`:
+
+```
+Usage:
+  zoxide <COMMAND>
+
+Commands:
+  add     Add a new directory or increment its rank
+  edit    Edit the database
+  import  Import entries from another application
+  init    Generate shell configuration
+  query   Search for a directory in the database
+  remove  Remove a directory from the database
+
+Options:
+  -h, --help     Print help
+  -V, --version  Print version
+```
+
+`argc print zoxide -k table` gives one `command #` row per subcommand, and `zoxide import` has its own nested commands (`atuin`, `autojump`, ...), also with no hook. This is the shape to copy.
 
 ## Rules
 
-Each rule says what the parser relies on.
+1. **Start with a usage line.** `Usage:` (clap) or `usage:` (argparse), showing the command and its arguments.
 
-1. **Start with a `usage:` line.** It lists the command, its options, and its positionals. It is the first thing a reader scans, and the rest of the rules assume it is there.
+2. **Put subcommands in a `Commands:` section, one per line.** The name, then padding, then a one-line description on the same line:
 
-2. **Use section headers.** Positionals go under `positional arguments:` and options under `options:`. Other headers are fine, but these two are what the parser looks for.
+   ```
+   Commands:
+     add     Add a new directory or increment its rank
+     edit    Edit the database
+   ```
 
-3. **Put every subcommand in the parent's help.** List them under `positional arguments:` as `{a,b,c}`, then give each name its own indented line with a one-line description. Call `_patch_table_subcommands_from_enum` from `_patch_table` (see `utils/_patch_utils.sh`) to turn them into commands. The helper only converts a list when every name has its own row, so ordinary choices such as `{link,check}` are left alone. Nothing needs to be hard-coded per command.
+   This is what the generator reads with no hook. Nested commands use the same section inside the subcommand's own `--help`.
 
-4. **Write fixed value sets as choices.** A positional with a fixed set of values is written as `{a,b,c}`. The generator turns it into `enum[a|b|c]` and offers the values. Don't list the values only in the description.
+3. **Keep each description on one line.** It becomes the `command #` row's description.
 
-5. **Use one line per flag.** Put the flag and any value notation first, then at least two spaces, then the description. Long flag lists are fine. Wrapped descriptions are fine when the continuation is indented under the description column; the generator joins them.
+4. **Keep descriptions free of `;` and `#`.** These are the generator's field separators internally. A `;` cuts the description short.
 
-6. **Value notation.** Use `--flag VALUE` for options that take a value, and `[VALUE]` for an optional value. Argparse writes both this way; the generator reads them, but `--flag=VALUE` has not been tested.
+5. **Use one line per flag.** Flag and value notation first, at least two spaces, then the description: `-h, --help     Print help`.
 
-7. **Keep descriptions free of `;` and `#`.** The generator uses `;` and `#` as field separators internally, and a description containing one is cut off. Use `,` or parentheses instead.
+6. **Write fixed value sets as choices.** Argparse writes them as `{a,b}`, and the generator turns them into `enum[a|b]` and offers them. (Clap's form is not checked here.)
 
-8. **Keep descriptions to one line where you can.** Two sentences are fine if the second one is short.
+7. **Show `-h, --help`** in every help output.
 
-9. **Show `-h, --help` in every help output.** Argparse does this by default. It keeps the help text consistent across commands.
+## Argparse (Python) output
 
-## Good example
-
-`skogai link --help`, unchanged:
-
-```
-usage: skogai link [-h] [--manifest MANIFEST] [{link,check}]
-
-positional arguments:
-  {link,check}         link (default) creates missing links; check only
-                       reports
-
-options:
-  -h, --help           show this help message and exit
-  --manifest MANIFEST  manifest file (default: links.txt)
-```
-
-What the generator reads from it:
-
-```
-option # -h, --help # show this help message and exit
-option # --manifest MANIFEST # manifest file (default: links.txt)
-argument # enum # link (default) creates missing links; check only reports # [link|check]
-```
-
-The `{link,check}` choices become `enum[link|check]`, and the completion offers `link` and `check` with no hook. The wrapped description joins back into one line.
-
-## Bad example
-
-A subcommand list with no per-command description, and a description with `;`:
+Argparse does not write a `Commands:` section by default. It writes subcommands under `positional arguments:` as a `{a,b,c}` list, with an indented line per name:
 
 ```
 usage: skogai [-h] {path,env,update} ...
 
 positional arguments:
   {path,env,update}
-    path
-    env
-    update    move a store to another commit; dry run unless --apply
+    path      print the resolved path for an area
+    env       explain or check environment variables
+    update    move a store to another commit, dry run unless --apply
 
 options:
   -h, --help  show this help message and exit
 ```
 
-Problems:
+Without a hook, the generator reads this as plain positional arguments, not commands. Calling `_patch_table_subcommands_from_enum` from `_patch_table` converts it into commands, which is what `src/skogai.sh` does. That hook is not automatic: it runs only where a command's `src/<cmd>.sh` calls it.
 
-- `path` and `env` have no description on their own line, so the subcommand list gives no help for them. (Not tested against the generator; this is the reason rule 3 exists.)
-- The `;` in `update`'s description cuts the line at the separator. In the generated completion it became `move a store to another commit`, and `dry run unless --apply` was lost.
-- The subcommand names are not in a `{...}` list, so they come through as plain positional arguments. The completion then accepts any word there.
+So argparse output works, but only with a hook. Clap output works with no hook. For argparse commands, the cleaner option is to make the CLI print a `Commands:` section, which is what zoxide shows.
 
-Fix: give every subcommand a description on its own line, and use `,` instead of `;`:
-
-```
-  {path,env,update}
-    path      print the resolved path for an area
-    env       explain or check environment variables
-    update    move a store to another commit, dry run unless --apply
-```
-
-## Checking a command against the rules
+## Checking a command
 
 From the repo root:
 
@@ -94,19 +80,31 @@ argc print <cmd> -k table   # rows read from that help text
 argc print <cmd> -k script  # the completion script it would produce
 ```
 
-Check that:
+Subcommands should appear as `command #` rows in `-k table`. If they appear as `argument #`, the help isn't in the `Commands:` shape above.
 
-- every subcommand appears in `-k table` as `command #`, not `argument #`. If it doesn't, check rule 3 and the helper call;
-- every fixed-value positional shows `[a|b|c]` in its `argument #` row;
-- no description was cut off.
+## Bad example
 
-If one of these fails, fix the help text first. Add a `_patch_*` hook only when the help text can't be changed.
+argparse subcommands with no descriptions in the list, and a `;` in a description:
+
+```
+usage: skogai [-h] {path,env,update} ...
+
+positional arguments:
+  {path,env,update}
+    path
+    env
+    update    move a store to another commit; dry run unless --apply
+```
+
+- `path` and `env` have no description, so they give no help text.
+- The `;` in `update`'s description cuts it off. The completion showed `move a store to another commit` and lost `dry run unless --apply`.
+- Without a hook, the names come through as plain positional arguments.
 
 ## Applying this to skogai
 
-Checked against the current `skogai --help`:
+Current state of `skogai`, checked against `skogai --help`:
 
-- **Subcommands** (`path`, `env`, `link`, `init`, `update`, `install`, `config`) follow rule 3. `src/skogai.sh` is now a single call to `_patch_table_subcommands_from_enum`, with no names or descriptions copied by hand.
-- **`path` area** follows rule 4. The CLI declares its areas as argparse `choices`, so the generated completion offers them with no `_choice_area`.
-- **`env check` and `link check`** are argparse `choices` and already follow the rules.
-- **Rule 7 holds** in the current CLI help: `update` and `install` use `,` rather than `;`. The `;` in the earlier help text is gone.
+- **Subcommands** use argparse's `{...}` list, so they need `_patch_table_subcommands_from_enum` to become commands. The clap-style `Commands:` shape would remove that need.
+- **`path` area** is an argparse `choices` list, so the completion offers the five areas with no hook.
+- **`env check` and `link check`** are argparse `choices` and generate correctly.
+- **Descriptions** in the current help use commas, with no `;`.
