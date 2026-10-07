@@ -5,9 +5,9 @@
 
 # {{ skogai path
 # @cmd print the resolved path for an area, without a trailing slash
-# @flag -h --help              show this help message and exit
-# @arg area[`_choice_area`]    e.g. config, claude
-# @arg components*             e.g. fish
+# @flag -h --help                              show this help message and exit
+# @arg enum[cache|claude|config|data|state]    area to print, e.g. config, claude
+# @arg components*                             e.g. fish
 path() {
     :;
 }
@@ -66,12 +66,24 @@ install() {
 }
 # }} skogai install
 
-_choice_area() {
-    echo -e "cache\tXDG cache dir"
-    echo -e "claude\tskogai claude dir"
-    echo -e "config\tskogai config dir"
-    echo -e "data\tXDG data dir"
-    echo -e "state\tXDG state dir"
+# {{ skogai config
+# @cmd read the layered config
+# @flag -h --help    show this help message and exit
+config() {
+    :;
 }
+
+# {{{ skogai config get
+# @cmd print a value, or every value when no key is given
+# @flag -h --help    show this help message and exit
+# @option --store    store directory (default: ./.skogai)
+# @flag --source     also print the layer that set it
+# @option --layer <base,machine,machine.local,repo,repo.local>  print the raw value from one layer instead
+# @arg key           dotted key, e.g. base.sha
+config::get() {
+    :;
+}
+# }}} skogai config get
+# }} skogai config
 
 command eval "$(argc --argc-eval "$0" "$@")"

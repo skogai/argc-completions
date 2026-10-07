@@ -151,6 +151,51 @@ _patch_table_edit_commands() {
     gawk -v KIND=command -v RAW_ARGS="$args" -f "$ROOT_DIR/utils/_patch_utils/edit-table.awk"
 }
 
+# Turn an argparse-style subcommand list into commands.
+# The help lists them as one `{a,b,c}` (or `enum[a|b|c]` once parsed) row, and
+# each name has its own indented row with a description:
+#    argument # {a,b,c} #  #                <- the list
+#    argument # a # description             <- one row per name
+# Only converts when every name in the list has its own argument row, so an
+# ordinary choice list such as `{link,check}` with no rows is left alone.
+# Example:
+#    _patch_table() { _patch_table_subcommands_from_enum; }
+_patch_table_subcommands_from_enum() {
+    local table row list_name choices name names descs=() commands=(";;") i
+    table="$(cat)"
+    row="$(echo "$table" | awk -F' # ' '$1 == "argument" && ($2 == "enum" || $2 ~ /^\{.*\}$/) { print $2 " # " $4; exit }')"
+    if [[ -z "$row" ]]; then
+        echo "$table"
+        return
+    fi
+    list_name="${row%% # *}"
+    choices="${row#* # }"
+    if [[ "$list_name" == "{"* ]]; then
+        choices="${list_name#\{}"
+        choices="${choices%\}}"
+    else
+        choices="${choices#\[}"
+        choices="${choices%\]}"
+    fi
+    IFS=',|' read -ra names <<< "$choices"
+    for name in "${names[@]}"; do
+        if ! echo "$table" | grep -q "^argument # $name # "; then
+            echo "$table"
+            return
+        fi
+    done
+    for name in "${names[@]}"; do
+        descs+=("$(echo "$table" | awk -F' # ' -v n="$name" '$1 == "argument" && $2 == n { print $3; exit }')")
+    done
+    for i in "${!names[@]}"; do
+        commands+=("${names[$i]};${descs[$i]}")
+    done
+    echo "$table" | awk -F' # ' -v ln="$list_name" -v nm="${names[*]}" '
+        BEGIN { n = split(nm, a, " "); for (i = 1; i <= n; i++) listed[a[i]] = 1 }
+        !($1 == "argument" && ($2 == ln || ($2 in listed))) { print }
+    ' | _patch_table_edit_commands "${commands[@]}"
+}
+
 # Copy options from another command
 # Example:
 # ```

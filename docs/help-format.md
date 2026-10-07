@@ -12,7 +12,7 @@ Each rule says what the parser relies on.
 
 2. **Use section headers.** Positionals go under `positional arguments:` and options under `options:`. Other headers are fine, but these two are what the parser looks for.
 
-3. **Put every subcommand in the parent's help.** Each one gets a line under `positional arguments:`: the name in `{a,b,c}` form, with a one-line description. Without this, the parent completion can't offer the subcommand names, and `_patch_table` has to hard-code them.
+3. **Put every subcommand in the parent's help.** List them under `positional arguments:` as `{a,b,c}`, then give each name its own indented line with a one-line description. Call `_patch_table_subcommands_from_enum` from `_patch_table` (see `utils/_patch_utils.sh`) to turn them into commands. The helper only converts a list when every name has its own row, so ordinary choices such as `{link,check}` are left alone. Nothing needs to be hard-coded per command.
 
 4. **Write fixed value sets as choices.** A positional with a fixed set of values is written as `{a,b,c}`. The generator turns it into `enum[a|b|c]` and offers the values. Don't list the values only in the description.
 
@@ -96,7 +96,7 @@ argc print <cmd> -k script  # the completion script it would produce
 
 Check that:
 
-- every subcommand appears in `-k table` as `command #`, not `argument #`;
+- every subcommand appears in `-k table` as `command #`, not `argument #`. If it doesn't, check rule 3 and the helper call;
 - every fixed-value positional shows `[a|b|c]` in its `argument #` row;
 - no description was cut off.
 
@@ -104,10 +104,9 @@ If one of these fails, fix the help text first. Add a `_patch_*` hook only when 
 
 ## Applying this to skogai
 
-Things in the current `skogai` CLI that break the rules:
+Checked against the current `skogai --help`:
 
-- **`path` area is not a choice.** The CLI validates it in code and uppercases it with `type=str.upper`, so `--help` shows `area`, not a `{...}` list. Declaring the areas as argparse `choices` would show them in help and make the completion work without `_choice_area`. This needs the input to be lowercased first.
-- **`env check` and `link check` are argparse `choices`**, so they already follow the rules.
-- **Subcommand descriptions are present** in `skogai --help`, so the parent completion can be generated from help alone. The one hard-coded list in `src/skogai.sh` is the result of the `path` area problem, not of the subcommands themselves.
-
-The subcommand descriptions in `src/skogai.sh` repeat the CLI's help text. Once `skogai` follows these rules, that patch can be deleted.
+- **Subcommands** (`path`, `env`, `link`, `init`, `update`, `install`, `config`) follow rule 3. `src/skogai.sh` is now a single call to `_patch_table_subcommands_from_enum`, with no names or descriptions copied by hand.
+- **`path` area** follows rule 4. The CLI declares its areas as argparse `choices`, so the generated completion offers them with no `_choice_area`.
+- **`env check` and `link check`** are argparse `choices` and already follow the rules.
+- **Rule 7 holds** in the current CLI help: `update` and `install` use `,` rather than `;`. The `;` in the earlier help text is gone.
